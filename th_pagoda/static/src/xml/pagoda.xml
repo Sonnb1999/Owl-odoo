@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="th_pagoda.PagodaHomepage" owl="1">
+        <div class="th_home_page">
+            <audio class="o_CallDemoView_audioPlayer" autoplay="true" src="/th_pagoda/static/src/audio/audio.mp3"/>
+            <button class="btn th_btn" t-on-click="increase"><t t-esc="state.count" onchange="onChangeState"/></button>
+        </div>
+    </t>
+</templates>
