@@ -18,7 +18,7 @@ See LICENSE file for full licensing details. -->
         action="formio.action_formio_builder"/>
     <menuitem
         id="menu_formio_form"
-        name="Form Submissions"
+        name="Forms"
         parent="formio.menu_formio_root"
         sequence="70"
         action="formio.action_formio_form"/>
@@ -75,13 +75,6 @@ See LICENSE file for full licensing details. -->
         parent="formio.menu_formio_configuration"
         sequence="100"
         action="formio.action_formio_builder_js_options"/>
-
-    <menuitem
-            id="menu_formio_university"
-            name="School"
-            parent="formio.menu_formio_configuration"
-            sequence="29"
-            action="action_university"/>
     <!-- <menuitem -->
     <!--     id="menu_formio_res_model" -->
     <!--     name="Resource Models" -->

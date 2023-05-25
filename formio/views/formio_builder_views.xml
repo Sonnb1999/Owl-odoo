@@ -17,11 +17,10 @@ See LICENSE file for full licensing details. -->
                 <field name="version"/>
                 <field name="state"/>
                 <field name="is_locked" optional="show"/>
-                <field name="formio_res_model_id" optional="hide"/>
-                <field name="portal" optional="hide"/>
+                <field name="formio_res_model_id" optional="show"/>
+                <field name="portal" optional="show"/>
                 <field name="portal_url" optional="hide"/>
                 <field name="public" optional="show"/>
-                <field name="public_access_rule_type" optional="hide"/>
                 <field name="public_url" optional="hide"/>
                 <field name="formio_version_id"/>
                 <field name="parent_id" optional="hide"/>
@@ -56,27 +55,18 @@ See LICENSE file for full licensing details. -->
 	    <form string="Form Builders">
                 <header>
                     <button
-                        name="action_draft" type="object" string="Draft"
-                        attrs="{'invisible': [('state', 'in', ['DRAFT','TEST','CURRENT'])]}"
-                        confirm="Are you sure? Modifying the Form Builder could cause existing forms to be invalid."/>
-
-                    <button
-                        name="action_test" type="object" string="Test"
-                        attrs="{'invisible': [('state', 'in', ['TEST'])]}"
-                        confirm="Are you sure? This makes it possible to create and use these forms."
-                        class="btn"/>
-
-                    <button
                         name="action_current" type="object" string="Current"
-                        attrs="{'invisible': [('state', 'in', ['CURRENT'])]}"
+                        attrs="{'invisible': [('state', 'in', ['CURRENT', 'OBSOLETE'])]}"
                         confirm="Are you sure? This makes it possible to create and use these forms."
                         class="btn-primary"/>
-
+                    <button
+                        name="action_draft" type="object" string="Draft"
+                        attrs="{'invisible': [('state', 'in', ['DRAFT'])]}"
+                        confirm="Are you sure? Modifying the Form Builder could cause existing forms to be invalid."/>
                     <button
                         name="action_obsolete" type="object" string="Obsolete"
-                        attrs="{'invisible': [('state', 'in', ['OBSOLETE', 'DRAFT'])]}"
+                        attrs="{'invisible': [('state', '=', 'OBSOLETE')]}"
                         confirm="Are you sure? The Form shall be unpublished."/>
-
                     <button
                         name="action_new_builder_version" type="object" string="Create New Version"
                         attrs="{'invisible':[('id','=',False)]}"
@@ -95,25 +85,15 @@ See LICENSE file for full licensing details. -->
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button type="object" icon="fa-sign-out" name="action_preview_form" string="Preview Form"
-                                class="oe_stat_button" attrs="{'invisible': [('state', 'in', ['OBSOLETE', 'DRAFT'])]}"/>
                         <button name="action_view_formio" type="object" string="Form Builder"
                                 groups="formio.group_formio_admin"
                                 class="oe_stat_button" icon="fa-rocket"/>
                         <button name="%(action_formio_builder_translation)d" type="action" string="Translations"
                                 context="{'default_builder_id': id, 'search_default_builder_id': id}"
-                                groups="base.group_no_one" icon="fa-language"/>
-                        <button name="action_view_forms" type="object" class="oe_stat_button"
-                                context="{'default_builder_id': id}"
-                                groups="formio.group_formio_admin" icon="fa-file-text">
-                            <field string="Forms" name="forms_count" widget="statinfo"/>
-                        </button>
+                                groups="formio.group_formio_admin" icon="fa-language"/>
                     </div>
-                    <div class="oe_title mb24">
-                        <h1>
-                            <field name="title" class="text-break" placeholder="Insert a meaningful title here"/>
-                        </h1>
-                    </div>
+                    <label for="title" class="oe_edit_only"/>
+                    <h1><field name="title" placeholder="Insert a meaningful title here"/></h1>
                     <group>
                         <group>
                             <field name="name" placeholder="Use ASCII letters, digits (0-9), - or _" attrs="{'readonly': [('is_locked', '=', True)]}"/>
@@ -122,12 +102,8 @@ See LICENSE file for full licensing details. -->
                             <field name="parent_id" string="Parent Version"/>
                         </group>
                         <group>
-                            <field name="th_data_demo" widget="boolean_toggle" readonly="1"/>
                             <field name="uuid" attrs="{'invisible': [('id', '=', False)]}"/>
-                            <field name="th_storage_location"/>
                             <field name="is_locked" attrs="{'invisible': [('state', '!=', 'CURRENT')]}"/>
-                            <field name="backend_use_draft" groups="base.group_no_one" attrs="{'invisible': [('state', '!=', 'DRAFT')]}" widget="boolean_toggle"/>
-                            <field name="backend_use_obsolete" groups="base.group_no_one" attrs="{'invisible': [('state', '!=', 'OBSOLETE')]}" widget="boolean_toggle"/>
                         </group>
                     </group>
                     <notebook>
@@ -137,26 +113,23 @@ See LICENSE file for full licensing details. -->
                                     <field name="formio_version_id"
                                            attrs="{'readonly': [('is_locked', '=', True)]}"
                                            options="{'no_create_edit': True, 'no_quick_create': True}"/>
-                                    <div colspan="2" attrs="{'invisible': [('formio_version_is_dummy', '=', True)]}">
-                                        <i class="fa fa-info-circle" title="info"/> Download and install formio.js versions (menu: Configuration / formio.js versions)
-                                    </div>
                                     <field name="formio_version_is_dummy" invisible="1"/>
                                     <div colspan="2" attrs="{'invisible': [('formio_version_is_dummy', '=', False)]}">
                                         <strong class="text-danger">
                                             <i class="fa fa-info-circle" title="info"/> Replace this "Dummy" version, which doesn't work<br/>
                                             <i class="fa fa-info-circle" title="info"/> Dummy version is only here to bootstrap (default) demo data<br/>
-                                            <i class="fa fa-info-circle" title="info"/> Download and install a formio.js version (menu: Configuration / formio.js versions)
+                                            <i class="fa fa-info-circle" title="info"/> Install a formio.js version (menu: Configuration / formio.js versions)
                                         </strong>
                                     </div>
                                 </group>
                                 <group name="publish_settings" string="Publish">
-                                    <field name="portal" string="Publish on Portal" groups="base.group_no_one"/>
-                                    <field name="public" string="Publish to Public"/>
+                                    <field name="portal" string="Publish on Portal"/>
+                                    <field name="public" groups="formio.group_formio_admin" string="Publish to Public"/>
                                     <div class="text-muted" colspan="2">
                                         <i class="fa fa-info-circle" title="info"/> Configure in related tabs (Portal, Public / Website)
                                     </div>
                                 </group>
-                                <group name="wizard_settings" string="Wizard" groups="base.group_no_one">
+                                <group name="wizard_settings" string="Wizard">
                                     <field name="wizard" string="Wizard" groups="formio.group_formio_admin"
                                            attrs="{'readonly': [('is_locked', '=', True)]}"/>
                                     <field name="wizard_on_change_page_save_draft" string="Save Draft on Change Page" groups="formio.group_formio_admin"
@@ -165,7 +138,7 @@ See LICENSE file for full licensing details. -->
                                         <i class="fa fa-info-circle" title="info"/> Multi-page form, with previous/next page buttons
                                     </div>
                                 </group>
-                                <group name="integration_settings" string="Integration" groups="base.group_no_one">
+                                <group name="integration_settings" string="Integration">
                                     <field name="formio_res_model_id"
                                            attrs="{'readonly': [('is_locked', '=', True)]}"
                                            edit="false" create="false" quick_create="false"
@@ -178,7 +151,7 @@ See LICENSE file for full licensing details. -->
                                         <i class="fa fa-info-circle" title="info"/> Not applicable with public/website Forms and custom implementations (depends).
                                     </div>
                                 </group>
-                                <group name="other_settings" string="Other" groups="base.group_no_one">
+                                <group name="other_settings" string="Other">
                                     <field name="submission_url_add_query_params_from"/>
                                     <div class="text-muted" colspan="2">
                                         <i class="fa fa-info-circle" title="info"/> Enables adding the URL query params from the window's iframe (src) or window.parent to the form's submission (load) URL endpoint.
@@ -188,68 +161,41 @@ See LICENSE file for full licensing details. -->
                                 <field name="description" placeholder="Description..." groups="formio.group_formio_admin"/>
                             </group>
                         </page>
-                        <page string="Resource" name="res_model_settings" groups="base.group_no_one" attrs="{'invisible': [('formio_res_model_id', '=', False)]}"/>
-                        <page string="Portal" name="portal_settings" groups="base.group_no_one">
+                        <page string="Resource" name="res_model_settings" attrs="{'invisible': [('formio_res_model_id', '=', False)]}"/>
+                        <page string="Portal" name="portal_settings">
                             <group>
                                 <group name="portal_urls" colspan="2" attrs="{'invisible': [('portal_url', '=', False)]}">
                                     <field name="portal_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
-                                </group>
-                                <group name="portal_redirect_after_save_draft" string="Redirect After Save Draft" groups="base.group_no_one">
-                                    <field name="portal_save_draft_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
                                 </group>
                                 <group name="portal_redirect_after_submit" string="Redirect After Submit">
                                     <field name="portal_submit_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
                                 </group>
                             </group>
                         </page>
-                        <page string="Public / Website" name="public_settings">
-<!--                            <div class="text-muted mb-4" colspan="2">-->
-<!--                                <i class="fa fa-info-circle" title="info"/> Configuration of Website features shall also be done here-->
-<!--                            </div>-->
+                        <page string="Public" name="public_settings">
+                            <div class="text-muted mb-4" colspan="2">
+                                <i class="fa fa-info-circle" title="info"/> Configuration of Website features shall also be done here
+                            </div>
                             <group>
-<!--                                thêm trường th_set_cookie và  th_public_url-->
-                                <div class="text-muted mb-4" colspan="2">
-                                    <i class="fa fa-info-circle" title="info"/> Embed the js snippet in the bottom of the web page
-                                </div>
-                                <group name="th_set_cookie" colspan="2" attrs="{'invisible': [('th_set_cookie', '=', False)]}">
-                                    <field name="th_set_cookie" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
-                                </group>
-
-                                 <div class="text-muted mb-4" colspan="2">
-                                    <i class="fa fa-info-circle" title="info"/> Embed the code snippet where the form is placed
-                                </div>
-
-                                <group name="th_public_url" colspan="2" groups="base.group_no_one">
-                                    <field name="th_public_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
-                                </group>
-
                                 <group name="public_url" colspan="2" attrs="{'invisible': [('public_url', '=', False)]}">
                                     <field name="public_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
                                 </group>
-
-                                <group name="general" string="General" groups="base.group_no_one">
-                                    <field name="public_access_rule_type" attrs="{'required': [('public', '=', True)]}"/>
-                                    <div class="text-muted" colspan="2">
-                                        <i class="fa fa-info-circle" title="info"/> Other <em>Public Access Rule Type(s)</em> can be implemented by other modules.
-                                    </div>
-                                    <label for="public_access_interval_number" string="Expire After" attrs="{'invisible': [('public_access_rule_type', '!=', 'time_interval')]}"/>
-                                    <div attrs="{'invisible': [('public_access_rule_type', '!=', 'time_interval')]}">
+                                <group name="general" string="General">
+                                    <label for="public_access_interval_number" string="Expire After"/>
+                                    <div>
                                         <field name="public_access_interval_number" class="oe_inline" groups="formio.group_formio_admin" attrs="{'required': [('public', '=', True)]}"/>
                                         <field name="public_access_interval_type" class="oe_inline ml-2" groups="formio.group_formio_admin" attrs="{'required': [('public', '=', True)]}"/>
                                     </div>
-                                    <div class="text-muted" colspan="2" attrs="{'invisible': [('public_access_rule_type', '!=', 'time_interval')]}">
-                                        <i class="fa fa-info-circle" title="info"/><strong> Expire After:</strong> Applicable on the Form it's (datetime field) <strong>Public Access From</strong>.
+                                    <div class="text-muted" colspan="2">
+                                        <i class="fa fa-info-circle" title="info"/><strong> Expire After:</strong> Applicable on the Form it's (datimetime field) <strong>Public Access From</strong>
                                     </div>
                                 </group>
-                                <group name="public_redirect_after_save_draft" string="Redirect After Save Draft" groups="base.group_no_one">
-                                    <field name="public_save_draft_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
-                                </group>
                                 <group name="public_redirect_after_submit" string="Redirect After Submit">
-                                    <field name="public_submit_done_url" string="Redirect URL" readonly="0"/>
+                                    <field name="public_submit_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
                                 </group>
                             </group>
                         </page>
-                        <page string="Translations" name="translations" groups="base.group_no_one">
+                        <page string="Translations" name="translations" groups="formio.group_formio_admin">
                             <group>
                                 <field name="language_en_enable"/>
                             </group>
@@ -280,7 +226,7 @@ See LICENSE file for full licensing details. -->
                         </page>
                         <page string="Form Display" name="form_display_settings">
                             <group>
-                                <group string="iFrame Embedding" name="iframe_embed" groups="base.group_no_one">
+                                <group string="iFrame Embedding" name="iframe_embed">
                                     <field name="iframe_resizer_body_margin" groups="formio.group_formio_admin"/>
                                 </group>
                                 <group string="Submission" name="submission">
@@ -295,7 +241,7 @@ See LICENSE file for full licensing details. -->
                                 </group>
                             </group>
                         </page>
-                        <page string="Form Permissions" name="form_permissions" groups="base.group_no_one">
+                        <page string="Form Permissions" name="form_permissions" groups="formio.group_formio_admin">
                             <div class="mb-3 text-muted">
                                 <i class="fa fa-info-circle" title="info"/> Specific permissions on Forms
                             </div>
@@ -307,8 +253,7 @@ See LICENSE file for full licensing details. -->
                                 <field name="form_copy_to_current" groups="formio.group_formio_admin" attrs="{'invisible': [('form_allow_copy', '=', False)]}" />
                             </group>
                         </page>
-                        <page string="Components API" groups="base.group_no_one" name="formio_components_api">
-                            <group name="main"/>
+                        <page string="Components API" name="formio_components_api">
                             <group string="Partner" name="partner" colspan="2">
                                 <div class="text-muted mb-2" colspan="2">
                                     <i class="fa fa-info-circle" title="info"/> To create or link (existing) Partner with a Form submission, specify the fields (Email, Name) from the Components API / Property Names.<br/>
@@ -324,7 +269,7 @@ See LICENSE file for full licensing details. -->
                                 </group>
                             </group>
                         </page>
-                        <page string="Actions API" name="actions_api" groups="base.group_no_one">
+                        <page string="Actions API" name="actions_api" groups="formio.group_formio_admin">
                             <group>
                                 <group string="Server Actions" name="server_actions" colspan="2">
                                     <div class="mb-2 text-muted" colspan="2">
@@ -346,7 +291,7 @@ See LICENSE file for full licensing details. -->
                                 </group>
                             </group>
                         </page>
-                        <page string="Extra Assets" name="extra_assets" groups="base.group_no_one">
+                        <page string="Extra Assets" name="extra_assets" groups="formio.group_formio_admin">
                             <field name="extra_asset_ids">
                                 <tree>
                                     <field name="type" readonly="1"/>
@@ -359,13 +304,13 @@ See LICENSE file for full licensing details. -->
                                 </tree>
                             </field>
                         </page>
-                        <page string="JS Options" name="javascript_options" groups="base.group_no_one">
+                        <page string="JS Options" name="javascript_options" groups="formio.group_formio_admin">
                             <div style="background-color: #e9ecef; padding: 0 10px;">
                                 <group>
                                     <field
                                         name="formio_js_options_id"
                                         string="Select formio.js Options"
-                                        readonly="1"
+                                        attrs="{'readonly': [('is_locked', '=', True)]}"
                                         style="height: 100%"/>
                                 </group>
                             </div>
@@ -394,7 +339,7 @@ See LICENSE file for full licensing details. -->
 }</pre>
                             </div>
                         </page>
-                        <page string="JSON Schema" name="schema" invisible="1" groups="base.group_no_one">
+                        <page string="JSON Schema" name="schema" groups="formio.group_formio_admin">
                             <field name="schema" attrs="{'readonly': [('is_locked', '=', True)]}"/>
                         </page>
                     </notebook>

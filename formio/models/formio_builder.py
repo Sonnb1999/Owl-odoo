@@ -13,13 +13,11 @@ from odoo.http import request
 from ..utils import get_field_selection_label
 
 STATE_DRAFT = 'DRAFT'
-STATE_TEST = 'TEST'
 STATE_CURRENT = 'CURRENT'
 STATE_OBSOLETE = 'OBSOLETE'
 
 STATES = [
     (STATE_DRAFT, "Draft"),
-    (STATE_TEST, "Test"),
     (STATE_CURRENT, "Current"),
     (STATE_OBSOLETE, "Obsolete")]
 
@@ -33,7 +31,6 @@ class Builder(models.Model):
     _rec_name = 'display_name_full'
 
     _interval_selection = {'minutes': 'Minutes', 'hours': 'Hours', 'days': 'Days'}
-    _public_access_rule_types = {'time_interval': 'Time Interval'}
 
     name = fields.Char(
         "Name", required=True, tracking=True,
@@ -95,72 +92,40 @@ class Builder(models.Model):
     version_comment = fields.Text("Version Comment")
     user_id = fields.Many2one('res.users', string='Assigned user', tracking=True)  # TODO old field, remove?
     forms = fields.One2many('formio.form', 'builder_id', string='Forms')
-    forms_count = fields.Integer(string='Forms Count', compute='_compute_forms_count')
-    backend_use_draft = fields.Boolean(
-        string='Use Draft in Backend',
-        default=False,
-        help='Allows to use this Form Builder in state Draft, when adding/choosing a new Form in the backend.'
-    )
-    backend_use_obsolete = fields.Boolean(
-        string='Use Obsolete in Backend',
-        default=False,
-        help='Allows to use this Form Builder in state Obsolete, when adding/choosing a new Form in the backend.'
-    )
     portal = fields.Boolean("Portal", tracking=True, help="Form is accessible by assigned portal user")
     portal_url = fields.Char(string='Portal URL', compute='_compute_portal_urls')
-    portal_save_draft_done_url = fields.Char(
-        string='Portal Save-Draft Done URL', tracking=True,
-        help="""\
-        IMPORTANT:
-        - Absolute URL should contain a protocol (https://, http://)
-        - Relative URL is also supported e.g. /web/login
-        """
-    )
     portal_submit_done_url = fields.Char(
-        string='Portal Submit Done URL', tracking=True,
+        string='Portal Submit-done URL', tracking=True,
         help="""\
         IMPORTANT:
         - Absolute URL should contain a protocol (https://, http://)
         - Relative URL is also supported e.g. /web/login
         """
     )
-    public = fields.Boolean("Public", tracking=True, help="Form is public accessible (e.g. used in Shop checkout, Events registration", default=True)
+    public = fields.Boolean("Public", tracking=True, help="Form is public accessible (e.g. used in Shop checkout, Events registration")
     public_url = fields.Char(string='Public URL', compute='_compute_public_url')
-    public_save_draft_done_url = fields.Char(
-        string='Public Save-Draft Done URL', tracking=True,
-        help="""\
-        IMPORTANT:
-        - Absolute URL should contain a protocol (https://, http://)
-        - Relative URL is also supported e.g. /web/login
-        """
-    )
     public_submit_done_url = fields.Char(
-        string='Public Submit Done URL', tracking=True,
+        string='Public Submit-done URL', tracking=True,
         help="""\
         IMPORTANT:
         - Absolute URL should contain a protocol (https://, http://)
         - Relative URL is also supported e.g. /web/login
         """
     )
-    public_access_rule_type = fields.Selection(
-        list(_public_access_rule_types.items()),
-        string='Public Access Rule Type',
-        default='time_interval',
-        tracking=True)
-    public_access_interval_number = fields.Integer(default=300, tracking=True, help="Public access to submitted Form shall be rejected after expiration of the configured time interval.")
-    public_access_interval_type = fields.Selection(list(_interval_selection.items()), default='days', tracking=True)
+    public_access_interval_number = fields.Integer(default=30, tracking=True, help="Public access to submitted Form shall be rejected after expiration of the configured time interval.")
+    public_access_interval_type = fields.Selection(list(_interval_selection.items()), default='minutes', tracking=True)
     view_as_html = fields.Boolean("View as HTML", tracking=True, help="View submission as a HTML view instead of disabled webform.")
-    show_form_title = fields.Boolean("Show Form Title", tracking=True, help="Show Form Title in the Form header.", default=False)
-    show_form_id = fields.Boolean("Show Form ID", tracking=True, help="Show Form ID in the Form header.", default=False)
-    show_form_uuid = fields.Boolean("Show Form UUID", tracking=True, help="Show Form UUID in the Form.", default=False)
-    show_form_state = fields.Boolean("Show Form State", tracking=True, help="Show the state in the Form header.", default=False)
+    show_form_title = fields.Boolean("Show Form Title", tracking=True, help="Show Form Title in the Form header.", default=True)
+    show_form_id = fields.Boolean("Show Form ID", tracking=True, help="Show Form ID in the Form header.", default=True)
+    show_form_uuid = fields.Boolean("Show Form UUID", tracking=True, help="Show Form UUID in the Form.", default=True)
+    show_form_state = fields.Boolean("Show Form State", tracking=True, help="Show the state in the Form header.", default=True)
     show_form_user_metadata = fields.Boolean(
-        "Show User Metadata", tracking=True, help="Show submission and assigned user metadata in the Form header.", default=False)
+        "Show User Metadata", tracking=True, help="Show submission and assigned user metadata in the Form header.", default=True)
     iframe_resizer_body_margin = fields.Char(
         "iFrame Resizer bodyMargin", tracking=True,
         help="""\
         Override the default body margin style in the iFrame.
-        A string can be any valid value for the CSS margin property.
+        A string can be any valid value for the CSS margin attribute.
         A number is converted into px.
         Example: 0px 0px 260px 0px
         """
@@ -196,33 +161,6 @@ class Builder(models.Model):
         string='Server Actions',
         domain="[('model_name', '=', 'formio.form')]"
     )
-    hook_api_validation = fields.Boolean(
-        string='Hook Validation API', default=False, copy=True)
-    show_api_alert = fields.Boolean(compute='_compute_show_api_alert')
-    api_alert = fields.Text(compute='_compute_api_alert')
-
-    th_storage_location = fields.Selection(selection=[('crm', 'CRM'), ('prm', 'PRM'), ('vmc', 'VMC')], string="Kho cơ hội", required=1, default="crm")
-    th_ownership_unit = fields.Selection(selection=[('aum', 'AUM'), ('partner', 'Đối tác')], string='Đơn vị sở hữu', default='aum', required=1)
-    th_public_url = fields.Char(string='Public URL', compute='_compute_public_url')
-    th_own_url = fields.Many2one('th.link.form', string='own URL')
-    th_set_cookie = fields.Char(string='Set cookie', compute='_compute_public_url')
-    th_data_demo = fields.Boolean(string='Create data demo', default=False, compute='compute_change_state', store=True)
-
-    @api.depends('state')
-    def compute_change_state(self):
-        for rec in self:
-            if rec.state == STATE_TEST:
-                rec.th_data_demo = True
-            if rec.state == STATE_CURRENT:
-                rec.th_data_demo = False
-
-    def action_preview_form(self):
-        return {
-            'name': _("Preview form"),
-            'type': 'ir.actions.act_url',
-            'url': self.th_public_url,
-            'target': 'new',
-        }
 
     def _states_selection(self):
         return STATES
@@ -282,12 +220,6 @@ class Builder(models.Model):
         if res > 1:
             raise ValidationError("%s already has a record with version: %d. Use button/action: Create New Version."
                                   % (self.name, self.version))
-
-    @api.constrains('public', 'public_access_rule_type')
-    def constaint_public_access_rule_type(self):
-        for rec in self:
-            if rec.public and not rec.public_access_rule_type:
-                raise ValidationError(_("The field 'Public Access Rule' Type is required for Public Forms!"))
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
@@ -368,25 +300,8 @@ class Builder(models.Model):
             if r.public and request:
                 url_root = request.httprequest.url_root
                 self.public_url = '%s%s/%s' % (url_root, 'formio/public/form/new', r.uuid)
-                # thêm: th_set_cookie,th_public_url và chỉnh sửa public_url
-
-                formio_url = '%s%s/%s/' % (url_root, 'formio/public/form/new', r.uuid)
-                r.th_public_url = '%s%s/%s/' % (url_root, 'formio/public/form/new', r.uuid)
-
-                r.public_url = \
-                    '<div id="formio_form_iframe_container_%s" class="formio_form_iframe_container"></div >' \
-                    '<script src = "%sformio/static/src/js/get_utm_url.js"></script>' \
-                    '<script>GetForm("%s", "%s") </script>' \
-                    '<script src = "%sformio/static/lib/iframe-resizer/iframeResizer.min.js"></script>' \
-                    "<script> iFrameResize({heightCalculationMethod: 'grow', }, '.formio_form_embed'); </script>" \
-                    % (r.uuid, url_root, formio_url, r.uuid, url_root)
-
-                r.th_set_cookie = '<script src = "%sformio/static/src/js/set_cookie.js" ></script>' % url_root
-
             else:
                 r.public_url = False
-                r.th_public_url = False
-                r.th_set_cookie = False
 
     @api.depends('portal')
     def _compute_portal_urls(self):
@@ -422,21 +337,6 @@ class Builder(models.Model):
                 action=action.id)
             r.act_window_url = url
 
-    def _compute_show_api_alert(self):
-        self.ensure_one()
-        self.show_api_alert = len(self.server_action_ids) > 0
-
-    def _compute_api_alert(self):
-        self.ensure_one()
-        self.api_alert = ', '.join(self._api_alert_items())
-
-    def _api_alert_items(self):
-        self.ensure_one()
-        if len(self.server_action_ids) > 0:
-            return [_("Server Actions")]
-        else:
-            return []
-
     def action_view_formio(self):
         # return {
         #     "type": "ir.actions.act_url",
@@ -456,32 +356,11 @@ class Builder(models.Model):
             "context": {}
         }
 
-    def action_view_forms(self):
-        forms_view = self.env.ref('formio.view_formio_form_tree')
-        return {
-            'name': 'Forms',
-            'type': 'ir.actions.act_window',
-            'res_model': 'formio.form',
-            'view_mode': 'tree,form',
-            'views': [(forms_view.id, 'tree'), (False, 'form')],
-            'target': 'current',
-            'domain': [('builder_id', '=', self.id)],
-            'context': {}
-        }
-
-    def _compute_forms_count(self):
-        for r in self:
-            r.forms_count = len(r.forms)
-
     def action_draft(self):
         vals = {'state': STATE_DRAFT}
         if self.is_locked:
             vals['is_locked'] = False
         self.write(vals)
-
-    def action_test(self):
-        self.ensure_one()
-        self.write({'state': STATE_TEST})
 
     def action_current(self):
         self.ensure_one()
@@ -564,10 +443,6 @@ class Builder(models.Model):
         # only set language if exist in i18n translations
         if options['i18n'].get(language):
             options['language'] = language
-        elif self.language_en_enable:
-            lang_en = self.env.ref('base.lang_en')
-            options['language'] = Lang._formio_ietf_code(lang_en.code)
-
         return options
 
     def _get_form_js_locales(self):
@@ -577,12 +452,10 @@ class Builder(models.Model):
     def _get_js_params(self):
         """ Odoo JS (Owl component) misc. params """
         params = {
-            'cdn_base_url': self._cdn_base_url(),
-            'portal_save_draft_done_url': self.portal_save_draft_done_url,
             'portal_submit_done_url': self.portal_submit_done_url,
             'readOnly': self.is_locked,
             'wizard_on_change_page_save_draft': self.wizard and self.wizard_on_change_page_save_draft,
-            'submission_url_add_query_params_from': self.submission_url_add_query_params_from,
+            'submission_url_add_query_params_from': self.submission_url_add_query_params_from
         }
         return params
 
@@ -631,22 +504,18 @@ class Builder(models.Model):
     def _get_portal_form_js_params(self):
         """ Odoo JS (Owl component) misc. params """
         params = {
-            'cdn_base_url': self._cdn_base_url(),
-            'portal_save_draft_done_url': self.portal_save_draft_done_url,
             'portal_submit_done_url': self.portal_submit_done_url,
             'wizard_on_change_page_save_draft': self.wizard and self.wizard_on_change_page_save_draft,
-            'submission_url_add_query_params_from': self.submission_url_add_query_params_from,
+            'submission_url_add_query_params_from': self.submission_url_add_query_params_from
         }
         return params
 
     def _get_public_form_js_params(self):
         """ Odoo JS (Owl component) misc. params """
         params = {
-            'cdn_base_url': self._cdn_base_url(),
-            'public_save_draft_done_url': self.public_save_draft_done_url,
             'public_submit_done_url': self.public_submit_done_url,
             'wizard_on_change_page_save_draft': self.wizard and self.wizard_on_change_page_save_draft,
-            'submission_url_add_query_params_from': self.submission_url_add_query_params_from,
+            'submission_url_add_query_params_from': self.submission_url_add_query_params_from
         }
         return params
 
@@ -675,11 +544,6 @@ class Builder(models.Model):
         builder = self.sudo().search(domain, limit=1)
         return builder or False
 
-    def _cdn_base_url(self):
-        Param = self.env['ir.config_parameter'].sudo()
-        cdn_base_url = Param.get_param('formio.cdn_base_url')
-        return cdn_base_url
-
     def i18n_translations(self):
         i18n = {}
         # formio.js translations
@@ -705,15 +569,6 @@ class Builder(models.Model):
                 else:
                     i18n[code][trans.source] = trans.value
         return i18n
-
-    def _formio_translate(self, source, lang_code=None):
-        self.ensure_one()
-        if not lang_code:
-            lang_code = self.env.lang
-        trans = self.translations.filtered(
-            lambda t: t.lang_id.code == lang_code and t.source == source
-        )
-        return trans[0].value if trans else source
 
     def _etl_odoo_config(self, params):
         return {}

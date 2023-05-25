@@ -3,8 +3,8 @@
 
 {
     'name': 'Forms',
-    'summary': 'Form Builder for backend, portal and website forms - to collect any information you need for your business.',
-    'version': '16.0.6.7',
+    'summary': 'Form Builder & integration of professional and versatile Forms to collect any information you need for your business.',
+    'version': '16.0.2.2',
     'license': 'LGPL-3',
     'author': 'Nova Code',
     'website': 'https://www.novacode.nl',
@@ -15,23 +15,18 @@
         'mail',
         'portal',
         'web',
-        'th_crm',
-        'th_prm',
-        'th_trm',
+        'crm',
     ],
     'application': True,
     'installable': True,
-    'post_init_hook': 'post_init_hook',
     'uninstall_hook': 'uninstall_hook',
     'data': [
-        # the ordering is important
         'data/formio_builder_js_options_data.xml',
         'data/formio_default_asset_css_data.xml',
         'data/formio_version_data.xml',
         'data/formio_asset_data.xml',
         'data/formio_extra_asset_data.xml',
-        'data/formio_default_version_data.xml',
-        'data/ir_config_param.xml',
+        'data/ir_config_parameter_data.xml',
         'data/ir_cron_data.xml',
         'data/mail_activity_data.xml',
         'data/mail_template_data.xml',
@@ -45,7 +40,6 @@
         'security/formio_security.xml',
         'security/ir_model_access.xml',
         'security/ir_rule.xml',
-        'security/ir.model.access.csv',
         # views
         'views/formio_builder_js_options_views.xml',
         'views/formio_builder_translation_views.xml',
@@ -58,14 +52,10 @@
         'views/formio_version_github_tag_views.xml',
         'views/formio_version_translation_views.xml',
         'views/formio_version_views.xml',
-        # th
-        'views/th_university.xml',
-
         'views/formio_menu.xml',
         'views/res_config_settings_views.xml',
         'views/res_lang_views.xml',
         'views/ir_actions_views.xml',
-        'views/ir_attachment_views.xml',
         'views/mail_activity_views.xml',
         # formio templates
         'views/formio_builder_templates.xml',

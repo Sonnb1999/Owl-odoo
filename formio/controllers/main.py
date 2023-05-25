@@ -1,8 +1,8 @@
 # Copyright Nova Code (http://www.novacode.nl)
 # See LICENSE file for full licensing details.
+
 import json
 import logging
-from io import BytesIO
 
 from os.path import dirname
 
@@ -24,10 +24,7 @@ _logger = logging.getLogger(__name__)
 
 class FormioController(http.Controller):
 
-    ##############
-    # Form Builder
-    ##############
-
+    # Builder
     @http.route('/formio/builder/<int:builder_id>', type='http', auth='user', website=True)
     def builder_root(self, builder_id, **kwargs):
         if not request.env.user.has_group('formio.group_formio_admin'):
@@ -64,400 +61,33 @@ class FormioController(http.Controller):
         builder = request.env['formio.builder'].browse(builder_id)
         res = {'schema': {}, 'options': {}}
 
-        url_form = request.httprequest.host_url
-        # res['options']['builder'] = {
-        #     'basic': False,
-        #     'advanced': False,
-        #     'data': False,
-        #
-        #     'customBasicInfor': {
-        #         'title': 'Thông tin cơ bản',
-        #         'default': True,
-        #         'weight': 0,
-        #         'components': {
-        #             'name': {
-        #                 'title': 'Họ và Tên',
-        #                 'key': 'name',
-        #                 'icon': 'terminal',
-        #                 'schema': {
-        #                     'label': 'Họ và Tên',
-        #                     'type': 'textfield',
-        #                     'key': 'name',
-        #                     'input': True,
-        #                 }
-        #             },
-        #             'email': {
-        #                 'title': 'Email',
-        #                 'key': 'email',
-        #                 'icon': 'at',
-        #                 'schema': {
-        #                     'label': 'Email',
-        #                     'type': 'email',
-        #                     'key': 'email',
-        #                     'input': True
-        #                 }
-        #             },
-        #             'cellPhone': {
-        #                 'title': 'Số điện thoại',
-        #                 'key': 'phone',
-        #                 'icon': 'phone-square',
-        #                 'inputMask': "",
-        #                 'schema': {
-        #                     'label': 'Số điện thoại',
-        #                     'type': 'phoneNumber',
-        #                     'key': 'phone',
-        #                     'input': True,
-        #                     'inputMask': "9999999999",
-        #                 }
-        #             }
-        #         },
-        #     },
-        #     'customCRM': {
-        #         'title': 'CRM',
-        #         'weight': 2,
-        #         'components': {
-        #             'university': {
-        #                 'title': 'Trường học(Ẩn trên form)',
-        #                 'key': 'university',
-        #                 'icon': 'fa-graduation-cap',
-        #                 'schema': {
-        #                     'label': 'Trường học',
-        #                     'type': 'select',
-        #                     'key': 'university',
-        #                     'input': True,
-        #                     'dataSrc': "url",
-        #                     'template': "<span>{{ item.name }}</span>",
-        #                     'conditional': {
-        #                         'show': True,
-        #                         'when': 'submit'
-        #                     },
-        #                     'data': {
-        #                         'url': url_form + "/get_universities",
-        #                         'headers': [
-        #                             {
-        #                                 "key": "",
-        #                                 "value": ""
-        #                             }
-        #                         ]
-        #                     },
-        #                 }
-        #             },
-        #             'major': {
-        #                 'title': 'Ngành học(Tìm theo trường)',
-        #                 'key': 'majors',
-        #                 'icon': 'paste',
-        #                 'schema': {
-        #                     'label': 'Ngành học',
-        #                     'type': 'select',
-        #                     'key': 'majors',
-        #                     'input': True,
-        #                     'dataSrc': "url",
-        #                     'refreshOn': "university",
-        #                     'template': "<span>{{ item.name }}</span>",
-        #                     'clearOnRefresh': True,
-        #                     'noRefreshOnScroll': False,
-        #                     'ignoreCache': True,
-        #                     'multiple': True,
-        #                     'data': {
-        #                         'url': url_form + "/get_majors?university={{row.university.university_code}}",
-        #                         'headers': [
-        #                             {
-        #                                 "key": "",
-        #                                 "value": ""
-        #                             }
-        #                         ]
-        #                     },
-        #                 }
-        #             },
-        #
-        #             'university01': {
-        #                 'title': 'Trường học',
-        #                 'key': 'university',
-        #                 'icon': 'fa-graduation-cap',
-        #                 'schema': {
-        #                     'label': 'Trường học',
-        #                     'type': 'select',
-        #                     'key': 'university',
-        #                     'input': True,
-        #                     'dataSrc': "url",
-        #                     'template': "<span>{{ item.name }}</span>",
-        #                     'data': {
-        #                         'url': url_form + "/get_universities",
-        #                         'headers': [
-        #                             {
-        #                                 "key": "",
-        #                                 "value": ""
-        #                             }
-        #                         ]
-        #                     },
-        #                 }
-        #             },
-        #             'major01': {
-        #                 'title': 'Ngành học',
-        #                 'key': 'majors',
-        #                 'icon': 'paste',
-        #                 'schema': {
-        #                     'label': 'Ngành học',
-        #                     'type': 'select',
-        #                     'key': 'majors',
-        #                     'input': True,
-        #                     'dataSrc': "url",
-        #                     'template': "<span>{{ item.name }}</span>",
-        #                     'clearOnRefresh': True,
-        #                     'noRefreshOnScroll': False,
-        #                     'ignoreCache': True,
-        #                     'multiple': True,
-        #                     'data': {
-        #                         'url': url_form + "/get_majors",
-        #                         'headers': [
-        #                             {
-        #                                 "key": "",
-        #                                 "value": ""
-        #                             }
-        #                         ]
-        #                     },
-        #                 }
-        #             },
-        #         }
-        #     },
-        #
-        #     'customBasic': {
-        #         'title': 'Cơ bản',
-        #         'weight': 10,
-        #         'components': {
-        #             'textfield': True,
-        #             'textarea': True,
-        #             'email': True,
-        #             'phoneNumber': True,
-        #             'select': True,
-        #             'panel': True,
-        #         }
-        #     },
-        #     'layout': {
-        #         'components': {
-        #             'table': False
-        #         }
-        #     }
-        # }
-
         if builder:
             if builder.schema:
                 res['schema'] = json.loads(builder.schema)
             res['options'] = builder._get_js_options()
-            res['options']['builder'] = {
-                'basic': False,
-                'advanced': False,
-                'data': False,
-
-                'customBasicInfor': {
-                    'title': 'Thông tin cơ bản',
-                    'default': True,
-                    'weight': 0,
-                    'components': {
-                        'name': {
-                            'title': 'Họ và Tên',
-                            'key': 'name',
-                            'icon': 'terminal',
-                            'schema': {
-                                'label': 'Họ và Tên',
-                                'type': 'textfield',
-                                'key': 'name',
-                                'input': True,
-                                "errors": {
-                                    "required": "{{ field }} không được để trống.",
-                                },
-                                "validate": {
-                                    "required": True
-                                },
-                            }
-                        },
-                        'email': {
-                            'title': 'Email',
-                            'key': 'email',
-                            'icon': 'at',
-                            'schema': {
-                                'label': 'Email',
-                                'type': 'email',
-                                'key': 'email',
-                                'input': True,
-                                "errors": {
-                                    "required": "{{ field }} không được để trống.",
-                                    "invalid_email": "{{ field }} chưa đúng. {{field}} giống như abcd@xyz.com"
-                                },
-                                "validate": {
-                                    "required": True
-                                },
-                            }
-                        },
-                        'cellPhone': {
-                            'title': 'Số điện thoại',
-                            'key': 'phone',
-                            'icon': 'phone-square',
-                            'inputMask': "",
-                            'schema': {
-                                'label': 'Số điện thoại',
-                                'type': 'phoneNumber',
-                                'key': 'phone',
-                                'input': True,
-                                'inputMask': "9999999999",
-                                "errors": {
-                                    "required": "{{ field }} không được để trống.",
-                                    "mask": "{{ field }} chưa đúng."
-                                },
-                                "validate": {
-                                    "required": True
-                                },
-                            }
-                        }
-                    },
-                },
-                'customCRM': {
-                    'title': 'CRM',
-                    'weight': 2,
-                    'components': {
-                        'university': {
-                            'title': 'Trường học(Ẩn trên form)',
-                            'key': 'university',
-                            'icon': 'fa-graduation-cap',
-                            'schema': {
-                                'label': 'Trường học',
-                                'type': 'select',
-                                'key': 'university',
-                                'input': True,
-                                'dataSrc': "url",
-                                'template': "<span>{{ item.name }}</span>",
-                                'conditional': {
-                                    'show': True,
-                                    'when': 'submit'
-                                },
-                                'data': {
-                                    'url': url_form + "get_universities",
-                                    'headers': [
-                                        {
-                                            "key": "",
-                                            "value": ""
-                                        }
-                                    ]
-                                },
-                            }
-                        },
-                        'major': {
-                            'title': 'Ngành học(Tìm theo trường)',
-                            'key': 'majors',
-                            'icon': 'paste',
-                            'schema': {
-                                'label': 'Ngành học',
-                                'type': 'select',
-                                'key': 'majors',
-                                'input': True,
-                                'dataSrc': "url",
-                                'refreshOn': "university",
-                                'template': "<span>{{ item.name }}</span>",
-                                'clearOnRefresh': True,
-                                'noRefreshOnScroll': False,
-                                'ignoreCache': True,
-                                'multiple': True,
-                                'data': {
-                                    'url': url_form + "get_majors?university={{row.university.university_code}}",
-                                    'headers': [
-                                        {
-                                            "key": "",
-                                            "value": ""
-                                        }
-                                    ]
-                                },
-                            }
-                        },
-
-                        'university01': {
-                            'title': 'Trường học',
-                            'key': 'university',
-                            'icon': 'fa-graduation-cap',
-                            'schema': {
-                                'label': 'Trường học',
-                                'type': 'select',
-                                'key': 'university',
-                                'input': True,
-                                'dataSrc': "url",
-                                'template': "<span>{{ item.name }}</span>",
-                                'data': {
-                                    'url': url_form + "get_universities",
-                                    'headers': [
-                                        {
-                                            "key": "",
-                                            "value": ""
-                                        }
-                                    ]
-                                },
-                            }
-                        },
-                        'major01': {
-                            'title': 'Ngành học',
-                            'key': 'majors',
-                            'icon': 'paste',
-                            'schema': {
-                                'label': 'Ngành học',
-                                'type': 'select',
-                                'key': 'majors',
-                                'input': True,
-                                'dataSrc': "url",
-                                'template': "<span>{{ item.name }}</span>",
-                                'clearOnRefresh': True,
-                                'noRefreshOnScroll': False,
-                                'ignoreCache': True,
-                                'multiple': True,
-                                'data': {
-                                    'url': url_form + "get_majors",
-                                    'headers': [
-                                        {
-                                            "key": "",
-                                            "value": ""
-                                        }
-                                    ]
-                                },
-                            }
-                        },
-                    }
-                },
-
-                'customBasic': {
-                    'title': 'Cơ bản',
-                    'weight': 10,
-                    'components': {
-                        'textfield': True,
-                        'textarea': True,
-                        'email': True,
-                        'phoneNumber': True,
-                        'select': True,
-                        'panel': True,
-                    }
-                },
-                'layout': {
-                    'components': {
-                        'table': False
-                    }
-                }
-            }
             res['params'] = builder._get_js_params()
-            res['locales'] = builder._get_form_js_locales()
+
         return res
 
     @http.route('/formio/builder/<model("formio.builder"):builder>/save', type='json', auth="user", methods=['POST'], website=True)
     def builder_save(self, builder, **post):
         if not request.env.user.has_group('formio.group_formio_admin'):
             return
-
-        if 'builder_id' not in post or int(post['builder_id']) != builder.id:
+        
+        if not 'builder_id' in post or int(post['builder_id']) != builder.id:
             return
-
+        
         schema = json.dumps(post['schema'])
         builder.write({'schema': schema})
 
     #######################
-    # Form - backend - uuid
+    # Form uuid - user auth
     #######################
 
-    @http.route('/formio/form/<string:uuid>', type='http', auth='user', website=True)
+    @http.route([
+        '/formio/form/<string:uuid>',
+        '/formio/portal/form/<string:uuid>'
+    ], type='http', auth='user', website=True)
     def form_root(self, uuid, **kwargs):
         form = self._get_form(uuid, 'read')
         if not form:
@@ -541,10 +171,6 @@ class FormioController(http.Controller):
         if vals.get('state') == FORM_STATE_COMPLETE:
             form.after_submit()
 
-    #######
-    # Fonts
-    #######
-
     @http.route(['/web/content/<int:id>/fonts/<string:name>'], type='http', auth="public")
     def send_fonts_file(self, id, name):
         """
@@ -553,21 +179,6 @@ class FormioController(http.Controller):
         This route (/fonts/) is a rather iffy assumption which could
         cause troubles.  Of course this could be requested by other
         parts, but not yet in standard Odoo routes.
-
-        ----------------------------------------------------------
-        TODO DeprecationWarning, odoo.http.send_file is deprecated
-        ----------------------------------------------------------
-        But:
-        http.Stream.from_path only obtains the addons_path, not
-        filestore!
-
-        stream = http.Stream.from_path(fontfile_path)
-        return stream.get_response()
-
-        Workaround: (to improve/replace in future?)
-        still using Odoo <= v15 approach by using Werkzeug
-        implementation
-        ----------------------------------------------------------
 
         :param int id: The ID of the file (attachment) which requests the fonts file.
             File(s) requesting this font file, are CSS files (formio.js library).
@@ -580,26 +191,23 @@ class FormioController(http.Controller):
             msg = 'Request expects a Forms (formio.js) fonts file (id: %s, name: %s' % (id, name)
             _logger.warning(msg)
             return request.not_found(msg)
-        attachment_location = request.env['ir.attachment']._storage()
-        if attachment_location == 'file':
-            attach_dir = dirname(attach.store_fname)
-            fonts_dir = '{attach_dir}/fonts/'.format(attach_dir=attach_dir)
-            fontfile_path = request.env['ir.attachment']._full_path(fonts_dir)
-            fontfile_path += '/%s' % name
-            return send_file(fontfile_path, request.httprequest.environ)
-        else:
-            # Get the font-file via formio.version.asset;
-            # don't search ir.attachment directly, as there are no indexes on formio_asset_formio_version_id
-            assets = request.env["formio.version.asset"].search(
-                [
-                    ("version_id", "=", attach.formio_asset_formio_version_id.id),
-                ])
-            font_asset = assets.filtered(lambda a: a.attachment_id.name == name)
-            if not font_asset:
-                msg = f"Font {name} not found"
-                _logger.warning(msg)
-                return request.not_found(msg)
-            return send_file(BytesIO(font_asset.attachment_id.raw), request.httprequest.environ, download_name=name)
+
+        attach_dir = dirname(attach.store_fname)
+        fonts_dir = '{attach_dir}/fonts/'.format(attach_dir=attach_dir)
+        fontfile_path = request.env['ir.attachment']._full_path(fonts_dir)
+        fontfile_path += '/%s' % name
+
+        # TODO DeprecationWarning, odoo.http.send_file is deprecated.
+        #
+        # But:
+        # http.Stream.from_path only obtains the addons_path, not filestore!
+        # stream = http.Stream.from_path(fontfile_path)
+        # return stream.get_response()
+        #
+        # Workaround: (to improve/replace in futute?)
+        # still using Odoo <= v15 approach by using Werkzeug
+        # implementation
+        return send_file(fontfile_path, request.httprequest.environ,)
 
     #########
     # Helpers

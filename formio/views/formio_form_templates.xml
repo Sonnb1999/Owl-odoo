@@ -19,7 +19,7 @@ See LICENSE file for full licensing details. -->
             <script>
                 iFrameResize(
                     {
-                        heightCalculationMethod: 'taggedElement',
+                        heightCalculationMethod: 'grow',
                         bodyMargin: &quot;<t t-out="bodyMarginResize"/>&quot;
                     },
                     '.formio_form_embed'
@@ -69,7 +69,7 @@ See LICENSE file for full licensing details. -->
                 <script type="module" src="/formio/static/src/js/form/formio_form.js"/>
                 <script type="module" src="/formio/static/src/js/form/backend_app.js"/>
             </head>
-            <body data-iframe-height="1">
+            <body>
                 <t t-if="form">
                     <h3 t-if="form.show_title" class="formio_form_title"><span name="title" t-out="form.title"/></h3>
                     <div t-if="form.show_id or form.show_uuid or form.show_state or form.show_user_metadata" class="formio_form_dock float-right">
@@ -113,16 +113,14 @@ See LICENSE file for full licensing details. -->
                 <t t-if="len(form_languages) > 1">
                     <div class="formio_languages">
                         <t t-foreach="form_languages" t-as="lang">
-                            <button class="btn btn-sm btn-default" t-att-lang="lang.formio_ietf_code" t-attf-onclick="setLanguage('{{ lang.formio_ietf_code }}', this)">
+                            <button class="btn btn-sm btn-default" t-attf-onclick="setLanguage('{{ lang.formio_ietf_code }}')">
                                 <span t-out="lang.name"/>
                             </button>
                         </t>
                     </div>
                 </t>
-                <!-- form shall be mounted here -->
-                <div id="formio_form_app">
-                    <div id="formio_form_loading"></div>
-                </div>
+                <!-- Form shall be mounted here -->
+                <div id="formio_form_app"/>
                 <div t-if="form and form.show_uuid" class="float-right">
                     <small class="text-muted">UUID: <span t-out="form.uuid"/></small>
                 </div>
