@@ -153,6 +153,32 @@ class FormioPublicController(http.Controller):
             # TODO raise or set exception (in JSON resonse) ?
             return
 
+        name = ''
+        email = ''
+        phone = ''
+        another_infor = ''
+
+        if 'name' in post['data']:
+            name = post['data']['name']
+
+        if 'email' in post['data']:
+            email = post['data']['email']
+
+        if 'phone' in post['data']:
+            phone = post['data']['phone']
+
+        if 'info' in post['data']:
+            another_infor = post['data']['info']
+
+        if name != '' and (phone != '' or email != ''):
+            partner_ids = request.env['res.partner'].sudo().create({'name': name, 'email': email, 'phone': phone}).id
+
+            request.env['crm.lead'].create({
+                'name': name,
+                'partner_id': partner_ids,
+                'description': another_infor,
+            })
+
         Form = request.env['formio.form']
         vals = {
             'builder_id': formio_builder.id,
