@@ -157,6 +157,9 @@ class FormioPublicController(http.Controller):
         email = ''
         phone = ''
         another_infor = ''
+        # lead_id = False
+        th_source = ''
+        duplicate = ''
 
         if 'name' in post['data']:
             name = post['data']['name']
@@ -170,44 +173,30 @@ class FormioPublicController(http.Controller):
         if 'info' in post['data']:
             another_infor = post['data']['info']
 
+        if 'th_source' in post['data']:
+            th_source = post['data']['th_source']
+
         if name != '' and (phone != '' or email != ''):
-            partner_ids = request.env['res.partner'].sudo().create({'name': name, 'email': email, 'phone': phone}).id
+            check_contact = request.env['res.partner'].sudo().search(['|', ('email', '=', email), ('phone', '=', phone)])
 
-            request.env['crm.lead'].create({
+            if check_contact:
+                duplicate = 'Trùng contact'
+
+            check_contact.sudo().write({'comment': duplicate})
+
+            partner_id = request.env['res.partner'].sudo().create(
+                {'name': name,
+                 'email': email,
+                 'phone': phone,
+                 'comment': duplicate,
+                 }).id
+
+            request.env['crm.lead'].sudo().create({
                 'name': name,
-                'partner_id': partner_ids,
-                'description': another_infor,
+                'partner_id': partner_id,
+                'description': another_infor + th_source,
+                'type': 'opportunity',
             })
-
-        Form = request.env['formio.form']
-        vals = {
-            'builder_id': formio_builder.id,
-            'title': formio_builder.title,
-            'public_create': True,
-            'public_share': True,
-            'submission_data': json.dumps(post['data']),
-            'submission_date': fields.Datetime.now(),
-            'submission_user_id': request.env.user.id
-        }
-
-        save_draft = post.get('saveDraft') or (post['data'].get('saveDraft') and not post['data'].get('submit'))
-
-        if save_draft:
-            vals['state'] = FORM_STATE_DRAFT
-        else:
-            vals['state'] = FORM_STATE_COMPLETE
-
-        context = {'tracking_disable': True}
-
-        if request.env.user._is_public():
-            Form = Form.with_company(request.env.user.sudo().company_id)
-            res = Form.with_context(**context).sudo().create(vals)
-        else:
-            res = Form.with_context(**context).create(vals)
-        if vals.get('state') == FORM_STATE_COMPLETE:
-            res.after_submit()
-        request.session['formio_last_form_uuid'] = res.uuid
-        return {'form_uuid': res.uuid}
 
     #########
     # Helpers

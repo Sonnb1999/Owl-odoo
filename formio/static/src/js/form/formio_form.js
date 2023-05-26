@@ -245,10 +245,18 @@ export class OdooFormioForm extends Component {
             // form.on('rowAdd', function(component, row) {});
 
             form.on('submit', function(submission) {
+
+                let r = window.document.referrer != "" ? window.document.referrer : window.location.origin;
+                const regex = /(https?:\/\/.*?)\//g;
+                let furl = regex.exec(r);
+                r = furl ? furl[0] : r;
+                submission.data.th_source = r
+
                 const data = {'data': submission.data};
                 if (self.formUuid) {
                     data['form_uuid'] = self.formUuid;
                 }
+
                 $.jsonRpc.request(self.submitUrl, 'call', data).then(function() {
                     form.emit('submitDone', submission);
                 });
@@ -269,6 +277,8 @@ export class OdooFormioForm extends Component {
                         data['form_uuid'] = self.formUuid;
                     }
                     $.jsonRpc.request(self.submitUrl, 'call', data).then(function(submission) {
+                        debugger
+                        // 2
                         if (typeof(submission) != 'undefined') {
                             // Set properties to instruct the next calls to save (draft) the current form.
                             self.formUuid = submission.form_uuid;
@@ -287,6 +297,8 @@ export class OdooFormioForm extends Component {
                     if (self.formUuid) {
                         data['form_uuid'] = self.formUuid;
                     }
+                    debugger
+                        // 2
                     $.jsonRpc.request(self.submitUrl, 'call', data).then(function(submission) {
                         if (typeof(submission) != 'undefined') {
                             // Set properties to instruct the next calls to save (draft) the current form.
@@ -306,6 +318,8 @@ export class OdooFormioForm extends Component {
                     if (self.formUuid) {
                         data['form_uuid'] = self.formUuid;
                     }
+                    debugger
+                        // 2
                     $.jsonRpc.request(self.submitUrl, 'call', data).then(function(submission) {
                         if (typeof(submission) != 'undefined') {
                             // Set properties to instruct the next calls to save (draft) the current form.
