@@ -159,7 +159,6 @@ class FormioPublicController(http.Controller):
         another_infor = ''
         # lead_id = False
         th_source = ''
-        duplicate = ''
 
         if 'name' in post['data']:
             name = post['data']['name']
@@ -176,25 +175,18 @@ class FormioPublicController(http.Controller):
         if 'th_source' in post['data']:
             th_source = post['data']['th_source']
 
-        if name != '' and (phone != '' or email != ''):
-            check_contact = request.env['res.partner'].sudo().search(['|', ('email', '=', email), ('phone', '=', phone)])
+        if phone != '' or email != '':
+            check_contact = request.env['res.partner'].sudo().search(['|', ('email', '=', email), ('phone', '=', phone)]).id
 
             if check_contact:
-                duplicate = 'Trùng contact'
-
-            check_contact.sudo().write({'comment': duplicate})
-
-            partner_id = request.env['res.partner'].sudo().create(
-                {'name': name,
-                 'email': email,
-                 'phone': phone,
-                 'comment': duplicate,
-                 }).id
+                partner_id = check_contact
+            else:
+                partner_id = request.env['res.partner'].sudo().create({'name': name, 'email': email, 'phone': phone}).id
 
             request.env['crm.lead'].sudo().create({
                 'name': name,
                 'partner_id': partner_id,
-                'description': another_infor + th_source,
+                'description': another_infor,
                 'type': 'opportunity',
             })
 
