@@ -159,7 +159,7 @@ class FormioPublicController(http.Controller):
         another_infor = ''
         # lead_id = False
         th_source = ''
-
+        th_university = ''
         if 'name' in post['data']:
             name = post['data']['name']
 
@@ -174,6 +174,7 @@ class FormioPublicController(http.Controller):
 
         if 'th_source' in post['data']:
             th_source = post['data']['th_source']
+            th_university = formio_builder.th_university_ids.sudo().search([('th_url', '=', th_source)]).th_code
 
         if phone != '' or email != '':
             check_contact = request.env['res.partner'].sudo().search(['|', ('email', '=', email), ('phone', '=', phone)]).id
@@ -186,7 +187,7 @@ class FormioPublicController(http.Controller):
             request.env['crm.lead'].sudo().create({
                 'name': name,
                 'partner_id': partner_id,
-                'description': another_infor,
+                'description': th_university + ', ' + another_infor,
                 'type': 'opportunity',
             })
 

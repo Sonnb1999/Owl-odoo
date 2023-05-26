@@ -162,6 +162,8 @@ class Builder(models.Model):
         domain="[('model_name', '=', 'formio.form')]"
     )
 
+    th_university_ids = fields.Many2many(comodel_name='th.university', string='Universities')
+
     def _states_selection(self):
         return STATES
 
