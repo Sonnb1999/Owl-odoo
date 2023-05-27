@@ -162,6 +162,8 @@ class Builder(models.Model):
         domain="[('model_name', '=', 'formio.form')]"
     )
 
+    th_university_ids = fields.Many2many(comodel_name='th.university', string='Universities')
+
     def _states_selection(self):
         return STATES
 
@@ -299,7 +301,7 @@ class Builder(models.Model):
         for r in self:
             if r.public and request:
                 url_root = request.httprequest.url_root
-                self.public_url = '%s%s/%s' % (url_root, 'formio/public/form/new', r.uuid)
+                self.public_url = '<iframe src="%s%s/%s" style="width: %s; min-height: 400px;"></iframe>' % (url_root, 'formio/public/form/new', r.uuid, '100%')
             else:
                 r.public_url = False
 

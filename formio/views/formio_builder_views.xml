@@ -103,6 +103,7 @@ See LICENSE file for full licensing details. -->
                         </group>
                         <group>
                             <field name="uuid" attrs="{'invisible': [('id', '=', False)]}"/>
+                            <field name="th_university_ids" widget="many2many_tags"/>
                             <field name="is_locked" attrs="{'invisible': [('state', '!=', 'CURRENT')]}"/>
                         </group>
                     </group>

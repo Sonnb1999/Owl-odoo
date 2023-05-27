@@ -153,35 +153,43 @@ class FormioPublicController(http.Controller):
             # TODO raise or set exception (in JSON resonse) ?
             return
 
-        Form = request.env['formio.form']
-        vals = {
-            'builder_id': formio_builder.id,
-            'title': formio_builder.title,
-            'public_create': True,
-            'public_share': True,
-            'submission_data': json.dumps(post['data']),
-            'submission_date': fields.Datetime.now(),
-            'submission_user_id': request.env.user.id
-        }
+        name = ''
+        email = ''
+        phone = ''
+        another_infor = ''
+        # lead_id = False
+        th_source = ''
+        th_university = ''
+        if 'name' in post['data']:
+            name = post['data']['name']
 
-        save_draft = post.get('saveDraft') or (post['data'].get('saveDraft') and not post['data'].get('submit'))
+        if 'email' in post['data']:
+            email = post['data']['email']
 
-        if save_draft:
-            vals['state'] = FORM_STATE_DRAFT
-        else:
-            vals['state'] = FORM_STATE_COMPLETE
+        if 'phone' in post['data']:
+            phone = post['data']['phone']
 
-        context = {'tracking_disable': True}
+        if 'info' in post['data']:
+            another_infor = post['data']['info']
 
-        if request.env.user._is_public():
-            Form = Form.with_company(request.env.user.sudo().company_id)
-            res = Form.with_context(**context).sudo().create(vals)
-        else:
-            res = Form.with_context(**context).create(vals)
-        if vals.get('state') == FORM_STATE_COMPLETE:
-            res.after_submit()
-        request.session['formio_last_form_uuid'] = res.uuid
-        return {'form_uuid': res.uuid}
+        if 'th_source' in post['data']:
+            th_source = post['data']['th_source']
+            th_university = formio_builder.th_university_ids.sudo().search([('th_url', '=', th_source)]).th_code
+
+        if phone != '' or email != '':
+            check_contact = request.env['res.partner'].sudo().search(['|', ('email', '=', email), ('phone', '=', phone)]).id
+
+            if check_contact:
+                partner_id = check_contact
+            else:
+                partner_id = request.env['res.partner'].sudo().create({'name': name, 'email': email, 'phone': phone}).id
+
+            request.env['crm.lead'].sudo().create({
+                'name': name,
+                'partner_id': partner_id,
+                'description': th_university + ', ' + another_infor,
+                'type': 'opportunity',
+            })
 
     #########
     # Helpers
