@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="crm_livechat.chatbot_script_step_view_form"/>
         <field name="arch" type="xml">
             <field name="step_type" position="after">
-                <field name="is_question_name" />
+                <field name="is_question_name" attrs="{'invisible': [('step_type', 'not in', ['free_input_single', 'free_input_multi'])]}" />
             </field>
         </field>
     </record>
