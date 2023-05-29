@@ -187,7 +187,7 @@ class FormioPublicController(http.Controller):
             request.env['crm.lead'].sudo().create({
                 'name': name,
                 'partner_id': partner_id,
-                'description': th_university + ', ' + another_infor,
+                'description': th_university + ', ' + another_infor if th_university else another_infor,
                 'type': 'opportunity',
             })
 

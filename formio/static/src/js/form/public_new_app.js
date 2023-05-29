@@ -50,13 +50,22 @@ function app() {
         publicSubmitDoneUrl() {
             return this.params.hasOwnProperty('public_submit_done_url') && this.params.public_submit_done_url;
         }
-
         submitDone(submission) {
             if (submission.state == 'submitted') {
+                debugger
+                let r = window.document.referrer != "" ? window.document.referrer : window.location.origin;
+                const regex = /(https?:\/\/.*?)\//g;
+                let furl = regex.exec(r);
+                r = furl ? furl[0] : r;
+
+                // const url_string = new URLSearchParams(window.location.search);
                 if (this.publicSubmitDoneUrl()) {
                     const params = {submit_done_url: this.publicSubmitDoneUrl()};
                     if (window.self !== window.top) {
-                        window.parent.location.replace(params.submit_done_url)
+                        let url_redirect = r + params.submit_done_url
+                        window.parent.location.replace(url_redirect)
+
+                        // window.parent.location.replace(params.submit_done_url)
                         // window.parent.postMessage({odooFormioMessage: 'formioSubmitDone', params: params});
                     } else {
                         window.location = params.submit_done_url;
