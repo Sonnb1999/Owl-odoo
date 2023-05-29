@@ -10,12 +10,6 @@ from markupsafe import Markup
 
 class ChatbotScriptStep(models.Model):
     _inherit = 'chatbot.script.step'
-
-    step_type = fields.Selection(
-        selection_add=[('question_name', 'Name')],
-        ondelete={'question_name': 'cascade'}
-    )
-
     is_question_name = fields.Boolean('Ask name')
 
     # Set data
@@ -31,12 +25,16 @@ class ChatbotScriptStep(models.Model):
         input_phone = user_inputs.get('phone', False)
         input_name = user_inputs.get('name', False)
 
-
         if self.env.user._is_public() and (create_partner or (input_name and (input_phone or input_email))):
-            partner = self.env['res.partner'].sudo().search(
-                [
-                    '|', '&', ('email', '=', input_email), ('phone', '=', input_phone), ('activity_ids', '=', True)
-                ])
+
+            if input_email:
+                partner = self.env['res.partner'].sudo().search(['&', ('email', '=', input_email), ('active', '=', True)])
+            if input_phone:
+                partner = self.env['res.partner'].sudo().search(['&', ('phone', '=', input_phone), ('active', '=', True)])
+            if input_email and input_phone:
+                partner = self.env['res.partner'].sudo().search(
+                    ['|', '&', ('email', '=', input_email), ('phone', '=', input_phone), ('active', '=', True)])
+
             if partner:
                 partner = partner
             else:
@@ -104,6 +102,13 @@ class ChatbotScriptStep(models.Model):
                 'email_from': customer_values['email'],
                 'phone': customer_values['phone'],
             }
+        elif customer_values['partner']:
+            partner = customer_values['partner']
+            create_values = {
+                'partner_id': partner.id,
+                'company_id': partner.company_id.id,
+            }
+
         else:
             partner = self.env.user.partner_id
             create_values = {
