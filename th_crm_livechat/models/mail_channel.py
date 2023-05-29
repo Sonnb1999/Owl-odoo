@@ -19,21 +19,7 @@ class MailChannel(models.Model):
         self._send_transient_message(partner, msg)
 
     def _convert_visitor_to_lead(self, partner, key):
-        """ Create a lead from channel /lead command
-        :param partner: internal user partner (operator) that created the lead;
-        :param key: operator input in chat ('/lead Lead about Product')
-        """
-        # if public user is part of the chat: consider lead to be linked to an
-        # anonymous user whatever the participants. Otherwise keep only share
-        # partners (no user or portal user) to link to the lead.
         customers = self.env['res.partner']
-        # for customer in self.with_context(active_test=False).channel_partner_ids.filtered(
-        #         lambda p: p != partner and p.partner_share):
-        #     if customer.is_public:
-        #         customers = self.env['res.partner']
-        #         break
-        #     else:
-        #         customers |= customer
 
         utm_source = self.env.ref('crm_livechat.utm_source_livechat', raise_if_not_found=False)
         list_str = key.split(',')
@@ -55,6 +41,7 @@ class MailChannel(models.Model):
         customers = customers.sudo().search(['|', ('phone', '=', phone), ('email', '=', email)])
 
         if email != '' and phone != '' and not customers:
+            name = name if name != '' else phone if phone != '' else email
             contact_id = self.env['res.partner'].sudo().create({
                 'name': name,
                 'phone': phone,
