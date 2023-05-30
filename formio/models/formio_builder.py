@@ -301,7 +301,11 @@ class Builder(models.Model):
         for r in self:
             if r.public and request:
                 url_root = request.httprequest.url_root
-                self.public_url = '<iframe src="%s%s/%s" style="width: %s; min-height: 400px;"></iframe>' % (url_root, 'formio/public/form/new', r.uuid, '100%')
+                self.public_url = \
+                    '<div class="formio_form_iframe_container"> <iframe src="%s%s/%s" class="formio_form_embed_%s"></iframe>' \
+                    ' <script src = "%s/formio/static/lib/iframe-resizer/iframeResizer.min.js" ></script>' \
+                    "<script> iFrameResize({heightCalculationMethod: 'grow', }, '.formio_form_embed_%s'); </script> </div>" \
+                    % (url_root, 'formio/public/form/new', r.uuid, r.id, url_root, r.id)
             else:
                 r.public_url = False
 
