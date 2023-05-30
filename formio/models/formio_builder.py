@@ -302,10 +302,10 @@ class Builder(models.Model):
             if r.public and request:
                 url_root = request.httprequest.url_root
                 self.public_url = \
-                    '<div class="formio_form_iframe_container"> <iframe src="%s%s/%s" class="formio_form_embed_%s"></iframe>' \
+                    '<div class="formio_form_iframe_container"> <iframe src="%s%s/%s" class="formio_form_embed_%s"  style="width: %s;"></iframe>' \
                     ' <script src = "%s/formio/static/lib/iframe-resizer/iframeResizer.min.js" ></script>' \
                     "<script> iFrameResize({heightCalculationMethod: 'grow', }, '.formio_form_embed_%s'); </script> </div>" \
-                    % (url_root, 'formio/public/form/new', r.uuid, r.id, url_root, r.id)
+                    % (url_root, 'formio/public/form/new', r.uuid, r.id, '100%', url_root, r.id)
             else:
                 r.public_url = False
 
