@@ -38,9 +38,14 @@ class MailChannel(models.Model):
 
             if html2plaintext(val).isdigit():
                 phone = html2plaintext(val)
-        customers = customers.sudo().search(['|', ('phone', '=', phone), ('email', '=', email)])
+        customers = customers.sudo().search([('phone', '=', phone)])
 
-        if email != '' and phone != '' and not customers:
+        if customers and not customers.email and email != '':
+            customers.sudo().update({
+                'email': email
+            })
+
+        if phone != '' and not customers:
             name = name if name != '' else phone if phone != '' else email
             contact_id = self.env['res.partner'].sudo().create({
                 'name': name,
@@ -48,7 +53,7 @@ class MailChannel(models.Model):
                 'email': email,
             }).id
 
-        return self.env['crm.lead'].create({
+        return self.env['crm.lead'].sudo().create({
             'name': html2plaintext(list_str[0][5:]),
             'partner_id': customers[0].id if customers else contact_id,
             'user_id': False,
