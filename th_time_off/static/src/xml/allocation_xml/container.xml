@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="th_time_off.container" owl="1">
+        <div class="th_container">
+            <div class="o_control_panel">
+                <div class="o_cp_top">
+                <div class="o_cp_top_left">
+                    <ol class="breadcrumb" role="navigation">
+                        <li class="breadcrumb-item active">
+                             <span class="text-900" style="font-size:large;"><t t-esc="state.action_name"/></span>
+                        </li>
+                    </ol>
+                </div>
+                <div class="o_cp_top_right">
+                </div>
+            </div>
+                <div class="o_cp_bottom">
+                <div class="o_cp_bottom_left">
+                    <div class="o_cp_buttons" role="toolbar" aria-label="Control panel buttons">
+<!--                        <button type="button" class="btn btn-secondary" t-on-click="th_export_allo_to_xlsx">XLSX</button>-->
+                    </div>
+                </div>
+                    <div class="o_cp_bottom_right">
+                    <div class="btn-group o_search_options position-static" role="search">
+                        <div class="btn-group dropdown o_account_reports_filter_date">
+                           <button type="button" class="o-no-caret btn btn-secondary dropdown-toggle"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="fa fa-fw fa-calendar" title="Dates" role="img" aria-label="Dates"/>
+                               <t t-esc="state.full_year"/>
+                            </button>
+                            <div class="dropdown-menu o_filter_menu" role="menu"
+                                 style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 33px);"
+                                 data-popper-placement="bottom-start">
+                                <a role="menuitem" class="dropdown-item js_th_report_date_filter"
+                                   title="This Year" data-filter="this_year" t-on-click="_fetch_current_year" t-att-class="state.full_year == new Date().getFullYear() ? 'selected': ''">This Year</a>
+                                <div role="separator" class="dropdown-divider"/>
+                                <a role="menuitem" class="dropdown-item js_th_report_date_filter" title="Last Year"
+                                   data-filter="last_year" t-on-click="_fetch_previous_year" t-att-class="state.full_year != new Date().getFullYear() ? 'selected': ''">Last Year</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="o_content">
+                <Content result="state.data_fetch" data="state.data"/>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="hr.leave.type" name="delete_values_hr_leave_type"/>
+    </data>
+</odoo>

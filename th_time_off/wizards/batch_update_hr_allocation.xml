@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_leave_allocation_batch_update" model="ir.ui.view">
+        <field name="name">leave.allocation.batch.update</field>
+        <field name="model">allocation.batchupdate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Allocation">
+                <group>
+                    <field name="state" required="1"/>
+                </group>
+                <p>
+                    Apply updating on the selected record(s)?
+                </p>
+                <footer>
+                    <button string="Confirm" name="multi_update" type="object" default_focus="1" class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_leave_allocation_batch_update" model="ir.actions.act_window">
+        <field name="name">Update Allocation</field>
+        <field name="res_model">allocation.batchupdate.wizard</field>
+        <field name="binding_model_id" ref="hr_holidays.model_hr_leave_allocation" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_leave_allocation_batch_update" />
+        <field name="groups_id" eval="[(4, ref('base.group_no_one'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+.th_zoom_avatar {
+  img:hover {
+    transform: scale(15) !important;
+    border-radius: 0 !important;
+    object-fit: contain !important;
+    z-index: 3;
+
+  }
+}

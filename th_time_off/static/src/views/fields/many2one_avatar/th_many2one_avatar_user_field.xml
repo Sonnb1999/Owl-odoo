@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="th.mail.Many2OneAvatarUserField" t-inherit="mail.Many2OneAvatarUserField" t-inherit-mode="extension" owl="1">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-attf-src">/web/image/{{props.relation}}/{{props.value[0]}}/avatar_1024</attribute>
+        </xpath>
+    </t>
+
+</templates>

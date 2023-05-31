@@ -1,0 +1,56 @@
+<odoo>
+    <record id="th_hr_leave_allocation_view_form" model="ir.ui.view">
+        <field name="name">th.hr.leave.allocation.view.form</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form_manager"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">0</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='employee_ids']" position="before">
+                <field name="th_condition" required="1" attrs="{'invisible': [('holiday_type', '=', 'employee')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='mode_company_id']" position="after">
+                <field name="th_domain" widget="domain" options="{'model': 'hr.employee'}" attrs="{'invisible': [('th_condition', '!=', 'yes')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_ids']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="hr_holidays.hr_leave_allocation_action_approve_department" model="ir.actions.act_window">
+        <field name="name">Allocations</field>
+        <field name="res_model">hr.leave.allocation</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="hr_leave_allocation_reason_view_form" model="ir.ui.view">
+        <field name="name">Would you decline this allocation?</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="priority" >1000</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="th_reason_refuse" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Refuse" name="action_refuse" type="object" class="btn-primary" data-hotkey="v"/>
+                    <button string="Cancel" class="btn-secondary" data-hotkey="z" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,917 @@
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__leave_validation_type__hrm
+msgid "By Employee's Approver and send a email to the human resource management"
+msgstr "Bởi người phê duyệt của nhân viên và gửi email đến quản lý nhân sự"
+
+#. module: hr_holidays
+#: model:ir.actions.act_window,name:hr_holidays.open_view_public_holiday
+#: model:ir.ui.menu,name:hr_holidays.hr_holidays_public_time_off_menu_configuration
+msgid "Public Holidays"
+msgstr "Ngày nghỉ lễ chung"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_type__leave_validation_type__manager
+msgid "By Employee's Approver"
+msgstr "Bởi người phê duyệt của nhân viên"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_type__leave_validation_type__both
+msgid "By Employee's Approver and Time Off Officer"
+msgstr "Bởi người phê duyệt của nhân viên và nhân viên quản lý nghỉ phép"
+
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_type__responsible_id
+msgid "Responsible Time Off Officer"
+msgstr "Nhân viên quản lý nghỉ phép"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.edit_holiday_status_form
+msgid "Allow To Join Supporting Document"
+msgstr "Cho phép tham gia tài liệu hỗ trợ"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_type__requires_allocation
+msgid "Requires allocation"
+msgstr "Yêu cầu phân bổ nghỉ phép có lương"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_type__employee_requests
+msgid "Employee Requests"
+msgstr "Yêu cầu của nhân viên"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_type__employee_requests__yes
+msgid "Extra Days Requests Allowed"
+msgstr "Yêu cầu thêm ngày nghỉ"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__employee_requests__no
+msgid "Not Allowed"
+msgstr "Không cho phép"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_type__allocation_validation_type__officer
+msgid "Approved by Time Off Officer"
+msgstr "Được chấp thuận bởi nhân viên quản lý nghỉ phép"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.edit_holiday_status_form
+msgid "Display Option"
+msgstr "Tùy chọn hiển thị"
+
+#. module: hr_holidays
+#. openerp-web
+#: code:addons/hr_holidays/static/src/xml/time_off_calendar.xml:0
+#: code:addons/hr_holidays/static/src/xml/time_off_calendar.xml:0
+#, python-format
+msgid "DAYS"
+msgstr "Ngày"
+
+#. module: hr_holidays
+#. openerp-web
+#: code:addons/hr_holidays/static/src/xml/time_off_calendar.xml:0
+#, python-format
+msgid "HOURS"
+msgstr "Giờ"
+
+#. module: hr_holidays
+#. openerp-web
+#: code:addons/hr_holidays/static/src/xml/time_off_calendar.xml:0
+#, python-format
+msgid "AVAILABLE"
+msgstr "nghỉ có phép còn lại"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_allocation_view_form
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_allocation_view_form_manager
+msgid "Validity Period"
+msgstr "Thời gian hiệu lực"
+
+#. module: hr_holidays
+#: model:ir.actions.act_window,name:hr_holidays.open_view_accrual_plans
+#: model:ir.ui.menu,name:hr_holidays.hr_holidays_accrual_menu_configuration
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_plan_view_tree
+msgid "Accrual Plans"
+msgstr "Kế hoạch tích lũy"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_accrual_plan__transition_mode
+msgid "Level Transition"
+msgstr "Chuyển đổi cấp độ"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_plan_view_form
+msgid "Add a new level"
+msgstr "Thêm một cấp độ mới"
+
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_plan__transition_mode__end_of_accrual
+msgid "After this accrual's period"
+msgstr "Sau thời gian tích lũy này"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_accrual_level__start_count
+msgid "Start after"
+msgstr "Bắt đầu sau"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_level_view_form
+msgid "after allocation date"
+msgstr "Sau ngày phân bổ"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_accrual_level__is_based_on_worked_time
+msgid "Based on worked time"
+msgstr "Dựa trên thời gian làm việc"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_level__start_type__month
+msgid "month(s)"
+msgstr "Tháng"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_level__start_type__year
+msgid "year(s)"
+msgstr "Năm"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_level__frequency__bimonthly
+msgid "Twice a month"
+msgstr "Hai lần một tháng"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_level__frequency__biyearly
+msgid "Twice a year"
+msgstr "Hai lần một năm"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_accrual_level__maximum_leave
+msgid "Limit to"
+msgstr "Giới hạn"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_accrual_level__action_with_unused_accruals
+msgid "At the end of the calendar year, unused accruals will be"
+msgstr "Vào cuối năm, các khoản tích lũy không sử dụng sẽ"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_level__action_with_unused_accruals__postponed
+msgid "Transferred to the next year"
+msgstr "Chuyển sang năm sau"
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_mail_activity__chaining_type
+#: model:ir.model.fields,field_description:mail.field_mail_activity_type__chaining_type
+msgid "Chaining Type"
+msgstr "Loại chuỗi"
+
+#. module: mail
+#: model:ir.model.fields.selection,name:mail.selection__mail_activity_type__delay_from__current_date
+msgid "after completion date"
+msgstr "Sau ngày hoàn thành"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_allocation_view_tree
+msgid "Validity Start"
+msgstr "Thời gian bắt đầu"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_allocation_view_tree
+msgid "Validity Stop"
+msgstr "Thời gian kết thúc"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_report_calendar_view_search
+msgid "Off Today"
+msgstr "Nghỉ hôm nay"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_report_calendar_view_search
+msgid "Waiting for Approval"
+msgstr "Chờ phê duyệt"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_accrual_plan__th_period
+msgid "Period"
+msgstr "Đơn vị"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_accrual_plan__th_unused_days
+msgid "At the end of the calendar year, unused accruals will be"
+msgstr "Vào cuối năm dương lịch, các khoản tích lũy chưa sử dụng sẽ"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_period__day
+msgid "Days"
+msgstr "Ngày"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_period__hour
+msgid "Hours"
+msgstr "Giờ"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_unused_days__postponed
+msgid "Transferred to the next year"
+msgstr "Chuyển sang năm sau"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_unused_days__lost
+msgid "Lost"
+msgstr "Mất đi"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_frequency__day
+msgid "Day"
+msgstr "Ngày"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_frequency__month
+msgid "Month"
+msgstr "Tháng"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_accrual_plan__th_frequency__year
+msgid "Year"
+msgstr "Năm"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_accrual_plan_view_form
+msgid "Name of the accrual..."
+msgstr "Tên khoản tích lũy"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_accrual_plan_view_form
+msgid "Times"
+msgstr "Cộng thêm"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_accrual_plan_view_form
+msgid "Maximum times"
+msgstr "Được hưởng tối đa"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_accrual_plan_view_form
+msgid "Frequency"
+msgstr "Tính thường xuyên"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_accrual_plan_view_form
+msgid "<span>at every</span>"
+msgstr "<span>mỗi</span>"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_view_form
+msgid "Supporting Document"
+msgstr "Tài liệu hỗ trợ"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave__supported_attachment_ids
+msgid "Attach File"
+msgstr "File đính kèm"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.edit_holiday_status_form
+msgid "<span class=\"o_stat_text\">Accruals</span>"
+msgstr "<span class=\"o_stat_text\">Kế hoạch tích lũy</span>"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.edit_holiday_status_form
+msgid "<span class=\"o_stat_text\">Allocations</span>"
+msgstr "<span class=\"o_stat_text\">Phân bổ</span>"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.edit_holiday_status_form
+msgid "<span class=\"o_stat_text\">Time Off</span>"
+msgstr "<span class=\"o_stat_text\">Nghỉ phép</span>"
+
+#. module: th_time_off
+#. openerp-web
+#: code:addons/th_time_off/static/src/xml/leave_stats_templates.xml:0
+#, python-format
+msgid "hour(s)"
+msgstr "giờ"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid ""
+"<br/>\n"
+"                                <b attrs=\"{'invisible': [('th_requires_allocation', '=', False)]}\">Number of day(s) allocated in this year</b>"
+
+msgstr ""
+"<br/>\n"
+"                                <b attrs=\"{'invisible': [('th_requires_allocation', '=', False)]}\">Số ngày được phân bổ trong năm</b>"
+
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+msgid ""
+"<br/>\n"
+"                        <b attrs=\"{'invisible': [('th_requires_allocation', '=', False)]}\">Number of day(s) allocated in this year</b>"
+msgstr ""
+"<br/>\n"
+"                        <b attrs=\"{'invisible': [('th_requires_allocation', '=', False)]}\">Số ngày được phân bổ trong năm</b>"
+
+#. module: th_time_off
+#. openerp-web
+#: code:addons/th_time_off/static/src/xml/leave_stats_templates.xml:0
+#, python-format
+msgid "None"
+msgstr "Chưa có dữ liệu"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "<b>This year used time off</b>"
+msgstr "<b>Đã nghỉ trong năm</b>"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid ""
+"<b attrs=\"{'invisible': [('th_requires_allocation', '=', "
+"False)]}\">Remaining day(s) in this year</b>"
+msgstr ""
+"<b attrs=\"{'invisible': [('th_requires_allocation', '=', "
+"False)]}\">Phân bổ còn lại trong năm</b>"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Paid Leave"
+msgstr "Nghỉ có lương"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "day(s)"
+msgstr "ngày"
+
+#. module: th_time_off
+#. openerp-web
+#: code:addons/th_time_off/static/src/xml/leave_stats_templates.xml:0
+#, python-format
+msgid "so far"
+msgstr "Tổng số ngày nghỉ phép nhận được của"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_root
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_dashboard
+msgid "Approve"
+msgstr "Duyệt"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_root
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_all
+msgid "Mode"
+msgstr "Chế độ"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_root
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_all
+msgid "Company"
+msgstr "Công ty"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Validate"
+msgstr "Xác thực"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Dates"
+msgstr "Ngày tháng"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_root
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_all
+msgid "Duration"
+msgstr "Thời lượng"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Supporting Document"
+msgstr "Tài liệu hỗ trợ"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Mark as Draft"
+msgstr "Đặt là nháp"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid ""
+"<span attrs=\"{'invisible': [('holiday_type', '!=', 'employee')]}\">\n"
+"                        The employee has a different timezone than yours! Here dates and times are displayed in the employee's timezone\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('holiday_type', '!=', 'department')]}\">\n"
+"                        The department's company has a different timezone than yours! Here dates and times are displayed in the company's timezone\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('holiday_type', '!=', 'company')]}\">\n"
+"                        The company has a different timezone than yours! Here dates and times are displayed in the company's timezone\n"
+"                    </span>\n"
+"                    ("
+msgstr ""
+"<span attrs=\"{'invisible': [('holiday_type', '!=', 'employee')]}\">\n"
+"                        Nhân viên có múi giờ khác với múi giờ của bạn! Ngày giờ hiển thị ở đây là theo múi giờ của nhân viên\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('holiday_type', '!=', 'department')]}\">\n"
+"                        Công ty của phòng ban có múi giờ khác với múi giờ của bạn! Ngày giờ hiển thị ở đây là theo múi giờ của công ty\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('holiday_type', '!=', 'company')]}\">\n"
+"                        Công ty có múi giờ khác với múi giờ của bạn! Ngày giờ hiển thị ở đây là theo múi giờ của công ty\n"
+"                    </span>\n"
+"                    ("
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid ""
+"<span class=\"oe_inline\" attrs=\"{'invisible': ['|', ('request_unit_half', '=', True), ('request_unit_hours', '=', True)]}\">\n"
+"                                    From\n"
+"                                </span>"
+msgstr ""
+"<span class=\"oe_inline\" attrs=\"{'invisible': ['|', ('request_unit_half', '=', True), ('request_unit_hours', '=', True)]}\">\n"
+"                                    Từ\n"
+"                                </span>"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid ""
+"<span class=\"oe_inline\" attrs=\"{'invisible': ['|', ('request_unit_half', '=', True), ('request_unit_hours', '=', True)]}\">\n"
+"                                    To\n"
+"                                </span>"
+msgstr ""
+"<span class=\"oe_inline\" attrs=\"{'invisible': ['|', ('request_unit_half', '=', True), ('request_unit_hours', '=', True)]}\">\n"
+"                                    Đến\n"
+"                                </span>"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "<span>Days</span>"
+msgstr "<span>Ngày </span>"
+
+#. module: th_time_off
+#: model:ir.actions.act_window,name:th_time_off.th_hr_leave_action_new_request
+msgid "Dashboard"
+msgstr "Bảng thông tin"
+
+#. module: th_time_off
+#: model:ir.actions.act_window,name:th_time_off.th_hr_leave_action_my
+msgid "My Time Off"
+msgstr "Nghỉ phép của tôi"
+
+#. module: th_time_off
+#: model:ir.actions.act_window,name:th_time_off.th_hr_leave_action_action_approve_department
+msgid "All Time Off"
+msgstr "Tất cả Nghỉ phép"
+
+#. module: th_time_off
+#: model:ir.actions.act_window,name:th_time_off.th_hr_leave_work_entry_action
+msgid "Time Off"
+msgstr "Nghỉ phép"
+
+#. module: th_time_off
+#. openerp-web
+#: code:addons/th_time_off/static/src/js/hr_leave_button.js:0
+#, python-format
+msgid "New Time Off"
+msgstr "Tạo nghỉ phép"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_root
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_tree_dashboard
+msgid "Refuse"
+msgstr "Từ chối"
+
+#. module: th_time_off
+#: model:ir.actions.client,name:th_time_off.allocation_report_action
+#: model:ir.model,name:th_time_off.model_allocation_report
+#: model:ir.ui.menu,name:th_time_off.menu_th_allocation_report_1
+msgid "Allocation report"
+msgstr "Báo cáo phân bổ"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_allocation__th_duration_display
+msgid "Allocated (Days/Hours)"
+msgstr ""
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_type__th_is_paid_leave
+msgid "Is paid leave"
+msgstr "Nghỉ có lương"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_allocation__th_condition
+msgid "Condition"
+msgstr "Điều kiện"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_allocation__th_domain
+msgid "Domain"
+msgstr "Với điều kiện"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_allocation__th_condition__no
+msgid "No condition"
+msgstr "Không điều kiện"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_allocation__th_condition__yes
+msgid "With condition"
+msgstr "Có điều kiện"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_view_kanban
+msgid "<i class=\"fa fa-thumbs-up\"/> Approve"
+msgstr "<i class=\"fa fa-thumbs-up\"/> Duyệt"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_allocation_view_kanban
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_view_kanban
+msgid "<i class=\"fa fa-times\"/> Refuse"
+msgstr "<i class=\"fa fa-times\"/> Từ chối"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_allocation_view_kanban
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_view_kanban
+msgid "<i class=\"fa fa-check\"/> Validate"
+msgstr "<i class=\"fa fa-check\"/> Xác thực"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_kanban
+msgid "<i class=\"fa fa-times\"/>Refuse"
+msgstr "<i class=\"fa fa-times\"/>Từ chối"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#, python-format
+msgid "Time of type"
+msgstr "Loại nghỉ phép"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#, python-format
+msgid "Implementation date"
+msgstr "Ngày có hiệu lực"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#, python-format
+msgid "Allocation duration"
+msgstr "Thời lượng phân bổ"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#, python-format
+msgid "Available days"
+msgstr "Ngày khả dụng"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#, python-format
+msgid "Remaining"
+msgstr "Thời gian còn lại"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#, python-format
+msgid "hours"
+msgstr "giờ"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave__name
+msgid "name"
+msgstr "Lý do"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave__th_reason_refuse
+msgid "th_reason_refuse"
+msgstr "Lý do"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_reason_view_form
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_reason_view_form
+msgid "Refuse"
+msgstr "Xác nhận"
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "Would you like to refuse this leave?"
+msgstr "Bạn có muốn từ chối phiếu nghỉ phép này?"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_reason_view_form
+msgid "Would you like to refuse this leave?"
+msgstr "Bạn có muốn từ chối phiếu nghỉ phép này?"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_accrual_plan_view_form
+msgid ""
+"<span class=\"oe_inline\" attrs=\"{'invisible': [('th_period', '=', 'hour')]}\">days</span>\n"
+"                                <span class=\"oe_inline\" attrs=\"{'invisible': [('th_period', '=', 'day')]}\">hours</span>"
+msgstr ""
+"<span class=\"oe_inline\" attrs=\"{'invisible': [('th_period', '=', 'hour')]}\">ngày</span>\n"
+"                                <span class=\"oe_inline\" attrs=\"{'invisible': [('th_period', '=', 'day')]}\">giờ</span>"
+
+#. module: hr_holidays
+#: model:ir.ui.menu,name:hr_holidays.menu_hr_holidays_approvals
+msgid "Approvals"
+msgstr "Nghỉ và phân bổ"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_accrual_level__accrual_plan_id
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_allocation__accrual_plan_id
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_plan_view_form
+#: model:ir.model,name:th_time_off.model_hr_leave_accrual_plan
+msgid "Accrual Plan"
+msgstr "Kế hoạch tích lũy"
+
+#. module: hr_payroll_holidays
+#: model:ir.actions.server,name:hr_payroll_holidays.ir_actions_server_mark_as_reported
+msgid "Mark as defered"
+msgstr "Đánh dấu là phản đối"
+
+#. module: hr_payroll_holidays
+#: model:ir.actions.server,name:hr_payroll_holidays.ir_actions_server_report_to_next_month
+msgid "Defer to Next Month"
+msgstr "Trì hoãn sang tháng sau"
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "Time off request must be confirmed or validated in order to refuse it."
+msgstr "Để từ chối, yêu cầu nghỉ phép phải được xác nhận hoặc xác thực."
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid ""
+"Your %(leave_type)s planned on %(date)s has been refused. Reason: "
+"%(th_reason)s"
+msgstr ""
+"%(leave_type)s của bạn vào ngày %(date)s đã bị từ chối. Lý do: "
+"%(th_reason)s"
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "Your %(leave_type)s planned on %(date)s  has been refused."
+msgstr "%(leave_type)s của bạn vào %(date)s đã bị từ chối."
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid ""
+"Time off request must be confirmed (\"To Approve\") in order to approve it."
+msgstr ""
+"Yêu cầu nghỉ phải được xác nhận (\"Cần Phê duyệt\") để phê duyệt yêu cầu đó."
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "%(user)s %(leave_type)s planned from %(date_from)s to %(date_to)s has been accepted"
+msgstr "%(user)s %(leave_type)s từ %(date_from)s đến %(date_to)s đã được chấp thuận"
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "Your %(leave_type)s planned from %(date_from)s to %(date_to)s has been accepted"
+msgstr "%(leave_type)s của bạn từ %(date_from)s đến %(date_to)s đã được chấp thuận"
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid ""
+"The following employees are not supposed to work during that period:\n"
+" %s"
+msgstr ""
+"Những nhân viên sau đây không được phép làm việc trong thời gian đó:\n"
+" %s"
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "Time off request must be confirmed in order to approve it."
+msgstr "Để duyệt, yêu cầu nghỉ phép phải được xác nhận."
+
+#. module: th_time_off
+#: code:addons/th_time_off/models/hr_leave.py:0
+#, python-format
+msgid "You can not have 2 time off that overlaps on the same day."
+msgstr "Bạn không thể có 2 thời gian nghỉ trùng nhau trong cùng một ngày."
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_report_calendar__stop_datetime
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_leave_view_form
+msgid "To"
+msgstr "Đến"
+
+#. module: th_time_off
+#. openerp-web
+#: code:addons/th_time_off/static/src/js/hr_leave_button.js:0
+#, python-format
+msgid "New time off"
+msgstr "Tạo nghỉ phép"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_allocation__th_reason_refuse
+msgid "Reason"
+msgstr "Lý do"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "From"
+msgstr "Từ"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "To"
+msgstr "Đến"
+
+#. module: hr_holidays
+#: model:ir.ui.menu,name:hr_holidays.menu_hr_holidays_report
+msgid "Time Off Analysis"
+msgstr "Phân tích nghỉ phép"
+
+#. module: hr_holidays
+#: model:ir.actions.server,name:hr_holidays.action_hr_holidays_by_employee_and_type_report
+msgid "Time off Analysis by Employee and Time Off Type"
+msgstr "Phân tích thời gian nghỉ theo nhân viên và loại thời gian nghỉ"
+
+#. module: hr_holidays
+#: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_type__allocation_validation_type__set
+msgid "Set by Time Off Officer"
+msgstr "Đặt bởi Cán bộ quản lý Nghỉ"
+
+#. module: hr_holidays
+#: model:ir.ui.menu,name:hr_holidays.menu_hr_available_holidays_report_tree
+msgid "by Employee"
+msgstr "bởi Nhân viên"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#: model:ir.model.fields,field_description:th_time_off.field_th_used_time_off__th_employee_id
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#, python-format
+msgid "Employee"
+msgstr "Nhân viên"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+msgid "Employees"
+msgstr "Nhân viên"
+
+
+#. module: hr_holidays
+#: model:ir.model.fields,help:hr_holidays.field_hr_leave_type__color_name
+msgid ""
+"This color will be used in the time off summary located in Reporting > Time "
+"off by Department."
+msgstr ""
+"Màu này sẽ được sử dụng trong phần tóm tắt nghỉ nằm trong Báo cáo> Nghỉ bởi "
+"phòng ban."
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.message_activity_assigned
+msgid "to close for"
+msgstr "cần được duyệt vào ngày"
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.message_activity_assigned
+msgid "assigned you an activity"
+msgstr "đã gửi cho bạn một hoạt động"
+
+#. module: hr_holidays
+#: code:addons/hr_holidays/models/hr_leave.py:0
+#: code:addons/hr_holidays/models/hr_leave.py:0
+#, python-format
+msgid "New %(leave_type)s Request created by %(user)s"
+msgstr "Phiếu nghỉ: %(leave_type)s được tạo bởi %(user)s"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.view_leave_form_inherit
+msgid "User can upload leave permit"
+msgstr "Người dùng có thể tải lên giấy nghỉ phép"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_accrual_plan__th_days_add
+msgid "Days add"
+msgstr "Thêm ngày"
+
+#. module: hr_holidays
+#: model:res.groups,name:hr_holidays.group_hr_holidays_user
+msgid "Time Off Officer"
+msgstr "Cán bộ"
+
+#. module: th_employee
+#: model:ir.model.fields.selection,name:th_employee.selection__hr_employee__th_activeness__unpaid
+msgid "Unpaid leave"
+msgstr "Nghỉ không lương"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave__th_requires_allocation
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave_type__th_check_type
+msgid "Type check"
+msgstr "Loại nghỉ phép"
+
+#. module: th_time_off
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+msgid "Total number of days off:"
+msgstr "Tổng số ngày đã nghỉ:"
+
+#. module: th_time_off
+#: code:addons/th_time_off/report/allocation_report.py:0
+#: code:addons/th_time_off/report/allocation_report.py:0
+#: model_terms:ir.ui.view,arch_db:th_time_off.hr_leave_view_form_manager
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form
+#: model_terms:ir.ui.view,arch_db:th_time_off.th_hr_leave_view_form_dashboard
+#, python-format
+msgid "days"
+msgstr "ngày"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__th_check_type__is_paid_leave
+msgid "Paid Leave"
+msgstr "Nghỉ có lương"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__th_check_type__is_paternity_leave
+msgid "Paternity Leave"
+msgstr "Nghỉ thai sản(cho bố)"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__th_check_type__is_maternity_leave
+msgid "Maternity Leave"
+msgstr "Nghỉ thai sản(cho Mẹ)"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__th_check_type__is_funeral_leave
+msgid "Funeral Leave"
+msgstr "Nghỉ hiếu"
+
+#. module: th_time_off
+#: model:ir.model.fields.selection,name:th_time_off.selection__hr_leave_type__th_check_type__is_wedding_leave
+msgid "Wedding Leave"
+msgstr "Nghỉ cưới hỏi"
+
+#. module: th_time_off
+#: model:ir.model.fields,field_description:th_time_off.field_hr_leave__th_remaining_number_of_days
+msgid "Remaining day(s)"
+msgstr ""
+

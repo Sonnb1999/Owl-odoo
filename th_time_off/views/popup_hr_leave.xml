@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View popup when refuse time off-->
+    <record id="th_hr_leave_reason_view_form" model="ir.ui.view">
+        <field name="name">Would you like to refuse this leave?</field>
+        <field name="model">hr.leave</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="th_reason_refuse"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Refuse" name="action_refuse" type="object" class="btn-primary" data-hotkey="v"/>
+                    <button string="Cancel" class="btn-secondary" data-hotkey="z" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="th_time_off.content" owl="1">
+       <div class="o_th_reports_page">
+           <div id="table-wrapper">
+                <div id="table-scroll">
+                    <table>
+                        <thead>
+                            <tr style="background-color:#A9E2F3;">
+                                <th class="th_list_table"><strong>Employee</strong></th>
+                                <th class="th_list_table"><strong>Time of type</strong></th>
+                                <th class="th_list_table"><strong>Implementation date</strong></th>
+                                <th class="th_list_table"><strong>Allocation duration</strong></th>
+                                <th class="th_list_table" align="center"><strong>Available days</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="props.result" t-as="line" t-key="line.id">
+                                <t t-if="line['request_unit'] == 'day' or line['request_unit'] == 'half_day'">
+                                    <td class="th_list_table" t-out="line['employee_name']"/>
+                                    <td class="th_list_table" t-out="line['leave_type_name'][props.data.lang]"/>
+                                    <td class="th_list_table" t-out="line['date_from']"/>
+                                    <td class="th_list_table" t-out="line['th_duration_display']"/>
+                                    <td class="th_list_table" t-out="line['the_remaining_days']"/>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+           </div>
+       </div>
+    </t>
+</templates>

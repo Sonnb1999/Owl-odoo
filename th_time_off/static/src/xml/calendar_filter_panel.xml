@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="th_time_off.CalendarFilterPanel" t-inherit="hr_holidays.CalendarFilterPanel" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_calendar_filter')]//div[contains(@class, 'd-flex flex-column')]//span[1]" position="replace">
+            <span><img class="o_calendar_filter_plain" src="/hr/static/src/img/icons/plain.svg"/> Approved</span>
+        </xpath>
+    </t>
+</templates>
+
+
+

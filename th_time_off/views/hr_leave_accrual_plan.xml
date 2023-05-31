@@ -1,0 +1,64 @@
+<odoo>
+    <record id="th_hr_leave_accrual_plan_view_form" model="ir.ui.view">
+        <field name="name">th_hr_leave_accrual_plan_view_form</field>
+        <field name="model">hr.leave.accrual.plan</field>
+        <field name="inherit_id" ref="hr_holidays.hr_accrual_plan_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="replace">
+                <sheet>
+                    <div class="oe_button_box" name="button_box" attrs="{'invisible': [('id', '=', False)]}">
+                        <button name="action_open_accrual_plan_employees" type="object" class="oe_stat_button" icon="fa-users">
+                            <field name="employees_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Name of the accrual..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="time_off_type_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="th_period" readonly="1"/>
+                            <label for="th_days_add" attrs="{'invisible': [('th_period', '=', False)]}"/>
+                            <div class="o_row" attrs="{'invisible': [('th_period', '=', False)]}">
+                                <field name="th_days_add" class="oe_inline"/>
+                                <span class="oe_inline" attrs="{'invisible': [('th_period', '=', 'hour')]}">days</span>
+                                <span class="oe_inline" attrs="{'invisible': [('th_period', '=', 'day')]}">hours</span>
+                            </div>
+                            <label for="th_max_days" string="Maximum times" attrs="{'invisible': [('th_period', '=', False)]}"/>
+                            <div class="o_row" attrs="{'invisible': [('th_period', '=', False)]}">
+                                <field name="th_max_days" class="oe_inline"/>
+                                <span class="oe_inline" attrs="{'invisible': [('th_period', '=', 'hour')]}">days</span>
+                                <span class="oe_inline" attrs="{'invisible': [('th_period', '=', 'day')]}">hours</span>
+                            </div>
+                            <field name="transition_mode" widget="radio"/>
+                            <label for="th_frequency" string="Frequency"/>
+                            <div class="o_row">
+                                <span>at every</span>
+                                <field name="th_period_number" nolabel="1"/>
+                                <field name="th_frequency" nolabel="1"/>
+                            </div>
+                            <field name="th_unused_days"/>
+                        </group>
+                        <group/>
+                    </group>
+                </sheet>
+            </xpath>
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">0</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="th_hr_leave_accrual_plan_view_tree" model="ir.ui.view">
+        <field name="name">th.hr.leave.accrual.plan.view.tree</field>
+        <field name="model">hr.leave.accrual.plan</field>
+        <field name="inherit_id" ref="hr_holidays.hr_accrual_plan_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='level_count']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
