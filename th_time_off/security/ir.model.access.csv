@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_th_leave_batchupdate_wizard,access.th_leave_batchupdate_wizard,model_leave_batchupdate_wizard,base.group_user,1,1,1,1
-access_th_allocation_batchupdate_wizard,access.th_allocation_batchupdate_wizard,model_allocation_batchupdate_wizard,base.group_user,1,1,1,1
-access_th_used_time_off,access.th_used_time_off,model_th_used_time_off,,1,1,1,1
