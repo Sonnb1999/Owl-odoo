@@ -52,7 +52,6 @@ function app() {
         }
         submitDone(submission) {
             if (submission.state == 'submitted') {
-                debugger
                 let r = window.document.referrer != "" ? window.document.referrer : window.location.origin;
                 const regex = /(https?:\/\/.*?)\//g;
                 let furl = regex.exec(r);
@@ -83,7 +82,6 @@ function app() {
         }
 
         getDataUrl(compObj) {
-            debugger
             return '/formio/public/form/new', self.formUuid, compObj.data.url;
         }
     }

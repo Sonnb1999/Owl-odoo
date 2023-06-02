@@ -1173,7 +1173,8 @@
           (undefined !== msg ? ':' + msg : '')
 
       log('Sending message to host page (' + message + ')')
-      target.postMessage(msgID + message, targetOrigin)
+      // target.postMessage(msgID + message, targetOrigin)
+      target.postMessage(msgID + message, '*')
     }
 
     if (true === sendPermit) {

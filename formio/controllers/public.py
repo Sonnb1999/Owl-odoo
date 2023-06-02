@@ -152,7 +152,8 @@ class FormioPublicController(http.Controller):
         if not formio_builder:
             # TODO raise or set exception (in JSON resonse) ?
             return
-
+        # for key, value in post['data']['nganh'].items():
+        # checkbox = ""
         name = ''
         email = ''
         phone = ''
@@ -177,7 +178,7 @@ class FormioPublicController(http.Controller):
             th_university = formio_builder.th_university_ids.sudo().search([('th_url', '=', th_source)]).th_code
 
         if phone != '' or email != '':
-            check_contact = request.env['res.partner'].sudo().search(['|', ('email', '=', email), ('phone', '=', phone)])
+            check_contact = request.env['res.partner'].sudo().search([('phone', '=', phone)])
 
             check_contact.sudo().update({
                 'phone': check_contact.phone if check_contact.phone else phone,

@@ -845,7 +845,8 @@
           ') targetOrigin: ' +
           target
       )
-      iframe.contentWindow.postMessage(msgId + msg, target)
+      // iframe.contentWindow.postMessage(msgId + msg, target)
+      iframe.contentWindow.postMessage(msgId + msg, '*')
     }
 
     function iFrameNotFound() {
