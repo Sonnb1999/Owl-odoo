@@ -1,0 +1,35 @@
+<odoo>
+    <record id="th_link_tracker_view_form" model="ir.ui.view">
+        <field name="name">th.link.tracker.view.form.inherit</field>
+        <field name="model">link.tracker</field>
+        <field name="inherit_id" ref="link_tracker.link_tracker_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='utm']//field[@name='source_id']" position="after">
+                <field name="th_partner_id"/>
+            </xpath>
+            <xpath expr="//group" position="after">
+                <notebook>
+                    <page string="Link bài viết">
+                        <field name="th_post_link_id">
+                            <tree string="Record post link" class="th_post_link" editable="bottom">
+                                <field name="name" widget="url" readonly="1" />
+                                <field name="state"/>
+                                <field name="partner_id"/>
+                                <field name="th_pay"/>
+                                <field name="th_note"/>
+                                <field name="create_date" string="Ngày tạo" widget="date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter" groups="formio.group_formio_admin">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

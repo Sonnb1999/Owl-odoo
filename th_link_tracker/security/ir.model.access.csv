@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_th_link_seeding,access_th_link_seeding,model_th_link_seeding,,1,1,1,1
+access_th_link_tracker_user,access.th.link.tracker.user,model_link_tracker,,1,1,1,1
+access_th_post_link,access.th.post.link,model_th_post_link,,1,1,1,1

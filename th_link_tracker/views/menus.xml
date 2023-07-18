@@ -1,0 +1,36 @@
+<odoo>
+    <menuitem
+            id="menu_th_link_tracking"
+            name="Link seeding"
+            parent="utm.menu_link_tracker_root"
+            sequence="1"
+            action="th_action_link_seeding"/>
+
+    <menuitem
+            id="menu_th_setting"
+            name="Configuration"
+            parent="utm.menu_link_tracker_root"
+            sequence="300"
+    />
+
+    <record id="link_tracker.link_tracker_menu_main" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6,0, [ref('th_link_tracker.th_group_officer_link_tracker')])]"/>
+    </record>
+
+    <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6,0, [ref('th_link_tracker.th_group_officer_link_tracker')])]"/>
+    </record>
+
+    <record id="utm.marketing_utm" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6,0, [ref('th_link_tracker.th_group_officer_link_tracker')])]"/>
+    </record>
+
+    <record id="utm.menu_utm_medium" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6,0, [ref('th_link_tracker.th_group_officer_link_tracker')])]"/>
+    </record>
+
+    <record id="utm.menu_utm_campaign_act" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6,0, [ref('th_link_tracker.th_group_officer_link_tracker')])]"/>
+    </record>
+
+</odoo>

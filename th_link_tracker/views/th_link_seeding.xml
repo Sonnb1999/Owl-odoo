@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright Nova Code (http://www.novacode.nl)
+See LICENSE file for full licensing details. -->
+
+<odoo>
+    <record id="th_view_link_seeding_tree" model="ir.ui.view">
+        <field name="name">th_view_link_seeding_tree</field>
+        <field name="model">th.link.seeding</field>
+        <field name="arch" type="xml">
+            <tree string="Version">
+                <field name="th_title"/>
+                <field name="th_url"/>
+                <field name="campaign_id"/>
+<!--                <field name="th_request"/>-->
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_view_link_seeding_form" model="ir.ui.view">
+        <field name="name">th_view_link_seeding_form</field>
+        <field name="model">th.link.seeding</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header> <button name="action_create_link_tracker" string="Tạo Link test" type="object" class="oe_highlight" title="Create Link"/></header>
+                <sheet>
+                    <group>
+
+                        <field name="th_title"/>
+                        <field name="th_url"/>
+                        <field name="campaign_id"/>
+                        <field name="medium_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Thông tin" name="th_request">
+                           <field name="th_request" placeholder="Add an internal note..." nolabel="1" height="50"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_action_link_seeding" model="ir.actions.act_window">
+        <field name="name">Link</field>
+        <field name="res_model">th.link.seeding</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('th_view_link_seeding_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('th_view_link_seeding_form')})]"/>
+    </record>
+
+</odoo>

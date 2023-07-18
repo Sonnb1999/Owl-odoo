@@ -1,0 +1,47 @@
+<odoo>
+    <template id="th_post_link" name="Own post link">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" class="me-3"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Links</t>
+            </t>
+            <t t-set="head">
+                <script type="text/javascript" src="/th_link_tracker/static/src/js/th_portal.js"/>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr>
+
+                        <th class="text-center">Chiến dịch</th>
+                        <th class="text-center w-50">Link chia sẻ</th>
+                        <th class="text-center w-50">Trạng thái</th>
+                        <th class="text-center w-50">Ngày tạo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="post_link" t-as="link">
+                        <tr>
+                            <td class="text-center">
+                                <t t-out="campaign_name"/>
+                            </td>
+                            <td>
+                                <a t-attf-href="{{link.name}}" target="_blank">
+                                   <t t-out="link.name"/>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <span t-if="link.state == 'pending'">Chờ duyệt</span>
+                                <span t-if="link.state == 'correct_request'" class="text-success">Đúng yêu cầu</span>
+                                <span t-if="link.state == 'wrong_request'" class="text-warning">Sai yêu cầu</span>
+                            </td>
+                            <td>
+                                <t t-out="link.create_date.date()"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+</odoo>
