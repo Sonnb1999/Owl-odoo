@@ -23,9 +23,18 @@
                 <script type="text/javascript" src="/th_link_tracker/static/src/js/th_portal.js"/>
             </t>
             <t t-call="portal.portal_table">
+                <form action="/my/link_outside" method="post" enctype="multipart/form-data" data-mark="*">
+                    <strong>Link sản phẩm</strong>
+                    <br/>
+                    <div class="input-group mb-5 w-50">
+                        <input required="True" name="own_url" type="text" class="form-control" placeholder="https://vmcvietnam.org/courses/..."/>
+                        <button class="btn btn-outline-success button-addon">
+                            Tạo Link
+                        </button>
+                    </div>
+                </form>
                 <thead>
                     <tr>
-
                         <th class="text-center">Chiến dịch</th>
                         <th class="text-center w-50">Link chia sẻ</th>
                         <th></th>
@@ -39,7 +48,7 @@
                                 <t t-out="link.campaign_id.name"/>
                             </td>
                             <td>
-                                <div class="input-group mb-3">
+                                <div class="input-group ">
                                     <input t-attf-id="input_text_{{link.id}}" type="text" class="form-control"
                                            t-att-value="link.short_url" aria-describedby="button-addon2"
                                            readonly="1"/>
@@ -50,13 +59,13 @@
                                 </div>
                             </td>
                             <td  class="text-center">
-                                <a t-attf-href="/my/info_link/#{link.id}" class="btn btn-info mb-3">
+                                <a t-attf-href="/my/info_link/#{link.id}" class="btn btn-info ">
                                     Thông tin chi tiết
                                 </a>
                             </td>
                             <td class="text-center">
                                 <a t-attf-href="/my/get_post_link/#{link.id}"
-                                   class="mb-3">
+                                   class="">
                                     Danh sách theo chiến dịch <t t-out="link.campaign_id.name"/>
                                 </a>
                             </td>
@@ -90,8 +99,7 @@
 
                                                         <div class="row pt-1">
                                                             <div class="pl-4 d-inline">
-                                                                <t class="pl-4"
-                                                                   t-out="link_tracker.th_link_seeding_id.th_request"/>
+                                                                <t class="pl-4" t-out="link_tracker.th_link_seeding_id.th_request"/>
                                                             </div>
                                                         </div>
                                                     </div>

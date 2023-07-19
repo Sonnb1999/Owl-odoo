@@ -23,6 +23,7 @@ class LinkTracker(models.Model):
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])
     th_post_link_id = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
     th_partner_id = fields.Many2one('res.partner', 'Đối tác', readonly=True)
+    th_image = fields.Binary(string="Ảnh sản phẩm")
 
 
 class ThLinkSeeding(models.Model):

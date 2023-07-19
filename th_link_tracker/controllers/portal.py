@@ -46,7 +46,7 @@ class LinkTrackerPortal(CustomerPortal):
                             total=total_links,
                             page=page,
                             step=10)
-        link_seeds = th_link_seeding.sudo().search(domain, limit=10, offset=page_detail['offset'])
+        link_seeds = th_link_seeding.sudo().search(domain, limit=10, offset=page_detail['offset'], order='id desc')
         form_exist = request.env['link.tracker'].search([])
 
         values = {
@@ -86,7 +86,7 @@ class LinkTrackerPortal(CustomerPortal):
                             total=total_links,
                             page=page,
                             step=10)
-        link_seeds = th_link_tracker.sudo().search(domain, limit=10, offset=page_detail['offset'])
+        link_seeds = th_link_tracker.sudo().search(domain, limit=10, offset=page_detail['offset'], order='id desc')
         values = {
             'link_tracker': link_seeds,
             'page_name': 'own_links',
@@ -135,15 +135,30 @@ class LinkTrackerPortal(CustomerPortal):
         return request.render("th_link_tracker.th_own_link_seeding", values)
 
     # Sản phẩm ngoài danh mục
-    @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True)
-    def create_link_outside(self, link_id, **kwargs):
+    @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True, save_session=False)
+    def create_link_outside(self, **kwargs):
         user_id = request.env.user.id
+        url_product = kwargs['own_url']
         contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
+        link_tracker = request.env['link.tracker']
         domain = [
-            ('th_link_seeding_id', '=', link_id.id),
             ('th_partner_id', '=', contact_affiliate.id),
+            ('url', '=', url_product),
         ]
+        link_exit = link_tracker.sudo().search(domain)
+        if not link_exit:
+            utm_source = request.env['utm.source'].sudo().search([('name', '=', contact_affiliate.th_affiliate_code)])
+            if not utm_source and contact_affiliate:
+                utm_source_id = utm_source.sudo().create({
+                    'name': contact_affiliate.th_affiliate_code,
+                })
+            else:
+                utm_source_id = utm_source.id
 
-        link_exit = request.env['link.tracker'].sudo().search(domain)
+            request.env['link.tracker'].create({
+                'th_partner_id': contact_affiliate.id,
+                'url': url_product,
+                'source_id': utm_source_id,
+            })
 
-
+        return self.list_own_link_tracker()

@@ -24,6 +24,7 @@ class ThLinkSeeding(models.Model):
     campaign_id = fields.Many2one('utm.campaign', ondelete='set null', string='Chiến dịch')
     medium_id = fields.Many2one('utm.medium', ondelete='set null', string='Kênh')
     th_cost = fields.Char('Giá mặc định', default=1500, required=True)
+    th_image = fields.Binary(string="Ảnh sản phẩm")
 
     # source_id = fields.Many2one(ondelete='set null')
 
