@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright Nova Code (http://www.novacode.nl)
-See LICENSE file for full licensing details. -->
-
 <odoo>
     <record id="th_view_link_seeding_tree" model="ir.ui.view">
         <field name="name">th_view_link_seeding_tree</field>
@@ -11,8 +8,6 @@ See LICENSE file for full licensing details. -->
                 <field name="th_title"/>
                 <field name="th_url"/>
                 <field name="campaign_id"/>
-<!--                <field name="th_request"/>-->
-
             </tree>
         </field>
     </record>
