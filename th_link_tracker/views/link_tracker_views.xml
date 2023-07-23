@@ -12,19 +12,30 @@
                     <page string="Link bài viết">
                         <field name="th_post_link_id">
                             <tree string="Record post link" class="th_post_link" editable="bottom">
-                                <field name="name" widget="url" readonly="1" />
+                                <field name="name" widget="url" readonly="1"/>
                                 <field name="state"/>
                                 <field name="partner_id"/>
+                                <field name="th_seeding_acceptance_id"/>
                                 <field name="th_pay"/>
                                 <field name="th_note"/>
                                 <field name="create_date" string="Ngày tạo" widget="date"/>
                             </tree>
                         </field>
+                        <group col="12" class="">
+                            <group colspan="8">
+                            </group>
+                            <!-- Totals (only invoices / receipts) -->
+                            <group colspan="4">
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="th_total_cost" class="font-weight-bold"/>
+                                </group>
+                            </group>
+                    </group>
                     </page>
                 </notebook>
             </xpath>
             <xpath expr="//sheet" position="after">
-                <div class="oe_chatter" groups="formio.group_formio_admin">
+                <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="activity_ids" widget="mail_activity"/>
                     <field name="message_ids" widget="mail_thread"/>

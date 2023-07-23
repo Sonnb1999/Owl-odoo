@@ -22,7 +22,7 @@ class LinkTrackerPortal(CustomerPortal):
                 str(request.env['th.link.seeding'].sudo().search_count(domain)))
 
         if 'own_link_tracker' in counters:
-            domain = [('source_id.name', '=', request.env.user.th_affiliate_code)]
+            domain = [('th_partner_id.id', '=', request.env.user.partner_id.id)]
             values['own_link_tracker'] = (
                 str(request.env['link.tracker'].sudo().search_count(domain)))
 
@@ -79,7 +79,7 @@ class LinkTrackerPortal(CustomerPortal):
     # link tracker
     @http.route(['/my/own_link_tracker', '/my/own_link_tracker/page/<int:page>'], type='http', auth="user", website=True)
     def list_own_link_tracker(self, page=1, sortby='id', search='', search_in="All", **kwargs):
-        domain = [('source_id.name', '=', request.env.user.th_affiliate_code)]
+        domain = [('th_partner_id.id', '=', request.env.user.partner_id.id)]
         th_link_tracker = request.env['link.tracker']
         total_links = th_link_tracker.sudo().search_count(domain)
         page_detail = pager(url='/my/get_link',
@@ -158,7 +158,7 @@ class LinkTrackerPortal(CustomerPortal):
             request.env['link.tracker'].create({
                 'th_partner_id': contact_affiliate.id,
                 'url': url_product,
-                'source_id': utm_source_id,
+                'source_id': utm_source_id.id,
             })
 
         return self.list_own_link_tracker()

@@ -19,7 +19,7 @@ acceptance_type_selection_values = [
 
 class SeedingCategory(models.Model):
     _name = 'th.acceptance.seeding'
-    _rec_name = 'name'
+    _rec_name = 'th_coefficient'
 
     name = fields.Char("Tên")
     th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Loại', required=1, default='is_available')
