@@ -15,6 +15,7 @@
                         <th class="text-center">Chiến dịch</th>
                         <th class="text-center w-50">Link chia sẻ</th>
                         <th class="text-center w-50">Trạng thái</th>
+                        <th class="text-center w-50">Chi phí</th>
                         <th class="text-center w-50">Ngày tạo</th>
                         <th></th>
                     </tr>
@@ -34,6 +35,9 @@
                                 <span t-if="link.state == 'pending'">Chờ duyệt</span>
                                 <span t-if="link.state == 'correct_request'" class="text-success">Đúng yêu cầu</span>
                                 <span t-if="link.state == 'wrong_request'" class="text-warning">Sai yêu cầu</span>
+                            </td>
+                            <td>
+                                <t t-out="link.th_pay"/>
                             </td>
                             <td>
                                 <t t-out="link.create_date.date()"/>
