@@ -22,6 +22,7 @@
         'views/portal_own_port_links_template.xml',
         'views/link_tracker_views.xml',
         'views/seeding_acceptance.xml',
+        'views/res_config_settings_views.xml',
         'views/menus.xml',
     ],
 

@@ -3,3 +3,5 @@ access_th_link_seeding,access_th_link_seeding,model_th_link_seeding,,1,1,1,1
 access_th_link_tracker_user,access.th.link.tracker.user,model_link_tracker,,1,1,1,1
 access_th_post_link,access.th.post.link,model_th_post_link,,1,1,1,1
 access_th_acceptance_seeding,access.th.acceptance.seeding,model_th_acceptance_seeding,,1,1,1,1
+access_th_link_tracker_code_user,access.th.link.tracker.code.user,link_tracker.model_link_tracker_code,,1,1,1,1
+access_th_link_tracker_click_manager,th.link.tracker.click,link_tracker.model_link_tracker_click,,1,1,1,1

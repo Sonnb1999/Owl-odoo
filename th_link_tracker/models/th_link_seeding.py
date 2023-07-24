@@ -51,11 +51,11 @@ class ThLinkSeeding(models.Model):
             contact_affiliate = self.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
             utm_source_id = False
             utm_source = self.env['utm.source'].sudo().search([('name', '=', contact_affiliate.th_affiliate_code)])
-            if not utm_source and contact_affiliate:
+            if not utm_source and contact_affiliate.th_affiliate_code:
                 utm_source_id = utm_source.sudo().create({
-                   'name': contact_affiliate.th_affiliate_code
+                    'name': contact_affiliate.th_affiliate_code
                 })
-            else:
+            if utm_source:
                 utm_source_id = utm_source
 
             for rec in self or link_origin:
