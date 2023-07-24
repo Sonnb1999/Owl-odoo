@@ -13,12 +13,12 @@
                         <field name="th_post_link_id">
                             <tree string="Record post link" class="th_post_link" editable="bottom">
                                 <field name="name" widget="url" readonly="1"/>
-                                <field name="state"/>
                                 <field name="partner_id"/>
-                                <field name="th_seeding_acceptance_id"/>
-                                <field name="th_pay"/>
-                                <field name="th_note"/>
                                 <field name="create_date" string="Ngày tạo" widget="date"/>
+                                <field name="state"/>
+                                <field name="th_pay"/>
+                                <field name="th_seeding_acceptance_id"/>
+                                <field name="th_note"/>
                             </tree>
                         </field>
                         <group col="12" class="">
@@ -42,5 +42,11 @@
                 </div>
             </xpath>
         </field>
+    </record>
+
+    <record id="th_post_link_action" model="ir.actions.act_window">
+        <field name="name">th.post.link.action</field>
+        <field name="res_model">th.post.link</field>
+        <field name="view_mode">form</field>
     </record>
 </odoo>

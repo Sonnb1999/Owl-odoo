@@ -1,16 +1,5 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-import random
-import requests
-import string
-
-from lxml import html
-from werkzeug import urls
-
 from odoo import tools, models, fields, api, _
-from odoo.exceptions import UserError
-from odoo.osv import expression
+from collections import defaultdict
 
 URL_MAX_SIZE = 10 * 1024 * 1024
 
@@ -40,12 +29,12 @@ class LinkTracker(models.Model):
 class ThPostSeeding(models.Model):
     _name = "th.post.link"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    name = fields.Char('Post link')
+    name = fields.Char('Post link', tracking=True, required=True)
     link_tracker_id = fields.Many2one('link.tracker')
     th_note = fields.Text('Comment', tracking=True)
     partner_id = fields.Many2one('res.partner', string='Nghiệm thu', readonly=1, tracking=True)
     th_seeding_acceptance_id = fields.Many2one('th.acceptance.seeding', 'Hệ số', tracking=True)
-    th_pay = fields.Char('Chi phí', compute="compute_th_pay", tracking=True)
+    th_pay = fields.Char('Chi phí', compute="compute_th_pay")
     state = fields.Selection(
         selection=[('pending', 'Chờ duyệt'), ('correct_request', 'Đúng yêu cầu'), ('wrong_request', 'Sai yêu cầu')],
         string='Trạng thái', tracking=True)
@@ -61,40 +50,26 @@ class ThPostSeeding(models.Model):
     def write(self, values):
         state = values.get('state', False)
         th_seeding_acceptance_id = values.get('th_seeding_acceptance_id', False)
-        if (state or th_seeding_acceptance_id) and self.partner_id.id != self.env.user.partner_id.id:
-            # rec.partner_id = rec.env.user.partner_id.id
-            values['partner_id'] = self.env.user.partner_id.id
-        partner_id = values.get('partner_id', False)
-        res = super(ThPostSeeding, self).write(values)
         for rec in self:
-            if values and rec.link_tracker_id:
-                model_main = rec.env['link.tracker'].search([('id', '=', rec.link_tracker_id.id)])
-                mess_item = []
-                if rec.name:
-                    message = 'Link nghiệm thu: ' + rec.name
-                    mess_item.append('<a href="%s" target="_blank">%s</a>' % (message, message))
-                if partner_id:
-                    th_partner = self.env['res.partner'].sudo().search([('id', '=', partner_id)])
-                    mess_item.append("Nghiệm thu: " + th_partner.name)
-                if th_seeding_acceptance_id:
-                    th_seeding_acceptance = self.env['th.acceptance.seeding'].search([('id', '=', th_seeding_acceptance_id)])
-                    mess_item.append("Hệ số: " + th_seeding_acceptance.th_coefficient)
-                if state:
-                    state_name = ''
-                    if state == "pending":
-                        state_name = 'Chờ duyệt'
-                    elif state == "correct_request":
-                        state_name = "Đúng yêu cầu"
-                    else:
-                        state_name = "Sai yêu cầu"
-                    mess_item.append('Trạng thái: ' + state_name)
+            if (state or th_seeding_acceptance_id) and rec.partner_id.id != self.env.user.partner_id.id:
+                values['partner_id'] = self.env.user.partner_id.id
 
-                if partner_id or state or th_seeding_acceptance_id:
-                    body = _('<ul>%s</ul>') % ('\n'.join('<li>%s</li>' % name for name in mess_item))
+        link_post_initial_values = defaultdict(dict)
+        tracking_fields = []
+        for field_name in values:
+            field = self._fields[field_name]
+            if not (hasattr(field, 'related') and field.related) and hasattr(field, 'tracking') and field.tracking:
+                tracking_fields.append(field_name)
+        fields_definition = self.env['th.post.link'].fields_get(tracking_fields)
 
-                    model_main.message_post(
-                        body=body,
-                        message_type='comment')
+        for link_post in self:
+            for field in tracking_fields:
+                link_post_initial_values[link_post][field] = link_post[field]
 
-
+        res = super().write(values)
+        for link_post, initial_values in link_post_initial_values.items():
+            tracking_value_ids = link_post._mail_track(fields_definition, initial_values)[1]
+            if tracking_value_ids:
+                msg = _("Link bài đăng %s đã được cập nhập", link_post._get_html_link(title=f"#{link_post.id}"))
+                link_post.link_tracker_id._message_log(body=msg, tracking_value_ids=tracking_value_ids)
         return res
