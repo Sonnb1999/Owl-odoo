@@ -21,7 +21,7 @@ class SeedingCategory(models.Model):
     _name = 'th.acceptance.seeding'
     _rec_name = 'th_coefficient'
 
-    name = fields.Char("Tên")
+    # name = fields.Char("Tên")
     th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Loại', required=1, default='is_available')
     th_coefficient = fields.Selection(selection=coefficient_selection_values, required=1, string="Hệ số")
     th_coefficient_convention = fields.Char(string="Quy ước hệ số")

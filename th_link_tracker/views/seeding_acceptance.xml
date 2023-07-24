@@ -5,7 +5,7 @@
         <field name="model">th.acceptance.seeding</field>
         <field name="arch" type="xml">
             <tree editable="bottom" string="Version">
-                <field name="name"/>
+<!--                <field name="name"/>-->
                 <field name="th_acceptance_type"/>
                 <field name="th_coefficient" />
                 <field name="th_coefficient_convention"/>
