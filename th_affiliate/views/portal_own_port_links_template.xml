@@ -6,11 +6,11 @@
                 <t t-set="title">Links</t>
             </t>
             <t t-set="head">
-                <script type="text/javascript" src="/th_link_tracker/static/src/js/th_portal.js"/>
+                <script type="text/javascript" src="/th_affiliate/static/src/js/th_portal.js"/>
                 <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.5/datatables.min.css" rel="stylesheet"/>
 
                 <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.5/datatables.min.js"></script>
-                <script type="text/javascript" src="/th_link_tracker/static/src/data_table/datatables.js"></script>
+                <script type="text/javascript" src="/th_affiliate/static/src/data_table/datatables.js"></script>
             </t>
 
             <t t-call="portal.portal_table" id="datatable">

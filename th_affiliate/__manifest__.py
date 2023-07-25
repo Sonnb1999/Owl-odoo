@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'ABS Link Tracking',
+    'name': 'ABS Affiliate',
     'author': "TH Company",
-    'summary': 'ABS Link Tracking',
-    'category': 'AUM Business System/ Link Tracking',
+    'summary': 'ABS Affiliate',
+    'category': 'AUM Business System/ Affiliate',
     'website': 'https://aum.edu.vn/',
     'license': 'LGPL-3',
     'depends': [
@@ -28,10 +28,10 @@
 
     'assets': {
         'web.assets_frontend': [
-            # 'th_link_tracker/static/src/scss/main.scss'
+            # 'th_affiliate/static/src/scss/main.scss'
         ],
         'web.assets_backend': [
-            # 'th_link_tracker/static/src/scss/main.scss'
+            # 'th_affiliate/static/src/scss/main.scss'
         ],
     },
     'installable': True,

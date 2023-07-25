@@ -35,7 +35,7 @@ class LinkTrackerPortal(CustomerPortal):
             'page_name': 'seeding_partner',
         }
 
-        return request.render("th_link_tracker.th_seeding_partner", values)
+        return request.render("th_affiliate.th_seeding_partner", values)
 
     @http.route(['/my/get_link_seeding', '/my/get_link_seeding/page/<int:page>'], type='http', auth="user", website=True)
     def list_get_link_seeding(self, page=1, sortby='id', search='', search_in="All", **kwargs):
@@ -55,7 +55,7 @@ class LinkTrackerPortal(CustomerPortal):
             'pager': page_detail,
             # 'form_exist': form_exist
         }
-        return request.render("th_link_tracker.th_list_get_link_seeding", values)
+        return request.render("th_affiliate.th_list_get_link_seeding", values)
 
     @http.route(['/my/create_link_tracker/<model("th.link.seeding"):link_id>'], type='http', auth="user", website=True)
     def form_create_link_tracker(self, link_id, **kwargs):
@@ -74,7 +74,7 @@ class LinkTrackerPortal(CustomerPortal):
             create_link = request.env['th.link.seeding'].action_create_link_tracker(user_id, link_origin=link_id)
         value = link_exit if link_exit else create_link
         values = {'link_tracker': value, 'page_name': 'create_link'}
-        return request.render("th_link_tracker.th_own_link_seeding", values)
+        return request.render("th_affiliate.th_own_link_seeding", values)
 
     # link tracker
     @http.route(['/my/own_link_tracker', '/my/own_link_tracker/page/<int:page>'], type='http', auth="user", website=True)
@@ -92,12 +92,12 @@ class LinkTrackerPortal(CustomerPortal):
             'page_name': 'own_links',
             'pager': page_detail,
         }
-        return request.render("th_link_tracker.th_list_own_link_tracker", values)
+        return request.render("th_affiliate.th_list_own_link_tracker", values)
 
     @http.route(['/my/info_link/<model("link.tracker"):link_tracker_id>'], type='http', auth="user", website=True)
     def form_info_link(self, link_tracker_id, **kwargs):
         values = {'link_tracker': link_tracker_id, 'page_name': 'own_link_info'}
-        return request.render("th_link_tracker.th_own_link_seeding", values)
+        return request.render("th_affiliate.th_own_link_seeding", values)
 
     # post link
     @http.route('/my/get_post_link/<model("link.tracker"):link_tracker_id>', type='http', auth="public", methods=['GET'], website=True)
@@ -111,7 +111,7 @@ class LinkTrackerPortal(CustomerPortal):
             'page_name': 'post_link_info',
         }
 
-        return request.render("th_link_tracker.th_post_link", values)
+        return request.render("th_affiliate.th_post_link", values)
 
     @http.route('/my/post_link', type='http', auth="public", methods=['POST'], csrf=False, website=True)
     def create_post_link(self, **kwargs):
@@ -132,7 +132,7 @@ class LinkTrackerPortal(CustomerPortal):
             'link_tracker': post,
             'page_name': 'own_link_info',
         }
-        return request.render("th_link_tracker.th_own_link_seeding", values)
+        return request.render("th_affiliate.th_own_link_seeding", values)
 
     # Sản phẩm ngoài danh mục
     @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True, save_session=False)

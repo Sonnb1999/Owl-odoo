@@ -2,7 +2,7 @@
 <odoo>
     <!-- Portal menu-->
 
-    <template id="th_get_link_public" name="Link tracker" inherit_id="th_link_tracker.th_seeding_partner">
+    <template id="th_get_link_public" name="Link tracker" inherit_id="th_affiliate.th_seeding_partner">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Các liên kết của bạn</t>
@@ -20,7 +20,7 @@
                 <t t-set="title">Links</t>
             </t>
             <t t-set="head">
-                <script type="text/javascript" src="/th_link_tracker/static/src/js/th_portal.js"/>
+                <script type="text/javascript" src="/th_affiliate/static/src/js/th_portal.js"/>
             </t>
             <t t-call="portal.portal_table">
                 <form action="/my/link_outside" method="post" enctype="multipart/form-data" data-mark="*">
@@ -79,7 +79,7 @@
     <template id="th_own_link_seeding" name="Own Links">
         <t t-call="portal.portal_layout">
             <t t-set="head">
-                <script type="text/javascript" src="/th_link_tracker/static/src/js/th_portal.js"/>
+                <script type="text/javascript" src="/th_affiliate/static/src/js/th_portal.js"/>
             </t>
             <body data-bs-spy="scroll" data-target=".navspy" data-offset="50">
                 <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
