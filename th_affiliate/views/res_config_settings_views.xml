@@ -1,44 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<odoo>-->
-<!--    <record id="th_res_config_settings_view_affiliate" model="ir.ui.view">-->
-<!--        <field name="name">th.res.config.settings.formio.view.affiliate</field>-->
-<!--        <field name="model">res.config.settings</field>-->
-<!--        <field name="inherit_id" ref="base.res_config_settings_view_form"/>-->
-<!--        <field name="priority" eval="70"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//div[hasclass('settings')]" position="inside">-->
-<!--                <div class="app_settings_block" data-string="affiliate" string="Affiliate" data-key="affiliate">-->
-<!--                        <h2>Affiliate Management</h2>-->
-<!--                        <div class="col-12 col-lg-6 o_setting_box">-->
-<!--                            <group name="general" string="General">-->
-<!--                                <label for="th_access_interval_number" string="Expire After"/>-->
-<!--                                <div>-->
-<!--                                    <field name="th_access_interval_number" class="oe_inline"/>-->
-<!--                                    <field name="th_access_interval_type" class="oe_inline ml-2"/>-->
-<!--                                </div>-->
-<!--                                <div class="text-muted" colspan="2">-->
-<!--                                    <i class="fa fa-info-circle" title="info"/>-->
-<!--                                    <strong>Expire After:</strong>-->
-<!--                                    Applicable on the Form it's (datimetime field)-->
-<!--                                    <strong>Public Access From</strong>-->
-<!--                                </div>-->
-<!--                            </group>-->
-<!--                        </div>-->
-<!--                </div>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
-<!--</odoo>-->
-
 <odoo>
-    <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.my.addon</field>
+    <record id="th_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">th.res.config.settings.view.form.inherit.my.addon</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="0"/>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block" data-string="Affiliate" string="Affiliate" data-key="affiliate">
+                <div class="app_settings_block" data-string="Affiliate" string="Affiliate" data-key="th_affiliate">
                     <div id="my_addon_container">
                         <h2>Settings</h2>
                         <div class="row mt16 o_settings_container" name="vps_setting_container">
@@ -50,7 +19,8 @@
                                             <label for="th_access_interval_number" string="Thời gian tồn tại:"/>
                                             <div>
                                                 <field name="th_access_interval_number" class="oe_inline"/>
-                                                <field name="th_access_interval_type" class="oe_inline" style="margin-left:3px"/>
+                                                <field name="th_access_interval_type" class="oe_inline"
+                                                       style="margin-left:3px"/>
                                             </div>
                                         </group>
                                     </div>
