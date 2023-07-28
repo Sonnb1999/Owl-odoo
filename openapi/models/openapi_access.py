@@ -30,6 +30,7 @@ class Access(models.Model):
     _description = "Access via API "
 
     active = fields.Boolean("Active", default=True)
+    th_header = fields.Char("Header")
     namespace_id = fields.Many2one("openapi.namespace", "Integration", required=True)
     model_id = fields.Many2one("ir.model", "Model", required=True, ondelete="cascade")
     model = fields.Char("Model Name", related="model_id.model")

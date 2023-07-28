@@ -27,7 +27,7 @@ class ThLinkTracker(LinkTracker):
             'th_access_interval_type': th_access_interval_type,
 
         }
-        body = {'results': {'code': 200, 'message': 'OK 1111111111111111111111'}, 'cookie': cookie}
+        body = {'results': cookie}
         return Response(json.dumps(body), headers=headers)
 
     # @http.route('/r/<string:code>', type='http', auth='public', website=True)

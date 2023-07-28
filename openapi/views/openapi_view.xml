@@ -67,6 +67,7 @@
                             <field name="model" invisible="1" />
                             <field name="model_id" options="{'no_create': True}" />
                             <field name="active" />
+                            <field name="th_header" />
                             <field name="api_create" />
                             <field name="api_read" />
                             <field name="api_update" />
