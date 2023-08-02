@@ -158,7 +158,7 @@ class LinkTrackerPortal(CustomerPortal):
             request.env['link.tracker'].create({
                 'th_partner_id': contact_affiliate.id,
                 'url': url_product,
-                'source_id': utm_source_id.id,
+                'source_id': utm_source_id,
             })
 
         return self.list_own_link_tracker()

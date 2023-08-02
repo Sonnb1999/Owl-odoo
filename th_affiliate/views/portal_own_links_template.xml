@@ -28,7 +28,7 @@
                     <br/>
                     <div class="input-group mb-5 w-50">
                         <input required="True" name="own_url" type="text" class="form-control" placeholder="https://vmcvietnam.org/courses/..."/>
-                        <button class="btn btn-outline-success button-addon">
+                        <button class="btn btn-outline-success">
                             Tạo Link
                         </button>
                     </div>
