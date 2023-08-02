@@ -13,13 +13,13 @@ import json
 class ThLinkTracker(LinkTracker):
     @http.route('/api/check_cookie', type='http', auth='none')
     def check_cookie(self, **kwargs):
-        setting = request.env['res.config.settings'].get_values()
+        setting = request.env['res.config.settings'].sudo().get_values()
         th_access_interval_number = setting.get('th_access_interval_number', False)
         th_access_interval_type = setting.get('th_access_interval_type', False)
 
         headers = {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://127.0.0.1:5500',
+            'Access-Control-Allow-Origin': '*',
             "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Origin"
         }
         cookie = {
