@@ -23,6 +23,7 @@
         'views/link_tracker_views.xml',
         'views/seeding_acceptance.xml',
         'views/res_config_settings_views.xml',
+        'views/th_aff_ownership_unit.xml',
         'views/menus.xml',
     ],
 
