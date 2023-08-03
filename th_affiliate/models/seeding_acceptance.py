@@ -27,11 +27,40 @@ class AcceptanceSeeding(models.Model):
     th_coefficient = fields.Selection(selection=coefficient_selection_values, required=1, string="Hệ số")
     th_coefficient_convention = fields.Char(string="Quy ước hệ số")
     th_cost_factor = fields.Float(string='Chi phí/hệ số')
-    th_acceptance_seeding = fields.One2many('th.money.seeding', 'th_acceptance_seeding_id')
+    th_acceptance_seeding_old_ids = fields.One2many('th.acceptance.seeding.old', 'th_acceptance_seeding_id')
 
+    @api.model
+    def create(self, values):
+        if values.get('th_cost_factor', False):
+            data = {
+                'th_cost_factor': values.get('th_cost_factor'),
+                'th_start_date': fields.Date.today(),
+                # 'th_end_date': values.get('create_date'),
 
-class MoneySeeding(models.Model):
-    _name = ' th.money.seeding'
+            }
+            values['th_acceptance_seeding_old_ids'] = [(0, 0, data)]
+        return super(AcceptanceSeeding, self).create(values)
+
+    def write(self, values):
+        th_cost_factor = values.get('th_cost_factor', False)
+        for rec in self:
+            if th_cost_factor:
+                th_acceptance_seeding_old_id = self.env['th.acceptance.seeding.old'].search(
+                    [('th_acceptance_seeding_id', '=', rec.id)], limit=1, order='id desc')
+                th_acceptance_seeding_old_id.write({
+                    'th_end_date': fields.Date.today(),
+                })
+                data = {
+                    'th_cost_factor': values.get('th_cost_factor'),
+                    'th_start_date': fields.Date.today(),
+                    # 'th_end_date': values.get('create_date'),
+
+                }
+                values['th_acceptance_seeding_old_ids'] = [(0, 0, data)]
+        return super(AcceptanceSeeding, self).write(values)
+
+class AcceptanceSeedingOld(models.Model):
+    _name = 'th.acceptance.seeding.old'
 
     th_cost_factor = fields.Float(string='Chi phí/hệ số')
     th_start_date = fields.Date(string='Ngày bắt đầu')

@@ -4,7 +4,7 @@
         <field name="name">th.view.seeding.acceptance.tree</field>
         <field name="model">th.acceptance.seeding</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" string="Version">
+            <tree string="Version">
                 <field name="th_acceptance_type"/>
                 <field name="th_coefficient"/>
                 <field name="th_coefficient_convention"/>
@@ -13,9 +13,43 @@
         </field>
     </record>
 
+
+    <record id="th_view_seeding_acceptance_form" model="ir.ui.view">
+        <field name="name">th.view.seeding.acceptance.form</field>
+        <field name="model">th.acceptance.seeding</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <group>
+                        <field name="th_acceptance_type"/>
+                        <field name="th_coefficient"/>
+                        <field name="th_coefficient_convention"/>
+                        <field name="th_cost_factor"/>
+                    </group>
+                    <notebook>
+                        <page string="Lịch sử chi phí" name="th_acceptance_seeding_old_ids">
+                            <field name="th_acceptance_seeding_old_ids" nolabel="1">
+                                <tree edit="0" create="0" no_open="True" delete="0">
+                                    <field name="th_cost_factor"/>
+                                    <field name="th_start_date"/>
+                                    <field name="th_end_date"/>
+                                    <field name="th_acceptance_seeding_id" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="th_view_seeding_acceptance_action" model="ir.actions.act_window">
         <field name="name">Hoa hồng seeding</field>
         <field name="res_model">th.acceptance.seeding</field>
         <field name="view_id" ref="th_view_seeding_acceptance_tree"/>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('th_view_seeding_acceptance_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('th_view_seeding_acceptance_form')})]"/>
     </record>
 </odoo>
