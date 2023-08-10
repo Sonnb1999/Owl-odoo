@@ -102,7 +102,7 @@ class LinkTrackerPortal(CustomerPortal):
     # post link
     @http.route('/my/get_post_link/<model("link.tracker"):link_tracker_id>', type='http', auth="public", methods=['GET'], website=True)
     def get_post_link(self, link_tracker_id, **kwargs):
-        post_link = link_tracker_id.th_post_link_id
+        post_link = link_tracker_id.th_post_link_ids
 
         values = {
             'campaign_name': link_tracker_id.campaign_id.name,

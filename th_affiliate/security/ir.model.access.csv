@@ -6,4 +6,4 @@ access_th_acceptance_seeding,access.th.acceptance.seeding,model_th_acceptance_se
 access_th_link_tracker_code_user,access.th.link.tracker.code.user,link_tracker.model_link_tracker_code,,1,1,1,1
 access_th_link_tracker_click_manager,th.link.tracker.click,link_tracker.model_link_tracker_click,,1,1,1,1
 access_th_aff_ownership_unit,th_aff_ownership_unit,model_th_aff_ownership_unit,,1,1,1,1
-access_th_acceptance_seeding_old,access.th.acceptance.seeding.old,model_th_acceptance_seeding_old,,1,1,1,1
+access_th_acceptance_seeding_old,access.th.acceptance.cost.history,model_th_acceptance_cost_history,,1,1,1,1

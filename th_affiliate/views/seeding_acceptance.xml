@@ -27,13 +27,13 @@
                         <field name="th_cost_factor"/>
                     </group>
                     <notebook>
-                        <page string="Lịch sử chi phí" name="th_acceptance_seeding_old_ids">
-                            <field name="th_acceptance_seeding_old_ids" nolabel="1">
+                        <page string="Lịch sử chi phí" name="th_acceptance_cost_history_ids">
+                            <field name="th_acceptance_cost_history_ids" nolabel="1">
                                 <tree edit="0" create="0" no_open="True" delete="0">
-                                    <field name="th_cost_factor"/>
                                     <field name="th_start_date"/>
                                     <field name="th_end_date"/>
                                     <field name="th_acceptance_seeding_id" invisible="1" />
+                                    <field name="th_cost_factor"/>
                                 </tree>
                             </field>
                         </page>

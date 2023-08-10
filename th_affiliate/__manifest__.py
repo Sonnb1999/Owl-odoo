@@ -24,6 +24,7 @@
         'views/seeding_acceptance.xml',
         'views/res_config_settings_views.xml',
         'views/th_aff_ownership_unit.xml',
+        'views/utm.xml',
         'views/menus.xml',
     ],
 

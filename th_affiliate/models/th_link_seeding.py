@@ -21,10 +21,10 @@ class ThLinkSeeding(models.Model):
     th_title = fields.Char('Tiêu đề')
     th_url = fields.Char('Link mục tiêu', required=True)
     th_request = fields.Html('Yêu cầu')
-    campaign_id = fields.Many2one('utm.campaign', ondelete='set null', string='Chiến dịch')
     medium_id = fields.Many2one('utm.medium', ondelete='set null', string='Kênh')
     th_cost = fields.Char('Giá mặc định', default=1500, required=True)
     th_image = fields.Binary(string="Ảnh sản phẩm")
+    campaign_id = fields.Many2one('utm.campaign', ondelete='set null', string='Chiến dịch', domain=lambda self: [('th_start_date', '<=', fields.Date.today()), ('th_end_date', '>=', fields.Date.today())])
 
     # source_id = fields.Many2one(ondelete='set null')
 
