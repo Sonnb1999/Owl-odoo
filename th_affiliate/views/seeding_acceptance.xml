@@ -21,10 +21,15 @@
             <form string="Form">
                 <sheet>
                     <group>
-                        <field name="th_acceptance_type"/>
-                        <field name="th_coefficient"/>
-                        <field name="th_coefficient_convention"/>
-                        <field name="th_cost_factor"/>
+                        <group>
+                            <field name="th_acceptance_type"/>
+                            <field name="th_coefficient"/>
+
+                        </group>
+                        <group>
+                            <field name="th_coefficient_convention"/>
+                            <field name="th_cost_factor"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Lịch sử chi phí" name="th_acceptance_cost_history_ids">
@@ -32,6 +37,7 @@
                                 <tree edit="0" create="0" no_open="True" delete="0">
                                     <field name="th_start_date"/>
                                     <field name="th_end_date"/>
+                                    <field name="th_cost_factor"/>
                                     <field name="th_acceptance_seeding_id" invisible="1" />
                                     <field name="th_cost_factor"/>
                                 </tree>
@@ -39,6 +45,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

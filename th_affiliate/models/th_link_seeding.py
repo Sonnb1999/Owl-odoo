@@ -18,31 +18,18 @@ URL_MAX_SIZE = 10 * 1024 * 1024
 class ThLinkSeeding(models.Model):
     _name = "th.link.seeding"
 
-    th_title = fields.Char('Tiêu đề')
-    th_url = fields.Char('Link mục tiêu', required=True)
+    th_url = fields.Char('Link mục tiêu', compute="_compute_url", store=True)
     th_request = fields.Html('Yêu cầu')
     medium_id = fields.Many2one('utm.medium', ondelete='set null', string='Kênh')
-    th_cost = fields.Char('Giá mặc định', default=1500, required=True)
-    th_image = fields.Binary(string="Ảnh sản phẩm")
+    th_image = fields.Binary(related='th_product_aff_id.th_image')
     campaign_id = fields.Many2one('utm.campaign', ondelete='set null', string='Chiến dịch', domain=lambda self: [('th_start_date', '<=', fields.Date.today()), ('th_end_date', '>=', fields.Date.today())])
+    th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True)
+    th_product_aff_id = fields.Many2one('th.product.aff', 'Sản phẩm', required=True, domain="[('th_aff_category_id', '=?', th_aff_category_id),('state','=','active')]")
 
-    # source_id = fields.Many2one(ondelete='set null')
-
-    @api.model
-    @api.depends('th_url')
-    def _get_title_from_th_url(self, th_url):
-        try:
-            head = requests.head(th_url, allow_redirects=True, timeout=5)
-            if (int(head.headers.get('Content-Length', 0)) > URL_MAX_SIZE or 'text/html' not in head.headers.get('Content-Type', 'text/html')):
-                return th_url
-            # HTML parser can work with a part of page, so ask server to limit downloading to 50 KB
-            page = requests.get(th_url, timeout=5, headers={"range": "bytes=0-50000"})
-            p = html.fromstring(page.text.encode('utf-8'), parser=html.HTMLParser(encoding='utf-8'))
-            th_title = p.find('.//title').text
-        except:
-            th_title = th_url
-
-        return th_title
+    @api.depends('th_product_aff_id')
+    def _compute_url(self):
+        for rec in self:
+            rec.th_url = rec.th_product_aff_id.th_link_product
 
     def action_create_link_tracker(self, user_id=None, link_origin=None):
         if not user_id:
@@ -70,18 +57,4 @@ class ThLinkSeeding(models.Model):
                         'th_partner_id': contact_affiliate.id
                     })
                     return value
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        vals_list = [vals.copy() for vals in vals_list]
-        for vals in vals_list:
-            if 'th_url' not in vals:
-                raise ValueError(_('Creating a Link Tracker without URL is not possible'))
-
-            vals['th_url'] = tools.validate_url(vals['th_url'])
-
-            if not vals.get('th_title'):
-                vals['th_title'] = self._get_title_from_th_url(vals['th_url'])
-        links = super(ThLinkSeeding, self).create(vals_list)
-        return links
 

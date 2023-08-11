@@ -25,6 +25,8 @@
         'views/res_config_settings_views.xml',
         'views/th_aff_ownership_unit.xml',
         'views/utm.xml',
+        'views/th_product_aff_category.xml',
+        'views/th_product_aff.xml',
         'views/menus.xml',
     ],
 

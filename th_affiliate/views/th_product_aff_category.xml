@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="th_view_product_aff_category_tree" model="ir.ui.view">
+        <field name="name">th.view.product.aff.category.tree</field>
+        <field name="model">th.product.aff.category</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="display_name" string="Nhóm sản phẩm"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_view_product_aff_category_form" model="ir.ui.view">
+        <field name="name">th.view.product.aff.category.form</field>
+        <field name="model">th.product.aff.category</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_view_product_aff_category_action" model="ir.actions.act_window">
+        <field name="name">Nhóm sản phẩm</field>
+        <field name="res_model">th.product.aff.category</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('th_view_product_aff_category_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('th_view_product_aff_category_form')})]"/>
+    </record>
+
+
+</odoo>

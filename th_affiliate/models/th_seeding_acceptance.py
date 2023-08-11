@@ -18,16 +18,17 @@ acceptance_type_selection_values = [
 ]
 
 
-class AcceptanceSeeding(models.Model):
+class ThAcceptanceSeeding(models.Model):
     _name = 'th.acceptance.seeding'
     _rec_name = 'th_coefficient'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # name = fields.Char("Tên")
     th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Loại', required=1,
                                           default='is_available')
-    th_coefficient = fields.Selection(selection=coefficient_selection_values, required=1, string="Hệ số")
+    th_coefficient = fields.Selection(selection=coefficient_selection_values, required=1, string="Hệ số", tracking=True)
     th_coefficient_convention = fields.Char(string="Quy ước hệ số")
-    th_cost_factor = fields.Float(string='Chi phí/hệ số')
+    th_cost_factor = fields.Float(string='Chi phí/hệ số', tracking=True)
     th_acceptance_cost_history_ids = fields.One2many('th.acceptance.cost.history', 'th_acceptance_seeding_id')
 
     @api.model
@@ -40,7 +41,7 @@ class AcceptanceSeeding(models.Model):
 
             }
             values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
-        return super(AcceptanceSeeding, self).create(values)
+        return super(ThAcceptanceSeeding, self).create(values)
 
     def write(self, values):
         th_cost_factor = values.get('th_cost_factor', False)
@@ -58,10 +59,10 @@ class AcceptanceSeeding(models.Model):
 
                 }
                 values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
-        return super(AcceptanceSeeding, self).write(values)
+        return super(ThAcceptanceSeeding, self).write(values)
 
 
-class AcceptanceSeedingOld(models.Model):
+class ThAcceptanceCostHistory(models.Model):
     _name = 'th.acceptance.cost.history'
     _order = 'id desc'
 
