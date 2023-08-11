@@ -66,7 +66,7 @@
                             <td class="text-center">
                                 <a t-attf-href="/my/get_post_link/#{link.id}"
                                    class="">
-                                    Danh sách theo chiến dịch <t t-out="link.campaign_id.name"/>
+                                    Link bài đăng
                                 </a>
                             </td>
                         </tr>

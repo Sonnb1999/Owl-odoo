@@ -5,7 +5,7 @@
     <template id="th_get_link_tracker_share" name="Show seeding link" inherit_id="th_affiliate.th_seeding_partner">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="title">Các liên kết seeding có sẵn</t>
+                <t t-set="title">Link theo chiến dịch</t>
                 <t t-set="url" t-value="'/my/get_link_seeding'"/>
                 <t t-set="placeholder_count" t-value="'get_link_seeding'"/>
             </t>

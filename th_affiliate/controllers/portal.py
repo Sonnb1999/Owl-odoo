@@ -3,7 +3,7 @@
 
 import json
 import logging
-
+from datetime import datetime
 from odoo import http, fields
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager
@@ -17,7 +17,10 @@ class LinkTrackerPortal(CustomerPortal):
         values = super()._prepare_home_portal_values(counters)
 
         if 'get_link_seeding' in counters:
-            domain = []
+            domain = [
+                ('campaign_id.th_start_date', '<=', datetime.today().date()),
+                ('campaign_id.th_end_date', '>=', datetime.today().date())
+            ]
             values['get_link_seeding'] = (
                 str(request.env['th.link.seeding'].sudo().search_count(domain)))
 
@@ -39,7 +42,10 @@ class LinkTrackerPortal(CustomerPortal):
 
     @http.route(['/my/get_link_seeding', '/my/get_link_seeding/page/<int:page>'], type='http', auth="user", website=True)
     def list_get_link_seeding(self, page=1, sortby='id', search='', search_in="All", **kwargs):
-        domain = []
+        domain = [
+            ('campaign_id.th_start_date', '<=', datetime.today().date()),
+            ('campaign_id.th_end_date', '>=', datetime.today().date())
+        ]
         th_link_seeding = request.env['th.link.seeding']
         total_links = th_link_seeding.sudo().search_count(domain)
         page_detail = pager(url='/my/get_link',
@@ -151,7 +157,7 @@ class LinkTrackerPortal(CustomerPortal):
             if not utm_source and contact_affiliate:
                 utm_source_id = utm_source.sudo().create({
                     'name': contact_affiliate.th_affiliate_code,
-                })
+                }).id
             else:
                 utm_source_id = utm_source.id
 

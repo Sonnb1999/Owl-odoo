@@ -7,5 +7,5 @@ from odoo import fields, models
 class UtmCampaign(models.Model):
     _inherit = 'utm.campaign'
 
-    th_start_date = fields.Date('Ngày bắt đầu')
-    th_end_date = fields.Date('Ngày kết thúc')
+    th_start_date = fields.Date('Ngày bắt đầu', required=True)
+    th_end_date = fields.Date('Ngày kết thúc', required=True)

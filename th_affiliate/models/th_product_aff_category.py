@@ -39,8 +39,8 @@ class ThProductAff(models.Model):
     state = fields.Selection(
         selection=[
             ('draft', 'Nháp'),
-            ('active', 'Được seeding'),
-            ('inactive', 'Không được seeding'),
+            ('active', 'Triển khai'),
+            ('inactive', 'Đóng'),
         ],
         string='Status',
         required=True,
