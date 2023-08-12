@@ -16,7 +16,7 @@
         <field name="name">th.view.product.aff.form</field>
         <field name="model">th.product.aff</field>
         <field name="arch" type="xml">
-            <form string="Form">
+            <form string="Form" >
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>
@@ -24,12 +24,12 @@
                     <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="th_link_product"/>
+                            <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="th_link_product" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
-                            <field name="th_aff_category_id" string="Nhóm sản phẩm"  options='{"no_open": True, "no_create": True}'/>
-                            <field name="th_aff_ownership_unit_id" options='{"no_open": True}'/>
+                            <field name="th_aff_category_id" string="Nhóm sản phẩm" attrs="{'readonly': [('state', '!=', 'draft')]}" options='{"no_open": True, "no_create": True}'/>
+                            <field name="th_aff_ownership_unit_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options='{"no_open": True}'/>
                         </group>
                     </group>
                 </sheet>
