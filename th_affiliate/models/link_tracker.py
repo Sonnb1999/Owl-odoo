@@ -10,13 +10,13 @@ class LinkTracker(models.Model):
 
     th_link_seeding_id = fields.Many2one('th.link.seeding', string="Link gốc")
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])
-    th_category = fields.Selection(selection=[('in_category', 'Trong danh mục'), ('out_of_category', 'Ngoài danh mục')])
     th_post_link_ids = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
     th_partner_id = fields.Many2one('res.partner', 'Cộng tác viên', readonly=True)
     th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True)
     th_closing_work = fields.Boolean('Chốt chi phí', default=False, tracking=True)
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
-    th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id')
+    th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
+    th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
 
     @api.depends('th_post_link_ids.th_pay')
     def _amount_all(self):
