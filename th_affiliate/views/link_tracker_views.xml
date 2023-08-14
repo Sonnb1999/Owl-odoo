@@ -1,13 +1,20 @@
 <odoo>
     <record id="th_link_tracker_view_form" model="ir.ui.view">
-        <field name="name">link.tracker.view.form</field>
+        <field name="name">th.link.tracker.view.form</field>
         <field name="model">link.tracker</field>
         <field name="arch" type="xml">
             <form string="Website Link" duplicate="0">
+                <header>
+                    <button name="action_cancel_closing_work" class="btn" type="object" string="Nghiệm thu"/>
+                    <button name="action_closing_work" class="btn btn-primary" type="object" string="Chốt chi phí"/>
+                    <field name="th_closing_work" widget="statusbar"/>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Visit Page" class="oe_stat_button"/>
-                        <button type="object" class="oe_stat_button" name="action_view_statistics" icon="fa-bar-chart-o">
+                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Visit Page"
+                                class="oe_stat_button"/>
+                        <button type="object" class="oe_stat_button" name="action_view_statistics"
+                                icon="fa-bar-chart-o">
                             <field name="count" string="Clicks" widget="statinfo"/>
                         </button>
                     </div>
@@ -15,23 +22,26 @@
                     <group>
                         <group name="url" string="URL">
                             <field name="th_product_aff_id"/>
-                            <field name="url"/>
+                            <field name="url" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
                             <field name="short_url"/>
                         </group>
                         <group name="utm" string="UTM">
-                            <field name="campaign_id" options="{'create_name_field': 'title', 'always_reload': True}"/>
-                            <field name="medium_id"/>
-                            <field name="source_id"/>
-                            <field name="th_partner_id"/>
+                            <field name="campaign_id" options="{'create_name_field': 'title', 'always_reload': True}"
+                                   attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
+                            <field name="medium_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
+                            <field name="source_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
+                            <field name="th_partner_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
                             <field name="th_closing_work" invisible="1"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Link bài đăng">
-                            <field name="th_post_link_ids" options="{'delete': [('th_closing_work', '!=', True)], 'create': [('th_closing_work', '!=', True)]}"
-                                   attrs="{'readonly': [('th_closing_work', '=', True)]}">
+                            <field name="th_post_link_ids"
+                                   options="{'delete': [('th_closing_work', '!=', 'yes')], 'create': [('th_closing_work', '!=', 'yes')]}"
+                                   attrs="{'readonly': [('th_closing_work', '=', 'yes')]}">
                                 <tree string="Record post link" class="th_post_link" editable="bottom" no_open="1">
-                                    <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
+                                    <button name="action_visit_page" type="object" string="Link"
+                                            icon="fa-external-link"/>
                                     <field name="partner_id"/>
                                     <field name="link_tracker_id" invisible="1"/>
                                     <field name="create_date" string="Ngày tạo" widget="date"/>
@@ -44,8 +54,8 @@
                                 <group colspan="4">
                                 </group>
                                 <div class="oe_right">
-                                    <button name="action_closing_work" class="btn btn-primary" type="object"
-                                            string="Chốt chi phí"/>
+                                    <!--                                    <button name="action_closing_work" class="btn btn-primary" type="object"-->
+                                    <!--                                            string="Chốt chi phí"/>-->
                                 </div>
                                 <group class="oe_subtotal_footer oe_right" colspan="2" name="th_total_cost">
                                     <field name="th_total_cost" nolabel="1" colspan="2" readonly="1"/>
@@ -70,8 +80,6 @@
         <field name="arch" type="xml">
             <tree string="Links" sample="1">
                 <field name="create_date"/>
-                <!--                    <field name="title"/>-->
-                <!--                    <field name="label"/>-->
                 <field name="th_product_aff_id"/>
                 <field name="url"/>
                 <field name="short_url" optional="hide"/>
@@ -92,10 +100,11 @@
                 <field name="th_product_aff_id"/>
                 <filter string="Ngày tạo" name="create_date" date="create_date"/>
                 <group expand="0" string="Group By">
-                    <filter string="Campaign" name="groupby_campaign_id" context="{'group_by': 'campaign_id'}"/>
-                    <filter string="Medium" name="groupby_medium_id" context="{'group_by': 'medium_id'}"/>
-                    <filter string="Source" name="groupby_source_id" context="{'group_by': 'source_id'}"/>
-                    <filter string="Nhóm sản phẩm" name="th_aff_category_id" context="{'group_by': 'th_aff_category_id'}"/>
+                    <filter string="Campaign" name="group_by_campaign_id" context="{'group_by': 'campaign_id'}"/>
+                    <filter string="Medium" name="group_by_medium_id" context="{'group_by': 'medium_id'}"/>
+                    <filter string="Source" name="group_by_source_id" context="{'group_by': 'source_id'}"/>
+                    <filter string="Nhóm sản phẩm" name="th_aff_category_id"
+                            context="{'group_by': 'th_aff_category_id'}"/>
                     <filter string="Sản phẩm" name="th_product_aff_id" context="{'group_by': 'th_product_aff_id'}"/>
                 </group>
             </search>
@@ -106,7 +115,7 @@
         <field name="name">Link Tracker</field>
         <field name="res_model">link.tracker</field>
         <field name="search_view_id" ref="th_link_tracker_view_search"/>
-        <field name="view_mode">form,tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_ids"
                eval="[(5, 0, 0),
                           (0, 0, {'view_mode': 'tree', 'view_id': ref('th_link_tracker_view_tree')}),

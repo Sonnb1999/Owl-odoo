@@ -13,7 +13,7 @@ class LinkTracker(models.Model):
     th_post_link_ids = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
     th_partner_id = fields.Many2one('res.partner', 'Cộng tác viên', readonly=True)
     th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True)
-    th_closing_work = fields.Boolean('Chốt chi phí', default=False, tracking=True)
+    th_closing_work = fields.Selection(selection=[('no', 'Nghiệm thu'), ('yes', 'Chốt chi phí')], string='Chốt chi phí', tracking=True, default='draft')
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
@@ -29,7 +29,12 @@ class LinkTracker(models.Model):
 
     def action_closing_work(self):
         for rec in self:
-            if not rec.th_closing_work:
-                rec.write({
-                    'th_closing_work': True
-                })
+            rec.write({
+                'th_closing_work': 'yes'
+            })
+
+    def action_cancel_closing_work(self):
+        for rec in self:
+            rec.write({
+                'th_closing_work': 'no'
+            })
