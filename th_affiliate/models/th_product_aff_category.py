@@ -30,6 +30,7 @@ class ThProductAffCategory(models.Model):
 class ThProductAff(models.Model):
     _name = 'th.product.aff'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'name'
 
     name = fields.Char("Tên sản phẩm", index='trigram', required=True)
     th_link_product = fields.Char('Link sản phẩm', required=True, tracking=True)

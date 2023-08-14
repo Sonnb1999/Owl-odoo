@@ -17,6 +17,7 @@ URL_MAX_SIZE = 10 * 1024 * 1024
 
 class ThLinkSeeding(models.Model):
     _name = "th.link.seeding"
+    _rec_name = 'th_product_aff_id'
 
     th_url = fields.Char('Link mục tiêu', related='th_product_aff_id.th_link_product', store=True)
     th_request = fields.Html('Yêu cầu')

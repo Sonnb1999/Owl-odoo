@@ -7,6 +7,7 @@ URL_MAX_SIZE = 10 * 1024 * 1024
 class LinkTracker(models.Model):
     _name = 'link.tracker'
     _inherit = ['link.tracker', 'mail.thread', 'mail.activity.mixin']
+    _rec_name = 'th_product_aff_id'
 
     th_link_seeding_id = fields.Many2one('th.link.seeding', string="Link gốc")
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])

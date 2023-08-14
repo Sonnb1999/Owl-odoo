@@ -22,8 +22,8 @@
                 <sheet>
                     <group>
                         <field name="th_partner_id"/>
-                        <field name="th_count_link"/>
-                        <field name="th_payed"/>
+                        <field name="th_count_link" readonly="1"/>
+                        <field name="th_payed" readonly="1"/>
                     </group>
                     <notebook>
                         <page string="Link bài đăng">

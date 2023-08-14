@@ -13,6 +13,8 @@ select_state = [
 class ThPostSeeding(models.Model):
     _name = "th.post.link"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'name'
+
     name = fields.Char('Post link', tracking=True, required=True)
     link_tracker_id = fields.Many2one('link.tracker')
     th_note = fields.Text('Comment', tracking=True)

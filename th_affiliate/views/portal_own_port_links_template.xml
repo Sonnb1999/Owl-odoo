@@ -17,7 +17,6 @@
                 <table id="datatable" class="table table-condensed table rounded mb-0 bg-white o_portal_my_doc_table">
                     <thead>
                         <tr>
-
                             <th class="text-center">Chiến dịch</th>
                             <th class="text-center w-50">Link chia sẻ</th>
                             <th class="text-center w-50">Trạng thái</th>
