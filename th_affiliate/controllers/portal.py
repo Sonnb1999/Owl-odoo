@@ -25,7 +25,7 @@ class LinkTrackerPortal(CustomerPortal):
                 str(request.env['th.link.seeding'].sudo().search_count(domain)))
 
         if 'own_link_tracker' in counters:
-            domain = [('th_partner_id.id', '=', request.env.user.partner_id.id)]
+            domain = [('th_aff_partner_id.id', '=', request.env.user.partner_id.id)]
             values['own_link_tracker'] = (
                 str(request.env['link.tracker'].sudo().search_count(domain)))
 
@@ -70,7 +70,7 @@ class LinkTrackerPortal(CustomerPortal):
         contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
         domain = [
             ('th_link_seeding_id', '=', link_id.id),
-            ('th_partner_id', '=', contact_affiliate.id),
+            ('th_aff_partner_id', '=', contact_affiliate.id),
             ('campaign_id', '=', link_id.sudo().campaign_id.id),
             ('medium_id', '=', link_id.sudo().medium_id.id)
         ]
@@ -85,7 +85,7 @@ class LinkTrackerPortal(CustomerPortal):
     # link tracker
     @http.route(['/my/own_link_tracker', '/my/own_link_tracker/page/<int:page>'], type='http', auth="user", website=True)
     def list_own_link_tracker(self, page=1, sortby='id', search='', search_in="All", **kwargs):
-        domain = [('th_partner_id.id', '=', request.env.user.partner_id.id)]
+        domain = [('th_aff_partner_id.id', '=', request.env.user.partner_id.id)]
         th_link_tracker = request.env['link.tracker']
         total_links = th_link_tracker.sudo().search_count(domain)
         page_detail = pager(url='/my/get_link',
@@ -122,6 +122,8 @@ class LinkTrackerPortal(CustomerPortal):
     @http.route('/my/post_link', type='http', auth="public", methods=['POST'], csrf=False, website=True)
     def create_post_link(self, **kwargs):
         link_id = int(kwargs.get('id', False))
+        user_id = request.env.user.id
+        contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
         post = request.env['link.tracker'].search([('id', '=', link_id)])
         link1 = kwargs.get('link1', False)
         link2 = kwargs.get('link2', False)
@@ -148,7 +150,7 @@ class LinkTrackerPortal(CustomerPortal):
         contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
         link_tracker = request.env['link.tracker']
         domain = [
-            ('th_partner_id', '=', contact_affiliate.id),
+            ('th_aff_partner_id', '=', contact_affiliate.id),
             ('url', '=', url_product),
         ]
         link_exit = link_tracker.sudo().search(domain)
@@ -162,7 +164,7 @@ class LinkTrackerPortal(CustomerPortal):
                 utm_source_id = utm_source.id
 
             request.env['link.tracker'].create({
-                'th_partner_id': contact_affiliate.id,
+                'th_aff_partner_id': contact_affiliate.id,
                 'url': url_product,
                 'source_id': utm_source_id,
             })

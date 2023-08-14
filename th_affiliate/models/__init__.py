@@ -6,3 +6,4 @@ from . import res_config_setting
 from . import th_aff_ownership_unit
 from . import utm
 from . import th_product_aff_category
+from . import th_pay

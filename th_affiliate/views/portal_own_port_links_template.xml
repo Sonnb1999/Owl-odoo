@@ -43,7 +43,7 @@
                                     <span t-if="link.state == 'wrong_request'" class="text-warning">Sai yêu cầu</span>
                                 </td>
                                 <td>
-                                    <t t-out="link.th_pay"/>
+                                    <t t-out="link.th_expense"/>
                                 </td>
                                 <td>
                                     <t t-out="link.create_date.date()"/>

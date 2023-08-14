@@ -11,24 +11,28 @@ class LinkTracker(models.Model):
     th_link_seeding_id = fields.Many2one('th.link.seeding', string="Link gốc")
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])
     th_post_link_ids = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
-    th_partner_id = fields.Many2one('res.partner', 'Cộng tác viên', readonly=True)
+    th_aff_partner_id = fields.Many2one('res.partner', 'Cộng tác viên', readonly=True)
     th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True)
-    th_closing_work = fields.Selection(selection=[('no', 'Nghiệm thu'), ('yes', 'Chốt chi phí')], string='Chốt chi phí', tracking=True, default='draft')
+    th_closing_work = fields.Selection(selection=[('no', 'Nghiệm thu'), ('yes', 'Chốt chi phí')], string='Chốt chi phí', tracking=True, default='no')
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
 
-    @api.depends('th_post_link_ids.th_pay')
+    @api.depends('th_post_link_ids.th_expense')
     def _amount_all(self):
         total = 0
         link_posts = self.th_post_link_ids
         for link_post in link_posts:
-            if link_post.th_pay and link_post.state == "correct_request":
-                total = total + float(link_post.th_pay)
+            if link_post.th_expense and link_post.state == "correct_request":
+                total = total + float(link_post.th_expense)
         self.th_total_cost = total
 
     def action_closing_work(self):
         for rec in self:
+            pay_id = self.env['th.pay'].create({'th_partner_id': rec.th_aff_partner_id.id,})
+            # post_link_ids = rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and p.th_seeding_acceptance_id)
+            post_link_ids = rec.th_post_link_ids
+            post_link_ids.write({'th_pay_id': pay_id.id })
             rec.write({
                 'th_closing_work': 'yes'
             })

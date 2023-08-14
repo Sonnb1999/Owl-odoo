@@ -30,7 +30,7 @@
                                    attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
                             <field name="medium_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
                             <field name="source_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
-                            <field name="th_partner_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
+                            <field name="th_aff_partner_id" attrs="{'readonly': [('th_closing_work', '=', 'yes')]}"/>
                             <field name="th_closing_work" invisible="1"/>
                         </group>
                     </group>
@@ -42,20 +42,18 @@
                                 <tree string="Record post link" class="th_post_link" editable="bottom" no_open="1">
                                     <button name="action_visit_page" type="object" string="Link"
                                             icon="fa-external-link"/>
-                                    <field name="partner_id"/>
+                                    <field name="th_acceptance_person_id"/>
                                     <field name="link_tracker_id" invisible="1"/>
                                     <field name="create_date" string="Ngày tạo" widget="date"/>
                                     <field name="state"/>
                                     <field name="th_seeding_acceptance_id"/>
-                                    <field name="th_pay"/>
+                                    <field name="th_expense"/>
                                 </tree>
                             </field>
                             <group name="th_total_cost" col="6" class="mt-2 mt-md-0">
                                 <group colspan="4">
                                 </group>
                                 <div class="oe_right">
-                                    <!--                                    <button name="action_closing_work" class="btn btn-primary" type="object"-->
-                                    <!--                                            string="Chốt chi phí"/>-->
                                 </div>
                                 <group class="oe_subtotal_footer oe_right" colspan="2" name="th_total_cost">
                                     <field name="th_total_cost" nolabel="1" colspan="2" readonly="1"/>

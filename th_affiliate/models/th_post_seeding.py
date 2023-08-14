@@ -16,26 +16,29 @@ class ThPostSeeding(models.Model):
     name = fields.Char('Post link', tracking=True, required=True)
     link_tracker_id = fields.Many2one('link.tracker')
     th_note = fields.Text('Comment', tracking=True)
-    partner_id = fields.Many2one('res.partner', string='Nghiệm thu', readonly=1, tracking=True)
+    th_acceptance_person_id = fields.Many2one('res.partner', string='Nghiệm thu', readonly=1, tracking=True)
     th_seeding_acceptance_id = fields.Many2one('th.acceptance.seeding', 'Hệ số', tracking=True)
-    th_pay = fields.Char('Chi phí', compute="compute_th_pay")
+    th_expense = fields.Char('Chi phí', compute="compute_th_expense")
     state = fields.Selection(selection=select_state, string='Trạng thái', tracking=True)
+    th_campaign_id = fields.Many2one(related="link_tracker_id.campaign_id", store=True)
+    th_pay_id = fields.Many2one(comodel_name="th.pay", string="Pay")
+    # th_link_owner_id = fields.Many2one('res.partner', 'Người sở hữu')
 
     @api.depends('th_seeding_acceptance_id')
-    def compute_th_pay(self):
+    def compute_th_expense(self):
         for rec in self:
             new_pay = rec.th_seeding_acceptance_id
             old_pays = new_pay.th_acceptance_cost_history_ids
             if new_pay and old_pays:
                 for old_pay in old_pays:
                     if old_pay.th_end_date and old_pay.th_start_date <= rec.create_date.date() <= old_pay.th_end_date:
-                        rec.th_pay = old_pay.th_cost_factor
+                        rec.th_expense = old_pay.th_cost_factor
                     elif old_pay.th_start_date <= rec.create_date.date() and not old_pay.th_end_date:
-                        rec.th_pay = old_pay.th_cost_factor
+                        rec.th_expense = old_pay.th_cost_factor
                     else:
-                        rec.th_pay
+                        rec.th_expense
             else:
-                rec.th_pay = False
+                rec.th_expense = False
 
     def action_visit_page(self):
         return {
@@ -49,8 +52,8 @@ class ThPostSeeding(models.Model):
         state = values.get('state', False)
         th_seeding_acceptance_id = values.get('th_seeding_acceptance_id', False)
         for rec in self:
-            if (state or th_seeding_acceptance_id) and rec.partner_id.id != self.env.user.partner_id.id:
-                values['partner_id'] = self.env.user.partner_id.id
+            if (state or th_seeding_acceptance_id) and rec.th_acceptance_person_id.id != self.env.user.partner_id.id:
+                values['th_acceptance_person_id'] = self.env.user.partner_id.id
 
         link_post_initial_values = defaultdict(dict)
         tracking_fields = []

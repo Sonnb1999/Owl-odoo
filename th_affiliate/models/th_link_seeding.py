@@ -54,7 +54,7 @@ class ThLinkSeeding(models.Model):
                         'th_link_seeding_id': rec.id if rec.id else False,
                         'th_type': 'link_seeding',
                         'source_id': utm_source_id.id if utm_source_id else False,
-                        'th_partner_id': contact_affiliate.id
+                        'th_aff_partner_id': contact_affiliate.id
                     })
                     return value
 

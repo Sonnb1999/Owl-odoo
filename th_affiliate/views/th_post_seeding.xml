@@ -7,7 +7,7 @@
                 <sheet>
                     <group>
                         <field name="name" widget="url" readonly="1"/>
-                        <field name="partner_id"/>
+                        <field name="th_acceptance_person_id"/>
                         <field name="create_date" string="Ngày tạo" widget="date"/>
                         <field name="state" readonly="true"/>
                         <field name="th_pay"/>

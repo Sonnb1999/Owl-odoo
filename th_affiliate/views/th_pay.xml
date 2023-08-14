@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="th_pay_view" model="ir.ui.view">
+        <field name="name">th.pay</field>
+        <field name="model">th.pay</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="th_partner_id"/>
+<!--                <field name="th_post_link_ids"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_pay_form_view" model="ir.ui.view">
+        <field name="name">th.pay.form</field>
+        <field name="model">th.pay</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="th_partner_id"/>
+                        <field name="th_count_link"/>
+                        <field name="th_payed"/>
+                    </group>
+                    <notebook>
+                        <page string="Link bài đăng">
+                            <field name="th_post_link_ids">
+                                <tree string="Record post link" class="th_post_link" editable="bottom" no_open="1">
+                                    <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
+                                    <field name="th_acceptance_person_id"/>
+                                    <field name="create_date" string="Ngày tạo" widget="date"/>
+                                    <field name="state"/>
+                                    <field name="th_seeding_acceptance_id"/>
+                                    <field name="th_expense"/>
+                                </tree>
+                            </field>
+                            <group name="th_payed" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4">
+                                </group>
+                                <div class="oe_right">
+                                </div>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="th_payed">
+                                    <field name="th_payed" nolabel="1" colspan="2" readonly="1"/>
+                                </group>
+                                <div class="clearfix"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_pay_action" model="ir.actions.act_window">
+        <field name="name"></field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">th.pay</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+          </p><p>
+            <!-- More details about what a user can do with this object will be OK -->
+          </p>
+        </field>
+    </record>
+</odoo>

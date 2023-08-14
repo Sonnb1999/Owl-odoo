@@ -9,3 +9,4 @@ access_th_aff_ownership_unit,th_aff_ownership_unit,model_th_aff_ownership_unit,,
 access_th_acceptance_cost_history,access.th.acceptance.cost.history,model_th_acceptance_cost_history,,1,1,1,1
 access_th_product_aff_category,access.th.product.aff.category,model_th_product_aff_category,,1,1,1,1
 access_th_product_aff,access.th.product.aff,model_th_product_aff,,1,1,1,1
+access_th_pay,access.th.pay,model_th_pay,,1,1,1,1

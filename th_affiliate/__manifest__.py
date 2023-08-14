@@ -27,6 +27,7 @@
         'views/utm.xml',
         'views/th_product_aff_category.xml',
         'views/th_product_aff.xml',
+        'views/th_pay.xml',
         'views/menus.xml',
     ],
 
