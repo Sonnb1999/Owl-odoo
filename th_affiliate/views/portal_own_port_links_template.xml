@@ -40,6 +40,7 @@
                                     <span t-if="link.state == 'correct_request'" class="text-success">Đúng yêu cầu
                                     </span>
                                     <span t-if="link.state == 'wrong_request'" class="text-warning">Sai yêu cầu</span>
+                                    <span t-if="link.state == 'paid'" class="text-warning">Đã thanh toán</span>
                                 </td>
                                 <td>
                                     <t t-out="link.th_expense"/>

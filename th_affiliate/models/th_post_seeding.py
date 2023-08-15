@@ -6,7 +6,8 @@ URL_MAX_SIZE = 10 * 1024 * 1024
 select_state = [
     ('pending', 'Chờ duyệt'),
     ('correct_request', 'Đúng yêu cầu'),
-    ('wrong_request', 'Sai yêu cầu')
+    ('wrong_request', 'Sai yêu cầu'),
+    ('paid', 'Đã thanh toán')
 ]
 
 
