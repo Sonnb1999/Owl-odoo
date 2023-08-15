@@ -5,8 +5,8 @@
         <field name="arch" type="xml">
             <form string="Website Link" duplicate="0">
                 <header>
-                    <button name="action_cancel_closing_work" class="btn" type="object" string="Nghiệm thu"/>
-                    <button name="action_closing_work" class="btn btn-primary" type="object" string="Chốt chi phí"/>
+                    <button name="action_cancel_closing_work" class="btn btn-primary" type="object" string="Nghiệm thu" attrs="{'invisible': [('th_closing_work', 'in', ['acceptance','cost_closing'])]}"/>
+                    <button name="action_closing_work" class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
                     <field name="th_closing_work" widget="statusbar"/>
                 </header>
                 <sheet>
