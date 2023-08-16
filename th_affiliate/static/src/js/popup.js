@@ -28,9 +28,9 @@ function toast({
         const toast = document.createElement("div");
 
         //Auto remove toast
-        // const autoRemoveId = setTimeout(function () {
-        //     main.removeChild(toast);
-        // }, duration + 1000);
+        const autoRemoveId = setTimeout(function () {
+            main.removeChild(toast);
+        }, duration + 1000);
 
         // Remove toast when clicked
         toast.onclick = function (e) {
