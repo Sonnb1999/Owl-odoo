@@ -8,12 +8,31 @@
             <t t-set="head">
                 <script type="text/javascript" src="/th_affiliate/static/src/js/th_portal.js"/>
                 <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.5/datatables.min.css" rel="stylesheet"/>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+                <link href="/th_affiliate/static/src/css/main.css" rel="stylesheet"/>
 
                 <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.5/datatables.min.js"></script>
                 <script type="text/javascript" src="/th_affiliate/static/src/data_table/datatables.js"></script>
             </t>
-
             <t t-call="portal.portal_table" id="datatable">
+                <div id="toast"></div>
+                <div>
+                    <t t-if="page_name == 'post_link_info'">
+                        <div>
+                            <strong>Link bài đăng</strong>
+                            <br/>
+                            <div class="input-group mb-5 w-50">
+                                <input id="port_link" required="True" name="link" type="text" class="form-control" placeholder="https://vmcvietnam.org/courses/..."/>
+                                <input id="link_tracker_id" t-att-value="link_tracker.id" name="id" class="d-none"/>
+                                <button id="btn_port_link" class="btn toast--info">
+                                    Tạo Link
+                                </button>
+                            </div>
+                        </div>
+
+                    </t>
+                    <t t-else=""></t>
+                </div>
                 <table id="datatable" class="table table-condensed table rounded mb-0 bg-white o_portal_my_doc_table">
                     <thead>
                         <tr>
@@ -53,8 +72,10 @@
                     </tbody>
                 </table>
             </t>
-            <script>new DataTable('#datatable');</script>
+            <script type="text/javascript" src="/th_affiliate/static/src/js/popup.js"/>
+            <script type="text/javascript" src="/th_affiliate/static/src/js/main.js"/>
         </t>
+
     </template>
 </odoo>
 

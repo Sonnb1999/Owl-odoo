@@ -82,6 +82,6 @@ class ThPostSeeding(models.Model):
     def create(self, values):
         result = super(ThPostSeeding, self).create(values)
         for rec in result:
-            if rec.link_tracker_id and rec.link_tracker_id.th_closing_work:
+            if rec.link_tracker_id and rec.link_tracker_id.th_closing_work != 'pending':
                 return False
         return rec

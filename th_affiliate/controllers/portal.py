@@ -5,9 +5,8 @@ import json
 import logging
 from datetime import datetime
 from odoo import http, fields
-from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager
-
+from odoo.http import request, Response
 _logger = logging.getLogger(__name__)
 
 
@@ -29,6 +28,11 @@ class LinkTrackerPortal(CustomerPortal):
             values['own_link_tracker'] = (
                 str(request.env['link.tracker'].sudo().search_count(domain)))
 
+        if 'link_outside_view' in counters:
+            domain = [('th_aff_partner_id.id', '=', request.env.user.partner_id.id)]
+            values['link_outside_view'] = (
+                str(request.env['link.tracker'].sudo().search_count(domain)))
+
         return values
 
     # link seeding
@@ -40,7 +44,8 @@ class LinkTrackerPortal(CustomerPortal):
 
         return request.render("th_affiliate.th_seeding_partner", values)
 
-    @http.route(['/my/get_link_seeding', '/my/get_link_seeding/page/<int:page>'], type='http', auth="user", website=True)
+    @http.route(['/my/get_link_seeding', '/my/get_link_seeding/page/<int:page>'], type='http', auth="user",
+                website=True)
     def list_get_link_seeding(self, page=1, sortby='id', search='', search_in="All", **kwargs):
         domain = [
             ('campaign_id.th_start_date', '<=', datetime.today().date()),
@@ -83,7 +88,8 @@ class LinkTrackerPortal(CustomerPortal):
         return request.render("th_affiliate.th_own_link_seeding", values)
 
     # link tracker
-    @http.route(['/my/own_link_tracker', '/my/own_link_tracker/page/<int:page>'], type='http', auth="user", website=True)
+    @http.route(['/my/own_link_tracker', '/my/own_link_tracker/page/<int:page>'], type='http', auth="user",
+                website=True)
     def list_own_link_tracker(self, page=1, sortby='id', search='', search_in="All", **kwargs):
         domain = [('th_aff_partner_id.id', '=', request.env.user.partner_id.id)]
         th_link_tracker = request.env['link.tracker']
@@ -106,7 +112,8 @@ class LinkTrackerPortal(CustomerPortal):
         return request.render("th_affiliate.th_own_link_seeding", values)
 
     # post link
-    @http.route('/my/get_post_link/<model("link.tracker"):link_tracker_id>', type='http', auth="public", methods=['GET'], website=True)
+    @http.route('/my/get_post_link/<model("link.tracker"):link_tracker_id>', type='http', auth="public",
+                methods=['GET'], website=True)
     def get_post_link(self, link_tracker_id, **kwargs):
         post_link = link_tracker_id.th_post_link_ids
 
@@ -115,35 +122,45 @@ class LinkTrackerPortal(CustomerPortal):
             'count_click': len(link_tracker_id.link_click_ids),
             'post_link': post_link,
             'page_name': 'post_link_info',
+            'link_tracker': link_tracker_id,
         }
 
         return request.render("th_affiliate.th_post_link", values)
 
     @http.route('/my/post_link', type='http', auth="public", methods=['POST'], csrf=False, website=True)
     def create_post_link(self, **kwargs):
-        link_id = int(kwargs.get('id', False))
-        user_id = request.env.user.id
-        contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
-        post = request.env['link.tracker'].search([('id', '=', link_id)])
-        link1 = kwargs.get('link1', False)
-        link2 = kwargs.get('link2', False)
-        link = [link1, link2]
-        for rec in link:
-            if rec:
-                post_link = request.env['th.post.link'].create({
-                    'link_tracker_id': link_id,
-                    'name': rec,
-                    'state': 'pending',
-                })
-
-        values = {
-            'link_tracker': post,
-            'page_name': 'own_link_info',
-        }
-        return request.render("th_affiliate.th_own_link_seeding", values)
+        link_tracker_id = int(kwargs.get('link_tracker_id', False))
+        link = kwargs.get('link', False)
+        link_tracker = request.env['link.tracker'].search([('id', '=', link_tracker_id)])
+        post_link = request.env['th.post.link']
+        if link and link_tracker.search([('th_closing_work', '=', 'pending')]):
+            post_link = request.env['th.post.link'].create({
+                'link_tracker_id': link_tracker_id,
+                'name': link,
+                'state': 'pending',
+            })
+        if post_link:
+            message = {
+                "status": 200,
+                "msg": "Tạo thành công",
+            }
+        else:
+            message = {
+                "status": 400,
+                "msg": "Tạo thất bại",
+            }
+        return Response(json.dumps(message))
 
     # Sản phẩm ngoài danh mục
-    @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True, save_session=False)
+    @http.route('/my/link_outside_view/', type='http', auth="public", methods=['GET'], website=True)
+    def get_view_link(self, **kwargs):
+        values = {
+            'page_name': 'create_product_aff',
+        }
+        return request.render("th_affiliate.th_get_create_link_share_form", values)
+
+    @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True,
+                save_session=False)
     def create_link_outside(self, **kwargs):
         user_id = request.env.user.id
         url_product = kwargs['own_url']

@@ -144,47 +144,7 @@
                                                                                 </button>
                                                                             </div>
                                                                         </div>
-                                                                        <t t-if="page_name == 'own_link_info'">
-                                                                            <hr/>
-                                                                            <form action="/my/post_link/" method="post"
-                                                                                  enctype="multipart/form-data"
-                                                                                  data-mark="*" data-model_name=""
-                                                                                  data-success-page="">
-                                                                                <input t-att-value="link_tracker.id"
-                                                                                       name="id" class="d-none"/>
-                                                                                <div class="row mb-2">
-                                                                                    <div class="col-sm-3">
-                                                                                        <strong class="mb-0">Link bài
-                                                                                            đăng
-                                                                                        </strong>
-                                                                                    </div>
-                                                                                    <div class="col-sm-9">
-                                                                                        <input type="text" name="link1"
-                                                                                               placeholder="link 1"
-                                                                                               class="form-control"/>
-                                                                                    </div>
 
-                                                                                </div>
-                                                                                <div class="row mb-2">
-                                                                                    <div class="col-sm-3">
-                                                                                        <strong class="mb-0">
-                                                                                        </strong>
-                                                                                    </div>
-
-                                                                                    <div class="col-sm-9">
-                                                                                        <input type="text" name="link2"
-                                                                                               placeholder="link 2"
-                                                                                               class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-                                                                               <button class="btn btn-primary"
-                                                                                        style="float: right">
-                                                                                    Gửi link
-                                                                                </button>
-                                                                            </form>
-
-                                                                        </t>
-                                                                        <t t-else=""></t>
                                                                     </div>
                                                                 </div>
                                                             </div>

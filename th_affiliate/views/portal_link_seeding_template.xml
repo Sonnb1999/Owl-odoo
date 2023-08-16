@@ -47,22 +47,4 @@
             </t>
         </t>
     </template>
-
-    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
-        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'get_list_link_seeding'" t-attf-class="breadcrumb-item">Danh sách</li>
-            <li t-if="page_name == 'create_link'" t-attf-class="breadcrumb-item">
-                <a t-attf-href="/my/get_link_seeding?{{ keep_query() }}">Danh sách</a>
-                /
-                <t t-out="link_tracker.campaign_id.name"/>
-            </li>
-
-            <li t-if="page_name == 'own_links'" t-attf-class="breadcrumb-item">Danh sách</li>
-            <li t-if="page_name == 'own_link_info'" t-attf-class="breadcrumb-item">
-                <a t-attf-href="/my/own_link_tracker?{{ keep_query() }}">Danh sách</a>
-                /
-                <t t-out="link_tracker.title"/>
-            </li>
-        </xpath>
-    </template>
 </odoo>

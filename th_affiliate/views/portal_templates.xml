@@ -39,7 +39,7 @@
             <ol t-if="
              page_name != 'home' and (page_name != 'get_list_link_seeding' and
              page_name != 'create_link' and page_name != 'own_links' and
-             page_name != 'own_link_info' and page_name != 'seeding_partner' and page_name != 'post_link_info')"
+             page_name != 'own_link_info' and page_name != 'seeding_partner' and page_name != 'post_link_info' and page_name != 'create_product_aff')"
                 class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
                 <li class="breadcrumb-item ms-1">
                     <a href="/my/home" aria-label="Home" title="Home">
@@ -54,6 +54,7 @@
                   (page_name == 'get_list_link_seeding' or
                  page_name == 'create_link' or page_name == 'own_links' or
                  page_name == 'own_link_info' or page_name == 'seeding_partner' or page_name == 'post_link_info'
+                  or page_name == 'create_product_aff'
                  )
               " class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
                 <!--Home seeding-->
@@ -83,6 +84,8 @@
                     /
                     Link bài đăng
                 </li>
+                <!-- crete link-->
+                <li t-if="page_name == 'create_product_aff'" t-attf-class="breadcrumb-item">Tạo sản phẩm</li>
 
             </ol>
         </xpath>

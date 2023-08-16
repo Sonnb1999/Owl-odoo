@@ -16,10 +16,6 @@
         'security/link_tracker_security.xml',
         'security/ir.model.access.csv',
         'views/th_link_seeding.xml',
-        'views/portal_templates.xml',
-        'views/portal_own_links_template.xml',
-        'views/portal_link_seeding_template.xml',
-        'views/portal_own_port_links_template.xml',
         'views/link_tracker_views.xml',
         'views/seeding_acceptance.xml',
         'views/res_config_settings_views.xml',
@@ -30,6 +26,12 @@
         'views/th_pay.xml',
         'views/th_post_link.xml',
         'views/menus.xml',
+
+        'views/portal_templates.xml',
+        'views/portal_own_links_template.xml',
+        'views/portal_link_seeding_template.xml',
+        'views/portal_create_link_seeding.xml',
+        'views/portal_own_port_links_template.xml',
     ],
 
     'assets': {
