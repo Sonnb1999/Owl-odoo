@@ -24,6 +24,7 @@ class LinkTracker(models.Model):
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
+    th_count_link_click = fields.Char('Số người dùng nhấn vào link')
 
     @api.depends('th_post_link_ids.th_expense')
     def _amount_all(self):
@@ -61,6 +62,4 @@ class LinkTracker(models.Model):
             if rec.th_closing_work != 'pending':
                 raise ValidationError('chỉ xóa ở trang thái chờ nghiêm thu')
         res = super().unlink()
-
-
 

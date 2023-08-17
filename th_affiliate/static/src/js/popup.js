@@ -1,17 +1,17 @@
 // Toast function
-function showSuccessToast() {
+function showSuccessToast({message = ""}) {
     toast({
         title: "Thành công!",
-        message: "Link đã được tạo.",
+        message: message != "" ? message : 'Tạo thành công',
         type: "success",
         duration: 5000
     });
 }
 
-function showErrorToast() {
+function showErrorToast({message = ""}) {
     toast({
         title: "Thất bại!",
-        message: "Vui lòng điền link!.",
+        message: message != "" ? message : "Vui lòng xem lại link!.",
         type: "error",
         duration: 5000
     });
