@@ -25,6 +25,7 @@
         'views/th_product_aff.xml',
         'views/th_pay.xml',
         'views/th_post_link.xml',
+        'views/th_session_user.xml',
         'views/menus.xml',
 
         'views/portal_templates.xml',

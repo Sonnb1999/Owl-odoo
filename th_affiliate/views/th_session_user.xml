@@ -1,0 +1,37 @@
+<odoo>
+    <record id="th_session_user_tree" model="ir.ui.view">
+        <field name="name">th.session.user.tree</field>
+        <field name="model">th.session.user</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="th_user_client_code"/>
+                <field name="th_link_tracker_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="th_session_user_graph" model="ir.ui.view">
+            <field name="name">th.session.user.graph</field>
+            <field name="model">th.session.user</field>
+            <field name="arch" type="xml">
+                <graph string="Link Clicks" type="pie" sample="1">
+                    <field name="th_user_client_code"/>
+                </graph>
+            </field>
+        </record>
+
+
+    <record id="th_session_user_action" model="ir.actions.act_window">
+        <field name="name">th.session.user.action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">th.session.user</field>
+        <field name="view_mode">graph,tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+          </p><p>
+            <!-- More details about what a user can do with this object will be OK -->
+          </p>
+        </field>
+    </record>
+</odoo>

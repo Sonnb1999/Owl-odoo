@@ -8,6 +8,14 @@ from odoo import http, api
 from odoo.http import request, Response
 from odoo.addons.link_tracker.controller.main import LinkTracker
 import json
+from datetime import datetime
+
+date_format = '%m/%d/%Y, %I:%M:%S %p'
+my_headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Origin"
+}
 
 
 class ThLinkTracker(LinkTracker):
@@ -52,3 +60,64 @@ class ThLinkTracker(LinkTracker):
     #     return {
     #         "Message": "Success"
     #     }
+
+    @http.route('/api/backlink', type='json', auth='none', cors='*', csrf=False, methods=["POST"])
+    def back_link(self, **post):
+        client_headers = request.httprequest.headers
+        auth = client_headers.environ.get('HTTP_AUTHORIZATION', False)
+        if auth:
+            client_values = request.httprequest.get_json()
+            get_link = client_values.get('link_tracker')
+            str_start_date = client_values.get('date_start')
+            date_start = datetime.strptime(str_start_date, date_format)
+            utm_params = client_values.get('odoo_utmParams')
+            utm_source = utm_params.get('utm_source', '')
+            utm_campaign = utm_params.get('utm_campaign', '')
+            utm_medium = utm_params.get('utm_medium', '')
+            link_tracker = request.env['link.tracker'].sudo().search([('url', '=', get_link), ('source_id.name', '=', utm_source)])
+            if link_tracker:
+                link_tracker.sudo().write({
+                    'th_count_link_click': int(link_tracker.th_count_link_click) + 1
+                })
+            exist_user = request.env['th.session.user'].search([('th_user_client_code', '=', client_values.get('code'))])
+            if not exist_user:
+                create_user_click = request.env['th.session.user'].sudo().create({
+                    'th_link_tracker_id': link_tracker.id,
+                    'th_web_click_ids': [
+                        (0, 0, {
+                            'th_screen_time_start': date_start,
+                            'name': get_link,
+                        })
+                    ]
+                })
+            else:
+                exist_user.sudo().write({
+                    'th_link_tracker_id': link_tracker.id,
+                    'th_user_client_code': exist_user.th_user_client_code,
+                    'th_web_click_ids': [
+                        (0, 0, {
+                            'th_screen_time_start': date_start,
+                            'name': get_link,
+                        })
+                    ]
+                })
+
+        try:
+            body = {
+                "Message": "Success",
+                'code': create_user_click.th_user_client_code,
+                'status_code': 201
+            }
+            return body
+
+        except Exception as e:
+            response_data = {'Message': 'False', 'error': str(e)}
+            return Response(json.dumps(response_data), status=500)
+
+    @http.route('/api/end_session', type='json', auth='none', cors='*', csrf=False, methods=["POST"])
+    def end_session(self):
+        client_headers = request.httprequest.headers
+        auth = client_headers.environ.get('HTTP_AUTHORIZATION', False)
+        if auth:
+            client_values = request.httprequest.get_json()
+            get_link = client_values.get('code')

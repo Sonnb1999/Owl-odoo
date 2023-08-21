@@ -1,3 +1,5 @@
+import uuid
+
 from odoo import tools, models, fields, api, _
 from collections import defaultdict
 from odoo.exceptions import ValidationError
@@ -24,7 +26,33 @@ class LinkTracker(models.Model):
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
-    th_count_link_click = fields.Char('Số người dùng nhấn vào link')
+    th_count_link_click = fields.Integer('Số người dùng nhấn vào link', default=1)
+    th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
+    th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
+
+    def th_action_view_statistics(self):
+        action = self.env['ir.actions.act_window']._for_xml_id('th_affiliate.th_session_user_action')
+        action['domain'] = [('th_link_tracker_id', '=', self.id)]
+        action['context'] = dict(self._context, create=False)
+        return action
+    @api.depends('th_session_user_ids.th_link_tracker_id')
+    def _compute_th_session_user_ids(self):
+        if self.ids:
+            clicks_data = self.env['th.session.user']._read_group(
+                [('th_link_tracker_id', 'in', self.ids)],
+                ['th_link_tracker_id'],
+                ['th_link_tracker_id']
+            )
+            for m in clicks_data:
+                m
+            mapped_data = {m['th_link_tracker_id'][0]: m['th_link_tracker_id_count'] for m in clicks_data}
+        else:
+            mapped_data = dict()
+        for tracker in self:
+            tracker.th_count_user = mapped_data.get(tracker.id, 0)
+
+    def action_view_count_link_click(self):
+        pass
 
     @api.depends('th_post_link_ids.th_expense')
     def _amount_all(self):
@@ -61,5 +89,4 @@ class LinkTracker(models.Model):
         for rec in self:
             if rec.th_closing_work != 'pending':
                 raise ValidationError('chỉ xóa ở trang thái chờ nghiêm thu')
-        res = super().unlink()
-
+        return super().unlink()

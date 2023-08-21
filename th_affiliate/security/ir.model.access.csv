@@ -10,3 +10,5 @@ access_th_acceptance_cost_history,access.th.acceptance.cost.history,model_th_acc
 access_th_product_aff_category,access.th.product.aff.category,model_th_product_aff_category,,1,1,1,1
 access_th_product_aff,access.th.product.aff,model_th_product_aff,,1,1,1,1
 access_th_pay,access.th.pay,model_th_pay,,1,1,1,1
+access_th_session_user,access_th_session_user,model_th_session_user,,1,1,1,1
+access_th_web_click,access_th_web_click,model_th_web_click,,1,1,1,1

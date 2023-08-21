@@ -7,3 +7,4 @@ from . import th_aff_ownership_unit
 from . import utm
 from . import th_product_aff_category
 from . import th_pay
+from . import th_session_user

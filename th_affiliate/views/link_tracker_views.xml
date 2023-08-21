@@ -11,12 +11,14 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Visit Page"
-                                class="oe_stat_button"/>
-                        <button type="object" class="oe_stat_button" name="action_view_statistics"
-                                icon="fa-bar-chart-o">
-                            <field name="count" string="Clicks" widget="statinfo"/>
+                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Visit Page" class="oe_stat_button"/>
+                        <button type="object" class="oe_stat_button" name="th_action_view_statistics" icon="fa-bar-chart-o">
+                            <field name="th_count_user" string="Người dùng" widget="statinfo"/>
                         </button>
+                        <button type="object" class="oe_stat_button" name="action_view_count_link_click" icon="fa-bar-chart-o">
+                            <field name="th_count_link_click" string="Clicks" widget="statinfo"/>
+                        </button>
+
                     </div>
                     <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
                     <group>
