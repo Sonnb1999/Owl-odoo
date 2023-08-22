@@ -88,5 +88,5 @@ class LinkTracker(models.Model):
     def unlink(self):
         for rec in self:
             if rec.th_closing_work != 'pending':
-                raise ValidationError('chỉ xóa ở trang thái chờ nghiêm thu')
+                raise ValidationError('Chỉ xóa link ở trang thái chờ nghiêm thu')
         return super().unlink()

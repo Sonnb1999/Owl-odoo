@@ -13,6 +13,7 @@
         'th_contact',
     ],
     'data': [
+        'data/ir_sequence.xml',
         'security/link_tracker_security.xml',
         'security/ir.model.access.csv',
         'views/th_link_seeding.xml',
