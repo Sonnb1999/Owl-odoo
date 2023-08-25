@@ -1,16 +1,16 @@
 from odoo import models, fields, api
 from datetime import timedelta
 
-coefficient_selection_values = [
-    ('CN1', "CN1"),
-    ('GR1', "GR1"),
-    ('GR2', "GR2"),
-    ('GR3', "GR3"),
-    ('CN2', "CN2"),
-    ('GR4', "GR4"),
-    ('GR5', "GR5"),
-    ('GR6', "GR6")
-]
+# coefficient_selection_values = [
+#     ('CN1', "CN1"),
+#     ('GR1', "GR1"),
+#     ('GR2', "GR2"),
+#     ('GR3', "GR3"),
+#     ('CN2', "CN2"),
+#     ('GR4', "GR4"),
+#     ('GR5', "GR5"),
+#     ('GR6', "GR6")
+# ]
 
 acceptance_type_selection_values = [
     ('is_available', "Có sẵn"),
@@ -20,16 +20,17 @@ acceptance_type_selection_values = [
 
 class ThAcceptanceSeeding(models.Model):
     _name = 'th.acceptance.seeding'
-    _rec_name = 'th_coefficient'
+    _rec_name = 'name'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # name = fields.Char("Tên")
-    th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Loại', required=1,
-                                          default='is_available')
-    th_coefficient = fields.Selection(selection=coefficient_selection_values, required=1, string="Hệ số", tracking=True)
+    name = fields.Char(required=1, string="Hệ số")
+    th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Loại', required=1, default='is_available')
     th_coefficient_convention = fields.Char(string="Quy ước hệ số")
     th_cost_factor = fields.Float(string='Chi phí/hệ số', tracking=True)
     th_acceptance_cost_history_ids = fields.One2many('th.acceptance.cost.history', 'th_acceptance_seeding_id')
+    th_post_link_id = fields.Many2one('th.post.link', 'Post link')
+
 
     @api.model
     def create(self, values):

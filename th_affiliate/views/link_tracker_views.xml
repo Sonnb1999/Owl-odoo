@@ -23,15 +23,15 @@
                     <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
                     <group>
                         <group name="url" string="URL">
-                            <field name="th_product_aff_id"/>
+                            <field name="th_product_aff_id" options="{'no_open': True}"/>
                             <field name="url" readonly="1"/>
-                            <field name="short_url"/>
+                            <field name="short_url" widget="CopyClipboardChar"/>
                         </group>
                         <group name="utm" string="UTM">
-                            <field name="campaign_id" options="{'create_name_field': 'title', 'always_reload': True}" readonly="1"/>
-                            <field name="medium_id" readonly="1"/>
-                            <field name="source_id" readonly="1"/>
-                            <field name="th_aff_partner_id" readonly="1"/>
+                            <field name="campaign_id" options="{'create_name_field': 'title', 'always_reload': True, 'no_open': True}" readonly="1"/>
+                            <field name="medium_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="source_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="th_aff_partner_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_closing_work" invisible="1"/>
                         </group>
                     </group>
@@ -40,16 +40,32 @@
                             <field name="th_post_link_ids"
                                    options="{'delete': [('th_closing_work', '!=', 'cost_closing')], 'create': [('th_closing_work', '!=', 'cost_closing')]}"
                                    attrs="{'readonly': [('th_closing_work', '=', 'cost_closing')]}">
-                                <tree string="Record post link" class="th_post_link" editable="bottom" no_open="1">
-                                    <button name="action_visit_page" type="object" string="Link"
-                                            icon="fa-external-link"/>
+                                <tree string="Record post link" class="th_post_link">
+                                    <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
                                     <field name="th_acceptance_person_id"/>
                                     <field name="link_tracker_id" invisible="1"/>
                                     <field name="create_date" string="Ngày tạo" widget="date"/>
                                     <field name="state"/>
-                                    <field name="th_seeding_acceptance_id"/>
+                                    <field name="th_seeding_acceptance_ids" widget="many2many_tags"/>
                                     <field name="th_expense"/>
                                 </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="th_acceptance_person_id"/>
+                                                <field name="link_tracker_id" invisible="1"/>
+                                                <field name="create_date" string="Ngày tạo" widget="date"/>
+                                            </group>
+                                            <group>
+                                                <field name="state"/>
+                                                <field name="th_seeding_acceptance_ids" widget="many2many_tags"/>
+                                                <field name="th_expense"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
                             </field>
                             <group name="th_total_cost" col="6" class="mt-2 mt-md-0">
                                 <group colspan="4">
@@ -136,5 +152,4 @@
                           (0, 0, {'view_mode': 'graph', 'view_id': ref('th_link_tracker_view_graph')}),
                           ]"/>
     </record>
-
 </odoo>

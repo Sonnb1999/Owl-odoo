@@ -11,7 +11,7 @@
                         <field name="create_date" string="Ngày tạo" widget="date"/>
                         <field name="state" readonly="true"/>
                         <field name="th_pay"/>
-                        <field name="th_seeding_acceptance_id" readonly="true"/>
+                        <field name="th_seeding_acceptance_ids" readonly="true"/>
                         <field name="th_note"/>
                     </group>
                 </sheet>

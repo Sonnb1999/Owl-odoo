@@ -32,7 +32,7 @@
                             <field name="th_partner_id" readonly="1"/>
                         </group>
                         <group>
-                            <field name="th_count_link" readonly="1"/>
+                            <field name="th_count_correct_link" readonly="1"/>
                             <field name="th_paid" readonly="1"/>
                             <field name="th_paid_date" readonly="1"/>
                         </group>
@@ -40,12 +40,12 @@
                     <notebook>
                         <page string="Link bài đăng">
                             <field name="th_post_link_ids" options="{'delete': [('state','=', 'pending')]}">
-                                <tree string="Record post link" class="th_post_link" edit="0" create="0" no_open="True">
+                                <tree string="Record post link" class="th_post_link" create="0" no_open="True"  editable="bottom">
                                     <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
                                     <field name="th_acceptance_person_id"/>
                                     <field name="create_date" string="Ngày tạo" widget="date"/>
                                     <field name="state"/>
-                                    <field name="th_seeding_acceptance_id"/>
+                                    <field name="th_seeding_acceptance_ids" widget="many2many_tags"/>
                                     <field name="th_expense"/>
                                 </tree>
                             </field>

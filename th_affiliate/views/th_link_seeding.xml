@@ -17,7 +17,7 @@
         <field name="model">th.link.seeding</field>
         <field name="arch" type="xml">
             <form string="Form">
-                <header> <button name="action_create_link_tracker" string="Tạo Link test" type="object" class="oe_highlight" title="Create Link"/></header>
+                <header> <button name="action_create_link_tracker" string="Tạo Link Seeding" type="object" class="oe_highlight" title="Create Link"/></header>
                 <sheet>
                     <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
 

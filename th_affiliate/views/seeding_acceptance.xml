@@ -6,13 +6,12 @@
         <field name="arch" type="xml">
             <tree string="Version">
                 <field name="th_acceptance_type"/>
-                <field name="th_coefficient"/>
+                <field name="name"/>
                 <field name="th_coefficient_convention"/>
                 <field name="th_cost_factor"/>
             </tree>
         </field>
     </record>
-
 
     <record id="th_view_seeding_acceptance_form" model="ir.ui.view">
         <field name="name">th.view.seeding.acceptance.form</field>
@@ -23,8 +22,7 @@
                     <group>
                         <group>
                             <field name="th_acceptance_type"/>
-                            <field name="th_coefficient"/>
-
+                            <field name="name"/>
                         </group>
                         <group>
                             <field name="th_coefficient_convention"/>

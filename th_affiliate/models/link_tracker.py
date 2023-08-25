@@ -30,6 +30,12 @@ class LinkTracker(models.Model):
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
 
+    @api.model
+    def get_views(self, views, options=None):
+        res = super().get_views(views, options)
+        res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][0:3]
+        return res
+
     def th_action_view_statistics(self):
         action = self.env['ir.actions.act_window']._for_xml_id('th_affiliate.th_session_user_action')
         action['domain'] = [('th_link_tracker_id', '=', self.id)]
@@ -67,11 +73,11 @@ class LinkTracker(models.Model):
         for rec in self:
             if rec.th_post_link_ids.filtered(lambda p: p.state == 'pending'):
                 raise ValidationError(_("Vui lòng duyệt toàn bộ các bài đăng của cộng tác viên!"))
-            if rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and not p.th_seeding_acceptance_id):
+            if rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and not p.th_seeding_acceptance_ids):
                 raise ValidationError(_("Vui lòng nhập đủ 'hệ số' cho các bài đăng 'đúng yêu cầu'!"))
 
             pay_id = self.env['th.pay'].search([('th_partner_id', '=', rec.th_aff_partner_id.id), ('state', '=', 'pending')], limit=1, order='id desc')
-            post_link_ids = rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and p.th_seeding_acceptance_id)
+            post_link_ids = rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and p.th_seeding_acceptance_ids)
             if not pay_id:
                 pay_id = self.env['th.pay'].create({
                     'name': _('Phiếu thanh toán cho %s ngày %s', rec.th_aff_partner_id.name, fields.Date.today()),
