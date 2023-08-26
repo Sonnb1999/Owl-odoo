@@ -21,8 +21,8 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="th_acceptance_type"/>
                             <field name="name"/>
+                            <field name="th_acceptance_type"/>
                         </group>
                         <group>
                             <field name="th_coefficient_convention"/>
@@ -30,14 +30,13 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Lịch sử chi phí" name="th_acceptance_cost_history_ids">
+                        <page string="Expense history" name="th_acceptance_cost_history_ids">
                             <field name="th_acceptance_cost_history_ids" nolabel="1">
                                 <tree edit="0" create="0" no_open="True">
                                     <field name="th_start_date"/>
                                     <field name="th_end_date"/>
                                     <field name="th_cost_factor"/>
                                     <field name="th_acceptance_seeding_id" invisible="1" />
-                                    <field name="th_cost_factor"/>
                                 </tree>
                             </field>
                         </page>
@@ -55,10 +54,6 @@
     <record id="th_view_seeding_acceptance_action" model="ir.actions.act_window">
         <field name="name">Hoa hồng seeding</field>
         <field name="res_model">th.acceptance.seeding</field>
-        <field name="view_id" ref="th_view_seeding_acceptance_tree"/>
-        <field name="view_ids"
-               eval="[(5, 0, 0),
-                          (0, 0, {'view_mode': 'tree', 'view_id': ref('th_view_seeding_acceptance_tree')}),
-                          (0, 0, {'view_mode': 'form', 'view_id': ref('th_view_seeding_acceptance_form')})]"/>
+        <field name="view_mode">tree,form</field>
     </record>
 </odoo>

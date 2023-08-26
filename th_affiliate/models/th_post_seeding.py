@@ -39,23 +39,21 @@ class ThPostSeeding(models.Model):
 
             acceptance_seeding = rec.th_seeding_acceptance_ids
             create_date = rec.create_date.date() if rec.create_date else fields.Date.today()
-            th_cost = 0
-            
-            for rec2 in acceptance_seeding:
-                if rec2:
-                    cost_histories = rec2.th_acceptance_cost_history_ids
-                    if cost_histories:
-                        for cost_history in cost_histories:
-                            #  ngày tạo chi phí trong quá khứ <= nếu ngày tạo bài đăng <= ngày kết thúc trong quá khứ
-                            if cost_history.th_end_date and cost_history.th_start_date <= create_date <= cost_history.th_end_date:
-                                th_cost += cost_history.th_factor
-                            elif cost_history.th_start_date <= create_date and not cost_history.th_end_date:
-                                th_cost += cost_history.th_cost_factor
-                            else:
-                                th_cost
+            th_cost = self.th_action_cost_check(acceptance_seeding, create_date)
             rec.th_expense = th_cost
 
-
+    def th_action_cost_check(self, acceptance_seeding, create_date):
+        th_cost = 0
+        for rec2 in acceptance_seeding:
+            if rec2:
+                cost_histories = rec2.th_acceptance_cost_history_ids
+                for cost_history in cost_histories:
+                    #  ngày tạo chi phí trong quá khứ <= nếu ngày tạo bài đăng <= ngày kết thúc trong quá khứ
+                    if cost_history.th_end_date and cost_history.th_start_date <= create_date <= cost_history.th_end_date:
+                        th_cost += cost_history.th_cost_factor
+                    elif cost_history.th_start_date <= create_date and not cost_history.th_end_date:
+                        th_cost += cost_history.th_cost_factor
+        return th_cost
 
     def action_visit_page(self):
         return {
