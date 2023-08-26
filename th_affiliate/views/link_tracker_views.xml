@@ -5,8 +5,9 @@
         <field name="arch" type="xml">
             <form string="Website Link" duplicate="0">
                 <header>
-                    <button name="action_cancel_closing_work" class="btn btn-primary" type="object" string="Nghiệm thu" attrs="{'invisible': [('th_closing_work', 'in', ['acceptance','cost_closing'])]}"/>
-                    <button name="action_closing_work" class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
+                    <button name="action_draft_closing_work" class="btn" type="object" string="Chờ nghiệm thu" groups="base.group_no_one"/>
+                    <button name="action_acceptance_closing_work" class="btn btn-primary" type="object" string="Nghiệm thu" attrs="{'invisible': [('th_closing_work', 'in', ['acceptance','cost_closing'])]}"/>
+                    <button name="action_cost_closing" class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
                     <field name="th_closing_work" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -51,9 +52,13 @@
                                 </tree>
                                 <form>
                                     <sheet>
+                                         <div class="oe_title mb-2 w-100">
+                                            <label for="name"/>
+                                            <field name="name" widget="url" class="w-100" attrs="{'readonly': [('th_check_uid', '=', False)]}"/>
+                                        </div>
                                         <group>
                                             <group>
-                                                <field name="name"/>
+                                                <field name="th_check_uid" invisible="1"/>
                                                 <field name="th_acceptance_person_id"/>
                                                 <field name="link_tracker_id" invisible="1"/>
                                                 <field name="create_date" string="Ngày tạo" widget="date"/>

@@ -1,6 +1,6 @@
 from odoo import tools, models, fields, api, _
 from collections import defaultdict
-
+from odoo.exceptions import ValidationError
 URL_MAX_SIZE = 10 * 1024 * 1024
 
 select_state = [
@@ -27,24 +27,35 @@ class ThPostSeeding(models.Model):
     th_pay_id = fields.Many2one(comodel_name="th.pay", string="Pay")
     # th_link_owner_id = fields.Many2one('res.partner', 'Người sở hữu')
     # th_nick = fields.Char('Tên nick')
+    th_check_uid = fields.Boolean('Kiểm tra', compute="compute_th_expense")
 
     @api.depends('th_seeding_acceptance_ids')
     def compute_th_expense(self):
         for rec in self:
+            if rec.link_tracker_id and rec.link_tracker_id.create_uid.id == self._uid:
+                rec.th_check_uid = True
+            else:
+                rec.th_check_uid = False
+
             acceptance_seeding = rec.th_seeding_acceptance_ids
+            create_date = rec.create_date.date() if rec.create_date else fields.Date.today()
             th_cost = 0
+            
             for rec2 in acceptance_seeding:
-                old_pays = rec2.th_acceptance_cost_history_ids
-                if rec2 and old_pays:
-                    for old_pay in old_pays:
-                        create_date = old_pay.create_date.date() or fields.Datetime.now()
-                        if old_pay.th_end_date and old_pay.th_start_date <= create_date <= old_pay.th_end_date:
-                            th_cost += old_pay.th_cost_factor
-                        elif old_pay.th_start_date <= create_date and not old_pay.th_end_date:
-                            th_cost += old_pay.th_cost_factor
-                        else:
-                            th_cost
+                if rec2:
+                    cost_histories = rec2.th_acceptance_cost_history_ids
+                    if cost_histories:
+                        for cost_history in cost_histories:
+                            #  ngày tạo chi phí trong quá khứ <= nếu ngày tạo bài đăng <= ngày kết thúc trong quá khứ
+                            if cost_history.th_end_date and cost_history.th_start_date <= create_date <= cost_history.th_end_date:
+                                th_cost += cost_history.th_factor
+                            elif cost_history.th_start_date <= create_date and not cost_history.th_end_date:
+                                th_cost += cost_history.th_cost_factor
+                            else:
+                                th_cost
             rec.th_expense = th_cost
+
+
 
     def action_visit_page(self):
         return {
@@ -85,6 +96,6 @@ class ThPostSeeding(models.Model):
     def create(self, values):
         result = super(ThPostSeeding, self).create(values)
         for rec in result:
-            if rec.link_tracker_id and rec.link_tracker_id.th_closing_work != 'pending':
-                return False
+            if rec.link_tracker_id and rec.link_tracker_id.th_closing_work == 'cost_closing':
+                raise ValidationError('Đang trong quá trình chốt chi phí không thể tạo thêm link!')
         return rec

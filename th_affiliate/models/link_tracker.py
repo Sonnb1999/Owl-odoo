@@ -41,6 +41,7 @@ class LinkTracker(models.Model):
         action['domain'] = [('th_link_tracker_id', '=', self.id)]
         action['context'] = dict(self._context, create=False)
         return action
+
     @api.depends('th_session_user_ids.th_link_tracker_id')
     def _compute_th_session_user_ids(self):
         if self.ids:
@@ -69,7 +70,7 @@ class LinkTracker(models.Model):
                 total = total + float(link_post.th_expense)
         self.th_total_cost = total
 
-    def action_closing_work(self):
+    def action_cost_closing(self):
         for rec in self:
             if rec.th_post_link_ids.filtered(lambda p: p.state == 'pending'):
                 raise ValidationError(_("Vui lòng duyệt toàn bộ các bài đăng của cộng tác viên!"))
@@ -87,9 +88,13 @@ class LinkTracker(models.Model):
             post_link_ids.write({'th_pay_id': pay_id.id})
             rec.write({'th_closing_work': 'cost_closing'})
 
-    def action_cancel_closing_work(self):
+    def action_acceptance_closing_work(self):
         for rec in self:
             rec.write({'th_closing_work': 'acceptance'})
+
+    def action_draft_closing_work(self):
+        for rec in self:
+            rec.write({'th_closing_work': 'pending'})
 
     def unlink(self):
         for rec in self:

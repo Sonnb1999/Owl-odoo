@@ -51,7 +51,7 @@ class ThAcceptanceSeeding(models.Model):
                 th_acceptance_seeding_old_id = self.env['th.acceptance.cost.history'].search(
                     [('th_acceptance_seeding_id', '=', rec.id)], limit=1, order='id desc')
                 th_acceptance_seeding_old_id.write({
-                    'th_end_date': fields.Date.today() - timedelta(days=1),
+                    'th_end_date': fields.Date.today(),
                 })
                 data = {
                     'th_cost_factor': values.get('th_cost_factor'),

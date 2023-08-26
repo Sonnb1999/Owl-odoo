@@ -13,8 +13,8 @@ class LinkTracker(models.Model):
     th_partner_id = fields.Many2one('res.partner', string="Cộng tác viên")
     th_post_link_ids = fields.One2many('th.post.link', 'th_pay_id', 'Post link')
     state = fields.Selection(selection=[('pending', 'Chờ duyệt'), ('accept', 'Duyệt'), ('cancel', 'Hủy'), ('paid', 'Đã Thanh toán')])
-    th_count_correct_link = fields.Integer('Số bài đăng đúng', default=0, compute="_compute_amount")
-    th_count_wrong_link = fields.Integer('Số bài đăng không đạt', default=0, compute="_compute_amount")
+    th_count_correct_link = fields.Integer('Số bài đăng đúng', default=0, compute="_compute_count_post_link")
+    th_count_wrong_link = fields.Integer('Số bài đăng không đạt', default=0, compute="_compute_count_post_link")
     th_paid = fields.Float('Tổng chi phí', default=0)
     th_paid_date = fields.Date('Ngày chi trả')
 
@@ -25,7 +25,7 @@ class LinkTracker(models.Model):
         return res
 
     @api.depends('th_post_link_ids')
-    def _compute_amount(self):
+    def _compute_count_post_link(self):
         for rec in self:
             post_links = rec.th_post_link_ids
             total_pay = 0
