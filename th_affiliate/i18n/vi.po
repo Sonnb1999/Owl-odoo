@@ -335,7 +335,7 @@ msgstr "Ngày kết thúc"
 #. module: th_affiliate
 #: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_seeding_acceptance_form
 msgid "Expense history"
-msgstr ""
+msgstr "Lịch sử chi phí"
 
 #. module: th_affiliate
 #: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_follower_ids
@@ -923,7 +923,7 @@ msgstr ""
 #. module: th_affiliate
 #: model:ir.model.fields.selection,name:th_affiliate.selection__th_acceptance_seeding__th_acceptance_type__self_writing
 msgid "Self writing"
-msgstr ""
+msgstr "Tự viết"
 
 #. module: th_affiliate
 #: model:ir.actions.act_window,name:th_affiliate.th_action_aff_config_settings
