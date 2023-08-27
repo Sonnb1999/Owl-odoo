@@ -1,0 +1,1327 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* th_affiliate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e-20230313\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-27 09:03+0000\n"
+"PO-Revision-Date: 2023-08-27 09:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.seeding_partner
+msgid ""
+"<i class=\"fa fa-fw fa-id-card-o me-1 small text-muted\"/>\n"
+"                Cộng tác viên seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_own_link_seeding
+msgid "<strong class=\"mb-0\">Chiến dịch</strong>"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_own_link_seeding
+msgid ""
+"<strong class=\"mb-0\">Link chia sẻ\n"
+"                                                                                </strong>"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "<strong>Link bài đăng đang trong quá trình nghiệm thu</strong>"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid ""
+"<strong>Link bài đăng</strong>\n"
+"                                <br/>"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+msgid ""
+"<strong>Link sản phẩm</strong>\n"
+"                    <br/>"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_needaction
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_needaction
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_needaction
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_needaction
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_needaction
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_exception_decoration
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_exception_decoration
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_exception_decoration
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_exception_decoration
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_exception_decoration
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_state
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_state
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_state
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_state
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_state
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_type_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_type_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_type_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_type_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_type_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_link_seeding_form
+msgid "Add an internal note..."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.ui.menu,name:th_affiliate.th_menu_root_aff
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_res_config_settings_view_form
+msgid "Affiliate"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_attachment_count
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_attachment_count
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_attachment_count
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_attachment_count
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_attachment_count
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_acceptance_seeding__th_acceptance_type__is_available
+msgid "Available"
+msgstr "Có sẵn	"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_campaign_id
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+msgid "Campaign"
+msgstr "Chiến dịch"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_expense
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Chi phí"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__th_child_id
+msgid "Child Categories"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__campaign_id
+#: model:ir.ui.menu,name:th_affiliate.th_aff_menu_menu_utm_campaign_act
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_get_link_seeding
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Chiến dịch"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_closing_work
+#: model:ir.model.fields.selection,name:th_affiliate.selection__link_tracker__th_closing_work__cost_closing
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "Chốt chi phí"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_pay__state__pending
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_post_link__state__pending
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Chờ duyệt"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__link_tracker__th_closing_work__pending
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "Chờ nghiệm thu"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "Clicks"
+msgstr "Số lượng nhấn"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__name
+msgid "Coefficient"
+msgstr "Hệ số"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__th_coefficient_convention
+msgid "Coefficient convention"
+msgstr "Quy ước hệ số"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_note
+msgid "Comment"
+msgstr "Bình luận"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__th_complete_name
+msgid "Complete Name"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_res_config_settings
+msgid "Config Settings"
+msgstr "Cấu hình"
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_res_config_settings_view_form
+msgid "Cookie"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_own_link_seeding
+msgid "Copy"
+msgstr "Sao chép"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__th_cost_factor
+msgid "Cost/Factor"
+msgstr "Chi phí/Hệ số"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__th_cost_factor
+msgid "Cost/factor"
+msgstr "Chi phí/Hệ số"
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_link_seeding_form
+msgid "Create Link"
+msgstr "Tạo link"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__create_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__create_uid
+msgid "Created by"
+msgstr "Tạo Bởi"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__create_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.ui.menu,name:th_affiliate.th_menu_aff_config_settings
+msgid "Cài đặt"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_get_link_public
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_seeding_partner
+msgid "Các liên kết của bạn"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.ui.menu,name:th_affiliate.th_menu_setting
+msgid "Cấu hình"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_aff_partner_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__th_partner_id
+msgid "Cộng tác viên"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+msgid "Danh sách link bài đăng"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.ui.menu,name:th_affiliate.th_menu_th_link_tracking
+msgid "Danh sách sản phẩm seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__res_config_settings__th_access_interval_type__days
+msgid "Days"
+msgstr "Ngày"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__display_name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_seeding_partner
+msgid "Documents"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_pay__state__accept
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+msgid "Duyệt"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__link_tracker__th_type__email_marketing
+msgid "Email marketing"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__th_end_date
+msgid "End date"
+msgstr "Ngày kết thúc"
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_seeding_acceptance_form
+msgid "Expense history"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_follower_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_follower_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_follower_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_follower_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_follower_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_partner_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_partner_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_partner_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_partner_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_partner_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__activity_type_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__activity_type_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__activity_type_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__activity_type_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__activity_type_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_link_seeding_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_product_aff_category_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_product_aff_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_seeding_acceptance_form
+msgid "Form"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__has_message
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__has_message
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__has_message
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__has_message
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__has_message
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_view_seeding_acceptance_action
+#: model:ir.ui.menu,name:th_affiliate.th_view_seeding_acceptance_menu
+msgid "Hoa hồng seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__res_config_settings__th_access_interval_type__hours
+msgid "Hours"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_seeding_acceptance_ids
+msgid "Hệ số"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_pay__state__cancel
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+msgid "Hủy"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__id
+msgid "ID"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_exception_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_exception_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_exception_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_exception_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_exception_icon
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__activity_exception_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__activity_exception_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__activity_exception_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__activity_exception_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__activity_exception_icon
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__message_needaction
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__message_needaction
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__message_needaction
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__message_needaction
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__message_needaction
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__message_has_error
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__message_has_sms_error
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__message_has_error
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__message_has_sms_error
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__message_has_error
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__message_has_sms_error
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__message_has_error
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__message_has_sms_error
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__message_has_error
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__message_has_sms_error
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__message_has_error
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_is_follower
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_is_follower
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_is_follower
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_is_follower
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_is_follower
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_check_uid
+msgid "Kiểm tra"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__medium_id
+#: model:ir.ui.menu,name:th_affiliate.th_aff_menu_utm_medium
+msgid "Kênh"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user____last_update
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__write_uid
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__write_date
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_action_link_seeding
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+msgid "Link"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_session_user_graph
+msgid "Link Clicks"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_get_link_seeding
+msgid "Link Gốc"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_link_tracker
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__link_tracker_id
+#: model:ir.module.category,name:th_affiliate.module_category_services_link_tracker
+msgid "Link Tracker"
+msgstr "Kiểm soát đường dẫn"
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_post_link_action
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__name
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+msgid "Link bài đăng"
+msgstr ""
+
+#. module: th_affiliate
+#. odoo-python
+#: code:addons/th_affiliate/models/th_post_seeding.py:0
+#, python-format
+msgid "Link bài đăng %s đã được cập nhập"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Link chia sẻ"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_link_seeding_id
+msgid "Link gốc"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__th_url
+msgid "Link mục tiêu"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_link_tracker_action
+#: model:ir.ui.menu,name:th_affiliate.th_aff_menu_main
+msgid "Link seed CTV"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__link_tracker__th_type__link_seeding
+msgid "Link seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__th_link_product
+msgid "Link sản phẩm"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_get_link_tracker_share
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_seeding_partner
+msgid "Link theo chiến dịch"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_tree
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_get_link_seeding
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Links"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_get_link_seeding
+msgid "Lấy link"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_main_attachment_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_main_attachment_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_main_attachment_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_main_attachment_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_main_attachment_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+msgid "Medium"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_has_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_has_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_has_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_has_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_has_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__res_config_settings__th_access_interval_type__minutes
+msgid "Minutes"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__my_activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__my_activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__my_activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__my_activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__my_activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__th_user_client_code
+msgid "Mã code người dùng"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__th_code_aff
+msgid "Mã đơn vị sở hữu"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_calendar_event_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_calendar_event_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_calendar_event_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_calendar_event_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_calendar_event_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_date_deadline
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_summary
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_summary
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_summary
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_summary
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_summary
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_type_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_type_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_type_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_type_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_type_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_acceptance_person_id
+#: model:ir.model.fields.selection,name:th_affiliate.selection__link_tracker__th_closing_work__acceptance
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "Nghiệm thu"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+msgid "Ngày"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_utm_campaign__th_start_date
+msgid "Ngày bắt đầu"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__th_paid_date
+msgid "Ngày chi trả"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_utm_campaign__th_end_date
+msgid "Ngày kết thúc"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Ngày tạo"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "Người dùng"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_session_user_action
+msgid "Người dùng truy cập"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_product_aff__state__draft
+msgid "Nháp"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__th_category_parent_id
+msgid "Nhóm cha"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_view_product_aff_action
+#: model:ir.actions.act_window,name:th_affiliate.th_view_product_aff_category_action
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_aff_category_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__th_aff_category_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__th_aff_category_id
+#: model:ir.ui.menu,name:th_affiliate.th_menu_product_aff_category
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_product_aff_category_tree
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_product_aff_form
+msgid "Nhóm sản phẩm"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Nhập link ở đây"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_seeding_partner
+msgid "No Documents to display"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_needaction_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_needaction_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_needaction_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_needaction_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_needaction_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_has_error_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_has_error_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_has_error_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_has_error_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_has_error_counter
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__message_needaction_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__message_needaction_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__message_needaction_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__message_needaction_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__message_needaction_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__message_has_error_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__message_has_error_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__message_has_error_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__message_has_error_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__message_has_error_counter
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: th_affiliate
+#: model:res.groups,name:th_affiliate.th_group_officer_link_tracker
+msgid "Officer"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__parent_path
+msgid "Parent Path"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__th_pay_id
+msgid "Pay"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__name
+msgid "Phiếu chi trả"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_pay_action
+msgid "Phiếu thanh toán"
+msgstr ""
+
+#. module: th_affiliate
+#. odoo-python
+#: code:addons/th_affiliate/models/link_tracker.py:0
+#, python-format
+msgid "Phiếu thanh toán cho %s ngày %s"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_graph
+msgid "Pipeline Analysis"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_post_link_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__th_post_link_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__th_post_link_ids
+msgid "Post link"
+msgstr "Link bài đăng"
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+msgid "Record post link"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__activity_user_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__activity_user_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__activity_user_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__activity_user_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__activity_user_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__message_has_sms_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__message_has_sms_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__message_has_sms_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__message_has_sms_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__message_has_sms_error
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_post_link__state__wrong_request
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Sai yêu cầu"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_acceptance_seeding__th_acceptance_type__self_writing
+msgid "Self writing"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_action_aff_config_settings
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_res_config_settings_view_form
+msgid "Settings"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__th_show_name
+msgid "Show name"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+msgid "Source"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__th_start_date
+msgid "Start day"
+msgstr "Ngày bắt đầu"
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__state
+msgid "State"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__state
+msgid "Status"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__activity_state
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__activity_state
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__activity_state
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__activity_state
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__activity_state
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_product_aff_id
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__th_product_aff_id
+#: model:ir.ui.menu,name:th_affiliate.th_menu_product_aff
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_search
+msgid "Sản phẩm"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__th_count_wrong_link
+msgid "Số bài đăng không đạt"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__th_count_correct_link
+msgid "Số bài đăng đúng"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_count_user
+msgid "Số người dùng"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_count_link_click
+msgid "Số người dùng nhấn vào link"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__th_acceptance_cost_history_ids
+msgid "Th Acceptance Cost History"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_cost_history__th_acceptance_seeding_id
+msgid "Th Acceptance Seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_res_config_settings__th_access_interval_type
+msgid "Th Access Interval Type"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__th_link_tracker_id
+msgid "Th Link Tracker"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__th_referrer_link
+msgid "Th Referrer Link"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_session_user_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__th_session_user_id
+msgid "Th Session User"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_type
+msgid "Th Type"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__th_web_click_ids
+msgid "Th Web Click"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.ui.menu,name:th_affiliate.th_pay_menu
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_pay_form_view
+msgid "Thanh toán"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__th_campaign_id
+msgid ""
+"This is a name that helps you keep track of your different campaign efforts,"
+" e.g. Fall_Drive, Christmas_Special"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_own_link_seeding
+msgid "Thông tin"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_res_config_settings__th_access_interval_number
+msgid "Thời gian tồn tại"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_res_config_settings_view_form
+msgid "Thời gian tồn tại:"
+msgstr ""
+
+#. module: th_affiliate
+#. odoo-python
+#: code:addons/th_affiliate/models/th_seeding_acceptance.py:0
+#, python-format
+msgid "Time cannot overlap"
+msgstr "Thời gian không thể chồng chéo"
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_product_aff__state__active
+msgid "Triển khai"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__state
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Trạng thái"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__th_acceptance_type
+msgid "Type"
+msgstr "Loại"
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__activity_exception_decoration
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__activity_exception_decoration
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__activity_exception_decoration
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__activity_exception_decoration
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__activity_exception_decoration
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__name
+msgid "Tên"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__name
+msgid "Tên nhóm"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__name
+msgid "Tên sản phẩm"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_session_user__th_website
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__name
+msgid "Tên website"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Tạo Link"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_link_seeding_form
+msgid "Tạo Link Seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_total_cost
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__th_paid
+msgid "Tổng chi phí"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__th_total_time
+msgid "Tổng giờ"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "URL"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "UTM"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_utm_campaign
+msgid "UTM Campaign"
+msgstr "Chiến dịch UTM"
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_seeding_acceptance_tree
+msgid "Version"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_tree
+msgid "Visit Page"
+msgstr ""
+
+#. module: th_affiliate
+#. odoo-python
+#: code:addons/th_affiliate/models/link_tracker.py:0
+#, python-format
+msgid "Vui lòng duyệt toàn bộ các bài đăng của cộng tác viên!"
+msgstr ""
+
+#. module: th_affiliate
+#. odoo-python
+#: code:addons/th_affiliate/models/link_tracker.py:0
+#, python-format
+msgid "Vui lòng nhập đủ 'hệ số' cho các bài đăng 'đúng yêu cầu'!"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
+msgid "Website Link"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__website_message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__website_message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_pay__website_message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_post_link__website_message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__website_message_ids
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff_category__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,help:th_affiliate.field_link_tracker__website_message_ids
+#: model:ir.model.fields,help:th_affiliate.field_th_acceptance_seeding__website_message_ids
+#: model:ir.model.fields,help:th_affiliate.field_th_pay__website_message_ids
+#: model:ir.model.fields,help:th_affiliate.field_th_post_link__website_message_ids
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff__website_message_ids
+#: model:ir.model.fields,help:th_affiliate.field_th_product_aff_category__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__th_request
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_own_link_seeding
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_view_link_seeding_form
+msgid "Yêu cầu"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__th_screen_time_end
+msgid "end"
+msgstr ""
+
+#. module: th_affiliate
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_list_own_link_tracker
+msgid "https://vmcvietnam.org/courses/..."
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_link_tracker__th_image
+#: model:ir.model.fields,field_description:th_affiliate.field_th_link_seeding__th_image
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__th_image
+msgid "image"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields,field_description:th_affiliate.field_th_web_click__th_screen_time_start
+msgid "start"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_acceptance_cost_history
+msgid "th.acceptance.cost.history"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_acceptance_seeding
+msgid "th.acceptance.seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_aff_ownership_unit
+msgid "th.aff.ownership.unit"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_link_seeding
+msgid "th.link.seeding"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_pay
+msgid "th.pay"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_post_link
+msgid "th.post.link"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_product_aff
+msgid "th.product.aff"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_product_aff_category
+msgid "th.product.aff.category"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_session_user
+msgid "th.session.user"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model,name:th_affiliate.model_th_web_click
+msgid "th.web.click"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_pay__state__paid
+msgid "Đã Thanh toán"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_post_link__state__paid
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Đã thanh toán"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_product_aff__state__inactive
+msgid "Đóng"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.model.fields.selection,name:th_affiliate.selection__th_post_link__state__correct_request
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_post_link
+msgid "Đúng yêu cầu"
+msgstr ""
+
+#. module: th_affiliate
+#: model:ir.actions.act_window,name:th_affiliate.th_aff_ownership_unit_action
+#: model:ir.model.fields,field_description:th_affiliate.field_th_aff_ownership_unit__name
+#: model:ir.model.fields,field_description:th_affiliate.field_th_product_aff__th_aff_ownership_unit_id
+#: model:ir.ui.menu,name:th_affiliate.th_aff_ownership_unit_menu
+#: model_terms:ir.ui.view,arch_db:th_affiliate.th_aff_ownership_unit_view
+msgid "Đơn vị sở hữu"
+msgstr ""
+
+#. module: th_affiliate
+#. odoo-python
+#: code:addons/th_affiliate/models/th_post_seeding.py:0
+#, python-format
+msgid "Đến trang"
+msgstr ""
