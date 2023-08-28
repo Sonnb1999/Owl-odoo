@@ -26,14 +26,15 @@ class LinkTracker(models.Model):
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
-    th_count_link_click = fields.Integer('Số người dùng nhấn vào link', default=1)
+    th_count_link_click = fields.Integer('Số người dùng nhấn vào link', default=0)
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
 
     @api.model
     def get_views(self, views, options=None):
         res = super().get_views(views, options)
-        res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][0:3]
+        if res['models'].get('th.post.link'):
+            res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][0:3]
         return res
 
     def th_action_view_statistics(self):
@@ -50,8 +51,6 @@ class LinkTracker(models.Model):
                 ['th_link_tracker_id'],
                 ['th_link_tracker_id']
             )
-            for m in clicks_data:
-                m
             mapped_data = {m['th_link_tracker_id'][0]: m['th_link_tracker_id_count'] for m in clicks_data}
         else:
             mapped_data = dict()
@@ -75,11 +74,11 @@ class LinkTracker(models.Model):
             if rec.th_post_link_ids.filtered(lambda p: p.state == 'pending'):
                 raise ValidationError(_("Vui lòng duyệt toàn bộ các bài đăng của cộng tác viên!"))
             if rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and not p.th_seeding_acceptance_ids):
-                raise ValidationError(_("Vui lòng nhập đủ 'hệ số' cho các bài đăng 'đúng yêu cầu'!"))
+                raise ValidationError(_("Vui lòng nhập đủ 'Hệ số' cho các bài đăng 'Đúng yêu cầu'!"))
 
             pay_id = self.env['th.pay'].search([('th_partner_id', '=', rec.th_aff_partner_id.id), ('state', '=', 'pending')], limit=1, order='id desc')
             post_link_ids = rec.th_post_link_ids.filtered(lambda p: p.state == 'correct_request' and p.th_seeding_acceptance_ids)
-            if not pay_id:
+            if not pay_id and post_link_ids:
                 pay_id = self.env['th.pay'].create({
                     'name': _('Phiếu thanh toán cho %s ngày %s', rec.th_aff_partner_id.name, fields.Date.today()),
                     'th_partner_id': rec.th_aff_partner_id.id,
@@ -101,3 +100,43 @@ class LinkTracker(models.Model):
             if rec.th_closing_work != 'pending':
                 raise ValidationError('Chỉ xóa link ở trang thái chờ nghiêm thu')
         return super().unlink()
+
+    @api.model
+    def create(self, values):
+        user_id = self._uid
+        contact_affiliate = self.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
+        url = values.get('url', False)
+        domain = [('th_aff_partner_id', '=', contact_affiliate.id), ('url', '=', url)]
+        link_exit = self.sudo().search(domain)
+        if not link_exit:
+            utm_source = self.env['utm.source'].sudo().search([('name', '=', contact_affiliate.th_affiliate_code)])
+            if not utm_source:
+                utm_source_id = utm_source.sudo().create({'name': contact_affiliate.th_affiliate_code}).id
+            else:
+                utm_source_id = utm_source.id
+        else:
+            raise ValidationError(_('Link đã tồn tại!'))
+        values['source_id'] = utm_source_id
+        values['th_aff_partner_id'] = contact_affiliate.id
+        return super(LinkTracker, self).create(values)
+
+    def write(self, values):
+        res = super(LinkTracker, self).write(values)
+        url = values.get('url', False)
+        for rec in self:
+            if rec.th_closing_work != 'pending' and url:
+                raise ValidationError(_('Chỉ có thể chỉnh sửa link đang chờ nghiệm thu'))
+            if rec.create_uid and rec.create_uid.id != self._uid and url:
+                raise ValidationError(_('Link này không thuộc quyển sở hữu của bạn'))
+        return res
+
+    def th_action_post_link_import(self):
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'import',
+            'name': _('Import Link'),
+            'params': {
+                'context': self.env.context,
+                'model': 'th.post.link',
+            }
+        }

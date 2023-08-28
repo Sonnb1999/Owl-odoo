@@ -7,7 +7,7 @@
                 <header>
                     <button name="action_draft_closing_work" class="btn" type="object" string="Chờ nghiệm thu" groups="base.group_no_one"/>
                     <button name="action_acceptance_closing_work" class="btn btn-primary" type="object" string="Nghiệm thu" attrs="{'invisible': [('th_closing_work', 'in', ['acceptance','cost_closing'])]}"/>
-                    <button name="action_cost_closing" class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
+                    <button name="action_cost_closing" confirm="Bạn có chắc muốn chốt chi phí link seeding này?" class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
                     <field name="th_closing_work" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -25,7 +25,7 @@
                     <group>
                         <group name="url" string="URL">
                             <field name="th_product_aff_id" options="{'no_open': True}"/>
-                            <field name="url" readonly="1"/>
+                            <field name="url" attrs="{'readonly': [('th_product_aff_id', '!=', False)]}"/>
                             <field name="short_url" widget="CopyClipboardChar"/>
                         </group>
                         <group name="utm" string="UTM">
@@ -38,8 +38,8 @@
                     </group>
                     <notebook>
                         <page string="Link bài đăng">
-                            <field name="th_post_link_ids"
-                                   options="{'delete': [('th_closing_work', '!=', 'cost_closing')], 'create': [('th_closing_work', '!=', 'cost_closing')]}"
+                            <button name="th_action_post_link_import" type="object" string="Import link bài đăng" context="{'default_link_tracker_id': active_id}" class="btn btn-primary" />
+                            <field name="th_post_link_ids" options="{'delete': [('th_closing_work', '!=', 'cost_closing')], 'create': [('th_closing_work', '!=', 'cost_closing')]}"
                                    attrs="{'readonly': [('th_closing_work', '=', 'cost_closing')]}">
                                 <tree string="Record post link" class="th_post_link">
                                     <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
@@ -141,6 +141,11 @@
                             context="{'group_by': 'th_aff_category_id'}"/>
                     <filter string="Sản phẩm" name="th_product_aff_id" context="{'group_by': 'th_product_aff_id'}"/>
                 </group>
+                 <searchpanel>
+                    <field name="th_closing_work" enable_counters="1"/>
+                    <field name="campaign_id" enable_counters="1"/>
+                    <field name="th_aff_partner_id" enable_counters="1"/>
+                </searchpanel>
             </search>
         </field>
     </record>
@@ -149,7 +154,6 @@
         <field name="name">Link seed CTV</field>
         <field name="res_model">link.tracker</field>
         <field name="search_view_id" ref="th_link_tracker_view_search"/>
-        <field name="view_mode">tree,form</field>
         <field name="view_ids"
                eval="[(5, 0, 0),
                           (0, 0, {'view_mode': 'tree', 'view_id': ref('th_link_tracker_view_tree')}),

@@ -32,7 +32,7 @@
                     <notebook>
                         <page string="Expense history" name="th_acceptance_cost_history_ids">
                             <field name="th_acceptance_cost_history_ids" nolabel="1">
-                                <tree edit="0" create="0" no_open="True">
+                                <tree edit="0" create="0" no_open="True" delete="0">
                                     <field name="th_start_date"/>
                                     <field name="th_end_date"/>
                                     <field name="th_cost_factor"/>

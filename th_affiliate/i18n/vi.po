@@ -179,7 +179,7 @@ msgstr ""
 #. module: th_affiliate
 #: model_terms:ir.ui.view,arch_db:th_affiliate.th_link_tracker_view_form
 msgid "Clicks"
-msgstr "Số lượng nhấn"
+msgstr "Clicks"
 
 #. module: th_affiliate
 #: model:ir.model.fields,field_description:th_affiliate.field_th_acceptance_seeding__name

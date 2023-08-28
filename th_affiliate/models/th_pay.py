@@ -12,43 +12,26 @@ class LinkTracker(models.Model):
     name = fields.Char('Phiếu chi trả')
     th_partner_id = fields.Many2one('res.partner', string="Cộng tác viên")
     th_post_link_ids = fields.One2many('th.post.link', 'th_pay_id', 'Post link')
-    state = fields.Selection(selection=[('pending', 'Chờ duyệt'), ('accept', 'Duyệt'), ('cancel', 'Hủy'), ('paid', 'Đã Thanh toán')])
+    state = fields.Selection(selection=[('pending', 'Chờ duyệt'), ('accept', 'Duyệt'), ('cancel', 'Hủy'), ('paid', 'Đã Thanh toán')], tracking=True)
     th_count_correct_link = fields.Integer('Số bài đăng đúng', default=0, compute="_compute_count_post_link")
     th_count_wrong_link = fields.Integer('Số bài đăng không đạt', default=0, compute="_compute_count_post_link")
     th_paid = fields.Float('Tổng chi phí', default=0)
     th_paid_date = fields.Date('Ngày chi trả')
+    th_currency_id = fields.Many2one(comodel_name='res.currency', string='Đơn vị tiền tệ', default=lambda self: self.env.company.currency_id)
 
     @api.model
     def get_views(self, views, options=None):
         res = super().get_views(views, options)
-        res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][1:4]
+        if res['models'].get('th.post.link'):
+            res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][1:4]
         return res
 
     @api.depends('th_post_link_ids')
     def _compute_count_post_link(self):
         for rec in self:
-            post_links = rec.th_post_link_ids
-            total_pay = 0
-            for post_link in post_links:
-                if post_link and post_link.state not in ['wrong_request', 'paid']:
-                    rec.th_count_correct_link = len(post_link.filtered(lambda l: l.state not in ['wrong_request', 'paid']))
-                    rec.th_count_wrong_link = len(post_link.filtered(lambda l: l.state not in ['wrong_request', 'paid']))
-                    for record in post_link:
-                        total_pay += float(
-                            record.filtered(lambda l: l.state not in ['wrong_request', 'paid']).th_expense)
-                    rec.th_paid = total_pay
-                elif post_link and post_link.state == 'wrong_request':
-                    rec.th_count_wrong_link = len(post_link.filtered(lambda l: l.state == 'wrong_request'))
-                    rec.th_count_correct_link = len(
-                        post_link.filtered(lambda l: l.state not in ['wrong_request', 'paid']))
-                    for record in post_link:
-                        total_pay += float(
-                            record.filtered(lambda l: l.state not in ['wrong_request', 'paid']).th_expense)
-                    rec.th_paid = total_pay
-                else:
-                    rec.th_count_correct_link = 0
-                    rec.th_count_wrong_link = 0
-                    rec.th_paid = 0
+            rec.th_count_wrong_link = len(rec.th_post_link_ids.filtered(lambda l: l.state == 'wrong_request'))
+            rec.th_count_correct_link = len(rec.th_post_link_ids.filtered(lambda l: l.state != 'wrong_request'))
+            rec.th_paid = sum(rec.th_post_link_ids.filtered(lambda l: l.state not in ['wrong_request']).mapped('th_expense'))
 
     def action_pending_pay(self):
         for rec in self:

@@ -9,6 +9,7 @@ from odoo.http import request, Response
 from odoo.addons.link_tracker.controller.main import LinkTracker
 import json
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 date_format = '%m/%d/%Y, %I:%M:%S %p'
 my_headers = {
@@ -62,7 +63,7 @@ class ThLinkTracker(LinkTracker):
             get_link = client_values.get('link_tracker')
             th_website = client_headers.environ.get('HTTP_HOST')
             str_start_date = client_values.get('date_start')
-            date_start = datetime.strptime(str_start_date, date_format)
+            date_start = datetime.strptime(str_start_date, date_format) - relativedelta(hours=7)
             utm_params = client_values.get('odoo_utmParams', {})
             utm_source = utm_params.get('utm_source', '')
             utm_campaign = utm_params.get('utm_campaign', '')
@@ -86,6 +87,7 @@ class ThLinkTracker(LinkTracker):
                     ]
                 })
             else:
+                exist_user.write({'th_link_tracker_id': link_tracker.id if link_tracker else False})
                 web_click_id = request.env['th.web.click'].sudo().search([('th_session_user_id', '=', exist_user.id)], order="id desc", limit=1)
                 if web_click_id and web_click_id.name == get_link:
                     web_click_id.write({'th_screen_time_end': date_start})

@@ -62,21 +62,23 @@ class ThAcceptanceSeeding(models.Model):
 
                 th_start_date = th_acceptance_seeding_old.th_start_date + timedelta(days=1)
 
-                if not th_acceptance_seeding_old.th_end_date:
-                    th_end_date = fields.Date.today()
-                    if th_acceptance_seeding_old.th_start_date > fields.Date.today():
-                        th_end_date = th_acceptance_seeding_old.th_start_date
-                    th_acceptance_seeding_old.write({
-                        'th_end_date': th_end_date,
-                    })
-
                 if th_acceptance_seeding_old.th_start_date < fields.Date.today():
                     th_start_date = fields.Date.today() + timedelta(days=1)
                 data = {
                     'th_cost_factor': values.get('th_cost_factor'),
                     'th_start_date': th_start_date,
                 }
-                values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
+                if th_acceptance_seeding_old.th_start_date == (fields.Date.today() + timedelta(days=1)) and th_acceptance_seeding_old.th_end_date == False:
+                    th_acceptance_seeding_old.th_cost_factor = values.get('th_cost_factor')
+                else:
+                    if not th_acceptance_seeding_old.th_end_date:
+                        th_end_date = fields.Date.today()
+                        if th_acceptance_seeding_old.th_start_date > fields.Date.today():
+                            th_end_date = th_acceptance_seeding_old.th_start_date
+                        th_acceptance_seeding_old.write({
+                            'th_end_date': th_end_date,
+                        })
+                    values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
         return super(ThAcceptanceSeeding, self).write(values)
 
 
@@ -87,7 +89,7 @@ class ThAcceptanceCostHistory(models.Model):
     th_cost_factor = fields.Float(string='Cost/factor', required=True)
     th_start_date = fields.Date(string='Start day', required=True)
     th_end_date = fields.Date(string='End date')
-    th_acceptance_seeding_id = fields.Many2one('th.acceptance.seeding')
+    th_acceptance_seeding_id = fields.Many2one('th.acceptance.seeding', required=1)
 
     def write(self, values):
         result = super(ThAcceptanceCostHistory, self).write(values)

@@ -21,7 +21,7 @@ class ThPostSeeding(models.Model):
     th_note = fields.Text('Comment', tracking=True)
     th_acceptance_person_id = fields.Many2one('res.partner', string='Nghiệm thu', readonly=1, tracking=True)
     th_seeding_acceptance_ids = fields.Many2many(comodel_name='th.acceptance.seeding', string='Hệ số', tracking=True)
-    th_expense = fields.Char('Chi phí', compute="compute_th_expense")
+    th_expense = fields.Float('Chi phí', compute="compute_th_expense")
     state = fields.Selection(selection=select_state, string='Trạng thái', tracking=True, default='pending', required=True)
     th_campaign_id = fields.Many2one(related="link_tracker_id.campaign_id", store=True)
     th_pay_id = fields.Many2one(comodel_name="th.pay", string="Pay")
@@ -37,23 +37,10 @@ class ThPostSeeding(models.Model):
             else:
                 rec.th_check_uid = False
 
-            acceptance_seeding = rec.th_seeding_acceptance_ids
             create_date = rec.create_date.date() if rec.create_date else fields.Date.today()
-            th_cost = self.th_action_cost_check(acceptance_seeding, create_date)
-            rec.th_expense = th_cost
-
-    def th_action_cost_check(self, acceptance_seeding, create_date):
-        th_cost = 0
-        for rec2 in acceptance_seeding:
-            if rec2:
-                cost_histories = rec2.th_acceptance_cost_history_ids
-                for cost_history in cost_histories:
-                    #  ngày tạo chi phí trong quá khứ <= nếu ngày tạo bài đăng <= ngày kết thúc trong quá khứ
-                    if cost_history.th_end_date and cost_history.th_start_date <= create_date <= cost_history.th_end_date:
-                        th_cost += cost_history.th_cost_factor
-                    elif cost_history.th_start_date <= create_date and not cost_history.th_end_date:
-                        th_cost += cost_history.th_cost_factor
-        return th_cost
+            rec.th_expense = sum(rec.th_seeding_acceptance_ids.mapped('th_acceptance_cost_history_ids').filtered(
+                lambda cost_history: (cost_history.th_end_date and cost_history.th_start_date <= create_date <= cost_history.th_end_date) or
+                                     (cost_history.th_start_date <= create_date and not cost_history.th_end_date)).mapped('th_cost_factor'))
 
     def action_visit_page(self):
         return {
