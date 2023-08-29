@@ -56,7 +56,7 @@ class ThPostSeeding(models.Model):
         for rec in self:
             if (state or th_seeding_acceptance_ids) and rec.th_acceptance_person_id.id != self.env.user.partner_id.id:
                 values['th_acceptance_person_id'] = self.env.user.partner_id.id
-
+        # message log one2many field
         link_post_initial_values = defaultdict(dict)
         tracking_fields = []
         for field_name in values:
@@ -74,7 +74,11 @@ class ThPostSeeding(models.Model):
             tracking_value_ids = link_post._mail_track(fields_definition, initial_values)[1]
             if tracking_value_ids:
                 msg = _("Link bài đăng %s đã được cập nhập", link_post._get_html_link(title=f"#{link_post.id}"))
-                link_post.link_tracker_id._message_log(body=msg, tracking_value_ids=tracking_value_ids)
+                if link_post.th_pay_id:
+                    link_post.th_pay_id._message_log(body=msg, tracking_value_ids=tracking_value_ids)
+                else:
+                    link_post.link_tracker_id._message_log(body=msg, tracking_value_ids=tracking_value_ids)
+
         return res
 
     @api.model

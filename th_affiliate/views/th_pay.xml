@@ -29,7 +29,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
+                            <field name="name" attrs="{'readonly': [('state', '!=', 'pending')]}"/>
                             <field name="th_partner_id" readonly="1"/>
                         </group>
                         <group>
@@ -46,8 +46,8 @@
                                     <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
                                     <field name="th_acceptance_person_id"/>
                                     <field name="create_date" string="Ngày tạo" widget="date"/>
-                                    <field name="state"/>
-                                    <field name="th_seeding_acceptance_ids" widget="many2many_tags"/>
+                                    <field name="state" attrs="{'readonly': [('state', '!=', 'pending')]}"/>
+                                    <field name="th_seeding_acceptance_ids" widget="many2many_tags" attrs="{'readonly': [('state', '!=', 'pending')]}"/>
                                     <field name="th_expense"/>
                                 </tree>
                             </field>
