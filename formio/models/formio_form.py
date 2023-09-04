@@ -137,6 +137,7 @@ class Form(models.Model):
         related="builder_id.form_copy_to_current",
         help="When copying a form, always link it to the current version of the builder instead of the original builder.",
     )
+    th_submission_data = fields.Html('Data', default=False)
 
     @api.model
     def default_get(self, fields):

@@ -15,6 +15,9 @@
         'mail',
         'portal',
         'web',
+        'th_crm',
+        'th_prm',
+        'th_trm',
     ],
     'application': True,
     'installable': True,
@@ -42,6 +45,7 @@
         'security/formio_security.xml',
         'security/ir_model_access.xml',
         'security/ir_rule.xml',
+        'security/ir.model.access.csv',
         # views
         'views/formio_builder_js_options_views.xml',
         'views/formio_builder_translation_views.xml',
@@ -54,6 +58,9 @@
         'views/formio_version_github_tag_views.xml',
         'views/formio_version_translation_views.xml',
         'views/formio_version_views.xml',
+        # th
+        'views/th_university.xml',
+
         'views/formio_menu.xml',
         'views/res_config_settings_views.xml',
         'views/res_lang_views.xml',

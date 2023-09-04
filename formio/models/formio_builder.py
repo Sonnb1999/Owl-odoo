@@ -122,7 +122,7 @@ class Builder(models.Model):
         - Relative URL is also supported e.g. /web/login
         """
     )
-    public = fields.Boolean("Public", tracking=True, help="Form is public accessible (e.g. used in Shop checkout, Events registration")
+    public = fields.Boolean("Public", tracking=True, help="Form is public accessible (e.g. used in Shop checkout, Events registration", default=True)
     public_url = fields.Char(string='Public URL', compute='_compute_public_url')
     public_save_draft_done_url = fields.Char(
         string='Public Save-Draft Done URL', tracking=True,
@@ -145,15 +145,15 @@ class Builder(models.Model):
         string='Public Access Rule Type',
         default='time_interval',
         tracking=True)
-    public_access_interval_number = fields.Integer(default=30, tracking=True, help="Public access to submitted Form shall be rejected after expiration of the configured time interval.")
-    public_access_interval_type = fields.Selection(list(_interval_selection.items()), default='minutes', tracking=True)
+    public_access_interval_number = fields.Integer(default=300, tracking=True, help="Public access to submitted Form shall be rejected after expiration of the configured time interval.")
+    public_access_interval_type = fields.Selection(list(_interval_selection.items()), default='days', tracking=True)
     view_as_html = fields.Boolean("View as HTML", tracking=True, help="View submission as a HTML view instead of disabled webform.")
-    show_form_title = fields.Boolean("Show Form Title", tracking=True, help="Show Form Title in the Form header.", default=True)
-    show_form_id = fields.Boolean("Show Form ID", tracking=True, help="Show Form ID in the Form header.", default=True)
-    show_form_uuid = fields.Boolean("Show Form UUID", tracking=True, help="Show Form UUID in the Form.", default=True)
-    show_form_state = fields.Boolean("Show Form State", tracking=True, help="Show the state in the Form header.", default=True)
+    show_form_title = fields.Boolean("Show Form Title", tracking=True, help="Show Form Title in the Form header.", default=False)
+    show_form_id = fields.Boolean("Show Form ID", tracking=True, help="Show Form ID in the Form header.", default=False)
+    show_form_uuid = fields.Boolean("Show Form UUID", tracking=True, help="Show Form UUID in the Form.", default=False)
+    show_form_state = fields.Boolean("Show Form State", tracking=True, help="Show the state in the Form header.", default=False)
     show_form_user_metadata = fields.Boolean(
-        "Show User Metadata", tracking=True, help="Show submission and assigned user metadata in the Form header.", default=True)
+        "Show User Metadata", tracking=True, help="Show submission and assigned user metadata in the Form header.", default=False)
     iframe_resizer_body_margin = fields.Char(
         "iFrame Resizer bodyMargin", tracking=True,
         help="""\

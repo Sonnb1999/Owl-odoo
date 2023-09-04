@@ -169,6 +169,7 @@ class FormioPublicController(http.Controller):
     @http.route('/formio/public/form/new/<string:builder_uuid>/submit', type='json', auth="public", methods=['POST'], website=True)
     def public_form_new_submit(self, builder_uuid, **post):
         formio_builder = self._get_public_builder(builder_uuid)
+        aff_cook_partner_id = False
         if not formio_builder:
             # TODO raise or set exception (in JSON resonse) ?
             return
@@ -190,6 +191,11 @@ class FormioPublicController(http.Controller):
             aff_cook_partner_id = request.env['res.partner'].sudo().search(
                 [('th_affiliate_code', '=', odoo_utm_source)]).id
         affiliate = aff_cook_partner_id
+
+        if not affiliate and url:
+            affiliate_school = request.env['th.university.web'].search([('name', 'like', url)], limit=1, order='id desc').mapped('th_university_id')
+            if affiliate_school.th_partner_id:
+                affiliate = affiliate_school.th_partner_id.th_affiliate_code
 
         campaign_id = ''
         if utm_url and utm_url.get('utm_campaign', False):
@@ -237,23 +243,39 @@ class FormioPublicController(http.Controller):
             }
             request.env['prm.lead'].sudo().with_context(web_form=True).create(create_pom_values)
         elif formio_builder.th_storage_location == 'vmc':
-            pass
             create_vmc_values = {
                 'th_partner_id': partner_id,
             }
             request.env['th.trm.lead'].sudo().with_context(web_form=True).create(create_vmc_values)
 
+    def th_create_contact(self, phone, email, name, url):
+        partner_id = False
+        if phone != '' or email != '':
+            check_contact = request.env['res.partner'].sudo().search([('phone', '=', phone)])
+            check_contact.sudo().write({
+                'phone': check_contact.phone if check_contact.phone else phone,
+                'email': check_contact.email if check_contact.email else email,
+            })
+
+            if check_contact:
+                partner_id = check_contact.id
+            else:
+                partner_id = request.env['res.partner'].sudo().create({
+                    'name': name, 'email': email,
+                    'phone': phone, 'website': url,
+                }).id
+        return partner_id
 
     def create_data_demo(self, formio_builder, post):
         Form = request.env['formio.form']
         description = Markup('')
         for rec in post['data']:
-            if post['data']['th_url']:
+            if rec == 'th_url':
                 description += Markup('<strong>Website</strong>: <strong>%s</strong><br>') % (post['data'][rec])
-            elif post['data']['th_utm']:
+            elif rec == 'th_utm':
                 description += Markup('<strong>UTM website</strong>: <strong>%s</strong><br>') % (post['data'][rec])
-            elif post['data']['submit']:
-                pass
+            elif rec == 'submit':
+                continue
             else:
                 description += Markup('<strong>%s</strong>: <strong>%s</strong><br>') % (_(rec), post['data'][rec])
         vals = {
@@ -262,6 +284,7 @@ class FormioPublicController(http.Controller):
             'public_create': True,
             'public_share': True,
             'submission_data': json.dumps(post['data']),
+            'th_submission_data': description,
             'submission_date': fields.Datetime.now(),
             'submission_user_id': request.env.user.id
         }

@@ -17,8 +17,8 @@ See LICENSE file for full licensing details. -->
                 <field name="version"/>
                 <field name="state"/>
                 <field name="is_locked" optional="show"/>
-                <field name="formio_res_model_id" optional="show"/>
-                <field name="portal" optional="show"/>
+                <field name="formio_res_model_id" optional="hide"/>
+                <field name="portal" optional="hide"/>
                 <field name="portal_url" optional="hide"/>
                 <field name="public" optional="show"/>
                 <field name="public_access_rule_type" optional="hide"/>
@@ -112,11 +112,12 @@ See LICENSE file for full licensing details. -->
                             <field name="parent_id" string="Parent Version"/>
                         </group>
                         <group>
-                            <field name="th_data_demo"/>
+                            <field name="th_data_demo" widget="boolean_toggle"/>
                             <field name="uuid" attrs="{'invisible': [('id', '=', False)]}"/>
+                            <field name="th_storage_location"/>
                             <field name="is_locked" attrs="{'invisible': [('state', '!=', 'CURRENT')]}"/>
-                            <field name="backend_use_draft" attrs="{'invisible': [('state', '!=', 'DRAFT')]}" widget="boolean_toggle"/>
-                            <field name="backend_use_obsolete" attrs="{'invisible': [('state', '!=', 'OBSOLETE')]}" widget="boolean_toggle"/>
+                            <field name="backend_use_draft" groups="base.group_no_one" attrs="{'invisible': [('state', '!=', 'DRAFT')]}" widget="boolean_toggle"/>
+                            <field name="backend_use_obsolete" groups="base.group_no_one" attrs="{'invisible': [('state', '!=', 'OBSOLETE')]}" widget="boolean_toggle"/>
                         </group>
                     </group>
                     <notebook>
@@ -145,7 +146,7 @@ See LICENSE file for full licensing details. -->
                                         <i class="fa fa-info-circle" title="info"/> Configure in related tabs (Portal, Public / Website)
                                     </div>
                                 </group>
-                                <group name="wizard_settings" string="Wizard">
+                                <group name="wizard_settings" string="Wizard" groups="base.group_no_one">
                                     <field name="wizard" string="Wizard" groups="formio.group_formio_admin"
                                            attrs="{'readonly': [('is_locked', '=', True)]}"/>
                                     <field name="wizard_on_change_page_save_draft" string="Save Draft on Change Page" groups="formio.group_formio_admin"
@@ -154,7 +155,7 @@ See LICENSE file for full licensing details. -->
                                         <i class="fa fa-info-circle" title="info"/> Multi-page form, with previous/next page buttons
                                     </div>
                                 </group>
-                                <group name="integration_settings" string="Integration">
+                                <group name="integration_settings" string="Integration" groups="base.group_no_one">
                                     <field name="formio_res_model_id"
                                            attrs="{'readonly': [('is_locked', '=', True)]}"
                                            edit="false" create="false" quick_create="false"
@@ -177,13 +178,13 @@ See LICENSE file for full licensing details. -->
                                 <field name="description" placeholder="Description..." groups="formio.group_formio_admin"/>
                             </group>
                         </page>
-                        <page string="Resource" name="res_model_settings" attrs="{'invisible': [('formio_res_model_id', '=', False)]}"/>
+                        <page string="Resource" name="res_model_settings" groups="base.group_no_one" attrs="{'invisible': [('formio_res_model_id', '=', False)]}"/>
                         <page string="Portal" name="portal_settings" groups="base.group_no_one">
                             <group>
                                 <group name="portal_urls" colspan="2" attrs="{'invisible': [('portal_url', '=', False)]}">
                                     <field name="portal_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
                                 </group>
-                                <group name="portal_redirect_after_save_draft" string="Redirect After Save Draft">
+                                <group name="portal_redirect_after_save_draft" string="Redirect After Save Draft" groups="base.group_no_one">
                                     <field name="portal_save_draft_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
                                 </group>
                                 <group name="portal_redirect_after_submit" string="Redirect After Submit">
@@ -192,9 +193,9 @@ See LICENSE file for full licensing details. -->
                             </group>
                         </page>
                         <page string="Public / Website" name="public_settings">
-                            <div class="text-muted mb-4" colspan="2">
-                                <i class="fa fa-info-circle" title="info"/> Configuration of Website features shall also be done here
-                            </div>
+<!--                            <div class="text-muted mb-4" colspan="2">-->
+<!--                                <i class="fa fa-info-circle" title="info"/> Configuration of Website features shall also be done here-->
+<!--                            </div>-->
                             <group>
 <!--                                thêm trường th_set_cookie và  th_public_url-->
                                 <div class="text-muted mb-4" colspan="2">
@@ -204,6 +205,10 @@ See LICENSE file for full licensing details. -->
                                     <field name="th_set_cookie" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
                                 </group>
 
+                                 <div class="text-muted mb-4" colspan="2">
+                                    <i class="fa fa-info-circle" title="info"/> Embed the code snippet where the form is placed
+                                </div>
+
                                 <group name="th_public_url" colspan="2" groups="base.group_no_one">
                                     <field name="th_public_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
                                 </group>
@@ -212,7 +217,7 @@ See LICENSE file for full licensing details. -->
                                     <field name="public_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
                                 </group>
 
-                                <group name="general" string="General">
+                                <group name="general" string="General" groups="base.group_no_one">
                                     <field name="public_access_rule_type" attrs="{'required': [('public', '=', True)]}"/>
                                     <div class="text-muted" colspan="2">
                                         <i class="fa fa-info-circle" title="info"/> Other <em>Public Access Rule Type(s)</em> can be implemented by other modules.
@@ -226,11 +231,11 @@ See LICENSE file for full licensing details. -->
                                         <i class="fa fa-info-circle" title="info"/><strong> Expire After:</strong> Applicable on the Form it's (datetime field) <strong>Public Access From</strong>.
                                     </div>
                                 </group>
-                                <group name="public_redirect_after_save_draft" string="Redirect After Save Draft">
+                                <group name="public_redirect_after_save_draft" string="Redirect After Save Draft" groups="base.group_no_one">
                                     <field name="public_save_draft_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
                                 </group>
                                 <group name="public_redirect_after_submit" string="Redirect After Submit">
-                                    <field name="public_submit_done_url" groups="formio.group_formio_admin" string="Redirect URL" readonly="0"/>
+                                    <field name="public_submit_done_url" string="Redirect URL" readonly="0"/>
                                 </group>
                             </group>
                         </page>
@@ -265,7 +270,7 @@ See LICENSE file for full licensing details. -->
                         </page>
                         <page string="Form Display" name="form_display_settings">
                             <group>
-                                <group string="iFrame Embedding" name="iframe_embed">
+                                <group string="iFrame Embedding" name="iframe_embed" groups="base.group_no_one">
                                     <field name="iframe_resizer_body_margin" groups="formio.group_formio_admin"/>
                                 </group>
                                 <group string="Submission" name="submission">

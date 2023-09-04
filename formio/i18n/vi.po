@@ -1,0 +1,621 @@
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__forms
+#: model:ir.ui.menu,name:formio.menu_formio_root
+#: model_terms:ir.ui.view,arch_db:formio.portal_layout
+#: model_terms:ir.ui.view,arch_db:formio.portal_my_formio
+#: model_terms:ir.ui.view,arch_db:formio.portal_my_home
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Forms"
+msgstr "Form nhúng"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Forms"
+msgstr "Dữ Liệu mẫu"
+
+#. module: formio
+#: model:ir.actions.act_window,name:formio.action_formio_builder
+#: model:ir.ui.menu,name:formio.menu_formio_builder
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_tree
+msgid "Form Builders"
+msgstr "Trình tạo biểu mẫu"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__title
+#: model:ir.model.fields,field_description:formio.field_formio_form__title
+#: model_terms:ir.ui.view,arch_db:formio.portal_my_formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_search
+msgid "Title"
+msgstr "Tiêu đề"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__name
+#: model:ir.model.fields,field_description:formio.field_formio_builder_js_options__name
+#: model:ir.model.fields,field_description:formio.field_formio_form__name
+#: model:ir.model.fields,field_description:formio.field_formio_version__name
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag__name
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag_available__name
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+msgid "Name"
+msgstr "Tên"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__is_locked
+msgid "Locked"
+msgstr "Khóa"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__version_comment
+msgid "Version Comment"
+msgstr "Mô tả về phiên bản"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__parent_version
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Parent Version"
+msgstr "Phiên bản gốc"
+
+#. module: formio
+#. odoo-javascript
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#: model:ir.model.fields,field_description:formio.field_formio_builder__formio_version_id
+#: model:ir.model.fields,field_description:formio.field_formio_version_asset__version_id
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag__formio_version_id
+#: model:ir.model.fields,field_description:formio.field_formio_version_translation__formio_version_id
+#: model:ir.model.fields,field_description:formio.field_res_config_settings__formio_default_version_id
+#, python-format
+msgid "formio.js version"
+msgstr "Phiên bản formio.js"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Publish on Portal"
+msgstr "Publish on Portal"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Publish to Public"
+msgstr "Cho phép nhúng mã"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__portal
+#: model:ir.model.fields,field_description:formio.field_formio_form__portal_share
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+msgid "Portal"
+msgstr "Portal"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__public
+#: model:ir.model.fields,field_description:formio.field_formio_form__public_share
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Public"
+msgstr "Cho phép nhúng mã"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Form Display"
+msgstr "Hiển thị Thông tin"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Submission"
+msgstr ""
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__view_as_html
+msgid "View as HTML"
+msgstr "Xem dưới dạng HTML"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_form__show_id
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_form
+msgid "Show ID"
+msgstr "Hiển thị ID"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_form__show_state
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Show State"
+msgstr "Hiển thị trạng thái"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_form__show_title
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Show Title"
+msgstr "Hiển thị tiêu đề"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_form__show_uuid
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_form
+msgid "Show UUID"
+msgstr "Hiển thị UUID"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__show_form_user_metadata
+#: model:ir.model.fields,field_description:formio.field_formio_form__show_user_metadata
+msgid "Show User Metadata"
+msgstr "Hiển thị siêu dữ liệu người dùng"
+
+#. module: formio
+#: model:ir.ui.menu,name:formio.menu_formio_configuration
+msgid "Configuration"
+msgstr "Cấu hình"
+
+#. module: formio
+#: model:ir.ui.menu,name:formio.menu_formio_version_root
+msgid "Versions"
+msgstr "Phiên bản"
+
+#. module: formio
+#: model:ir.actions.act_window,name:formio.action_formio_version
+#: model:ir.ui.menu,name:formio.menu_formio_version
+msgid "Installed formio.js versions"
+msgstr "Tải phiên bản formio.js"
+
+#. module: formio
+#: model:ir.actions.act_window,name:formio.action_formio_version_github_tag
+#: model:ir.ui.menu,name:formio.menu_formio_version_github_tag
+msgid "formio.js versions (GitHub tags)"
+msgstr "Phiên bản formio.js có sẵn (GitHub tags)"
+
+#. module: formio
+#: model:ir.actions.act_window,name:formio.action_formio_config_settings
+#: model:ir.ui.menu,name:formio.menu_formio_config_settings
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_form
+msgid "Settings"
+msgstr "Thiết lập"
+
+#. module: formio
+#. odoo-javascript
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#: model:ir.model.fields,field_description:formio.field_formio_builder__version
+#: model_terms:ir.ui.view,arch_db:formio.th_view_university_web_tree
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_tree
+#, python-format
+msgid "Version"
+msgstr "Phiên bản"
+
+#. module: formio
+#. odoo-javascript
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#: model:ir.model.fields,field_description:formio.field_formio_builder__state
+#: model:ir.model.fields,field_description:formio.field_formio_form__state
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag__state
+#: model_terms:ir.ui.view,arch_db:formio.portal_my_formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_search
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_github_tag_search
+#, python-format
+msgid "State"
+msgstr "Trạng thái"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__state__current
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+msgid "Current"
+msgstr "Triển khai"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "General"
+msgstr "Tổng quan"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Expire After"
+msgstr "Cookie hết hạn sau"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/><strong> Expire "
+"After:</strong> Applicable on the Form it's (datimetime field) "
+"<strong>Public Access From</strong>"
+msgstr ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/><strong> Hết hạn "
+"sau khi:</strong> Áp dụng trên Biểu mẫu (trường thời gian)  "
+"<strong>Truy cập công khai</strong>"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__public_access_interval_type__days
+#: model:ir.model.fields.selection,name:formio.selection__formio_form__public_access_interval_type__days
+msgid "Days"
+msgstr "Ngày"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__public_access_interval_type__hours
+#: model:ir.model.fields.selection,name:formio.selection__formio_form__public_access_interval_type__hours
+msgid "Hours"
+msgstr "Giờ"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__public_access_interval_type__minutes
+#: model:ir.model.fields.selection,name:formio.selection__formio_form__public_access_interval_type__minutes
+msgid "Minutes"
+msgstr "Phút"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Redirect After Submit"
+msgstr "Chuyển đổi sau khi gửi"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Redirect URL"
+msgstr "Chuyển hướng URL"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Configuration of Website "
+"features shall also be done here"
+msgstr ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Việc cấu hình các tính năng của  "
+"Website cũng sẽ được thực hiện tại đây"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Configure in related tabs "
+"(Portal, Public / Website)"
+msgstr ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Cấu hình trong các tab "
+"liên quan"
+
+#. module: formio
+#: model:ir.model,name:formio.model_formio_builder
+#: model:ir.model.fields,field_description:formio.field_formio_builder_translation__builder_id
+#: model:ir.model.fields,field_description:formio.field_formio_form__builder_id
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_search
+msgid "Form Builder"
+msgstr "Form nhúng"
+
+#. module: formio
+#. odoo-javascript
+#: code:addons/formio/static/src/js/views/formio_builder.xml:0
+#, python-format
+msgid "Fullscreen (Exit with ESC)"
+msgstr "Toàn màn hình"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag__changelog_url
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag_available__changelog_url
+msgid "Changelog URL"
+msgstr "Nhật ký thay đổi"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag__install_date
+msgid "Installed on"
+msgstr "Thời gian tải"
+
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_builder_js_options__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_builder_translation__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_default_asset_css__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_extra_asset__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_form__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_res_model__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_translation__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_translation_source__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_version__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_version_asset__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_checker_wizard__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_version_github_tag_available__create_date
+#: model:ir.model.fields,field_description:formio.field_formio_version_translation__create_date
+#: model:ir.model.fields,field_description:formio.field_th_link_form__create_date
+#: model:ir.model.fields,field_description:formio.field_th_university_web__create_date
+#: model_terms:ir.ui.view,arch_db:formio.portal_my_formio
+msgid "Created on"
+msgstr "Thời gian tạo"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_version_github_tag__state__available
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_github_tag_search
+msgid "Available"
+msgstr "Có sẵn"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_github_tag_form
+msgid "Download and Install"
+msgstr "Tải xuống và cài đặt"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_version_github_tag__state__installed
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_github_tag_search
+msgid "Installed"
+msgstr "Cài đặt"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_version__css_assets
+msgid "CSS Assets"
+msgstr "Tài liệu CSS"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_version__js_assets
+msgid "Javascript Assets"
+msgstr "Tài liệu Javascript"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_github_tag_form
+msgid "Reset (download and install again)"
+msgstr "Tải xuống và cài đặt lại"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_version_github_tag_form
+msgid "Are you sure to reset (download and install again)?"
+msgstr "Bạn có chắc chắn muốn tải và cài đặt lại không?"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Default Version"
+msgstr "Phiên bản mặc định"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid ""
+"<strong>Check, register and install the latest 30 available "
+"Versions</strong>"
+msgstr ""
+"<strong>Kiểm tra, đăng ký và cài đặt 30 Phiên bản mới nhất hiện có "
+"hiện có</strong>"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid ""
+"A scheduled action (daily cron) is available and already active.<br/>\n"
+"                                    Source:"
+msgstr ""
+"Một hành động theo lịch trình (cron hàng ngày) có sẵn và đã hoạt động.<br/>\n"
+"                                    Nguồn:"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_res_config_settings__formio_github_personal_access_token
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "GitHub personal access token"
+msgstr "Mã thông báo truy cập cá nhân GitHub"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_res_config_settings__formio_github_personal_access_token
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "GitHub personal access token"
+msgstr "Mã thông báo truy cập cá nhân"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid ""
+"is not required, but it can get a higher rate limit.\n"
+"                                        This prevents timeouts and authorization errors."
+msgstr ""
+"không bắt buộc, nhưng nó có thể nhận được giới hạn tốc độ cao hơn.\n"
+"                                         Điều này ngăn thời gian chờ và lỗi ủy quyền.."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Check and Register available Versions"
+msgstr "Kiểm tra và đăng ký các phiên bản có sẵn"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Default CSS assets"
+msgstr "CSS Mặc định"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid ""
+"When adding a new Form Builder, use this formio client/library version."
+msgstr ""
+"Khi thêm Trình tạo biểu mẫu mới, sử dụng phiên bản thư viện formio này."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid ""
+"Add additional CSS files to be included for every new installed formio "
+"client/library."
+msgstr ""
+"Thêm các tệp CSS bổ sung được đưa vào cho mọi ứng dụng khách/thư viện formio mới "
+"được cài đặt."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Components"
+msgstr "Các thành phần"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Custom and 3rd-party Component settings."
+msgstr "Cài đặt Thành phần tùy chỉnh và bên thứ 3."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Default Form Builder formio.js Options Template"
+msgstr "Trình tạo biểu mẫu mặc định formio.js Mẫu tùy chọn"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid ""
+"Select a default Form Builder JavaScript Options Template.<br/>\n"
+"                                It's contents, the Form Builder JavaScript Options, shall be shown below."
+msgstr ""
+"Chọn Mẫu tùy chọn JavaScript của Trình tạo biểu mẫu mặc định.<br/>\n"
+"                                Nội dung của nó, Tùy chọn JavaScript của Trình tạo biểu mẫu, sẽ được hiển thị bên dưới."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.res_config_settings_view_form
+msgid "Options Template"
+msgstr "Mẫu tùy chọn"
+
+#. module: formio
+#. odoo-python
+#: code:addons/formio/models/formio_builder.py:0
+#, python-format
+msgid "Preview form"
+msgstr "Xem trước form"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Preview Form"
+msgstr "Xem trước form"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__th_data_demo
+msgid "Create data demo"
+msgstr "Tạo dữ liệu mẫu"
+
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Embed the js snippet in the "
+"bottom of the web page"
+msgstr ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Nhúng đoạn mã js vào "
+"cuối trang web"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Embed the code snippet where"
+" the form is placed"
+msgstr ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Nhúng đoạn mã code vào nơi đặt form"
+" nơi đặt form"
+
+
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<strong class=\"text-danger\">\n"
+"                                            <i class=\"fa fa-info-circle\" title=\"info\"/> Replace this \"Dummy\" version, which doesn't work<br/>\n"
+"                                            <i class=\"fa fa-info-circle\" title=\"info\"/> Dummy version is only here to bootstrap (default) demo data<br/>\n"
+"                                            <i class=\"fa fa-info-circle\" title=\"info\"/> Download and install a formio.js version (menu: Configuration / formio.js versions)\n"
+"                                        </strong>"
+msgstr ""
+"<strong class=\"text-danger\">\n"
+"                                            <i class=\"fa fa-info-circle\" title=\"info\"/> Thay thế phiên bản \"Dummy\" này, phiên bản này không hoạt động<br/>\n"
+"                                            <i class=\"fa fa-info-circle\" title=\"info\"/> Phiên bản giả chỉ có ở đây cho dữ liệu demo bootstrap (mặc định)<br/>\n"
+"                                            <i class=\"fa fa-info-circle\" title=\"info\"/> Tải xuống và cài đặt các phiên bản formio.js (menu: Phiên bản Cấu hình/formio.js)\n"
+"                                        </strong>"
+
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__state__obsolete
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+msgid "Obsolete"
+msgstr "Đóng Form"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Create New Version"
+msgstr "Tạo phiên bản mới"
+
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__state__draft
+#: model:ir.model.fields.selection,name:formio.selection__formio_form__kanban_group_state__b
+#: model:ir.model.fields.selection,name:formio.selection__formio_form__state__draft
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_search
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_search
+msgid "Draft"
+msgstr "Nháp"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Download and install "
+"formio.js versions (menu: Configuration / formio.js versions)"
+msgstr ""
+"<i class=\"fa fa-info-circle\" title=\"info\"/> Tải xuống và cài đặt "
+"các phiên bản formio.js (menu: Phiên bản Cấu hình/formio.js)"
+
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"Are you sure? Modifying the Form Builder could cause existing forms to be "
+"invalid."
+msgstr ""
+"Bạn có chắc không? Việc sửa đổi Trình tạo biểu mẫu có thể khiến các biểu mẫu hiện có không hợp "
+"lệ."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Are you sure? This makes it possible to create and use these forms."
+msgstr "Bạn có chắc không? Điều này giúp bạn có thể tạo và sử dụng các biểu mẫu này."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Are you sure? The Form shall be unpublished."
+msgstr "Bạn có chắc không? Biểu mẫu sẽ không thể sử dụng được nữa."
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Unlock"
+msgstr "Mở khóa"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid ""
+"Are you sure? No further modifications are possible in the Form Builder and "
+"configuration."
+msgstr ""
+"Bạn có chắc không? Không thể sửa đổi thêm trong Trình tạo biểu mẫu "
+"và cấu hình."
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_th_university_web__th_state_id
+msgid "State/City"
+msgstr "Tỉnh/Thành phố"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_th_university_web__th_university_id
+#: model:ir.ui.menu,name:formio.menu_formio_university
+msgid "School"
+msgstr "Trường học"
+
+#. module: formio
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Are you sure? This creates a new (draft) version."
+msgstr "Bạn có chắc không? Điều này tạo ra một phiên bản (bản nháp) mới"
+
+#. module: formio
+#. odoo-python
+#: code:addons/formio/models/formio_builder.py:0
+#, python-format
+msgid "Only one Form Builder with name \"{name}\" can be in state Current."
+msgstr "Chỉ có một Form nhúng có tên \"{name}\" có thể ở trạng thái hiện tại."
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__public_url
+#: model:ir.model.fields,field_description:formio.field_formio_builder__th_public_url
+msgid "Public URL"
+msgstr "Mã form nhúng"
+
+#. module: formio
+#: model:ir.model.fields,field_description:formio.field_formio_builder__th_set_cookie
+msgid "Set cookie"
+msgstr "Mã tạo cookie"
+
+#. module: formio
+#: model:ir.actions.act_window,name:formio.action_formio_form
+#: model:ir.ui.menu,name:formio.menu_formio_form
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_form_search
+msgid "Form Submissions"
+msgstr "Dữ Liệu mẫu"
+
