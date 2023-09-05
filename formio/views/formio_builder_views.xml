@@ -56,18 +56,27 @@ See LICENSE file for full licensing details. -->
 	    <form string="Form Builders">
                 <header>
                     <button
+                        name="action_draft" type="object" string="Draft"
+                        attrs="{'invisible': [('state', 'in', ['DRAFT','TEST','CURRENT'])]}"
+                        confirm="Are you sure? Modifying the Form Builder could cause existing forms to be invalid."/>
+
+                    <button
+                        name="action_test" type="object" string="Test"
+                        attrs="{'invisible': [('state', 'in', ['TEST'])]}"
+                        confirm="Are you sure? This makes it possible to create and use these forms."
+                        class="btn"/>
+
+                    <button
                         name="action_current" type="object" string="Current"
-                        attrs="{'invisible': [('state', 'in', ['CURRENT', 'OBSOLETE'])]}"
+                        attrs="{'invisible': [('state', 'in', ['CURRENT'])]}"
                         confirm="Are you sure? This makes it possible to create and use these forms."
                         class="btn-primary"/>
-                    <button
-                        name="action_draft" type="object" string="Draft"
-                        attrs="{'invisible': [('state', 'in', ['DRAFT'])]}"
-                        confirm="Are you sure? Modifying the Form Builder could cause existing forms to be invalid."/>
+
                     <button
                         name="action_obsolete" type="object" string="Obsolete"
-                        attrs="{'invisible': [('state', '=', 'OBSOLETE')]}"
+                        attrs="{'invisible': [('state', 'in', ['OBSOLETE', 'DRAFT'])]}"
                         confirm="Are you sure? The Form shall be unpublished."/>
+
                     <button
                         name="action_new_builder_version" type="object" string="Create New Version"
                         attrs="{'invisible':[('id','=',False)]}"
@@ -86,7 +95,8 @@ See LICENSE file for full licensing details. -->
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button type="object" icon="fa-sign-out" name="action_preview_form" string="Preview Form" class="oe_stat_button"/>
+                        <button type="object" icon="fa-sign-out" name="action_preview_form" string="Preview Form"
+                                class="oe_stat_button" attrs="{'invisible': [('state', 'in', ['OBSOLETE', 'DRAFT'])]}"/>
                         <button name="action_view_formio" type="object" string="Form Builder"
                                 groups="formio.group_formio_admin"
                                 class="oe_stat_button" icon="fa-rocket"/>
@@ -112,7 +122,7 @@ See LICENSE file for full licensing details. -->
                             <field name="parent_id" string="Parent Version"/>
                         </group>
                         <group>
-                            <field name="th_data_demo" widget="boolean_toggle"/>
+                            <field name="th_data_demo" widget="boolean_toggle" readonly="1"/>
                             <field name="uuid" attrs="{'invisible': [('id', '=', False)]}"/>
                             <field name="th_storage_location"/>
                             <field name="is_locked" attrs="{'invisible': [('state', '!=', 'CURRENT')]}"/>

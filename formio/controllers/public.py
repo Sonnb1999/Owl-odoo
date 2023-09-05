@@ -136,20 +136,22 @@ class FormioPublicController(http.Controller):
         formio_builder = self._get_public_builder(builder_uuid)
         res = {'schema': {}, 'options': {}}
 
-        if not formio_builder or not formio_builder.public or formio_builder.state != BUILDER_STATE_CURRENT:
+        # if not formio_builder or not formio_builder.public or formio_builder.state != BUILDER_STATE_CURRENT:
+        if not formio_builder or not formio_builder.public:
             return res
 
-        if formio_builder.schema:
-            res['schema'] = json.loads(formio_builder.schema)
-            res['options'] = self._get_public_new_form_js_options(formio_builder)
-            res['locales'] = self._get_public_form_js_locales(formio_builder)
-            res['params'] = self._get_public_form_js_params(formio_builder)
+        if formio_builder.state == BUILDER_STATE_CURRENT or formio_builder.state == 'TEST':
+            if formio_builder.schema:
+                res['schema'] = json.loads(formio_builder.schema)
+                res['options'] = self._get_public_new_form_js_options(formio_builder)
+                res['locales'] = self._get_public_form_js_locales(formio_builder)
+                res['params'] = self._get_public_form_js_params(formio_builder)
 
-        args = request.httprequest.args
-        etl_odoo_config = formio_builder.sudo()._etl_odoo_config(params=args.to_dict())
-        res['options'].update(etl_odoo_config.get('options', {}))
+            args = request.httprequest.args
+            etl_odoo_config = formio_builder.sudo()._etl_odoo_config(params=args.to_dict())
+            res['options'].update(etl_odoo_config.get('options', {}))
 
-        return res
+            return res
 
     @http.route('/formio/public/form/new/<string:builder_uuid>/submission', type='json', auth='public', website=True)
     def public_form_new_submission(self, builder_uuid, **kwargs):

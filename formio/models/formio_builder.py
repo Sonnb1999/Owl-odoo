@@ -13,11 +13,13 @@ from odoo.http import request
 from ..utils import get_field_selection_label
 
 STATE_DRAFT = 'DRAFT'
+STATE_TEST = 'TEST'
 STATE_CURRENT = 'CURRENT'
 STATE_OBSOLETE = 'OBSOLETE'
 
 STATES = [
     (STATE_DRAFT, "Draft"),
+    (STATE_TEST, "Test"),
     (STATE_CURRENT, "Current"),
     (STATE_OBSOLETE, "Obsolete")]
 
@@ -204,7 +206,15 @@ class Builder(models.Model):
     th_public_url = fields.Char(string='Public URL', compute='_compute_public_url')
     th_own_url = fields.Many2one('th.link.form', string='own URL')
     th_set_cookie = fields.Char(string='Set cookie', compute='_compute_public_url')
-    th_data_demo = fields.Boolean(string='Create data demo', default=False)
+    th_data_demo = fields.Boolean(string='Create data demo', default=False, compute='compute_change_state', store=True)
+
+    @api.depends('state')
+    def compute_change_state(self):
+        for rec in self:
+            if rec.state == STATE_TEST:
+                rec.th_data_demo = True
+            if rec.state == STATE_CURRENT:
+                rec.th_data_demo = False
 
     def action_preview_form(self):
         return {
@@ -468,6 +478,10 @@ class Builder(models.Model):
         if self.is_locked:
             vals['is_locked'] = False
         self.write(vals)
+
+    def action_test(self):
+        self.ensure_one()
+        self.write({'state': STATE_TEST})
 
     def action_current(self):
         self.ensure_one()

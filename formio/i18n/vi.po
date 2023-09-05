@@ -619,3 +619,9 @@ msgstr "Mã tạo cookie"
 msgid "Form Submissions"
 msgstr "Dữ Liệu mẫu"
 
+#. module: formio
+#: model:ir.model.fields.selection,name:formio.selection__formio_builder__state__test
+#: model_terms:ir.ui.view,arch_db:formio.view_formio_builder_form
+msgid "Test"
+msgstr "Kiểm thử"
+
