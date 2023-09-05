@@ -26,7 +26,7 @@ class LinkTracker(models.Model):
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
-    th_count_link_click = fields.Integer('Số người dùng nhấn vào link', default=0)
+    th_count_link_click = fields.Integer('Clicks', default=0)
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
 

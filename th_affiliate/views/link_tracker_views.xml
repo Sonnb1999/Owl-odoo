@@ -6,8 +6,12 @@
             <form string="Website Link" duplicate="0">
                 <header>
                     <button name="action_draft_closing_work" class="btn" type="object" string="Chờ nghiệm thu" groups="base.group_no_one"/>
-                    <button name="action_acceptance_closing_work" class="btn btn-primary" type="object" string="Nghiệm thu" attrs="{'invisible': [('th_closing_work', 'in', ['acceptance','cost_closing'])]}"/>
-                    <button name="action_cost_closing" confirm="Bạn có chắc muốn chốt chi phí link seeding này?" class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
+                    <button name="action_acceptance_closing_work" class="btn btn-primary" type="object" string="Nghiệm thu"
+                            groups="th_affiliate.group_aff_officer"
+                            attrs="{'invisible': [('th_closing_work', 'in', ['acceptance','cost_closing'])]}"/>
+                    <button name="action_cost_closing" confirm="Bạn có chắc muốn chốt chi phí link seeding này?"
+                            groups="th_affiliate.group_aff_officer"
+                            class="btn btn-primary" type="object" attrs="{'invisible': [('th_closing_work', 'in', ['pending','cost_closing'])]}" string="Chốt chi phí"/>
                     <field name="th_closing_work" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -64,8 +68,8 @@
                                                 <field name="create_date" string="Ngày tạo" widget="date"/>
                                             </group>
                                             <group>
-                                                <field name="state"/>
-                                                <field name="th_seeding_acceptance_ids" widget="many2many_tags"/>
+                                                <field name="state" groups="th_affiliate.group_aff_officer"/>
+                                                <field name="th_seeding_acceptance_ids" widget="many2many_tags" groups="th_affiliate.group_aff_officer"/>
                                                 <field name="th_expense"/>
                                             </group>
                                         </group>
