@@ -36,8 +36,8 @@
     </record>
 
 
-    <record id="th_group_aff_user_rule" model="ir.rule">
-        <field name="name">th_group_aff_user_rule</field>
+    <record id="th_group_aff_user_rule_link_tracker" model="ir.rule">
+        <field name="name">th_group_aff_user_rule_link_tracker</field>
         <field name="model_id" ref="th_affiliate.model_link_tracker"/>
         <field name="domain_force">[('create_uid','=',user.id)]</field>
         <field name="perm_read" eval="1"/>
@@ -47,8 +47,8 @@
         <field name="groups" eval="[(4, ref('th_affiliate.group_aff_user'))]"/>
     </record>
 
-     <record id="th_group_aff_officer_rule" model="ir.rule">
-        <field name="name">th_group_aff_user_rule</field>
+     <record id="th_group_aff_officer_rule_link_tracker" model="ir.rule">
+        <field name="name">th_group_aff_user_rule_link_tracker</field>
         <field name="model_id" ref="th_affiliate.model_link_tracker"/>
         <field name="domain_force">[(1,'=',1)]</field>
         <field name="perm_read" eval="1"/>
@@ -56,5 +56,21 @@
         <field name="perm_create" eval="1"/>
         <field name="perm_unlink" eval="1"/>
         <field name="groups" eval="[(4, ref('th_affiliate.group_aff_officer'))]"/>
+    </record>
+
+    <record id="th_group_aff_user_rule_th_pay" model="ir.rule">
+        <field name="name">th_group_aff_user_rule_th_pay</field>
+        <field name="model_id" ref="th_affiliate.model_th_pay"/>
+        <field name="domain_force">[('th_partner_id.user_ids.id','=',user.id)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="groups" eval="[(4, ref('th_affiliate.group_aff_user'))]"/>
+    </record>
+
+        <record id="th_group_aff_ma_rule_th_pay" model="ir.rule">
+        <field name="name">th_group_aff_ma_rule_th_pay</field>
+        <field name="model_id" ref="th_affiliate.model_th_pay"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="groups" eval="[(4, ref('th_affiliate.group_aff_manager'))]"/>
     </record>
 </odoo>

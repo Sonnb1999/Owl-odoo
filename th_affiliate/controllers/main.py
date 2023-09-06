@@ -39,20 +39,20 @@ class ThLinkTracker(LinkTracker):
         body = {'results': cookie}
         return Response(json.dumps(body), headers=headers)
 
-    @http.route('/api/backlink', type='json', auth='none', cors='*', csrf=False)
-    def get_back_1(self, **post):
-        exist_client = request.env['link.tracker.click'].sudo().search([])
-        body = {"Message": "Success"}
-        return body
+    # @http.route('/api/backlink', type='json', auth='none', cors='*', csrf=False)
+    # def get_back_1(self, **post):
+    #     exist_client = request.env['link.tracker.click'].sudo().search([])
+    #     body = {"Message": "Success"}
+    #     return body
 
-    @http.route('/get/back', type='json', auth='none', csrf=False, cors='*')
-    def get_back(self, **post):
-
-        exist_client = request.env['link.tracker'].search([])
-
-        return {
-            "Message": "Success"
-        }
+    # @http.route('/get/back', type='json', auth='none', csrf=False, cors='*')
+    # def get_back(self, **post):
+    #
+    #     exist_client = request.env['link.tracker'].search([])
+    #
+    #     return {
+    #         "Message": "Success"
+    #     }
 
     @http.route('/api/backlink', type='json', auth='none', cors='*', csrf=False, methods=["POST"])
     def back_link(self, **post):
@@ -74,7 +74,7 @@ class ThLinkTracker(LinkTracker):
                 link_tracker.sudo().write({
                     'th_count_link_click': int(link_tracker.th_count_link_click) + 1
                 })
-            exist_user = request.env['th.session.user'].search([('th_user_client_code', '=', client_values.get('code'))])
+            exist_user = request.env['th.session.user'].sudo().search([('th_user_client_code', '=', client_values.get('code'))])
             if not exist_user:
                 create_user_click = request.env['th.session.user'].sudo().create({
                     'th_link_tracker_id': link_tracker.id if link_tracker else False,

@@ -42,10 +42,14 @@
                     </group>
                     <notebook>
                         <page string="Link bài đăng">
-                            <button name="th_action_post_link_import" type="object" string="Import link bài đăng" context="{'default_link_tracker_id': active_id}" class="btn btn-primary" />
+                            <button name="th_action_post_link_import" type="object" string="Import link bài đăng" context="{'default_link_tracker_id': active_id}" class="btn btn-primary"
+                            attrs="{'invisible':[('th_closing_work', '!=', 'pending')]}"
+                            />
                             <field name="th_post_link_ids" options="{'delete': [('th_closing_work', '!=', 'cost_closing')], 'create': [('th_closing_work', '!=', 'cost_closing')]}"
                                    attrs="{'readonly': [('th_closing_work', '=', 'cost_closing')]}">
-                                <tree string="Record post link" class="th_post_link">
+                                <tree string="Record post link" class="th_post_link"
+                                      decoration-info="state == 'pending'" decoration-success="state == 'correct_request'" decoration-danger="state == 'wrong_request'">
+                                    <field name="id"/>
                                     <button name="action_visit_page" type="object" string="Link" icon="fa-external-link"/>
                                     <field name="th_acceptance_person_id"/>
                                     <field name="link_tracker_id" invisible="1"/>
