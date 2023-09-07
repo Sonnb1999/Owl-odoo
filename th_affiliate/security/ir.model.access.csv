@@ -29,4 +29,5 @@ access_th_link_tracker_click_manager,th.link.tracker.click,link_tracker.model_li
 access_th_session_user,access_th_session_user,model_th_session_user,th_affiliate.group_aff_manager,1,1,1,1
 access_th_web_click,access_th_web_click,model_th_web_click,th_affiliate.group_aff_manager,1,1,1,1
 
-access_th_aff_ownership_unit,th_aff_ownership_unit,model_th_aff_ownership_unit,th_affiliate.group_aff_administrator,1,1,1,1
+access_th_aff_ownership_unit_ma,th_aff_ownership_unit_ma,model_th_aff_ownership_unit,th_affiliate.group_aff_manager,1,1,0,0
+access_th_aff_ownership_unit_ad,th_aff_ownership_unit_ad,model_th_aff_ownership_unit,th_affiliate.group_aff_administrator,1,1,1,1

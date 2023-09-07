@@ -1,6 +1,8 @@
 from odoo import tools, models, fields, api, _
 from collections import defaultdict
 
+from odoo.exceptions import ValidationError
+
 URL_MAX_SIZE = 10 * 1024 * 1024
 
 
@@ -18,6 +20,14 @@ class ThProductAffCategory(models.Model):
     parent_path = fields.Char(index=True, unaccent=False)
     th_child_id = fields.One2many('th.product.aff.category', 'th_category_parent_id', 'Child Categories')
 
+    @api.onchange('name')
+    def onchange_name_category(self):
+        for rec in self:
+            search_name = self.sudo().search([('name', '=', rec.name)])
+            if search_name and not rec.ids:
+                raise ValidationError("The category name already exists!")
+            rec.name = rec.name
+
     @api.depends('name', 'th_category_parent_id.th_complete_name')
     def _compute_th_complete_name(self):
         for category in self:
@@ -32,16 +42,16 @@ class ThProductAff(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
 
-    name = fields.Char("Tên sản phẩm", index='trigram', required=True)
+    name = fields.Char("Tên sản phẩm", index='trigram', required=True, tracking=True)
     th_link_product = fields.Char('Link sản phẩm', required=True, tracking=True)
     th_image = fields.Image(string="image")
-    th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True)
+    th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True, tracking=True)
     th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', tracking=True)
     state = fields.Selection(
         selection=[
             ('draft', 'Nháp'),
-            ('active', 'Triển khai'),
-            ('inactive', 'Đóng'),
+            ('deploy', 'Triển khai'),
+            ('close', 'Đóng'),
         ],
         string='Status',
         required=True,
@@ -49,3 +59,26 @@ class ThProductAff(models.Model):
         tracking=True,
         default='draft',
     )
+
+    def action_visit_page(self):
+        return {
+            'name': _("Xem link"),
+            'type': 'ir.actions.act_url',
+            'url': self.th_link_product,
+            'target': 'new',
+        }
+
+    def action_draft(self):
+        self.write({
+            'state': 'draft'
+        })
+
+    def action_deploy(self):
+        self.write({
+            'state': 'deploy'
+        })
+
+    def action_close(self):
+        self.write({
+            'state': 'close'
+        })

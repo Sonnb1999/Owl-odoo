@@ -4,8 +4,9 @@
         <field name="name">th.view.product.aff.tree</field>
         <field name="model">th.product.aff</field>
         <field name="arch" type="xml">
-            <tree string="" >
+            <tree string="" decoration-muted="state == 'close'" decoration-info="state == 'draft'" decoration-success="state == 'deploy'">
                 <field name="name"/>
+                <field name="state" invisible="1"/>
                 <field name="th_aff_category_id"/>
                 <field name="th_link_product"/>
             </tree>
@@ -18,10 +19,18 @@
         <field name="arch" type="xml">
             <form string="Form" >
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="action_draft" type="object" class="btn btn-primary" string="Nháp" states="deploy,close" groups="th_affiliate.group_aff_manager"/>
+                    <button name="action_deploy" type="object" class="btn btn-primary" string="Triển khai" states="draft"  groups="th_affiliate.group_aff_manager"/>
+                    <button name="action_close" type="object" class="btn" string="Đóng" states="deploy" groups="th_affiliate.group_aff_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,deploy,close"/>
                 </header>
+
                 <sheet>
-                    <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Xem link" class="oe_stat_button"/>
+                    </div>
+                    <field name="th_image" widget='image' filename="filename" class="oe_avatar my_class" options='{"zoom": true}'  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
                     <group>
                         <group>
                             <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
@@ -43,7 +52,7 @@
     </record>
 
     <record id="th_view_product_aff_action" model="ir.actions.act_window">
-        <field name="name">Nhóm sản phẩm</field>
+        <field name="name">Sản phẩm</field>
         <field name="res_model">th.product.aff</field>
         <field name="view_mode">tree,form</field>
         <field name="view_ids"

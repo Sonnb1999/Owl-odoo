@@ -24,6 +24,7 @@ class LinkTracker(models.Model):
     th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True)
     th_closing_work = fields.Selection(selection=select_closing_work, string='Chốt chi phí', tracking=True, default='pending')
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
+    th_filename = fields.Binary(related='th_link_seeding_id.th_filename')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
     th_count_link_click = fields.Integer('Clicks', default=0)

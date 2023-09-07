@@ -19,8 +19,7 @@
             <form string="Form">
                 <header> <button name="action_create_link_tracker" string="Tạo Link Seeding" type="object" class="oe_highlight" title="Create Link"/></header>
                 <sheet>
-                    <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
-
+                    <field name="th_image"  widget='image' class="oe_avatar" options='{"zoom": true}'/>
                     <group>
                         <group>
                             <field name="th_aff_category_id" options="{'no_open': True, 'no_create': True, 'no_edit': True}" />
@@ -30,6 +29,8 @@
                         <group>
                             <field name="campaign_id" options="{'no_open': True, 'no_create': True, 'no_edit': True}"/>
                             <field name="medium_id"/>
+                            <field name="th_filename" invisible="1"/>
+                            <field name="th_image" string="Tải ảnh xuống" filename="th_filename" readonly="1" class="oe_avatar" widget="work_permit_upload"/>
                         </group>
                     </group>
                     <notebook>
@@ -38,6 +39,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

@@ -27,10 +27,11 @@
                     </div>
                     <field name="th_image" widget='image' class="oe_avatar" options='{"zoom": true}'/>
                     <group>
-                        <group name="url" string="URL">
+                        <group name="url">
                             <field name="th_product_aff_id" options="{'no_open': True}"/>
                             <field name="url" attrs="{'readonly': [('th_product_aff_id', '!=', False)]}"/>
                             <field name="short_url" widget="CopyClipboardChar"/>
+<!--                            <field name="th_image" string="Tải ảnh xuống" filename="th_filename" readonly="1" attrs="{'invisible':[('th_product_aff_id', '!=', False)]}" class="oe_avatar"/>-->
                         </group>
                         <group name="utm" string="UTM">
                             <field name="campaign_id" options="{'create_name_field': 'title', 'always_reload': True, 'no_open': True}" readonly="1"/>
