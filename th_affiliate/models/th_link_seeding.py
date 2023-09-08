@@ -28,6 +28,8 @@ class ThLinkSeeding(models.Model):
     th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True)
     th_product_aff_id = fields.Many2one('th.product.aff', 'Sản phẩm', required=True, domain="[('th_aff_category_id', '=?', th_aff_category_id),('state','=','deploy')]")
     th_filename = fields.Char(compute='_compute_xml_filename', store=True)
+    th_number_of_requests = fields.Integer('Số lượng yêu cầu', default=1)
+    th_medium_ids = fields.Many2many('utm.medium', string='Kênh')
 
     @api.onchange('th_aff_category_id')
     def onchange_product_c(self):
@@ -76,3 +78,16 @@ class ThLinkSeeding(models.Model):
                     })
                     return value
 
+    # @api.model
+    # def create(self, values):
+    #     rec = super(ThLinkSeeding, self).create(values)
+    #
+    #     return rec
+    #
+    # def write(self, values):
+    #     mediums = values.get('th_medium_ids', False)
+    #     for rec in self:
+    #         if mediums:
+    #             pass
+    #
+    #     return super(ThLinkSeeding, self).write(values)

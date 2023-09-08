@@ -1,12 +1,12 @@
 <odoo>
     <menuitem id="th_menu_root_aff" name="Affiliate" sequence="270"  web_icon="th_affiliate,static/description/icon.png" groups="th_affiliate.group_aff_user"/>
-    <menuitem id="th_menu_th_link_tracking" name="Danh sách sản phẩm seeding" sequence="1" parent="th_menu_root_aff" action="th_action_link_seeding"/>
+    <menuitem id="th_menu_th_link_tracking" name="Giao bài" sequence="1" parent="th_menu_root_aff" action="th_action_link_seeding"/>
     <menuitem id="th_aff_menu_main" name="Link seed CTV" parent="th_menu_root_aff" sequence="2" action="th_link_tracker_action"/>
     <menuitem id="th_pay_menu" name="Thanh toán" parent="th_menu_root_aff" sequence="250" action="th_pay_action"/>
 
     <menuitem id="th_menu_set_product" parent="th_menu_root_aff" sequence="200" name="Quản lý sản phẩm" groups="th_affiliate.group_aff_officer"/>
-    <menuitem id="th_menu_product_aff_category" name="Nhóm sản phẩm" parent="th_menu_set_product" action="th_view_product_aff_category_action"/>
-    <menuitem id="th_menu_product_aff" name="Sản phẩm" parent="th_menu_set_product" action="th_view_product_aff_action"/>
+    <menuitem id="th_menu_product_aff_category" sequence="1" name="Nhóm sản phẩm" parent="th_menu_set_product" action="th_view_product_aff_category_action"/>
+    <menuitem id="th_menu_product_aff" sequence="2" name="Sản phẩm" parent="th_menu_set_product" action="th_view_product_aff_action"/>
 
     <menuitem id="th_menu_set_utm" parent="th_menu_root_aff" sequence="230" name="Chiến dịch &amp; kênh" groups="th_affiliate.group_aff_manager"/>
     <menuitem id="th_aff_menu_utm_medium" name="Kênh" parent="th_menu_set_utm" action="utm.utm_medium_action"/>
@@ -15,5 +15,5 @@
     <menuitem id="th_menu_setting" parent="th_menu_root_aff" sequence="300" name="Cấu hình" groups="th_affiliate.group_aff_administrator"/>
     <menuitem id="th_menu_aff_config_settings" name="Cài đặt" action="th_action_aff_config_settings" parent="th_menu_setting" sequence="1"/>
     <menuitem id="th_aff_ownership_unit_menu" name="Đơn vị sở hữu" sequence="3" parent="th_menu_setting" action="th_aff_ownership_unit_action"/>
-    <menuitem id="th_view_seeding_acceptance_menu" name="Hoa hồng seeding" parent="th_menu_setting" action="th_view_seeding_acceptance_action"/>
+    <menuitem id="th_view_seeding_acceptance_menu" name="Hoa hồng affiliate" parent="th_menu_setting" action="th_view_seeding_acceptance_action"/>
 </odoo>

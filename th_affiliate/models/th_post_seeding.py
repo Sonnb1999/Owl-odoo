@@ -7,7 +7,6 @@ select_state = [
     ('pending', 'Chờ duyệt'),
     ('correct_request', 'Đúng yêu cầu'),
     ('wrong_request', 'Sai yêu cầu'),
-    ('paid', 'Đã thanh toán')
 ]
 
 
@@ -28,6 +27,17 @@ class ThPostSeeding(models.Model):
     # th_link_owner_id = fields.Many2one('res.partner', 'Người sở hữu')
     # th_nick = fields.Char('Tên nick')
     th_check_uid = fields.Boolean('Kiểm tra', compute="compute_th_expense")
+    th_unit_price = fields.Float('Đơn giá', compute="_compute_check_unit_price")
+    th_state_pay = fields.Selection(selection=[('paid', 'Đã chi trả'), ('cancel', 'Hủy')])
+    th_pay_state = fields.Selection(related="th_pay_id.state", readonly=True)
+
+    @api.depends('th_seeding_acceptance_ids')
+    def _compute_check_unit_price(self):
+        for rec in self:
+            if rec.state == "wrong_request":
+                rec.th_unit_price = 0
+            else:
+                rec.th_unit_price = rec.th_expense
 
     @api.depends('th_seeding_acceptance_ids')
     def compute_th_expense(self):

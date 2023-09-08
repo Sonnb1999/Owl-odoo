@@ -9,7 +9,7 @@ URL_MAX_SIZE = 10 * 1024 * 1024
 select_closing_work = ([
         ('pending', 'Chờ nghiệm thu'),
         ('acceptance', 'Nghiệm thu'),
-        ('cost_closing', 'Chốt chi phí')])
+        ('cost_closing', 'Tạm chốt chi phí')])
 
 
 class LinkTracker(models.Model):
@@ -47,12 +47,12 @@ class LinkTracker(models.Model):
             else:
                 rec.th_filename = False
 
-    @api.model
-    def get_views(self, views, options=None):
-        res = super().get_views(views, options)
-        if res['models'].get('th.post.link'):
-            res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][0:3]
-        return res
+    # @api.model
+    # def get_views(self, views, options=None):
+    #     res = super().get_views(views, options)
+    #     if res['models'].get('th.post.link'):
+    #         res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][0:3]
+    #     return res
 
     def th_action_view_statistics(self):
         action = self.env['ir.actions.act_window']._for_xml_id('th_affiliate.th_session_user_action')

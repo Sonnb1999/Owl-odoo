@@ -12,7 +12,7 @@ class LinkTracker(models.Model):
     name = fields.Char('Phiếu chi trả')
     th_partner_id = fields.Many2one('res.partner', string="Cộng tác viên")
     th_post_link_ids = fields.One2many('th.post.link', 'th_pay_id', 'Post link')
-    state = fields.Selection(selection=[('pending', 'Chờ duyệt'), ('accept', 'Duyệt'), ('cancel', 'Hủy'), ('paid', 'Đã Thanh toán')], tracking=True)
+    state = fields.Selection(selection=[('pending', 'Chờ duyệt'), ('accept', 'Duyệt & chờ thanh toán'), ('cancel', 'Hủy'), ('paid', 'Đã Thanh toán')], tracking=True)
     th_count_correct_link = fields.Integer('Số bài đăng đúng', default=0, compute="_compute_count_post_link")
     th_count_wrong_link = fields.Integer('Số bài đăng không đạt', default=0, compute="_compute_count_post_link")
     th_paid = fields.Float('Tổng chi phí', default=0)
@@ -23,7 +23,7 @@ class LinkTracker(models.Model):
     def get_views(self, views, options=None):
         res = super().get_views(views, options)
         if res['models'].get('th.post.link'):
-            res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][1:4]
+            res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][1:3]
         return res
 
     @api.depends('th_post_link_ids')
@@ -40,6 +40,8 @@ class LinkTracker(models.Model):
     def action_cancel_pay(self):
         for rec in self:
             rec.state = 'cancel'
+            for record in rec.th_post_link_ids:
+                record.th_state_pay = 'cancel'
 
     def action_accept_pay(self):
         for rec in self:
@@ -51,7 +53,7 @@ class LinkTracker(models.Model):
             rec.th_paid_date = fields.Date.today()
 
             for record in rec.th_post_link_ids:
-                record.state = 'paid'
+                record.th_state_pay = 'paid'
 
     def unlink(self):
         for record in self:

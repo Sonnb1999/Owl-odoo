@@ -26,6 +26,11 @@ class ResConfigSettings(models.TransientModel):
     @api.model
     def get_values(self):
         res = super().get_values()
+        res.update(
+            th_access_interval_number=7,
+            th_access_interval_type='days'
+        )
+
         res.update(th_access_interval_number=self.env['ir.config_parameter'].sudo().get_param('th_access_interval_number'),
                    th_access_interval_type=self.env['ir.config_parameter'].sudo().get_param('th_access_interval_type'), )
         return res
