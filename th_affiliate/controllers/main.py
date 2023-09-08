@@ -62,8 +62,12 @@ class ThLinkTracker(LinkTracker):
             client_values = request.httprequest.get_json()
             get_link = client_values.get('link_tracker')
             th_website = client_headers.environ.get('HTTP_HOST')
-            str_start_date = client_values.get('date_start')
-            date_start = datetime.strptime(str_start_date, date_format) - relativedelta(hours=7)
+            str_start_date = client_values.get('date_start', False)
+            if ',' not in str_start_date:
+                date_start = datetime.strptime(str_start_date, '%H:%M:%S %d/%m/%Y') - relativedelta(hours=7) if str_start_date else datetime.now()
+            else:
+                date_start = datetime.strptime(str_start_date, date_format) - relativedelta(hours=7) if str_start_date else datetime.now()
+
             utm_params = client_values.get('odoo_utmParams', {})
             utm_source = utm_params.get('utm_source', '')
             utm_campaign = utm_params.get('utm_campaign', '')
