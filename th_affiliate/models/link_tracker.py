@@ -17,6 +17,13 @@ class LinkTracker(models.Model):
     _inherit = ['link.tracker', 'mail.thread', 'mail.activity.mixin']
     _rec_name = 'th_product_aff_id'
 
+    # def _get_default_file_import(self):
+    #     import base64
+    #     f = open('th_affiliate\static\src\excel\Links.xlsx')
+    #     image = base64.encodestring(f.read())
+    #     f.close()
+    #     return image
+
     th_link_seeding_id = fields.Many2one('th.link.seeding', string="Link gốc")
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])
     th_post_link_ids = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
@@ -24,12 +31,21 @@ class LinkTracker(models.Model):
     th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True)
     th_closing_work = fields.Selection(selection=select_closing_work, string='Chốt chi phí', tracking=True, default='pending')
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
-    th_filename = fields.Binary(related='th_link_seeding_id.th_filename')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)
     th_aff_category_id = fields.Many2one(related='th_product_aff_id.th_aff_category_id', store=True)
     th_count_link_click = fields.Integer('Clicks', default=0)
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
+    th_filename = fields.Char(compute='_compute_xml_filename', store=True)
+    # th_file_link_import = fields.Binary(string='File import')
+
+    @api.depends('th_product_aff_id', 'th_product_aff_id.name', 'th_product_aff_id.th_image')
+    def _compute_xml_filename(self):
+        for rec in self:
+            if rec.th_image:
+                rec.th_filename = rec.th_product_aff_id.name
+            else:
+                rec.th_filename = False
 
     @api.model
     def get_views(self, views, options=None):

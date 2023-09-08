@@ -27,7 +27,7 @@
 
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Xem link" class="oe_stat_button"/>
+                        <button type="object" icon="fa-sign-out" name="action_visit_page" string="Xem Sản phẩm" class="oe_stat_button"/>
                     </div>
                     <field name="th_image" widget='image' filename="filename" class="oe_avatar my_class" options='{"zoom": true}'  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 

@@ -27,12 +27,19 @@ class ThLinkSeeding(models.Model):
     campaign_id = fields.Many2one('utm.campaign', ondelete='set null', string='Chiến dịch', domain=lambda self: [('th_start_date', '<=', fields.Date.today()), ('th_end_date', '>=', fields.Date.today())])
     th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True)
     th_product_aff_id = fields.Many2one('th.product.aff', 'Sản phẩm', required=True, domain="[('th_aff_category_id', '=?', th_aff_category_id),('state','=','deploy')]")
-    # th_filename = fields.Char(compute='_compute_xml_filename', store=True)
+    th_filename = fields.Char(compute='_compute_xml_filename', store=True)
 
-    # @api.depends('th_product_aff_id')
-    # def _compute_url(self):
-    #     for rec in self:
-    #         rec.th_url = rec.th_product_aff_id.th_link_product
+    @api.onchange('th_aff_category_id')
+    def onchange_product_c(self):
+        for rec in self:
+            if not rec.th_aff_category_id:
+                rec.th_product_aff_id = False
+
+    @api.onchange('th_product_aff_id')
+    def onchange_product(self):
+        for rec in self:
+            if not rec.th_aff_category_id:
+                rec.th_aff_category_id = rec.th_product_aff_id.th_aff_category_id
 
     @api.depends('th_product_aff_id')
     def _compute_xml_filename(self):
@@ -41,8 +48,6 @@ class ThLinkSeeding(models.Model):
                 rec.th_filename = rec.th_product_aff_id.name
             else:
                 rec.th_filename = False
-
-
 
     def action_create_link_tracker(self, user_id=None, link_origin=None):
         if not user_id:
