@@ -39,6 +39,14 @@ class ThPostSeeding(models.Model):
             else:
                 rec.th_unit_price = rec.th_expense
 
+    @api.onchange('name')
+    def onchange_link(self):
+        for rec in self:
+            search_name = self.sudo().search([('name', '=', rec.name)])
+            if search_name and not rec.ids:
+                raise ValidationError("Link đã tồn tại!")
+            rec.name = rec.name
+
     @api.depends('th_seeding_acceptance_ids')
     def compute_th_expense(self):
         for rec in self:
@@ -96,5 +104,7 @@ class ThPostSeeding(models.Model):
         result = super(ThPostSeeding, self).create(values)
         for rec in result:
             if rec.link_tracker_id and rec.link_tracker_id.th_closing_work == 'cost_closing':
-                raise ValidationError('Đang trong quá trình chốt chi phí không thể tạo thêm link!')
+                raise ValidationError('Đang trong quá trình tạm chốt chi phí không thể tạo thêm link!')
+            if self.search([('name', '=', rec.name), ('link_tracker_id', '=', rec.link_tracker_id.id), ('id', '!=', rec.id)]):
+                raise ValidationError('Link đã tồn tại!')
         return rec

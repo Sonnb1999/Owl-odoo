@@ -29,7 +29,7 @@
                     <group>
                         <group name="url" string="Sản phẩm">
                             <field name="th_product_aff_id" options="{'no_open': True}"/>
-                            <field name="url" attrs="{'readonly': [('th_product_aff_id', '!=', False)]}"/>
+                            <field name="url" attrs="{'readonly': [('th_product_aff_id', '!=', False)],'invisible':[('th_product_aff_id', '!=', False)] }"/>
                             <field name="short_url" widget="CopyClipboardChar"/>
                             <filed name="th_filename" invisible="1" />
                             <field name="th_image" string="Tải ảnh xuống" filename="th_filename" readonly="1" attrs="{'invisible':[('th_product_aff_id', '==', False),('th_image', '=', False)]}" class="oe_avatar"/>
