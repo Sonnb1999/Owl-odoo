@@ -82,3 +82,17 @@ class ThProductAff(models.Model):
         self.write({
             'state': 'close'
         })
+
+    @api.model
+    def create(self, values):
+        th_user_id = self._uid
+        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids).id
+        values['th_aff_ownership_unit_id'] = th_own
+        return super(ThProductAff, self).create(values)
+
+    def write(self, values):
+        th_user_id = self._uid
+        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids).id
+        values['th_aff_ownership_unit_id'] = th_own
+        return super(ThProductAff, self).write(values)
+
