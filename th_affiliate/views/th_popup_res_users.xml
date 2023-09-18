@@ -10,7 +10,7 @@
                 <sheet>
                     <group>
                         <field name="th_aff_team" domain="[('id', 'in', th_aff_domain)]" options="{'no_create_edit': True}"/>
-                        <field name="th_aff_domain"/>
+                        <field name="th_aff_domain" widget="many2many_tags"/>
                     </group>
                 </sheet>
                 <footer>

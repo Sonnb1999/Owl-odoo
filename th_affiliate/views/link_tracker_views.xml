@@ -40,15 +40,14 @@
                             <field name="source_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_aff_partner_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_closing_work" invisible="1"/>
-<!--                            <filed name="th_file_link_import"/>-->
                         </group>
                     </group>
                     <notebook>
                         <page string="Link bài đăng">
-                            <button name="th_action_post_link_import" type="object" string="Tải link" context="{'default_link_tracker_id': active_id}" class="btn btn-primary"
+                            <button name="get_contract_template" string="Download file mẫu" type="object" class="btn btn-secondary"/>
+                            <button name="th_action_post_link_import" type="object" string="import nhiều link" context="{'default_link_tracker_id': active_id}" class="btn btn-primary"
                             attrs="{'invisible':[('th_closing_work', '!=', 'pending')]}"
                             />
-<!--                            <filed name="th_file_link_import"/>-->
 
                             <field name="th_post_link_ids" options="{'delete': [('th_closing_work', '!=', 'cost_closing')], 'create': [('th_closing_work', '!=', 'cost_closing')]}"
                                    attrs="{'readonly': [('th_closing_work', '=', 'cost_closing')]}">

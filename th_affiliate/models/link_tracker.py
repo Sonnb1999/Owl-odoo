@@ -1,8 +1,10 @@
+import base64
 import uuid
 
-from odoo import tools, models, fields, api, _
+from odoo import tools, models, fields, api, _, modules
 from collections import defaultdict
 from odoo.exceptions import ValidationError
+from odoo.modules import get_module_resource
 
 URL_MAX_SIZE = 10 * 1024 * 1024
 
@@ -17,13 +19,6 @@ class LinkTracker(models.Model):
     _inherit = ['link.tracker', 'mail.thread', 'mail.activity.mixin']
     _rec_name = 'th_product_aff_id'
 
-    # def _get_default_file_import(self):
-    #     import base64
-    #     f = open('th_affiliate\static\src\excel\Links.xlsx')
-    #     image = base64.encodestring(f.read())
-    #     f.close()
-    #     return image
-
     th_link_seeding_id = fields.Many2one('th.link.seeding', string="Link gốc")
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])
     th_post_link_ids = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
@@ -37,7 +32,6 @@ class LinkTracker(models.Model):
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
     th_filename = fields.Char(compute='_compute_xml_filename', store=True)
-    # th_file_link_import = fields.Binary(string='File import')
 
     @api.depends('th_product_aff_id', 'th_product_aff_id.name', 'th_product_aff_id.th_image')
     def _compute_xml_filename(self):
@@ -47,12 +41,12 @@ class LinkTracker(models.Model):
             else:
                 rec.th_filename = False
 
-    # @api.model
-    # def get_views(self, views, options=None):
-    #     res = super().get_views(views, options)
-    #     if res['models'].get('th.post.link'):
-    #         res['models']['th.post.link']['state']['selection'] = res['models']['th.post.link']['state']['selection'][0:3]
-    #     return res
+    def get_contract_template(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'name': 'contract',
+            'url': 'th_affiliate/static/src/excel/Link_bai_dang.xlsx',
+        }
 
     def th_action_view_statistics(self):
         action = self.env['ir.actions.act_window']._for_xml_id('th_affiliate.th_session_user_action')

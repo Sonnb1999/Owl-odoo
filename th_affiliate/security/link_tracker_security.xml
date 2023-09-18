@@ -1,7 +1,7 @@
 <odoo>
 
     <record model="ir.module.category" id="module_category_services_link_tracker">
-        <field name="name">affiliate category</field>
+        <field name="name">Affiliate category</field>
         <field name="sequence">14</field>
     </record>
 
@@ -35,7 +35,6 @@
         <field name="implied_ids" eval="[(4, ref('group_aff_manager'))]"/>
     </record>
 
-
     <record id="th_group_aff_user_rule_link_tracker" model="ir.rule">
         <field name="name">th_group_aff_user_rule_link_tracker</field>
         <field name="model_id" ref="th_affiliate.model_link_tracker"/>
@@ -61,16 +60,37 @@
     <record id="th_group_aff_user_rule_th_pay" model="ir.rule">
         <field name="name">th_group_aff_user_rule_th_pay</field>
         <field name="model_id" ref="th_affiliate.model_th_pay"/>
-        <field name="domain_force">[('th_partner_id.user_ids.id','=',user.id)]</field>
+        <field name="domain_force">[('th_partner_id.user_ids.id','=',user.id), ('state','=','accept')]</field>
         <field name="perm_read" eval="1"/>
         <field name="groups" eval="[(4, ref('th_affiliate.group_aff_user'))]"/>
     </record>
 
-        <record id="th_group_aff_ma_rule_th_pay" model="ir.rule">
+    <record id="th_group_aff_ma_rule_th_pay" model="ir.rule">
         <field name="name">th_group_aff_ma_rule_th_pay</field>
         <field name="model_id" ref="th_affiliate.model_th_pay"/>
         <field name="domain_force">[(1,'=',1)]</field>
         <field name="perm_read" eval="1"/>
         <field name="groups" eval="[(4, ref('th_affiliate.group_aff_manager'))]"/>
+    </record>
+
+
+    <!-- Đơn vị sở hữu   -->
+    <record id="th_rule_ownership_unit_product_aff_of" model="ir.rule">
+        <field name="name">th_rule_ownership_unit_of</field>
+        <field name="model_id" ref="th_affiliate.model_th_product_aff"/>
+        <field name="domain_force">[('th_aff_ownership_unit_id.id' , '=', user.th_aff_team.id)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="groups" eval="[(4, ref('th_affiliate.group_aff_officer')), (4, ref('th_affiliate.group_aff_manager'))]"/>
+    </record>
+
+     <record id="th_rule_ownership_unit_product_aff_ad" model="ir.rule">
+        <field name="name">th_rule_ownership_unit_ad</field>
+        <field name="model_id" ref="th_affiliate.model_th_product_aff"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="groups" eval="[(4, ref('th_affiliate.group_aff_administrator'))]"/>
     </record>
 </odoo>

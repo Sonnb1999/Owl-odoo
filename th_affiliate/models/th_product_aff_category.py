@@ -46,7 +46,7 @@ class ThProductAff(models.Model):
     th_link_product = fields.Char('Link sản phẩm', required=True, tracking=True)
     th_image = fields.Image(string="image")
     th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True, tracking=True)
-    th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', tracking=True)
+    th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', tracking=True, required=1)
     state = fields.Selection(
         selection=[
             ('draft', 'Nháp'),
@@ -86,13 +86,18 @@ class ThProductAff(models.Model):
     @api.model
     def create(self, values):
         th_user_id = self._uid
-        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids).id
-        values['th_aff_ownership_unit_id'] = th_own
+        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids)
+        if not th_own:
+            raise ValidationError("Bạn đang không trong bất kỳ nhóm đơn vị sở hữu nào. Vui lòng liên hệ với admin")
+        values['th_aff_ownership_unit_id'] = th_own.id
         return super(ThProductAff, self).create(values)
 
     def write(self, values):
         th_user_id = self._uid
-        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids).id
-        values['th_aff_ownership_unit_id'] = th_own
+        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids)
+        group_admin = user.has_group('th_affiliate.group_aff_administrator')
+        if not th_own:
+            raise ValidationError("Bạn đang không trong nhóm đơn vị sở hữu nào. Vui lòng liên hệ với quản trị viên!")
+        values['th_aff_ownership_unit_id'] = th_own.id
         return super(ThProductAff, self).write(values)
 

@@ -9,7 +9,3 @@ class AffOwnershipUnit(models.Model):
     th_code_aff = fields.Char('Mã đơn vị sở hữu')
     th_member_ids = fields.Many2many(comodel_name='res.users', relation='th_aff_ownership_res_user', column1="th_aff_ownership_id", column2='th_res_id', string='Người dùng')
 
-    # @api.onchange('th_code_aff')
-    # def onchange_method(self):
-    #     for rec in self:
-    #         rec.th_code_aff = rec.th_code_aff

@@ -30,6 +30,7 @@ class ThLinkSeeding(models.Model):
     th_filename = fields.Char(compute='_compute_xml_filename', store=True)
     th_number_of_requests = fields.Integer('Số lượng yêu cầu', default=1)
     th_medium_ids = fields.Many2many('utm.medium', string='Kênh')
+    th_aff_ownership_unit_id = fields.Many2one(related="th_product_aff_id.th_aff_ownership_unit_id")
 
     @api.onchange('th_aff_category_id')
     def onchange_product_c(self):

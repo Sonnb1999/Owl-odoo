@@ -57,53 +57,6 @@
         </field>
     </record>
 
-    <record id="th_aff_ownership_unit_kanban" model="ir.ui.view">
-        <field name="name">th.aff.ownership.unit.kanban</field>
-        <field name="model">th.aff.ownership.unit</field>
-        <field name="arch" type="xml">
-            <kanban class="oe_background_grey o_kanban_dashboard o_hr_department_kanban o_kanban_small_column"
-                    sample="1">
-                <field name="name"/>
-                <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <div t-attf-class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary">
-                                        <a type="edit">
-                                            <field name="name"/>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="o_kanban_manage_button_section" t-if="!selection_mode">
-                                    <a class="o_kanban_manage_toggle_button" href="#">
-                                        <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="container o_kanban_card_content" t-if="!selection_mode">
-                                <div class="row o_kanban_card_upper_content">
-                                    <div class="col-6 o_kanban_primary_left">
-                                        <button class="btn btn-primary">
-                                            <t t-out="1"/>
-                                            thành viên
-                                        </button>
-                                    </div>
-                                    <div class="col-6 o_kanban_primary_right">
-                                    </div>
-                                </div>
-                                <div class="o_kanban_card_lower_content"
-                                     style="justify-content: end">
-                                    <!-- placeholder for bottom content -->
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record>
-
     <record id="th_aff_ownership_unit_action" model="ir.actions.act_window">
         <field name="name">Đơn vị sở hữu</field>
         <field name="type">ir.actions.act_window</field>

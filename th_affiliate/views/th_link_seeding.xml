@@ -28,6 +28,7 @@
                             <field name="th_product_aff_id" options="{'no_open': True, 'no_create': True, 'no_edit': True}"/>
                             <field name="th_number_of_requests"/>
                             <field name="th_url" invisible="1"/>
+                            <field name="th_aff_ownership_unit_id"/>
                         </group>
                         <group>
                             <field name="campaign_id" options="{'no_open': True, 'no_create': True, 'no_edit': True}"/>
