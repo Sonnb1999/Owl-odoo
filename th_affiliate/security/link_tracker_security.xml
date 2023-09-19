@@ -46,6 +46,17 @@
         <field name="groups" eval="[(4, ref('th_affiliate.group_aff_user'))]"/>
     </record>
 
+     <record id="th_group_aff_user_rule_link_tracker_ad" model="ir.rule">
+        <field name="name">th_group_aff_user_rule_link_tracker_ad</field>
+        <field name="model_id" ref="th_affiliate.model_link_tracker"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="groups" eval="[(4, ref('th_affiliate.group_aff_administrator'))]"/>
+    </record>
+
 
     <record id="th_group_aff_user_rule_th_pay" model="ir.rule">
         <field name="name">th_group_aff_user_rule_th_pay</field>
@@ -94,7 +105,7 @@
 
     <!--Link seeding CTV-->
     <record id="th_group_aff_officer_rule_link_tracker" model="ir.rule">
-        <field name="name">th_group_aff_user_rule_link_tracker</field>
+        <field name="name">th_group_aff_officer_rule_link_tracker</field>
         <field name="model_id" ref="th_affiliate.model_link_tracker"/>
         <field name="domain_force">[('th_aff_ownership_unit_id.id' , '=', user.th_aff_team.id)]</field>
         <field name="perm_read" eval="1"/>

@@ -53,6 +53,12 @@ class ResUsers(models.Model):
 
     def th_action_one_team(self):
         # Execute your desired action
+        self.env['ir.rule'].sudo().search([('name', 'in', ['th_rule_ownership_unit_of'])]).write({
+            'active': False
+        })
+        self.env['ir.rule'].sudo().search([('name', 'in', ['th_rule_ownership_unit_of'])]).write({
+            'active': True
+        })
         return {
             'name': _('Giao bài'),
             'type': 'ir.actions.act_window',
