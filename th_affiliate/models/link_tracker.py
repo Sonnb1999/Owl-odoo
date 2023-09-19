@@ -32,6 +32,7 @@ class LinkTracker(models.Model):
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
     th_filename = fields.Char(compute='_compute_xml_filename', store=True)
+    th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
 
     @api.depends('th_product_aff_id', 'th_product_aff_id.name', 'th_product_aff_id.th_image')
     def _compute_xml_filename(self):
@@ -93,7 +94,8 @@ class LinkTracker(models.Model):
                 pay_id = self.env['th.pay'].create({
                     'name': _('Phiếu thanh toán cho %s ngày %s', rec.th_aff_partner_id.name, fields.Date.today()),
                     'th_partner_id': rec.th_aff_partner_id.id,
-                    'state': 'pending'
+                    'state': 'pending',
+                    'th_aff_ownership_unit_id': rec.th_aff_ownership_unit_id.id
                 })
             post_link_ids.write({'th_pay_id': pay_id.id})
             rec.write({'th_closing_work': 'cost_closing'})
@@ -129,6 +131,8 @@ class LinkTracker(models.Model):
             raise ValidationError(_('Link đã tồn tại!'))
         values['source_id'] = utm_source_id
         values['th_aff_partner_id'] = contact_affiliate.id
+        if not values.get('th_aff_ownership_unit_id', False) and self.env.user.th_aff_team:
+            values['th_aff_ownership_unit_id'] = self.env.user.th_aff_team.id
         return super(LinkTracker, self).create(values)
 
     def write(self, values):

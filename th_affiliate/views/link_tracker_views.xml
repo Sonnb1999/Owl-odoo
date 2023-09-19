@@ -40,6 +40,8 @@
                             <field name="source_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_aff_partner_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_closing_work" invisible="1"/>
+                            <field name="th_aff_ownership_unit_id" groups="th_affiliate.group_aff_administrator"/>
+
                         </group>
                     </group>
                     <notebook>

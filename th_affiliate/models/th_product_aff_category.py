@@ -85,19 +85,7 @@ class ThProductAff(models.Model):
 
     @api.model
     def create(self, values):
-        th_user_id = self._uid
-        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids)
-        if not th_own:
-            raise ValidationError("Bạn đang không trong bất kỳ nhóm đơn vị sở hữu nào. Vui lòng liên hệ với admin")
-        values['th_aff_ownership_unit_id'] = th_own.id
+        th_user_id = self.env.user
+        if not values.get('th_aff_ownership_unit_id', False) and th_user_id.th_aff_team:
+            values['th_aff_ownership_unit_id'] = th_user_id.th_aff_team.id
         return super(ThProductAff, self).create(values)
-
-    def write(self, values):
-        th_user_id = self._uid
-        th_own = self.env['th.aff.ownership.unit'].sudo().search([]).filtered(lambda rec: th_user_id in rec.th_member_ids.ids)
-        group_admin = user.has_group('th_affiliate.group_aff_administrator')
-        if not th_own:
-            raise ValidationError("Bạn đang không trong nhóm đơn vị sở hữu nào. Vui lòng liên hệ với quản trị viên!")
-        values['th_aff_ownership_unit_id'] = th_own.id
-        return super(ThProductAff, self).write(values)
-

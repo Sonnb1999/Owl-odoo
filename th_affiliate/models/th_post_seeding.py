@@ -30,6 +30,7 @@ class ThPostSeeding(models.Model):
     th_unit_price = fields.Float('Đơn giá', compute="_compute_check_unit_price")
     th_state_pay = fields.Selection(selection=[('paid', 'Đã chi trả'), ('cancel', 'Hủy')])
     th_pay_state = fields.Selection(related="th_pay_id.state", readonly=True)
+    th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
 
     @api.depends('th_seeding_acceptance_ids')
     def _compute_check_unit_price(self):
@@ -101,6 +102,9 @@ class ThPostSeeding(models.Model):
 
     @api.model
     def create(self, values):
+        if not values.get('th_aff_ownership_unit_id', False):
+            values['th_aff_ownership_unit_id'] = self.env.user.th_aff_team.id
+
         result = super(ThPostSeeding, self).create(values)
         for rec in result:
             if rec.link_tracker_id and rec.link_tracker_id.th_closing_work == 'cost_closing':

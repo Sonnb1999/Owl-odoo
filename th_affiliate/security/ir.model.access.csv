@@ -2,7 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_th_link_seeding_user,access_th_link_seeding_user,model_th_link_seeding,th_affiliate.group_aff_user,1,0,0,0
 access_th_link_seeding_officer,access_th_link_seeding_officer,model_th_link_seeding,th_affiliate.group_aff_officer,1,1,1,1
 
-access_th_product_aff_category_officer,access.th.product.aff.category.officer,model_th_product_aff_category,th_affiliate.group_aff_officer,1,0,0,0
+access_th_product_aff_category_officer,access.th.product.aff.category.officer,model_th_product_aff_category,th_affiliate.group_aff_officer,1,1,1,1
 access_th_product_aff_category_manager,access.th.product.aff.category_manager,model_th_product_aff_category,th_affiliate.group_aff_manager,1,1,1,1
 
 access_th_product_aff,access.th.product.aff,model_th_product_aff,th_affiliate.group_aff_officer,1,1,1,1

@@ -28,7 +28,7 @@ class ThAcceptanceSeeding(models.Model):
     name = fields.Char(required=1, string="Coefficient")
     th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Type', required=1, default='is_available')
     th_coefficient_convention = fields.Char(string="Coefficient convention")
-    th_cost_factor = fields.Float(string='Cost/Factor', tracking=True)
+    th_cost_factor = fields.Float(string='Cost/Factor', tracking=True, required=True, default=100)
     th_acceptance_cost_history_ids = fields.One2many('th.acceptance.cost.history', 'th_acceptance_seeding_id')
     th_post_link_id = fields.Many2one('th.post.link', 'Post link')
     th_show_name = fields.Char('Show name', compute="_compute_th_show_name", store=True)
@@ -43,18 +43,22 @@ class ThAcceptanceSeeding(models.Model):
 
     @api.model
     def create(self, values):
+        if values.get('th_cost_factor', False) == 0:
+            raise ValidationError(_('Vui lòng nhập chi phí khác 0!'))
+
         if values.get('th_cost_factor', False):
             data = {
                 'th_cost_factor': values.get('th_cost_factor'),
                 'th_start_date': fields.Date.today(),
-                # 'th_end_date': values.get('create_date'),
-
             }
             values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
         return super(ThAcceptanceSeeding, self).create(values)
 
     def write(self, values):
         th_cost_factor = values.get('th_cost_factor', False)
+        if values.get('th_cost_factor') == 0:
+            raise ValidationError(_('Vui lòng nhập chi phí khác 0!'))
+
         for rec in self:
             if th_cost_factor:
                 th_acceptance_seeding_old = self.env['th.acceptance.cost.history'].search(

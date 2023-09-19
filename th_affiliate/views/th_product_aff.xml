@@ -19,9 +19,9 @@
         <field name="arch" type="xml">
             <form string="Form" >
                 <header>
-                    <button name="action_draft" type="object" class="btn btn-primary" string="Nháp" states="deploy,close" groups="th_affiliate.group_aff_manager"/>
-                    <button name="action_deploy" type="object" class="btn btn-primary" string="Triển khai" states="draft"  groups="th_affiliate.group_aff_manager"/>
-                    <button name="action_close" type="object" class="btn" string="Đóng" states="deploy" groups="th_affiliate.group_aff_manager"/>
+                    <button name="action_draft" type="object" class="btn btn-primary" string="Nháp" states="deploy,close" groups="th_affiliate.group_aff_officer"/>
+                    <button name="action_deploy" type="object" class="btn btn-primary" string="Triển khai" states="draft"  groups="th_affiliate.group_aff_officer"/>
+                    <button name="action_close" type="object" class="btn" string="Đóng" states="deploy" groups="th_affiliate.group_aff_officer"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,deploy,close"/>
                 </header>
 

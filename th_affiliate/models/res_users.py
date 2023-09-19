@@ -25,7 +25,7 @@ class ResUsers(models.Model):
     def do_security_checks(self):
         # Add your security checks here
         user = self.env.user
-        group_user = user.has_group('th_affiliate.group_aff_officer')
+        group_user = user.has_group('th_affiliate.group_aff_user')
         group_officer = user.has_group('th_affiliate.group_aff_officer')
         group_manager = user.has_group('th_affiliate.group_aff_manager')
         group_admin = user.has_group('th_affiliate.group_aff_administrator')
