@@ -31,6 +31,7 @@ class ThPostSeeding(models.Model):
     th_state_pay = fields.Selection(selection=[('paid', 'Đã chi trả'), ('cancel', 'Hủy')])
     th_pay_state = fields.Selection(related="th_pay_id.state", readonly=True)
     th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
     @api.depends('th_seeding_acceptance_ids')
     def _compute_check_unit_price(self):

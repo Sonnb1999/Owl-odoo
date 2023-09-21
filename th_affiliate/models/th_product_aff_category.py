@@ -47,6 +47,7 @@ class ThProductAff(models.Model):
     th_image = fields.Image(string="image")
     th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True, tracking=True)
     th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', tracking=True, required=1)
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     state = fields.Selection(
         selection=[
             ('draft', 'Nháp'),

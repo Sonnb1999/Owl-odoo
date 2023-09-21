@@ -35,6 +35,7 @@
                         <group>
                             <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="th_link_product" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
                             <field name="th_aff_category_id" string="Nhóm sản phẩm" attrs="{'readonly': [('state', '!=', 'draft')]}" options='{"no_open": True, "no_create": True}'/>

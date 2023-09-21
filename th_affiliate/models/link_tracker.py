@@ -33,6 +33,7 @@ class LinkTracker(models.Model):
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
     th_filename = fields.Char(compute='_compute_xml_filename', store=True)
     th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
     @api.depends('th_product_aff_id', 'th_product_aff_id.name', 'th_product_aff_id.th_image')
     def _compute_xml_filename(self):

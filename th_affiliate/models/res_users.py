@@ -32,33 +32,32 @@ class ResUsers(models.Model):
 
         teams = self.env['th.aff.ownership.unit'].sudo().search([])
         th_aff_domain = []
-        if teams:
-            for team in teams:
-                if team and user.id in team.th_member_ids.ids:
-                    th_aff_domain += team.ids
-
-        if not group_admin and (group_user or group_officer or group_manager):
-            if len(th_aff_domain) > 1:
-                return self.th_action_choose_team()
-            elif len(th_aff_domain) == 1:
-                if not user.th_aff_team:
-                    user.sudo().write({
-                        'th_aff_team': th_aff_domain[0]
-                    })
-                return self.th_action_one_team()
-            else:
-                raise ValidationError(_("Bạn đang không thuộc nhóm nào. Vui lòng liên hệ với quản trị viên!"))
-        else:
-            return self.th_action_one_team()
+        # if teams:
+        #     for team in teams:
+        #         if team and user.id in team.th_member_ids.ids:
+        #             th_aff_domain += team.ids
+        #
+        # if not group_admin and (group_user or group_officer or group_manager):
+        #     if len(th_aff_domain) > 1:
+        #         return self.th_action_choose_team()
+        #     elif len(th_aff_domain) == 1:
+        #         if not user.th_aff_team:
+        #             user.sudo().write({
+        #                 'th_aff_team': th_aff_domain[0]
+        #             })
+        #         return self.th_action_one_team()
+        #     else:
+        #         raise ValidationError(_("Bạn đang không thuộc nhóm nào. Vui lòng liên hệ với quản trị viên!"))
+        # else:
+        return self.th_action_one_team()
 
     def th_action_one_team(self):
-        # Execute your desired action
-        self.env['ir.rule'].sudo().search([('name', 'in', ['th_rule_global'])]).write({
-            'active': False
-        })
-        self.env['ir.rule'].sudo().search([('name', 'in', ['th_rule_global'])]).write({
-            'active': True
-        })
+        # self.env['ir.rule'].sudo().search([('name', 'in', ['th_rule_global'])]).write({
+        #     'active': False
+        # })
+        # self.env['ir.rule'].sudo().search([('name', 'in', ['th_rule_global'])]).write({
+        #     'active': True
+        # })
         return {
             'name': _('Giao bài'),
             'type': 'ir.actions.act_window',

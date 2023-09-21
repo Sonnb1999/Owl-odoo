@@ -9,3 +9,4 @@ class UtmCampaign(models.Model):
 
     th_start_date = fields.Date('Ngày bắt đầu', required=True)
     th_end_date = fields.Date('Ngày kết thúc', required=True)
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
