@@ -18,7 +18,7 @@ class LinkTracker(models.Model):
     th_paid = fields.Float('Tổng chi phí', default=0)
     th_paid_date = fields.Date('Ngày chi trả')
     th_currency_id = fields.Many2one(comodel_name='res.currency', string='Đơn vị tiền tệ', default=lambda self: self.env.company.currency_id)
-    th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
+    # th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     @api.model
     def get_views(self, views, options=None):
