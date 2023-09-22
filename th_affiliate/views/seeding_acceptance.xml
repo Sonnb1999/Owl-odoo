@@ -52,7 +52,7 @@
     </record>
 
     <record id="th_view_seeding_acceptance_action" model="ir.actions.act_window">
-        <field name="name">Hoa hồng seeding</field>
+        <field name="name">Hoa hồng Affiliate</field>
         <field name="res_model">th.acceptance.seeding</field>
         <field name="view_mode">tree,form</field>
     </record>

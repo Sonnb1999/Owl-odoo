@@ -35,11 +35,10 @@
                         <group>
                             <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="th_link_product" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}" invisible="1"/>
                         </group>
                         <group>
                             <field name="th_aff_category_id" string="Nhóm sản phẩm" attrs="{'readonly': [('state', '!=', 'draft')]}" options='{"no_open": True, "no_create": True}'/>
-                            <field name="th_aff_ownership_unit_id" groups="th_affiliate.group_aff_administrator" options='{"no_open": True}'/>
                         </group>
                     </group>
                 </sheet>

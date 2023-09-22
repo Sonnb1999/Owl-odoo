@@ -19,7 +19,8 @@ class ThPostSeeding(models.Model):
     link_tracker_id = fields.Many2one('link.tracker')
     th_note = fields.Text('Comment', tracking=True)
     th_acceptance_person_id = fields.Many2one('res.partner', string='Nghiệm thu', readonly=1, tracking=True)
-    th_seeding_acceptance_ids = fields.Many2many(comodel_name='th.acceptance.seeding', string='Hệ số', tracking=True)
+    th_seeding_acceptance_ids = fields.Many2many(comodel_name='th.acceptance.seeding', relation='th_check_cost',
+                                                 column1='th_post', column2='th_cost', string='Hệ số', tracking=True)
     th_expense = fields.Float('Chi phí', compute="compute_th_expense")
     state = fields.Selection(selection=select_state, string='Trạng thái', tracking=True, default='pending', required=True)
     th_campaign_id = fields.Many2one(related="link_tracker_id.campaign_id", store=True)
@@ -30,7 +31,6 @@ class ThPostSeeding(models.Model):
     th_unit_price = fields.Float('Đơn giá', compute="_compute_check_unit_price")
     th_state_pay = fields.Selection(selection=[('paid', 'Đã chi trả'), ('cancel', 'Hủy')])
     th_pay_state = fields.Selection(related="th_pay_id.state", readonly=True)
-    # th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', required=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
     @api.depends('th_seeding_acceptance_ids')
@@ -51,14 +51,15 @@ class ThPostSeeding(models.Model):
 
     @api.depends('th_seeding_acceptance_ids')
     def compute_th_expense(self):
+
         for rec in self:
             if rec.link_tracker_id and rec.link_tracker_id.create_uid.id == self._uid:
                 rec.th_check_uid = True
             else:
                 rec.th_check_uid = False
-
             create_date = rec.create_date.date() if rec.create_date else fields.Date.today()
-            rec.th_expense = sum(rec.th_seeding_acceptance_ids.mapped('th_acceptance_cost_history_ids').filtered(
+            history_cost = rec.th_seeding_acceptance_ids.mapped('th_acceptance_cost_history_ids')
+            rec.th_expense = sum(history_cost.filtered(
                 lambda cost_history: (cost_history.th_end_date and cost_history.th_start_date <= create_date <= cost_history.th_end_date) or
                                      (cost_history.th_start_date <= create_date and not cost_history.th_end_date)).mapped('th_cost_factor'))
 
@@ -103,9 +104,6 @@ class ThPostSeeding(models.Model):
 
     @api.model
     def create(self, values):
-        # if not values.get('th_aff_ownership_unit_id', False):
-        #     values['th_aff_ownership_unit_id'] = self.env.user.th_aff_team.id
-
         result = super(ThPostSeeding, self).create(values)
         for rec in result:
             if rec.link_tracker_id and rec.link_tracker_id.th_closing_work == 'cost_closing':

@@ -1,7 +1,7 @@
 <odoo>
     <record id="th_aff_ownership_unit_view" model="ir.ui.view">
-        <field name="name">th.aff.ownership.unit.view</field>
-        <field name="model">th.aff.ownership.unit</field>
+        <field name="name">res.company.view</field>
+        <field name="model">res.company</field>
         <field name="arch" type="xml">
             <tree string="Đơn vị sở hữu">
                 <field name="name"/>
@@ -11,8 +11,8 @@
     </record>
 
     <record id="th_aff_ownership_unit_form" model="ir.ui.view">
-        <field name="name">th.aff.ownership.unit.form</field>
-        <field name="model">th.aff.ownership.unit</field>
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
@@ -22,7 +22,7 @@
                     </group>
                     <notebook>
                         <page string="Thành viên" name="members_users">
-                            <field name="th_member_ids" mode="kanban" class="w-100">
+                            <field name="user_ids" mode="kanban" class="w-100">
                                 <kanban>
                                     <field name="id"/>
                                     <field name="name"/>
@@ -60,8 +60,13 @@
     <record id="th_aff_ownership_unit_action" model="ir.actions.act_window">
         <field name="name">Đơn vị sở hữu</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">th.aff.ownership.unit</field>
+        <field name="res_model">res.company</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('th_aff_ownership_unit_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('th_aff_ownership_unit_form')}),
+                          ]"/>
     </record>
 
 </odoo>

@@ -37,7 +37,6 @@
                             <field name="th_currency_id" invisible="1"/>
                             <field name="th_paid" readonly="1"  widget="monetary" options="{'currency_field': 'th_currency_id'}" />
                             <field name="th_paid_date" readonly="1"/>
-                            <field name="th_aff_ownership_unit_id" groups="th_affiliate.group_aff_administrator"/>
                         </group>
                     </group>
                     <notebook>

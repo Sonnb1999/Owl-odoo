@@ -46,7 +46,6 @@ class ThProductAff(models.Model):
     th_link_product = fields.Char('Link sản phẩm', required=True, tracking=True)
     th_image = fields.Image(string="image")
     th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True, tracking=True)
-    # th_aff_ownership_unit_id = fields.Many2one('th.aff.ownership.unit', 'Đơn vị sở hữu', tracking=True, required=1)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     state = fields.Selection(
         selection=[
@@ -84,9 +83,7 @@ class ThProductAff(models.Model):
             'state': 'close'
         })
 
-    # @api.model
-    # def create(self, values):
-    #     th_user_id = self.env.user
-    #     if not values.get('th_aff_ownership_unit_id', False) and th_user_id.th_aff_team:
-    #         values['th_aff_ownership_unit_id'] = th_user_id.th_aff_team.id
-    #     return super(ThProductAff, self).create(values)
+    def write(self, values):
+        rec = super(ThProductAff, self).write(values)
+
+        return rec

@@ -6,3 +6,6 @@ from odoo import fields, models
 
 class ThCompany(models.Model):
     _inherit = 'res.company'
+
+    th_code_aff = fields.Char('Mã đơn vị sở hữu')
+    
