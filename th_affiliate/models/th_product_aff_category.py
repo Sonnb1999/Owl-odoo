@@ -4,7 +4,7 @@ from collections import defaultdict
 from odoo.exceptions import ValidationError
 
 URL_MAX_SIZE = 10 * 1024 * 1024
-
+state_acceptance = [('draft', 'Nháp'), ('deploy', 'Triển khai'), ('close', 'Đóng')]
 
 class ThProductAffCategory(models.Model):
     _name = 'th.product.aff.category'
@@ -19,6 +19,7 @@ class ThProductAffCategory(models.Model):
     th_complete_name = fields.Char('Complete Name', compute='_compute_th_complete_name', recursive=True, store=True)
     parent_path = fields.Char(index=True, unaccent=False)
     th_child_id = fields.One2many('th.product.aff.category', 'th_category_parent_id', 'Child Categories')
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
     @api.onchange('name')
     def onchange_name_category(self):
@@ -45,20 +46,9 @@ class ThProductAff(models.Model):
     name = fields.Char("Tên sản phẩm", index='trigram', required=True, tracking=True)
     th_link_product = fields.Char('Link sản phẩm', required=True, tracking=True)
     th_image = fields.Image(string="image")
-    th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True, tracking=True)
+    th_aff_category_id = fields.Many2one('th.product.aff.category', 'Nhóm sản phẩm', required=True, tracking=True, check_company=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
-    state = fields.Selection(
-        selection=[
-            ('draft', 'Nháp'),
-            ('deploy', 'Triển khai'),
-            ('close', 'Đóng'),
-        ],
-        string='Status',
-        required=True,
-        copy=False,
-        tracking=True,
-        default='draft',
-    )
+    state = fields.Selection(selection=state_acceptance, string='Status', required=True, copy=False, tracking=True, default='draft')
 
     def action_visit_page(self):
         return {

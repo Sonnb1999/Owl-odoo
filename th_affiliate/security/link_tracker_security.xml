@@ -38,7 +38,7 @@
     <record id="th_group_aff_user_rule_link_tracker" model="ir.rule">
         <field name="name">th_group_aff_user_rule_link_tracker</field>
         <field name="model_id" ref="th_affiliate.model_link_tracker"/>
-        <field name="domain_force">['|', '&lt;', ('company_id' , '=', False), ('company_id' , 'in', company_ids), ('create_uid','=',user.id),]</field>
+        <field name="domain_force">['|', '&amp;', ('company_id' , '=', False), ('company_id' , 'in', company_ids), ('create_uid','=',user.id),]</field>
         <field name="perm_read" eval="1"/>
         <field name="perm_write" eval="1"/>
         <field name="perm_create" eval="1"/>
@@ -82,7 +82,7 @@
     <record id="th_group_aff_user_rule_th_pay" model="ir.rule">
         <field name="name">th_group_aff_user_rule_th_pay</field>
         <field name="model_id" ref="th_affiliate.model_th_pay"/>
-        <field name="domain_force">['|', '&lt;', ('company_id' , '=', False), ('company_id' , 'in', company_ids), ('state','=','accept')]</field>
+        <field name="domain_force">['|', '&amp;', ('company_id' , '=', False), ('company_id' , 'in', company_ids), ('state','=','accept')]</field>
         <field name="perm_read" eval="1"/>
         <field name="groups" eval="[(4, ref('th_affiliate.group_aff_user'))]"/>
     </record>

@@ -3,21 +3,9 @@ from datetime import timedelta
 
 from odoo.exceptions import ValidationError
 
-# coefficient_selection_values = [
-#     ('CN1', "CN1"),
-#     ('GR1', "GR1"),
-#     ('GR2', "GR2"),
-#     ('GR3', "GR3"),
-#     ('CN2', "CN2"),
-#     ('GR4', "GR4"),
-#     ('GR5', "GR5"),
-#     ('GR6', "GR6")
-# ]
+acceptance_type_selection_values = [('is_available', "Available"), ('self_writing', "Self writing")]
 
-acceptance_type_selection_values = [
-    ('is_available', "Available"),
-    ('self_writing', "Self writing")
-]
+state_acceptance = [('draft', 'Nháp'), ('deploy', 'Triển khai'), ('close', 'Đóng')]
 
 
 class ThAcceptanceSeeding(models.Model):
@@ -32,6 +20,16 @@ class ThAcceptanceSeeding(models.Model):
     th_acceptance_cost_history_ids = fields.One2many('th.acceptance.cost.history', 'th_acceptance_seeding_id')
     th_post_link_id = fields.Many2one('th.post.link', 'Post link')
     th_show_name = fields.Char('Show name', compute="_compute_th_show_name", store=True)
+    state = fields.Selection(selection=state_acceptance, string='Status',  required=True, copy=False, tracking=True, default='draft')
+
+    def action_draft(self):
+        self.write({'state': 'draft'})
+
+    def action_deploy(self):
+        self.write({'state': 'deploy'})
+
+    def action_close(self):
+        self.write({'state': 'close'})
 
     @api.depends('name', 'th_coefficient_convention')
     def _compute_th_show_name(self):
@@ -84,6 +82,13 @@ class ThAcceptanceSeeding(models.Model):
                         })
                     values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
         return super(ThAcceptanceSeeding, self).write(values)
+
+    def unlink(self):
+        for rec in self:
+            if self.env['th.post.link'].sudo().search([]).mapped('th_seeding_acceptance_ids').id == rec.id:
+                raise ValidationError("Không thể xóa chính sách hoa hồng đang được sử dụng!")
+        result = super(ThAcceptanceSeeding, self).unlink()
+        return result
 
 
 class ThAcceptanceCostHistory(models.Model):

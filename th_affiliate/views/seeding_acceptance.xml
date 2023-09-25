@@ -18,6 +18,12 @@
         <field name="model">th.acceptance.seeding</field>
         <field name="arch" type="xml">
             <form string="Form">
+                <header>
+                    <button name="action_draft" type="object" class="btn btn-primary" string="Nháp" states="draft" />
+                    <button name="action_deploy" type="object" class="btn btn-primary" string="Triển khai" states="draft" />
+                    <button name="action_close" type="object" class="btn" string="Đóng" states="deploy" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,deploy,close"/>
+                </header>
                 <sheet>
                     <group>
                         <group>

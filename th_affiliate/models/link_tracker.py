@@ -32,10 +32,8 @@ class LinkTracker(models.Model):
     th_session_user_ids = fields.One2many('th.session.user', 'th_link_tracker_id')
     th_count_user = fields.Integer('Số người dùng', compute="_compute_th_session_user_ids", store=True)
     th_filename = fields.Char(compute='_compute_xml_filename', store=True)
-    # company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     company_id = fields.Many2one('res.company', string='Company', change_default=True, default=lambda self: self.env.company)
     th_own_image = fields.Image(string="image")
-    # th_image = fields.Image(string="image")
 
     @api.depends('th_product_aff_id', 'th_product_aff_id.name', 'th_product_aff_id.th_image')
     def _compute_xml_filename(self):

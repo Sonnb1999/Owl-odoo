@@ -41,6 +41,7 @@
                             <field name="source_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_aff_partner_id" readonly="1" options="{'no_open': True}"/>
                             <field name="th_closing_work" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
 
                         </group>
                     </group>
@@ -135,7 +136,6 @@
             </graph>
         </field>
     </record>
-
 
     <record id="th_link_tracker_view_search" model="ir.ui.view">
         <field name="name">link.tracker.view.search</field>

@@ -3,11 +3,7 @@ from collections import defaultdict
 from odoo.exceptions import ValidationError
 URL_MAX_SIZE = 10 * 1024 * 1024
 
-select_state = [
-    ('pending', 'Chờ duyệt'),
-    ('correct_request', 'Đúng yêu cầu'),
-    ('wrong_request', 'Sai yêu cầu'),
-]
+select_state = [('pending', 'Chờ duyệt'), ('correct_request', 'Đúng yêu cầu'), ('wrong_request', 'Sai yêu cầu')]
 
 
 class ThPostSeeding(models.Model):
@@ -19,8 +15,7 @@ class ThPostSeeding(models.Model):
     link_tracker_id = fields.Many2one('link.tracker')
     th_note = fields.Text('Comment', tracking=True)
     th_acceptance_person_id = fields.Many2one('res.partner', string='Nghiệm thu', readonly=1, tracking=True)
-    th_seeding_acceptance_ids = fields.Many2many(comodel_name='th.acceptance.seeding', relation='th_check_cost',
-                                                 column1='th_post', column2='th_cost', string='Hệ số', tracking=True)
+    th_seeding_acceptance_ids = fields.Many2many(comodel_name='th.acceptance.seeding', relation='th_check_cost', string='Hệ số', tracking=True, domain=[('state', '=', 'deploy')])
     th_expense = fields.Float('Chi phí', compute="compute_th_expense")
     state = fields.Selection(selection=select_state, string='Trạng thái', tracking=True, default='pending', required=True)
     th_campaign_id = fields.Many2one(related="link_tracker_id.campaign_id", store=True)
