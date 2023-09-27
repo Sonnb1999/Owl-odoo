@@ -15,8 +15,8 @@ _interval_types = {
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    th_access_interval_number = fields.Integer(string="Thời gian tồn tại", tracking=True)
-    th_access_interval_type = fields.Selection(list(_interval_selection.items()), default='days', tracking=True)
+    th_access_interval_number = fields.Integer(string="Thời gian tồn tại")
+    th_access_interval_type = fields.Selection(list(_interval_selection.items()))
 
     def set_values(self):
         super().set_values()
@@ -26,11 +26,9 @@ class ResConfigSettings(models.TransientModel):
     @api.model
     def get_values(self):
         res = super().get_values()
-        res.update(
-            th_access_interval_number=7,
-            th_access_interval_type='days'
-        )
+        th_access_interval_number = self.env['ir.config_parameter'].sudo().get_param('th_access_interval_number')
+        th_access_interval_type = self.env['ir.config_parameter'].sudo().get_param('th_access_interval_type')
 
-        res.update(th_access_interval_number=self.env['ir.config_parameter'].sudo().get_param('th_access_interval_number'),
-                   th_access_interval_type=self.env['ir.config_parameter'].sudo().get_param('th_access_interval_type'), )
+        res.update(th_access_interval_number=th_access_interval_number if int(th_access_interval_number) != 0 else 7,
+                   th_access_interval_type=th_access_interval_type if th_access_interval_type else 'days')
         return res

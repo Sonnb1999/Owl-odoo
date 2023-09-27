@@ -33,6 +33,8 @@
                         <group>
                             <field name="th_coefficient_convention"/>
                             <field name="th_cost_factor"/>
+                            <field name="th_check_cost_history" invisible="1"/>
+                            <field name="th_start_date" attrs="{'invisible': [('th_check_cost_history', '!=', False)]}"/>
                         </group>
                     </group>
                     <notebook>

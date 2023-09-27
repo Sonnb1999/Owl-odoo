@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from odoo.exceptions import ValidationError
 
-acceptance_type_selection_values = [('is_available', "Available"), ('self_writing', "Self writing")]
+th_type = [('link', "Theo link"), ('contact', "Theo Lead")]
 
 state_acceptance = [('draft', 'Nháp'), ('deploy', 'Triển khai'), ('close', 'Đóng')]
 
@@ -14,13 +14,19 @@ class ThAcceptanceSeeding(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(required=1, string="Coefficient")
-    th_acceptance_type = fields.Selection(selection=acceptance_type_selection_values, string='Type', required=1, default='is_available')
+    th_acceptance_type = fields.Selection(selection=th_type, string='Type', required=1, default='link')
     th_coefficient_convention = fields.Char(string="Coefficient convention")
-    th_cost_factor = fields.Float(string='Cost/Factor', tracking=True, required=True, default=100)
+    th_cost_factor = fields.Float(string='Cost/Factor', tracking=True, required=True, default=100, digits=(12, 1))
     th_acceptance_cost_history_ids = fields.One2many('th.acceptance.cost.history', 'th_acceptance_seeding_id')
-    th_post_link_id = fields.Many2one('th.post.link', 'Post link')
     th_show_name = fields.Char('Show name', compute="_compute_th_show_name", store=True)
     state = fields.Selection(selection=state_acceptance, string='Status',  required=True, copy=False, tracking=True, default='draft')
+    th_start_date = fields.Date('Ngày bắt đầu')
+    th_check_cost_history = fields.Boolean('Có bản ghi', compute="_compute_check_cost_history", default=False)
+
+    @api.depends('th_acceptance_cost_history_ids')
+    def _compute_check_cost_history(self):
+        for rec in self:
+            rec.th_check_cost_history = True if rec.th_acceptance_cost_history_ids else False
 
     def action_draft(self):
         self.write({'state': 'draft'})
@@ -47,7 +53,7 @@ class ThAcceptanceSeeding(models.Model):
         if values.get('th_cost_factor', False):
             data = {
                 'th_cost_factor': values.get('th_cost_factor'),
-                'th_start_date': fields.Date.today(),
+                'th_start_date': fields.Date.today() if not values.get('th_start_date', False) else values.get('th_start_date'),
             }
             values['th_acceptance_cost_history_ids'] = [(0, 0, data)]
         return super(ThAcceptanceSeeding, self).create(values)
@@ -95,10 +101,10 @@ class ThAcceptanceCostHistory(models.Model):
     _name = 'th.acceptance.cost.history'
     _order = 'id desc'
 
-    th_cost_factor = fields.Float(string='Cost/factor', required=True)
+    th_cost_factor = fields.Float(string='Cost/factor', required=True, digits=(12, 1))
     th_start_date = fields.Date(string='Start day', required=True)
     th_end_date = fields.Date(string='End date')
-    th_acceptance_seeding_id = fields.Many2one('th.acceptance.seeding', required=1)
+    th_acceptance_seeding_id = fields.Many2one('th.acceptance.seeding')
 
     def write(self, values):
         result = super(ThAcceptanceCostHistory, self).write(values)

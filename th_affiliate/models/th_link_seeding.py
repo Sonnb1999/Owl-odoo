@@ -80,6 +80,18 @@ class ThLinkSeeding(models.Model):
                             'th_aff_partner_id': contact_affiliate.id
                         })
                         return value
+            else:
+                if self.th_url:
+                    value = self.env['link.tracker'].sudo().create({
+                        'url': self.th_url,
+                        'medium_id': self.medium_id.id if self.medium_id else False,
+                        'campaign_id': self.campaign_id.id if self.campaign_id.id else False,
+                        'th_link_seeding_id': self.id if self.id else False,
+                        'th_type': 'link_seeding',
+                        'source_id': utm_source_id.id if utm_source_id else False,
+                        'th_aff_partner_id': contact_affiliate.id
+                    })
+                    return value
 
     # @api.model
     # def create(self, values):

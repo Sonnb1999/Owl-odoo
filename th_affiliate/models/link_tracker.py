@@ -23,7 +23,7 @@ class LinkTracker(models.Model):
     th_type = fields.Selection(selection=[('email_marketing', 'Email marketing'), ('link_seeding', 'Link seeding')])
     th_post_link_ids = fields.One2many('th.post.link', 'link_tracker_id', 'Post link')
     th_aff_partner_id = fields.Many2one('res.partner', 'Cộng tác viên', readonly=True)
-    th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True)
+    th_total_cost = fields.Float('Tổng chi phí', compute="_amount_all", store=True, digits=(12, 1))
     th_closing_work = fields.Selection(selection=select_closing_work, string='Chốt chi phí', tracking=True, default='pending')
     th_image = fields.Binary(related='th_link_seeding_id.th_image')
     th_product_aff_id = fields.Many2one(related='th_link_seeding_id.th_product_aff_id', store=True)

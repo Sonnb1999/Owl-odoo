@@ -15,7 +15,7 @@ class LinkTracker(models.Model):
     state = fields.Selection(selection=[('pending', 'Chờ duyệt'), ('accept', 'Duyệt & chờ thanh toán'), ('cancel', 'Hủy'), ('paid', 'Đã Thanh toán')], tracking=True)
     th_count_correct_link = fields.Integer('Số bài đăng đúng', default=0, compute="_compute_count_post_link")
     th_count_wrong_link = fields.Integer('Số bài đăng không đạt', default=0, compute="_compute_count_post_link")
-    th_paid = fields.Float('Tổng chi phí', default=0)
+    th_paid = fields.Float('Tổng chi phí', default=0, digits=(12, 1))
     th_paid_date = fields.Date('Ngày chi trả')
     th_currency_id = fields.Many2one(comodel_name='res.currency', string='Đơn vị tiền tệ', default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
