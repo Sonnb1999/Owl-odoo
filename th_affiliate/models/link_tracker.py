@@ -70,9 +70,6 @@ class LinkTracker(models.Model):
         for tracker in self:
             tracker.th_count_user = mapped_data.get(tracker.id, 0)
 
-    def action_view_count_link_click(self):
-        pass
-
     @api.depends('th_post_link_ids.th_expense')
     def _amount_all(self):
         total = 0
