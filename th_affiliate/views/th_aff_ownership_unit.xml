@@ -5,6 +5,7 @@
         <field name="arch" type="xml">
             <tree string="Đơn vị sở hữu">
                 <field name="name" string="Đơn vị sở hữu"/>
+                <field name="th_state" string="Trạng thái"/>
             </tree>
         </field>
     </record>
@@ -17,6 +18,7 @@
                 <sheet>
                     <group>
                         <field name="name" string="Đơn vị sở hữu"/>
+                        <field name="th_state" string="Trạng thái"/>
                     </group>
                     <notebook>
                         <page string="Thành viên" name="members_users">

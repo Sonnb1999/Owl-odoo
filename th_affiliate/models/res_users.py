@@ -4,6 +4,19 @@ from odoo.exceptions import ValidationError
 
 class ResUsers(models.Model):
     _inherit = "res.users"
+
+    def write(self, values):
+        result = super(ResUsers, self).write(values)
+        companies = values.get('company_ids', False)
+        if companies:
+            for company in companies:
+                for rec in self:
+                    if company[0] == 6:
+                        rec.company_id = company[2][0]
+                    if company[0] == 4:
+                        rec.company_id = company[1]
+
+        return result
 #
 #     th_aff_team = fields.Many2one('th.aff.ownership.unit', 'Nhóm')
 #     th_aff_domain = fields.One2many(comodel_name='th.aff.ownership.unit', compute="action_default_team")
