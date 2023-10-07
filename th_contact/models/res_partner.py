@@ -25,6 +25,15 @@ class ResPartner(models.Model):
     th_date_identification = fields.Date(string="Ngày cấp CMT/ CCCD", tracking=True)
     th_place_identification = fields.Char(string="Nơi cấp CMT/ CCCD", tracking=True)
 
+    th_bank = fields.Char(string="Ngân hàng", tracking=True)
+    th_account_name = fields.Char(string="Tên tài khoản", tracking=True)
+    th_account_number = fields.Char(string="Số tài khoản", tracking=True)
+    th_account_branch = fields.Char(string="Chi nhánh", tracking=True)
+    th_tax_no = fields.Char(string="Mã số thuế", tracking=True)
+
+    def update_bank(self):
+        pass
+
     @api.onchange('th_ward_id')
     def onchange_th_ward_id(self):
         if self.th_ward_id:
