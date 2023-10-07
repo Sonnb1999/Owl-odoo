@@ -1,0 +1,93 @@
+<odoo>
+    <template id="th_seeding_partner" name="Portal partner">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="o_portal_my_home">
+                <div class="oe_structure" id="oe_structure_portal_seeding"/>
+                <h3>Documents</h3>
+                <div class="o_portal_docs list-group">
+                    <div class="o_portal_doc_spinner spinner-border text-o-color-2 align-self-center mt-5"/>
+                    <p class="o_portal_no_doc_message d-none">No Documents to display</p>
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="title">Link theo chiến dịch</t>
+                        <t t-set="url" t-value="'/my/get_link_seeding'"/>
+                        <t t-set="placeholder_count" t-value="'get_link_seeding'"/>
+                    </t>
+
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="title">Các liên kết của bạn</t>
+                        <t t-set="url" t-value="'/my/own_link_tracker'"/>
+                        <t t-set="placeholder_count" t-value="'own_link_tracker'"/>
+                    </t>
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="seeding_partner" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+        <xpath expr="//*[@id='o_logout_divider']" position="before">
+            <a href="/my/seeding_partner" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-id-card-o me-1 small text-muted"/>
+                Cộng tác viên seeding
+            </a>
+        </xpath>
+    </template>
+
+    <template id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="replace">
+            <ol t-if="
+             page_name != 'home' and (page_name != 'get_list_link_seeding' and
+             page_name != 'create_link' and page_name != 'own_links' and
+             page_name != 'own_link_info' and page_name != 'seeding_partner' and page_name != 'post_link_info' and page_name != 'create_product_aff')"
+                class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
+                <li class="breadcrumb-item ms-1">
+                    <a href="/my/home" aria-label="Home" title="Home">
+                        <i class="fa fa-home"/>
+                    </a>
+                </li>
+                <li t-if="page_name == 'my_details'" class="breadcrumb-item">Details</li>
+            </ol>
+
+            <ol t-if="
+                  page_name != 'seeding_partner' and
+                  (page_name == 'get_list_link_seeding' or
+                 page_name == 'create_link' or page_name == 'own_links' or
+                 page_name == 'own_link_info' or page_name == 'seeding_partner' or page_name == 'post_link_info'
+                  or page_name == 'create_product_aff'
+                 )
+              " class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
+                <!--Home seeding-->
+                <li class="breadcrumb-item ms-1">
+                    <a href="/my/seeding_partner" aria-label="Seeding partner" title="Seeding partner">
+                        <i class="fa fa-home"/>
+                    </a>
+                </li>
+
+                <!--link seed-->
+                <li t-if="page_name == 'get_list_link_seeding'" t-attf-class="breadcrumb-item">Danh sách</li>
+                <li t-if="page_name == 'create_link'" t-attf-class="breadcrumb-item">
+                    <a t-attf-href="/my/get_link_seeding?{{ keep_query() }}">Danh sách</a>
+                    /
+                    <t t-out="link_tracker.campaign_id.name"/>
+                </li>
+
+                <!--own link-->
+                <li t-if="page_name == 'own_links'" t-attf-class="breadcrumb-item">Danh sách</li>
+                <li t-if="page_name == 'own_link_info'" t-attf-class="breadcrumb-item">
+                    <a t-attf-href="/my/own_link_tracker?{{ keep_query() }}">Danh sách</a>
+                    /
+                    <t t-out="link_tracker.title"/>
+                </li>
+                <li t-if="page_name == 'post_link_info'" t-attf-class="breadcrumb-item">
+                    <a t-attf-href="/my/own_link_tracker?{{ keep_query() }}">Danh sách</a>
+                    /
+                    Link bài đăng
+                </li>
+                <!-- crete link-->
+                <li t-if="page_name == 'create_product_aff'" t-attf-class="breadcrumb-item">Tạo sản phẩm</li>
+
+            </ol>
+        </xpath>
+    </template>
+</odoo>

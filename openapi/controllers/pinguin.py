@@ -24,11 +24,12 @@ Todo:
 import base64
 import functools
 import traceback
+import json
 
 import werkzeug.wrappers
 
 import odoo
-from odoo.http import request
+from odoo.http import request, Response
 from odoo.service import security
 
 from odoo.addons.base_api.lib.pinguin import (
@@ -95,7 +96,7 @@ CODE__no_api_worker = (
 )
 
 
-def successful_response(status, data=None):
+def successful_response(status, data=None, headers=None):
     """Successful responses wrapper.
 
     :param int status: The success code.
@@ -112,8 +113,8 @@ def successful_response(status, data=None):
         data = data.ids
     except AttributeError:
         pass
-
-    return request.make_json_response(data, status=status)
+    return Response(json.dumps(data), headers=headers)
+    # return request.make_json_response(data, status=status, headers=headers)
 
 
 ##########################
@@ -502,7 +503,11 @@ def get_model_openapi_access(namespace, model):
             "private": {"mode": "", "whitelist": []},
             "main": {"mode": "", "whitelist": []},
         },
+        "headers": ""
     }
+    if openapi_access.th_header:
+        res['headers'] = openapi_access.th_header
+
     # Infer public method mode
     if openapi_access.api_public_methods and openapi_access.public_methods:
         res["method"]["public"]["mode"] = "custom"
@@ -584,7 +589,7 @@ def wrap__resource__create_one(modelname, context, data, success_code, out_field
     return successful_response(success_code, out_data)
 
 
-def wrap__resource__read_all(modelname, success_code, out_fields):
+def wrap__resource__read_all(modelname, success_code, out_fields, headers):
     """function to read all records.
 
     :param str modelname: The name of the model.
@@ -595,7 +600,7 @@ def wrap__resource__read_all(modelname, success_code, out_fields):
     :rtype: werkzeug.wrappers.Response
     """
     data = get_dictlist_from_model(modelname, out_fields)
-    return successful_response(success_code, data)
+    return successful_response(success_code, data, headers)
 
 
 def wrap__resource__read_one(modelname, id, success_code, out_fields):
