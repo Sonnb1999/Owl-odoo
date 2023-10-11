@@ -1,5 +1,7 @@
 from odoo import fields, models, api, _
-from odoo import exceptions
+import xmlrpc.client
+
+url, db, username, password = 'http://10.10.50.130:8016/', 'base', 'admin', '6bb74aaaae2a0d81b141d4a1bdcfe23f06bd146e'
 
 
 class ResPartner(models.Model):
@@ -8,7 +10,6 @@ class ResPartner(models.Model):
     def _th_domain_place_of_birth(self):
         state_id = self.env['res.country.state'].search([]).filtered(lambda u: u.country_id == self.env.ref('base.vn'))
         return [('id', 'in', state_id.ids)]
-
 
     country_id = fields.Many2one('res.country', default=lambda x: x.env.ref('base.vn'))
     th_ward_id = fields.Many2one(comodel_name='th.country.ward', string='Phường/ Xã', domain="[('th_district_id', '=?', th_district_id), ('th_district_id.th_state_id', '=?', state_id)]", tracking=True)
@@ -24,6 +25,16 @@ class ResPartner(models.Model):
     th_citizen_identification = fields.Char(string="Số CMT/ CCCD", tracking=True)
     th_date_identification = fields.Date(string="Ngày cấp CMT/ CCCD", tracking=True)
     th_place_identification = fields.Char(string="Nơi cấp CMT/ CCCD", tracking=True)
+
+    th_bank = fields.Char(string="Ngân hàng", tracking=True)
+    th_account_name = fields.Char(string="Tên tài khoản", tracking=True)
+    th_account_number = fields.Char(string="Số tài khoản", tracking=True)
+    th_account_branch = fields.Char(string="Chi nhánh", tracking=True)
+    th_tax_no = fields.Char(string="Mã số thuế", tracking=True)
+    th_partner_samp = fields.Char('Contact')
+
+    def update_bank(self):
+        pass
 
     @api.onchange('th_ward_id')
     def onchange_th_ward_id(self):
@@ -54,7 +65,9 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, values):
-        if 'th_customer_code' not in values or 'th_customer_code' not in values:
+        th_customer_code = values.get('th_affiliate_code', False)
+        if not th_customer_code and values.get('th_pom_id'):
             values['th_customer_code'] = self.env['ir.sequence'].next_by_code('customer.code')
             values['th_affiliate_code'] = self.env['ir.sequence'].next_by_code('affiliate.code')
+
         return super(ResPartner, self).create(values)

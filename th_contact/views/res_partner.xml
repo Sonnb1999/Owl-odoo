@@ -8,7 +8,11 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="update_bank" string="Chỉnh sửa TT ngân hàng" type="object" class="btn btn-primary"/>
+                </header>
+            </xpath>
             <xpath expr="//field[@name='zip']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -59,13 +63,26 @@
                 <field name="th_citizen_identification"/>
                 <label for="th_date_identification"/>
                 <div class="o_row">
-                    <field name="th_date_identification"/>
+                    <field name="th_date_identification" attrs="{'required': [('th_citizen_identification', 'not in', [False, ''])]}"/>
                     <label for="th_place_identification"/>
-                    <field name="th_place_identification"/>
+                    <field name="th_place_identification" attrs="{'required': [('th_citizen_identification', 'not in', [False, ''])]}"/>
                 </div>
                 <field name="th_customer_code"/>
                 <field name="th_affiliate_code"/>
             </xpath>
+
+            <xpath expr="//notebook/page[@name='contact_addresses']" position="after">
+                <page string="Thông tin ngân hàng" name="bank_page">
+                    <group>
+                        <field name="th_bank"/>
+                        <field name="th_account_name" attrs="{'required': [('th_bank', 'not in', [False, ''])]}"/>
+                        <field name="th_account_number" attrs="{'required': [('th_bank', 'not in', [False, ''])]}"/>
+                        <field name="th_account_branch" attrs="{'required': [('th_bank', 'not in', [False, ''])]}"/>
+                        <field name="th_tax_no"/>
+                    </group>
+                </page>
+            </xpath>
+
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="website" position="move"/>
             </xpath>
