@@ -31,7 +31,7 @@ class ResPartner(models.Model):
     th_account_number = fields.Char(string="Số tài khoản", tracking=True)
     th_account_branch = fields.Char(string="Chi nhánh", tracking=True)
     th_tax_no = fields.Char(string="Mã số thuế", tracking=True)
-    th_pom_id = fields.Char('Contact')
+    th_partner_samp = fields.Char('Contact')
 
     def update_bank(self):
         pass

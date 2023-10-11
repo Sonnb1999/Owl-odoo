@@ -15,14 +15,14 @@ class ResUsers(models.Model):
         email = values.get('email', False) or values.get('login', False)
         if not email:
             raise ValidationError("Không có email login!")
-        if values.get('th_pom_id', False):
+        if values.get('th_partner_samp', False):
             res_partner = self.env['res.partner'].sudo().create(values)
             res_values = {
                 'name': values['name'],
                 'login': email,
                 'partner_id': res_partner.id if res_partner else False
             }
-        user = super(ResUsers, self).create(res_values or values)
+        user = super(ResUsers, self).sudo().create(res_values or values)
         self.action_reset_password()
 
         return user
