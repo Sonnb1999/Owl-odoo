@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal menu-->
+
+    <template id="th_get_link_tracker_share" name="Show seeding link" inherit_id="th_affiliate.th_seeding_partner">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Link theo chiến dịch</t>
+                <t t-set="url" t-value="'/my/get_link_seeding'"/>
+                <t t-set="placeholder_count" t-value="'get_link_seeding'"/>
+            </t>
+        </xpath>
+    </template>
+    <!-- view get link   -->
+    <template id="th_list_get_link_seeding" name="Link seeds">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" class="me-3"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Links</t>
+            </t>
+
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <th>Chiến dịch</th>
+                        <th>Link Gốc</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="link_seeds" t-as="link">
+                        <tr>
+                            <td>
+                                <t t-out="link.campaign_id.name"/>
+                            </td>
+                            <td>
+                                <t t-out="link.th_url"/>
+                            </td>
+                            <td>
+                                <a t-attf-href="/my/create_link_tracker/#{link.id}">
+                                    <button class="btn btn-success">Lấy link</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+</odoo>

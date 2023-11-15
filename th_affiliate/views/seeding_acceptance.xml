@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="th_view_seeding_acceptance_tree" model="ir.ui.view">
+        <field name="name">th.view.seeding.acceptance.tree</field>
+        <field name="model">th.acceptance.seeding</field>
+        <field name="arch" type="xml">
+            <tree string="Version">
+                <field name="th_acceptance_type"/>
+                <field name="name"/>
+                <field name="th_coefficient_convention"/>
+                <field name="th_cost_factor"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_view_seeding_acceptance_form" model="ir.ui.view">
+        <field name="name">th.view.seeding.acceptance.form</field>
+        <field name="model">th.acceptance.seeding</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header>
+                    <button name="action_draft" type="object" class="btn btn-primary" string="Nháp" states="draft" />
+                    <button name="action_deploy" type="object" class="btn btn-primary" string="Triển khai" states="draft" />
+                    <button name="action_close" type="object" class="btn" string="Đóng" states="deploy" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,deploy,close"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="th_acceptance_type"/>
+                        </group>
+                        <group>
+                            <field name="th_coefficient_convention"/>
+                            <field name="th_cost_factor"/>
+                            <field name="th_check_cost_history" invisible="1"/>
+                            <field name="th_start_date" attrs="{'invisible': [('th_check_cost_history', '!=', False)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expense history" name="th_acceptance_cost_history_ids">
+                            <field name="th_acceptance_cost_history_ids" nolabel="1">
+                                <tree edit="0" create="0" no_open="True" delete="0">
+                                    <field name="th_start_date"/>
+                                    <field name="th_end_date"/>
+                                    <field name="th_cost_factor"/>
+                                    <field name="th_acceptance_seeding_id" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_view_seeding_acceptance_action" model="ir.actions.act_window">
+        <field name="name">Hoa hồng Affiliate</field>
+        <field name="res_model">th.acceptance.seeding</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

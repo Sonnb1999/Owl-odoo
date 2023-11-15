@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal menu-->
+
+    <template id="th_get_link_public" name="Link tracker" inherit_id="th_affiliate.th_seeding_partner">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Các liên kết của bạn</t>
+                <t t-set="url" t-value="'/my/own_link_tracker'"/>
+                <t t-set="placeholder_count" t-value="'own_link_tracker'"/>
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="th_list_own_link_tracker" name="Own link seeds">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" class="me-3"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Links</t>
+            </t>
+            <t t-set="head">
+                <script type="text/javascript" src="/th_affiliate/static/src/js/th_portal.js"/>
+            </t>
+            <t t-call="portal.portal_table">
+                <form action="/my/link_outside" method="post" enctype="multipart/form-data" data-mark="*">
+                    <strong>Link sản phẩm</strong>
+                    <br/>
+                    <div class="input-group mb-5 w-50">
+                        <input required="True" name="own_url" type="text" class="form-control" placeholder="https://vmcvietnam.org/courses/..."/>
+                        <button class="btn btn-outline-success">
+                            Tạo Link
+                        </button>
+                    </div>
+                </form>
+                <thead>
+                    <tr>
+                        <th class="text-center">Chiến dịch</th>
+                        <th class="text-center w-50">Link chia sẻ</th>
+                        <th></th>
+                        <th class="text-center" >Danh sách link bài đăng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="link_tracker" t-as="link">
+                        <tr>
+                            <td class="text-center">
+                                <t t-out="link.campaign_id.name"/>
+                            </td>
+                            <td>
+                                <div class="input-group ">
+                                    <input t-attf-id="input_text_{{link.id}}" type="text" class="form-control"
+                                           t-att-value="link.short_url" aria-describedby="button-addon2"
+                                           readonly="1"/>
+                                    <button t-attf-id="text_{{link.id}}"
+                                            class="btn btn-outline-secondary button-addon"
+                                            type="button" onclick="copyText(this)">Copy
+                                    </button>
+                                </div>
+                            </td>
+                            <td  class="text-center">
+                                <a t-attf-href="/my/info_link/#{link.id}" class="btn btn-info ">
+                                    Yêu cầu
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a t-attf-href="/my/get_post_link/#{link.id}"
+                                   class="">
+                                    Link bài đăng
+                                </a>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="th_own_link_seeding" name="Own Links">
+        <t t-call="portal.portal_layout">
+            <t t-set="head">
+                <script type="text/javascript" src="/th_affiliate/static/src/js/th_portal.js"/>
+            </t>
+            <body data-bs-spy="scroll" data-target=".navspy" data-offset="50">
+                <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+                    <div class="container my-5">
+                        <section class="" style="border-radius: .5rem; background-color: #f4f5f7;">
+                            <div class="container h-100">
+                                <div class="row d-flex justify-content-center align-items-center h-100">
+                                    <div class="col col-lg-12 mb-lg-0" style="width: 100%;">
+                                        <div class="card" style="border-radius: .5rem;">
+                                            <div class="row g-0">
+                                                <div class="col-md-5"
+                                                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                                    <div class="card-body p-4">
+                                                        <h6 class="text-center" style="font-weight: bold;">Yêu cầu</h6>
+
+                                                        <hr class="mt-0 mb-4"/>
+
+                                                        <div class="row pt-1">
+                                                            <div class="pl-4 d-inline">
+                                                                <t class="pl-4" t-out="link_tracker.th_link_seeding_id.th_request"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card-body p-4">
+                                                        <h6 class="text-center" style="font-weight: bold;">Thông tin</h6>
+                                                        <hr class="mt-0 mb-4"/>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="card mb-4">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-3">
+                                                                                <strong class="mb-0">Chiến dịch</strong>
+                                                                            </div>
+                                                                            <div class="col-sm-9">
+                                                                                <p class="text-muted mb-0">
+                                                                                    <t t-out="link_tracker.campaign_id.name"/>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr/>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-3">
+                                                                                <strong class="mb-0">Link chia sẻ
+                                                                                </strong>
+                                                                            </div>
+                                                                            <div class="col-sm-9 input-group"
+                                                                                 style="width:75% !important">
+                                                                                <input t-attf-id="input_text_{{link_tracker.id}}"
+                                                                                       type="text"
+                                                                                       class="form-control"
+                                                                                       t-att-value="link_tracker.short_url"
+                                                                                       aria-describedby="button-addon2"
+                                                                                       readonly="1"/>
+                                                                                <button t-attf-id="text_{{link_tracker.id}}"
+                                                                                        class="btn btn-outline-secondary button-addon"
+                                                                                        type="button"
+                                                                                        onclick="copyText(this)">
+                                                                                    Copy
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </xpath>
+            </body>
+        </t>
+    </template>
+</odoo>

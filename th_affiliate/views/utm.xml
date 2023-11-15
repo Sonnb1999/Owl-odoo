@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="th_utm_campaign_view_form" model="ir.ui.view">
+        <field name="name">th.utm.campaign.view.form</field>
+        <field name="model">utm.campaign</field>
+        <field name="inherit_id" ref="utm.utm_campaign_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="th_start_date"/>
+                <field name="th_end_date"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
