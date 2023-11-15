@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_th_university_web,account.th.university.web,model_th_university_web,,1,1,1,1
+
