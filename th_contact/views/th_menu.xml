@@ -1,4 +1,0 @@
-<odoo>
-    <menuitem id="th_country_district_view_menu" name="Quận / Huyện" parent="contacts.menu_localisation" action="th_country_district_view_act" sequence="90"/>
-    <menuitem id="th_country_ward_view_menu" name="Phường / Xã" parent="contacts.menu_localisation" action="th_country_ward_view_act" sequence="100"/>
-</odoo>
