@@ -8,7 +8,8 @@
     'license': 'LGPL-3',
     'depends': [
         'base',
-        'url',
+        'mail',
+        # 'url',
     ],
     'data': [
     ],
@@ -18,7 +19,8 @@
     'assets': {
         'web.assets_backend': [
             # 'js_widget/static/src/xml/url_widget.xml'
-            'js_widget/static/src/js/url_widget.js'
+            # 'js_widget/static/src/js/url_widget.js'
+            'js_widget/static/src/js/thread_cache.js'
         ],
     },
     'installable': True,
