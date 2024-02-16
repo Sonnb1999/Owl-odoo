@@ -13,15 +13,10 @@ import odoo
 from odoo import _, api, exceptions, fields, models, tools
 
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request, Response
-from fastapi.middleware.cors import CORSMiddleware
 
 from .. import dependencies, error_handlers
 
 _logger = logging.getLogger(__name__)
-
-origins = [
-    "http://127.0.0.1:5500",
-]
 
 
 class FastapiEndpoint(models.Model):
@@ -220,13 +215,6 @@ class FastapiEndpoint(models.Model):
         app = FastAPI(**self._prepare_fastapi_app_params())
         for router in self._get_fastapi_routers():
             app.include_router(router=router)
-        app.add_middleware(
-            CORSMiddleware,
-            allow_origins=origins,
-            allow_credentials=True,
-            allow_methods=["*"],
-            allow_headers=["*"],
-        )
         app.dependency_overrides.update(self._get_app_dependencies_overrides())
         for exception, handler in self._get_app_exception_handlers().items():
             app.add_exception_handler(exception, handler)

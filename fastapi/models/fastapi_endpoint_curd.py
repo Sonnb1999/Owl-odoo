@@ -17,9 +17,11 @@ from ..dependencies import (
     odoo_env,
 )
 from ..routers import demo_router, demo_router_doc, curd_router
+from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
     "http://127.0.0.1:5500",
+    "http://127.0.0.1:62613",
 ]
 
 
@@ -63,6 +65,13 @@ class FastapiEndpoint(models.Model):
 
     def _get_app(self):
         app = super()._get_app()
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=origins,
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
         if self.app in ['curd', 'demo', 'partner']:
             # Here we add the overrides to the authenticated_partner_impl method
             # according to the authentication method configured on the demo app
