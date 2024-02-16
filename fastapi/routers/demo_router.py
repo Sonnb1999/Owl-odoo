@@ -10,6 +10,7 @@ from typing import Annotated
 from odoo.api import Environment
 from odoo.exceptions import AccessError, MissingError, UserError, ValidationError
 
+
 from odoo.addons.base.models.res_partner import Partner
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -21,12 +22,7 @@ from ..schemas import DemoEndpointAppInfo, DemoExceptionType, DemoUserInfo
 
 router = APIRouter(tags=["demo"])
 
-
-class Barcode(BaseModel):
-    barcode: str
-
-
-@router.get("/demo")
+@router.get("/test")
 async def hello_word():
     """Hello World!"""
     return {"Hello": "World"}
