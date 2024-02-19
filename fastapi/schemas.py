@@ -65,3 +65,12 @@ class DemoExceptionType(str, Enum):
     missing_error = "MissingError"
     http_exception = "HTTPException"
     bare_exception = "BareException"
+
+
+class User(BaseModel):
+    username: str
+    email: str
+
+
+class ResponseMessage(BaseModel):
+    message: str

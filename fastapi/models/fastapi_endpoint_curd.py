@@ -21,7 +21,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
     "http://127.0.0.1:5500",
-    "http://127.0.0.1:62613",
 ]
 
 
@@ -47,7 +46,7 @@ class FastapiEndpoint(models.Model):
         return super()._get_fastapi_routers()
 
     @api.constrains("app", "demo_auth_method")
-    def _valdiate_demo_auth_method(self):
+    def _validate_demo_auth_method(self):
         for rec in self:
             if rec.app in ['curd', 'demo', 'partner'] and not rec.demo_auth_method:
                 raise ValidationError(
@@ -72,9 +71,24 @@ class FastapiEndpoint(models.Model):
             allow_methods=["*"],
             allow_headers=["*"],
         )
-        if self.app in ['curd', 'demo', 'partner']:
+
+        # Kiểm tra lại xem router có sử dụng các phương thức bảo mật không (http_basic or api_key)
+        if self.app in ['demo', 'partner']:
             # Here we add the overrides to the authenticated_partner_impl method
             # according to the authentication method configured on the demo app
+            if self.demo_auth_method == "http_basic":
+                authenticated_partner_impl_override = (
+                    authenticated_partner_from_basic_auth_user
+                )
+            else:
+                authenticated_partner_impl_override = (
+                    api_key_based_authenticated_partner_impl
+                )
+            app.dependency_overrides[
+                authenticated_partner_impl
+            ] = authenticated_partner_impl_override
+
+        if self.app in ['curd']:
             if self.demo_auth_method == "http_basic":
                 authenticated_partner_impl_override = (
                     authenticated_partner_from_basic_auth_user
