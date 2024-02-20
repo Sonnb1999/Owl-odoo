@@ -27,11 +27,11 @@ async def hello_word():
     return {"Hello": "World"}
 
 
-@router.get("/partners")
+@router.get("/users")
 def get_partners(user: Annotated[Partner, Depends(authenticated_partner)]):
     if user:
-        partner = request.env['res.partner'].sudo().search([])
-        return [{'name': rec.name, 'display_name': rec.display_name} for rec in partner]
+        users = request.env['res.users'].sudo().search([])
+        return [{'name': rec.name, 'display_name': rec.login} for rec in users]
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
@@ -41,10 +41,16 @@ def get_partners(user: Annotated[Partner, Depends(authenticated_partner)]):
 @router.post("/users/create")
 async def create_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
     if user:
-        raise HTTPException(
-            status_code=status.HTTP_200_OK, detail="Đã tạo thành công!"
-        )
-    return {"message": "User received"}
+        try:
+            request.env['res.users'].create({
+                'login': data.email,
+                'name': data.username
+            })
+        except Exception as e:
+            print(e)
+            raise HTTPException(
+                status_code=status.HTTP_200_OK, detail="Đã tạo thành công!"
+            )
 
 
 @router.put("/users/update")

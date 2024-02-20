@@ -21,6 +21,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
     "http://127.0.0.1:5500",
+    "http://127.0.0.1:51155",
 ]
 
 
