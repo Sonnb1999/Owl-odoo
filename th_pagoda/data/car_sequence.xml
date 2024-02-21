@@ -1,0 +1,17 @@
+<odoo>
+    <record id="th_setup_seq_name_car" model="ir.sequence">
+        <field name="name">Name of Car</field>
+        <field name="code">car.name</field>
+        <field name="prefix">Car-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="th_setup_seq_engine_car" model="ir.sequence">
+        <field name="name">Engine</field>
+        <field name="code">car.engine</field>
+        <field name="prefix">Engine-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

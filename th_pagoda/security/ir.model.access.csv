@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_th_cars,access_th_cars,model_th_cars,,1,1,1,1
+access_th_automobile_company,access_th_automobile_company,model_th_automobile_company,,1,1,1,1
+access_th_subsidiaries,access_th_subsidiaries,model_th_subsidiaries,,1,1,1,1
+

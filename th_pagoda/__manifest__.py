@@ -9,6 +9,10 @@
     'support ': 'Dev.Phuong2711@gmail.com',
     'depends': ['base', 'web'],
     'data': [
+        'security/ir.model.access.csv',
+        'data/car_sequence.xml',
+        'views/th_car_view.xml',
+        'views/th_automobile_company_view.xml',
         'views/menu.xml',
 
     ],
@@ -17,7 +21,6 @@
             'th_pagoda/static/src/js/*.js',
             'th_pagoda/static/src/xml/*.xml',
             'th_pagoda/static/src/scss/*.scss',
-
         ],
     },
     'installable': True,

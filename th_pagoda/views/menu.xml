@@ -8,4 +8,6 @@
     <menuitem id="th_pagoda_root" name="Shrimp crab fish" web_icon="th_pagoda,static/description/icon.png" sequence="0">
          <menuitem id="th_pagoda_dashboard_menuitem" name="Dashboard" sequence="0" action="action_th_pagoda_dashboard"/>
     </menuitem>
+    <menuitem id="th_menu_car" name="Thông số xe hơi" parent="th_pagoda_root" sequence="1" action="th_car_action"/>
+    <menuitem id="th_menu_automobile_company" name="Công ty" parent="th_pagoda_root" sequence="1" action="th_automobile_company_action"/>
 </odoo>

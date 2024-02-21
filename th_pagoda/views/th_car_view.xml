@@ -1,0 +1,49 @@
+<odoo>
+    <record id="th_car_list_view" model="ir.ui.view">
+        <field name="name">th.car.list.view</field>
+        <field name="model">th.cars</field>
+        <field name="arch" type="xml">
+            <tree string="" sample="1" decoration-info="state == 'new'" decoration-danger="state == 'old'" decoration-warning="state == 'like_new'">
+                <field name="name"/>
+                <field name="th_engine"/>
+                <field name="th_auto_com_id"/>
+                <field name="state" attrs="{'column_invisible':[(1, '=', 1)]}" optional="hidden"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_car_form_view" model="ir.ui.view">
+        <field name="name">th.car.form.view</field>
+        <field name="model">th.cars</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="th_action_create_demo" string="Create demo car" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,like_new,old" options="{'clickable':'1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="th_engine"/>
+                        <field name="th_auto_com_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_car_action" model="ir.actions.act_window">
+        <field name="name">Thông số xe hơi</field>
+        <field name="res_model">th.cars</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+        </field>
+    </record>
+
+</odoo>

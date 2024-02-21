@@ -1,0 +1,44 @@
+<odoo>
+    <record id="th_automobile_company_list_view" model="ir.ui.view">
+        <field name="name">th_automobile_company.list.view</field>
+        <field name="model">th.automobile.company</field>
+        <field name="arch" type="xml">
+            <tree string="" sample="1">
+                <field name="name"/>
+                <field name="th_logo"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_automobile_company_form_view" model="ir.ui.view">
+        <field name="name">th_automobile_company.form.view</field>
+        <field name="model">th.automobile.company</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="th_logo"/>
+                        <notebook>
+                            <page string="Công ty con">
+                                <field name="th_subsidiaries_ids">
+                                    <tree string="">
+                                        <field name="name"/>
+                                        <field name="th_auto_com_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_automobile_company_action" model="ir.actions.act_window">
+        <field name="name">Công ty</field>
+        <field name="res_model">th.automobile.company</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
