@@ -19,6 +19,19 @@ patch(ListController.prototype, 'th_pagoda.ListController', {
             'type': 'ir.actions.client',
             'tag': 'reload',
         });
+
+    },
+
+    async onClickCompanyDemo() {
+        await rpc.query({
+            model: 'th.automobile.company',
+            method: 'th_action_create_demo',
+            args: [[]],
+        });
+        return this.actionService.doAction({
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        });
     },
 
 })

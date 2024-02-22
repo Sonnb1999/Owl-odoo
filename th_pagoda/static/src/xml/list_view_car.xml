@@ -3,8 +3,12 @@
 
     <t t-name="car.ListView.Buttons" t-inherit="web.ListView.Buttons" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
-            <button if="props.model == 'th.cars'" type="button" class="btn btn-primary" aria-label="Connect" t-on-click="onClickCarDemo">
+            <button t-if="props.resModel == 'th.cars'" type="button" class="btn btn-primary ml-2" t-on-click="onClickCarDemo">
                 Car demo
+            </button>
+
+            <button t-if="props.resModel == 'th.automobile.company'" type="button" class="btn btn-primary ml-2" t-on-click="onClickCompanyDemo">
+                Company demo
             </button>
         </xpath>
     </t>

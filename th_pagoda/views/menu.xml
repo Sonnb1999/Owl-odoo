@@ -10,4 +10,5 @@
     </menuitem>
     <menuitem id="th_menu_car" name="Thông số xe hơi" parent="th_pagoda_root" sequence="1" action="th_car_action"/>
     <menuitem id="th_menu_automobile_company" name="Công ty" parent="th_pagoda_root" sequence="1" action="th_automobile_company_action"/>
+    <menuitem id="th_menu_res_partner" name="Khách hàng" parent="th_pagoda_root" sequence="1" action="contacts.action_contacts"/>
 </odoo>

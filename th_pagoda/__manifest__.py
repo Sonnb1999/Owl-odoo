@@ -7,12 +7,18 @@
     'version': '16.0.1.2',
     'license': 'LGPL-3',
     'support ': 'Dev.Phuong2711@gmail.com',
-    'depends': ['base', 'web'],
+    'depends': [
+        'base',
+        'web',
+        'mail',
+        'contacts',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'data/car_sequence.xml',
         'views/th_car_view.xml',
         'views/th_automobile_company_view.xml',
+        'views/res_partner_view.xml',
         'views/menu.xml',
 
     ],
