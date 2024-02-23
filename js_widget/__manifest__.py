@@ -20,6 +20,7 @@
             # 'js_widget/static/src/xml/url_widget.xml',
             'js_widget/static/src/js/chatter.js',
             'js_widget/static/src/xml/chatter_topbar.xml',
+            'js_widget/static/src/xml/message_list.xml',
             'js_widget/static/src/js/thread_cache.js'
         ],
     },
