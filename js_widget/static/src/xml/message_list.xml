@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="th_mail_enterprise.MessageList" t-inherit="mail.MessageList" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_MessageList')]" position="inside">
+             <button class="o_MessageList_alertLoadingFailedRetryButton btn btn-link"
+                     t-on-click="messageListView._loadMessages">
+                            Click here to retry
+                        </button>
+        </xpath>
+    </t>
+</templates>
