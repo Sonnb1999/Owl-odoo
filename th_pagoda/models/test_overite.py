@@ -45,7 +45,7 @@ class AutomobileCompany(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'For the company'
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', tracking=1)
     th_logo = fields.Image('Logo')
     th_subsidiaries_ids = fields.One2many('th.subsidiaries', 'th_auto_com_id', 'Subsidiaries')
 
