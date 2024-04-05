@@ -42,30 +42,53 @@ def get_partners(user: Annotated[Partner, Depends(authenticated_partner)]):
 async def create_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
     if user:
         try:
-            request.env['res.users'].create({
+            user_create = request.env['res.users'].create({
                 'login': data.email,
                 'name': data.username
             })
         except Exception as e:
-            print(e)
             raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail=e.pgerror,
+            )
+        if user_create:
+            return HTTPException(
                 status_code=status.HTTP_200_OK, detail="Đã tạo thành công!"
             )
 
 
 @router.put("/users/update")
 async def update_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
-    return {"message": "User received"}
+    if not data.email:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Vui lòng nhập email!')
+
+    if user:
+        try:
+            user_id = request.env['res.users'].sudo().search([('login', '=', data.email)], limit=1, order='id DESC')
+            if user_id:
+                user_id.write({
+                    'login': data.email,
+                    'name': data.username if data.username else user_id
+                })
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail=e.pgerror,
+            )
+        return HTTPException(
+            status_code=status.HTTP_200_OK, detail="Đã chỉnh sửa thành công!"
+        )
 
 
 @router.delete("/users/delete")
-async def update_user(data: User):
-    if data:
-        raise HTTPException(
-            status_code=status.HTTP_200_OK, detail="Delete success!"
+async def unlink_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
+    if user:
+        try:
+            user_id = request.env['res.users'].sudo().search([('login', '=', data.email)], limit=1, order='id DESC')
+            if user_id:
+                user_id.unlink()
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail=e.pgerror,
+            )
+        return HTTPException(
+            status_code=status.HTTP_200_OK, detail="Đã Xoá thành công!"
         )
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail=" not found!"
-        )
-    return {"message": "User received"}

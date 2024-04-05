@@ -4,8 +4,7 @@ import warnings
 from enum import Enum
 from typing import Annotated, Generic, List, Optional, TypeVar
 
-from pydantic import AliasChoices, BaseModel, ConfigDict, Field, computed_field
-
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, computed_field, EmailStr
 T = TypeVar("T")
 
 
@@ -68,7 +67,7 @@ class DemoExceptionType(str, Enum):
 
 
 class User(BaseModel):
-    username: str
+    username: str = None
     email: str
 
 

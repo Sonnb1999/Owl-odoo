@@ -280,4 +280,4 @@ class FastapiEndpoint(models.Model):
 
     def _get_fastapi_app_dependencies(self) -> List[Depends]:
         """Return the dependencies to use for the fastapi app."""
-        return [Depends(dependencies.accept_language)]
+        return [Depends(dependencies.accept_language), Depends(dependencies.accept_api_key)]

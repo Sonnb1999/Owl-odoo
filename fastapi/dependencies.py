@@ -126,7 +126,7 @@ def accept_language(
             alias="Accept-Language",
             description="The Accept-Language header is used to specify the language "
             "of the content to be returned. If a language is not available, the "
-            "server will return the content in the default language.",
+                        "server will return the content in the default language.",
         ),
     ] = None,
 ) -> str:
@@ -135,3 +135,35 @@ def accept_language(
     fastapi app to initialize the odoo environment with the right language.
     """
     return accept_language
+
+
+def accept_api_key(
+        accept_api_key: Annotated[
+            str | None,
+            Header(
+                alias="api-key",
+                description="The Accept-Language header is used to specify the key ",
+            ),
+        ] = None,
+) -> str:
+    """This dependency is used at application level to document the way the language
+    to use for the response is specified. The header is processed outside of the
+    fastapi app to initialize the odoo environment with the right language.
+    """
+    return accept_api_key
+
+
+def accept_api_auth(
+        accept_api_key: Annotated[
+            str | None,
+            Header(
+                alias="api-key",
+                description="The Accept-Language header is used to specify the key ",
+            ),
+        ] = None,
+) -> str:
+    """This dependency is used at application level to document the way the language
+    to use for the response is specified. The header is processed outside of the
+    fastapi app to initialize the odoo environment with the right language.
+    """
+    return accept_api_key
