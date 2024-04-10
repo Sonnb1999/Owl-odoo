@@ -2,13 +2,15 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/LGPL).
 from typing import Annotated, Any, List
 
-from odoo import _, api, fields, models
+from a2wsgi import ASGIMiddleware
+
+from odoo import _, api, fields, models, tools
 from odoo.api import Environment
 from odoo.exceptions import ValidationError
 
 from odoo.addons.base.models.res_partner import Partner
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, FastAPI
 from fastapi.security import APIKeyHeader
 
 from ..dependencies import (
@@ -19,14 +21,11 @@ from ..dependencies import (
 from ..routers import demo_router, demo_router_doc, curd_router
 from fastapi.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://127.0.0.1:5500",
-    "http://127.0.0.1:51155",
-]
-
 
 class FastapiEndpoint(models.Model):
     _inherit = "fastapi.endpoint"
+
+    th_access_ids = fields.One2many('th.access.url', 'th_fastapi_id')
 
     app = fields.Selection(
         selection_add=[("demo", "Demo Endpoint"), ('partner', 'Partner'), ('curd', 'CURD')],
@@ -64,6 +63,8 @@ class FastapiEndpoint(models.Model):
         return fields
 
     def _get_app(self):
+        self.clear_caches()
+        origins = self.th_access_ids.filtered_domain([('th_is_access', '=', True)]).mapped('th_url')
         app = super()._get_app()
         app.add_middleware(
             CORSMiddleware,
@@ -119,6 +120,12 @@ class FastapiEndpoint(models.Model):
 
         return params
 
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get('th_access_ids', False):
+            for rec in self:
+                self._get_app()
+        return res
 
 def api_key_based_authenticated_partner_impl(
         api_key: Annotated[
