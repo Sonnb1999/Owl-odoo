@@ -73,3 +73,10 @@ class User(BaseModel):
 
 class ResponseMessage(BaseModel):
     message: str
+
+
+class BackLink(BaseModel):
+    link_tracker: str
+    odoo_utm_params: dict
+    referrer: str = None
+    code: str = None
