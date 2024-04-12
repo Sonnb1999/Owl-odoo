@@ -48,7 +48,7 @@ async def create_user(user: Annotated[Partner, Depends(authenticated_partner)], 
             })
         except Exception as e:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=e,
+                status_code=status.HTTP_400_BAD_REQUEST, detail=str([e, user]),
             )
         if user_create:
             return HTTPException(
@@ -71,7 +71,7 @@ async def update_user(user: Annotated[Partner, Depends(authenticated_partner)], 
                 })
         except Exception as e:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=e,
+                status_code=status.HTTP_400_BAD_REQUEST, detail=str(e),
             )
         return HTTPException(
             status_code=status.HTTP_200_OK, detail="Đã chỉnh sửa thành công!"
@@ -87,7 +87,7 @@ async def unlink_user(user: Annotated[Partner, Depends(authenticated_partner)], 
                 user_id.unlink()
         except Exception as e:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=e,
+                status_code=status.HTTP_400_BAD_REQUEST, detail=str(e),
             )
         return HTTPException(
             status_code=status.HTTP_200_OK, detail="Đã Xoá thành công!"
@@ -108,7 +108,7 @@ async def check_cookie(user: Annotated[Partner, Depends(authenticated_partner)])
             }
             body = {'results': cookie}
         except Exception as e:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
         # return cookie
         return HTTPException(status_code=status.HTTP_200_OK, detail=cookie)
         # return Response(json.dumps(cookie), status=status.HTTP_200_OK)
@@ -196,7 +196,7 @@ async def back_link(user: Annotated[Partner, Depends(authenticated_partner)], da
                     })
 
         except Exception as e:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
         try:
             setting = request.env['res.config.settings'].sudo().get_values()
@@ -207,7 +207,7 @@ async def back_link(user: Annotated[Partner, Depends(authenticated_partner)], da
                 'th_access_interval_type': th_access_interval_type,
             }
         except Exception as e:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
         body = {
             'code': create_user_click.th_user_client_code if create_user_click else exist_user.th_user_client_code,
