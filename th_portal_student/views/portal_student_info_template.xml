@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal menu-->
+    <!-- view get link   -->
+    <template id="th_list_get_link_seeding" name="Link seeds">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" class="me-3"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Thông tin sinh viên</t>
+            </t>
+
+			<t t-set="head">
+			   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+                <link href="/th_portal_student/static/src/css/file_info.css" rel="stylesheet"/>
+            </t>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Form START -->
+						<form class="file-upload">
+							<div class="row mb-5 gx-5">
+								<!-- Contact detail -->
+								<div class="col-xxl-8 mb-5 mb-xxl-0">
+									<div class="bg-secondary-soft px-4 py-5 rounded">
+										<div class="row g-3">
+											<h4 class="mb-4 mt-0">Contact detail</h4>
+											<!-- First Name -->
+											<div class="col-md-6">
+												<label class="form-label">First Name </label>
+												<input type="text" class="form-control" placeholder=""
+													   aria-label="First name" value="Scaralet"/>
+											</div>
+											<!-- Last name -->
+											<div class="col-md-6">
+												<label class="form-label">Last Name </label>
+												<input type="text" class="form-control" placeholder=""
+													   aria-label="Last name" value="Doe"/>
+											</div>
+											<!-- Phone number -->
+											<div class="col-md-6">
+												<label class="form-label">Phone number </label>
+												<input type="text" class="form-control" placeholder=""
+													   aria-label="Phone number" value="(333) 000 555"/>
+											</div>
+											<!-- Mobile number -->
+											<div class="col-md-6">
+												<label class="form-label">Mobile number </label>
+												<input type="text" class="form-control" placeholder=""
+													   aria-label="Phone number" value="+91 9852 8855 252"/>
+											</div>
+											<!-- Email -->
+											<div class="col-md-6">
+												<label for="inputEmail4" class="form-label">Email </label>
+												<input type="email" class="form-control" id="inputEmail4"
+													   value="example@homerealty.com"/>
+											</div>
+
+										</div> <!-- Row END -->
+									</div>
+								</div>
+								<!-- Upload profile -->
+								<div class="col-xxl-4">
+									<div class="bg-secondary-soft px-4 py-5 rounded">
+										<div class="row g-3">
+											<div class="text-center">
+												<!-- Image upload -->
+												<div class="square position-relative display-2 mb-3">
+													<i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
+												</div>
+												<!-- Button -->
+												<input type="file" id="customFile" name="file" hidden=""/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</t>
+    </template>
+</odoo>

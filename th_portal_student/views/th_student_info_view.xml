@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="th_student_info_view_tree" model="ir.ui.view">
+        <field name="name">th_student_info_view_tree</field>
+        <field name="model">th.student.info</field>
+        <field name="arch" type="xml">
+            <tree string="th_student_info_tree">
+                <field name="name"/>
+                <field name="th_age"/>
+                <field name="th_address"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_student_info_action" model="ir.actions.act_window">
+        <field name="name">th_student_info_action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">th.student.info</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
