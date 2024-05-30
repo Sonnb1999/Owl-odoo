@@ -3,6 +3,7 @@
 
 import json
 import logging
+import xmlrpc
 from datetime import datetime
 from odoo import http, fields
 from odoo.http import request, Response
@@ -17,11 +18,12 @@ class StudentPortal(CustomerPortal):
 
         if 'get_student_info' in counters:
             domain = []
-            values['get_student_info'] = (str(request.env['th.link.seeding'].sudo().search_count(domain)))
+            # values['get_student_info'] = (str(request.env['th.student.info'].sudo().search_count(domain)))
+            values['get_student_info'] = (str(1))
 
         if 'get_major' in counters:
             domain = []
-            values['get_major'] = (str(request.env['th.student.info'].sudo().search_count(domain)))
+            values['get_student_info'] = (str(1))
 
         return values
 
@@ -34,29 +36,39 @@ class StudentPortal(CustomerPortal):
 
         return request.render("th_portal_student.th_student", values)
 
-    @http.route(['/my/get_student_info', '/my/get_student_info/page/<int:page>'], type='http', auth="user",
-                website=True)
+    @http.route(['/my/get_student_info', '/my/get_student_info/page/<int:page>'], type='http', auth="user", website=True)
     def list_get_link_seeding(self, page=1, sortby='id', search='', search_in="All", **kwargs):
-        domain = [
-            ('campaign_id.th_start_date', '<=', datetime.today().date()),
-            ('campaign_id.th_end_date', '>=', datetime.today().date())
-        ]
-        th_link_seeding = request.env['th.link.seeding']
-        total_links = th_link_seeding.sudo().search_count(domain)
-        page_detail = pager(url='/my/get_link',
-                            total=total_links,
-                            page=page,
-                            step=10)
-        link_seeds = th_link_seeding.sudo().search(domain, limit=10, offset=page_detail['offset'], order='id desc')
-        form_exist = request.env['th.student.info'].search([])
+        student_code = request.env.user.partner_id.th_student_code
+        school_code = request.env.user.partner_id.th_student_code
+        th_api = request.env['th.api.server'].search([('state', '=', 'deploy'), ('th_type', '=', 'samp')], limit=1, order='id desc')
+        try:
+            result_apis = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(th_api.th_url_api))
+        except Exception as e:
+            print(e)
+        db = th_api.th_db_api
+        uid_api = th_api.th_uid_api
+        password = th_api.th_password
+        orders = result_apis.execute_kw(db, uid_api, password, 'th.student', 'search_read', [[['th_student_code', '=', student_code]]], {'limit': 1})
+        data = {}
+        if orders:
+            data = {
+                'student_code': student_code,
+                'name': orders[0].get('th_student_name'),
+                'birthday': orders[0].get('th_partner_birthday'),
+                'major': orders[0].get('th_major_id')[1],
+                'phone': orders[0].get('th_partner_phone'),
+                'email': orders[0].get('th_partner_email'),
+                'acceptance': orders[0].get('th_acceptance'),
+                'gender': orders[0].get('th_acceptance') if orders[0].get('th_acceptance') else 'Nam',
+                'place_of_birth': orders[0].get('th_acceptance') if orders[0].get('th_acceptance') else "Viết Nam",
+            }
 
         values = {
-            'link_seeds': link_seeds,
-            'page_name': 'get_list_link_seeding',
-            'pager': page_detail,
+            'data': data,
+            'page_name': 'get_student_info',
             # 'form_exist': form_exist
         }
-        return request.render("th_portal_student.th_list_get_link_seeding", values)
+        return request.render("th_portal_student.th_list_get_student_info", values)
 
     @http.route(['/my/major_student', '/my/major_student/page/<int:page>'], type='http', auth="user", website=True)
     def th_object_student(self, page=1, sortby='id', search='', search_in="All", **kwargs):

@@ -14,3 +14,4 @@ class StudentInfo(models.Model):
     name = fields.Char('Tên')
     th_age = fields.Char('Tuổi')
     th_address = fields.Char('Địa chỉ')
+    th_student_code = fields.Char(string="Mã sinh viên", copy=False)

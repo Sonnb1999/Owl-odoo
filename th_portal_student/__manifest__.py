@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'ABS portal',
+    'name': 'ABS Portal',
     'author': "TH Company",
-    'summary': 'ABS Affiliate',
-    'category': 'AUM Business System/ portal',
+    'summary': 'ABS Portal',
+    'category': 'AUM Business System/ Portal',
     'website': 'https://aum.edu.vn/',
     'license': 'LGPL-3',
     'depends': [
+        'contacts',
         'portal',
         'mail',
+        'website',
     ],
     'data': [
         'data/ir_sequence.xml',
         'security/link_tracker_security.xml',
         'security/ir.model.access.csv',
         'views/th_student_info_view.xml',
+        'views/res_partner_view.xml',
         'views/menu.xml',
         'views/portal_templates.xml',
         'views/portal_own_links_template.xml',
