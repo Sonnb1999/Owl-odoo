@@ -37,7 +37,7 @@
     <template id="portal.portal_breadcrumbs">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="replace">
             <ol t-if="
-             page_name != 'home' and (page_name != 'get_list_link_seeding' and
+             page_name != 'home' and (page_name != 'get_student_info' and
              page_name != 'create_link' and page_name != 'own_links' and
              page_name != 'own_link_info' and page_name != 'student_info' and page_name != 'post_link_info' and page_name != 'create_product_aff')"
                 class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
@@ -51,7 +51,7 @@
 
             <ol t-if="
                   page_name != 'student_info' and
-                  (page_name == 'get_list_link_seeding' or
+                  (page_name == 'get_student_info' or
                  page_name == 'create_link' or page_name == 'own_links' or
                  page_name == 'own_link_info' or page_name == 'student_info' or page_name == 'post_link_info'
                   or page_name == 'create_product_aff'
@@ -65,7 +65,7 @@
                 </li>
 
                 <!--link seed-->
-                <li t-if="page_name == 'get_list_link_seeding'" t-attf-class="breadcrumb-item">Thông tin sinh viên</li>
+                <li t-if="page_name == 'get_student_info'" t-attf-class="breadcrumb-item">Thông tin sinh viên</li>
                 <li t-if="page_name == 'create_link'" t-attf-class="breadcrumb-item">
                     <a t-attf-href="/my/get_link_seeding?{{ keep_query() }}">Danh sách</a>
                     /
@@ -90,4 +90,17 @@
             </ol>
         </xpath>
     </template>
+
+    <template id="th_portal_details" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_details')]//a[@href='/my/account']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+    </template>
+
+    <template id="th_portal_my_security" inherit_id="portal.portal_my_security">
+        <xpath expr="//section[@name='portal_deactivate_account']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+    </template>
+
 </odoo>

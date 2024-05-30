@@ -1,0 +1,13 @@
+<odoo>
+    <record id="th_view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">th_view_partner_form_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='function']" position="before">
+                <field name="th_student_code"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
