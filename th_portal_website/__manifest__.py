@@ -11,19 +11,19 @@
         'portal',
         'mail',
         'website',
+        'website_blog',
     ],
     'data': [
         'data/ir_sequence.xml',
         'security/link_tracker_security.xml',
         'security/ir.model.access.csv',
-        'views/th_student_info_view.xml',
         'views/res_partner_view.xml',
+        'views/th_attachment_view.xml',
         'views/menu.xml',
+
         'views/portal_templates.xml',
-        'views/portal_own_links_template.xml',
         'views/portal_student_info_template.xml',
-        'views/th_student_info_view.xml',
-        'views/portal_own_port_links_template.xml',
+        'views/th_template_application_forms.xml',
     ],
 
     'assets': {

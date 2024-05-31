@@ -3,3 +3,4 @@
 
 
 from . import th_student_portal
+from . import th_controller_application_forms

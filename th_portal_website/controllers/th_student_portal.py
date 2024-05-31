@@ -87,84 +87,84 @@ class StudentPortal(CustomerPortal):
         }
         return request.render("th_portal_student.th_list_object", values)
 
-    @http.route(['/my/info_link/<model("th.student.info"):link_tracker_id>'], type='http', auth="user", website=True)
-    def form_info_link(self, link_tracker_id, **kwargs):
-        values = {'link_tracker': link_tracker_id, 'page_name': 'own_link_info'}
-        return request.render("th_portal_student.th_own_link_seeding", values)
+    # @http.route(['/my/info_link/<model("th.student.info"):link_tracker_id>'], type='http', auth="user", website=True)
+    # def form_info_link(self, link_tracker_id, **kwargs):
+    #     values = {'link_tracker': link_tracker_id, 'page_name': 'own_link_info'}
+    #     return request.render("th_portal_student.th_own_link_seeding", values)
 
     # post link
-    @http.route('/my/get_post_link/<model("th.student.info"):link_tracker_id>', type='http', auth="public",
-                methods=['GET'], website=True)
-    def get_post_link(self, link_tracker_id, **kwargs):
-        post_link = link_tracker_id.th_post_link_ids
+    # @http.route('/my/get_post_link/<model("th.student.info"):link_tracker_id>', type='http', auth="public",
+    #             methods=['GET'], website=True)
+    # def get_post_link(self, link_tracker_id, **kwargs):
+    #     post_link = link_tracker_id.th_post_link_ids
+    #
+    #     values = {
+    #         'campaign_name': link_tracker_id.campaign_id.name,
+    #         'count_click': len(link_tracker_id.link_click_ids),
+    #         'post_link': post_link,
+    #         'page_name': 'post_link_info',
+    #         'link_tracker': link_tracker_id,
+    #     }
+    #
+    #     return request.render("th_portal_student.th_post_link", values)
 
-        values = {
-            'campaign_name': link_tracker_id.campaign_id.name,
-            'count_click': len(link_tracker_id.link_click_ids),
-            'post_link': post_link,
-            'page_name': 'post_link_info',
-            'link_tracker': link_tracker_id,
-        }
-
-        return request.render("th_portal_student.th_post_link", values)
-
-    @http.route('/my/post_link', type='http', auth="public", methods=['POST'], csrf=False, website=True)
-    def create_post_link(self, **kwargs):
-        link_tracker_id = int(kwargs.get('link_tracker_id', False))
-        link = kwargs.get('link', False)
-        link_tracker = request.env['th.student.info'].search([('id', '=', link_tracker_id)])
-        post_link = request.env['th.post.link']
-        if link and link_tracker.search([('th_closing_work', '=', 'pending')]):
-            post_link = request.env['th.post.link'].create({
-                'link_tracker_id': link_tracker_id,
-                'name': link,
-                'state': 'pending',
-            })
-        if post_link:
-            message = {
-                "status": 200,
-                "msg": "Tạo thành công",
-            }
-        else:
-            message = {
-                "status": 400,
-                "msg": "Tạo thất bại",
-            }
-        return Response(json.dumps(message))
+    # @http.route('/my/post_link', type='http', auth="public", methods=['POST'], csrf=False, website=True)
+    # def create_post_link(self, **kwargs):
+    #     link_tracker_id = int(kwargs.get('link_tracker_id', False))
+    #     link = kwargs.get('link', False)
+    #     link_tracker = request.env['th.student.info'].search([('id', '=', link_tracker_id)])
+    #     post_link = request.env['th.post.link']
+    #     if link and link_tracker.search([('th_closing_work', '=', 'pending')]):
+    #         post_link = request.env['th.post.link'].create({
+    #             'link_tracker_id': link_tracker_id,
+    #             'name': link,
+    #             'state': 'pending',
+    #         })
+    #     if post_link:
+    #         message = {
+    #             "status": 200,
+    #             "msg": "Tạo thành công",
+    #         }
+    #     else:
+    #         message = {
+    #             "status": 400,
+    #             "msg": "Tạo thất bại",
+    #         }
+    #     return Response(json.dumps(message))
 
     # Sản phẩm ngoài danh mục
-    @http.route('/my/link_outside_view/', type='http', auth="public", methods=['GET'], website=True)
-    def get_view_link(self, **kwargs):
-        values = {
-            'page_name': 'create_product_aff',
-        }
-        return request.render("th_portal_student.th_get_create_link_share_form", values)
-
-    @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True,
-                save_session=False)
-    def create_link_outside(self, **kwargs):
-        user_id = request.env.user.id
-        url_product = kwargs['own_url']
-        contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
-        link_tracker = request.env['th.student.info']
-        domain = [
-            ('th_aff_partner_id', '=', contact_affiliate.id),
-            ('url', '=', url_product),
-        ]
-        link_exit = link_tracker.sudo().search(domain)
-        if not link_exit:
-            utm_source = request.env['utm.source'].sudo().search([('name', '=', contact_affiliate.th_affiliate_code)])
-            if not utm_source and contact_affiliate:
-                utm_source_id = utm_source.sudo().create({
-                    'name': contact_affiliate.th_affiliate_code,
-                }).id
-            else:
-                utm_source_id = utm_source.id
-
-            request.env['th.student.info'].create({
-                'th_aff_partner_id': contact_affiliate.id,
-                'url': url_product,
-                'source_id': utm_source_id,
-            })
-
-        return self.list_own_link_tracker()
+    # @http.route('/my/link_outside_view/', type='http', auth="public", methods=['GET'], website=True)
+    # def get_view_link(self, **kwargs):
+    #     values = {
+    #         'page_name': 'create_product_aff',
+    #     }
+    #     return request.render("th_portal_student.th_get_create_link_share_form", values)
+    #
+    # @http.route('/my/link_outside', type='http', auth="public", methods=['POST'], csrf=False, website=True,
+    #             save_session=False)
+    # def create_link_outside(self, **kwargs):
+    #     user_id = request.env.user.id
+    #     url_product = kwargs['own_url']
+    #     contact_affiliate = request.env['res.partner'].sudo().search([('user_ids.id', '=', user_id)], limit=1)
+    #     link_tracker = request.env['th.student.info']
+    #     domain = [
+    #         ('th_aff_partner_id', '=', contact_affiliate.id),
+    #         ('url', '=', url_product),
+    #     ]
+    #     link_exit = link_tracker.sudo().search(domain)
+    #     if not link_exit:
+    #         utm_source = request.env['utm.source'].sudo().search([('name', '=', contact_affiliate.th_affiliate_code)])
+    #         if not utm_source and contact_affiliate:
+    #             utm_source_id = utm_source.sudo().create({
+    #                 'name': contact_affiliate.th_affiliate_code,
+    #             }).id
+    #         else:
+    #             utm_source_id = utm_source.id
+    #
+    #         request.env['th.student.info'].create({
+    #             'th_aff_partner_id': contact_affiliate.id,
+    #             'url': url_product,
+    #             'source_id': utm_source_id,
+    #         })
+    #
+    #     return self.list_own_link_tracker()
