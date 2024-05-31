@@ -14,11 +14,11 @@
                         <t t-set="placeholder_count" t-value="'get_student_info'"/>
                     </t>
 
-                    <t t-call="portal.portal_docs_entry">
-                        <t t-set="title">Thông tin môn học</t>
-                        <t t-set="url" t-value="'/my/major_student'"/>
-                        <t t-set="placeholder_count" t-value="'get_major'"/>
-                    </t>
+<!--                    <t t-call="portal.portal_docs_entry">-->
+<!--                        <t t-set="title">Thông tin môn học</t>-->
+<!--                        <t t-set="url" t-value="'/my/major_student'"/>-->
+<!--                        <t t-set="placeholder_count" t-value="'get_major'"/>-->
+<!--                    </t>-->
                 </div>
             </div>
             <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
@@ -37,9 +37,7 @@
     <template id="portal.portal_breadcrumbs">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="replace">
             <ol t-if="
-             page_name != 'home' and (page_name != 'get_student_info' and
-             page_name != 'create_link' and page_name != 'own_links' and
-             page_name != 'own_link_info' and page_name != 'student_info' and page_name != 'post_link_info' and page_name != 'create_product_aff')"
+             page_name != 'home' and (page_name != 'get_student_info' and page_name != 'student_info')"
                 class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
                 <li class="breadcrumb-item ms-1">
                     <a href="/my/home" aria-label="Home" title="Home">
@@ -49,13 +47,7 @@
                 <li t-if="page_name == 'my_details'" class="breadcrumb-item">Details</li>
             </ol>
 
-            <ol t-if="
-                  page_name != 'student_info' and
-                  (page_name == 'get_student_info' or
-                 page_name == 'create_link' or page_name == 'own_links' or
-                 page_name == 'own_link_info' or page_name == 'student_info' or page_name == 'post_link_info'
-                  or page_name == 'create_product_aff'
-                 )
+            <ol t-if="page_name != 'student_info' and (page_name == 'get_student_info' or 'student_info')
               " class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
                 <!--Home seeding-->
                 <li class="breadcrumb-item ms-1">
@@ -66,27 +58,11 @@
 
                 <!--link seed-->
                 <li t-if="page_name == 'get_student_info'" t-attf-class="breadcrumb-item">Thông tin sinh viên</li>
-                <li t-if="page_name == 'create_link'" t-attf-class="breadcrumb-item">
-                    <a t-attf-href="/my/get_link_seeding?{{ keep_query() }}">Danh sách</a>
-                    /
-                    <t t-out="link_tracker.campaign_id.name"/>
-                </li>
-
-                <!--own link-->
-                <li t-if="page_name == 'own_links'" t-attf-class="breadcrumb-item">Danh sách</li>
-                <li t-if="page_name == 'own_link_info'" t-attf-class="breadcrumb-item">
-                    <a t-attf-href="/my/own_link_tracker?{{ keep_query() }}">Danh sách</a>
-                    /
-                    <t t-out="link_tracker.title"/>
-                </li>
-                <li t-if="page_name == 'post_link_info'" t-attf-class="breadcrumb-item">
-                    <a t-attf-href="/my/own_link_tracker?{{ keep_query() }}">Danh sách</a>
-                    /
-                    Link bài đăng
-                </li>
-                <!-- crete link-->
-                <li t-if="page_name == 'create_product_aff'" t-attf-class="breadcrumb-item">Tạo sản phẩm</li>
-
+<!--                <li t-if="page_name == 'create_link'" t-attf-class="breadcrumb-item">-->
+<!--                    <a t-attf-href="/my/get_link_seeding?{{ keep_query() }}">Danh sách</a>-->
+<!--                    /-->
+<!--                    <t t-out="link_tracker.campaign_id.name"/>-->
+<!--                </li>-->
             </ol>
         </xpath>
     </template>
