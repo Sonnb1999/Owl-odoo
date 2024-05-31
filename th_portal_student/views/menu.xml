@@ -1,5 +1,0 @@
-<odoo>
-
-    <menuitem id="th_menu_root_student" name="Student_info" sequence="270" web_icon="th_portal_student,static/description/icon.png"/>
-    <menuitem id="th_menu_th_student_info" name="Giao bài" sequence="1" parent="th_menu_root_student" action="th_student_info_action"/>
-</odoo>

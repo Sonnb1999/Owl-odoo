@@ -1,0 +1,6 @@
+<odoo>
+
+    <menuitem id="th_menu_root_portal_website" name="Portal website" sequence="270" web_icon="th_portal_website,static/description/icon.png"/>
+    <menuitem id="website_blog.menu_blog_post_pages" parent="th_menu_root_portal_website" sequence="20" name="Blog Posts" action="website_blog.action_blog_post"/>
+    <menuitem id="th_menu_attachment" parent="th_menu_root_portal_website" sequence="20" name="Các mẫu đơn" action="th_attachment_action"/>
+</odoo>

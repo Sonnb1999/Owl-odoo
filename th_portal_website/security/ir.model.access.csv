@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_th_student_info,access_th_student_info,model_th_student_info,,1,1,1,1
+access_th_attachment,access_th_attachment,model_th_attachment,,1,1,1,1
