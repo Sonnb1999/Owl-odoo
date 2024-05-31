@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'ABS Portal',
+    'name': 'ABS Website Portal',
     'author': "TH Company",
     'summary': 'ABS Portal',
-    'category': 'AUM Business System/ Portal',
+    'category': 'AUM Business System/ Website Portal',
     'website': 'https://aum.edu.vn/',
     'license': 'LGPL-3',
     'depends': [
