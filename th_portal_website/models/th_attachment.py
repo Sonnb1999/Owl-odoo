@@ -14,7 +14,7 @@ class Attachment(models.Model):
     attachment_ids = fields.Many2many('ir.attachment', string='File đính kèm', required=True, tracking=True, copy=False, states=READONLY_STATES)
     active = fields.Boolean(string='Active', default=True)
     state = fields.Selection([('draft', 'chờ duyệt'), ('accept', 'Chấp thuận'), ('reject', 'Từ chối')], default="draft", tracking=True,)
-
+    th_type = fields.Selection([('application_forms', 'Biểu mẫu'), ('regulations', 'Quy định')], string='loại văn bản', states=READONLY_STATES)
 
     @api.model
     def create(self, values):
