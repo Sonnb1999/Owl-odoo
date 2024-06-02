@@ -26,6 +26,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
+                        <field name="th_type"/>
                         <field name="attachment_ids" widget="many2many_binary"/>
                         <field name="state" invisible="1"/>
                     </group>
