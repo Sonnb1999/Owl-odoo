@@ -26,7 +26,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="th_type"/>
+                        <field name="th_type" invisible="1"/>
                         <field name="attachment_ids" widget="many2many_binary"/>
                         <field name="state" invisible="1"/>
                     </group>
@@ -40,10 +40,21 @@
         </field>
     </record>
 
-    <record id="th_attachment_action" model="ir.actions.act_window">
-        <field name="name">th_attachment_action</field>
+    <record id="th_application_forms_action" model="ir.actions.act_window">
+        <field name="name">Đơn từ</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">th.attachment</field>
+        <field name="context">{'default_th_type': 'application_forms'}</field>
+        <field name="domain">[('th_type', '=','application_forms')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="th_regulations_action" model="ir.actions.act_window">
+        <field name="name">Quy định - Quy chế</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">th.attachment</field>
+        <field name="context">{'default_th_type': 'regulations'}</field>
+        <field name="domain">[('th_type', '=','regulations')]</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

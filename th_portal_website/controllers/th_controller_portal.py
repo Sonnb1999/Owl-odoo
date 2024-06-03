@@ -38,8 +38,7 @@ class DownloadFormController(http.Controller):
     @http.route('/image_page', auth='public', website=True, methods=['GET', 'POST'], csrf=False)
     def regulations(self, **kw):
         search_query = kw.get('search', '')
-        # domain = [('state', '=', 'accept')]
-        domain = []
+        domain = [('state', '=', 'public')]
         if search_query:
             domain.append(('name', 'ilike', search_query))
 

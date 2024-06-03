@@ -17,9 +17,8 @@
         <field name="arch" type="xml">
             <form string="">
                 <header>
-                    <button name="th_action_draft" string="Nháp" type="object" attrs="{'invisible': [('state', '=', 'draft')]}" class="btn"/>
-                    <button name="th_action_accept" string="Chấp thuận" type="object" attrs="{'invisible': [('state', '=', 'accept')]}" class="btn btn-primary"/>
-                    <button name="th_action_reject" string="Từ chối" type="object" attrs="{'invisible': [('state', '=', 'reject')]}" class="btn"/>
+                    <button name="th_action_private" string="Ẩn ảnh" type="object" attrs="{'invisible': [('state', '=', 'private')]}" class="btn"/>
+                    <button name="th_action_public" string="Hiện ảnh" type="object" attrs="{'invisible': [('state', '=', 'public')]}" class="btn btn-primary"/>
                     <field name="state" widget="statusbar"/>
 
                 </header>
@@ -41,7 +40,7 @@
     </record>
 
     <record id="th_image_page_action" model="ir.actions.act_window">
-        <field name="name">th_image_page_action</field>
+        <field name="name">Kho Ảnh</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">th.image.page</field>
         <field name="view_mode">tree,form</field>

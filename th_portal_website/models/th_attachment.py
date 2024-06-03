@@ -5,6 +5,7 @@ READONLY_STATES = {
     'reject': [('readonly', True)],
 }
 
+
 class Attachment(models.Model):
     _name = 'th.attachment'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -33,6 +34,8 @@ class Attachment(models.Model):
 
     def th_action_accept(self):
         for rec in self:
+            if len(rec.attachment_ids) < 1:
+                raise ValidationError('Không có file đính kèm!')
             rec.state = 'accept'
 
     def th_action_reject(self):
