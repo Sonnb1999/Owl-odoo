@@ -12,6 +12,7 @@
         'mail',
         'website',
         'website_blog',
+        'web',
     ],
     'data': [
         'data/ir_sequence.xml',
@@ -19,16 +20,18 @@
         'security/ir.model.access.csv',
         'views/res_partner_view.xml',
         'views/th_attachment_view.xml',
+        'views/th_image_page_view.xml',
         'views/menu.xml',
 
         'views/portal_templates.xml',
         'views/portal_student_info_template.xml',
-        'views/th_template_application_forms.xml',
+        'views/th_attachment_template.xml',
+        'views/image_template.xml',
     ],
 
     'assets': {
         'web.assets_frontend': [
-            # 'th_portal_student/static/src/scss/main.scss'
+            # 'th_portal_website/static/src/css/masonry_styles.scss'
         ],
         'web.assets_backend': [
             # 'th_portal_student/static/src/scss/main.scss'

@@ -1,0 +1,29 @@
+<odoo>
+    <template id="image_template" name="Image Template">
+        <t t-call="website.layout">
+            <t t-set="head">
+                <link rel="stylesheet" href="/th_portal_website/static/src/css/masonry_styles.css"/>
+            </t>
+
+            <div class="container mt-5">
+                <div class="masonry">
+                    <t t-foreach="images" t-as="image">
+                        <div class="grid">
+                            <img t-att-src="image.th_url" class="card-img-top" alt="Image"/>
+                            <div class="grid__body">
+                                <div class="relative">
+<!--                                    <a class="grid__link" target="_blank" href="/"></a>-->
+                                    <h1 class="grid__title"><t t-esc="image.name"/></h1>
+                                    <p class="grid__des"><t t-esc="image.th_description"/></p>
+                                </div>
+                                <div class="mt-auto">
+<!--                                    <span class="grid__tag">#<t t-esc="image.name"/></span>-->
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
