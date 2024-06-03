@@ -12,7 +12,6 @@
         'mail',
         'website',
         'website_blog',
-        'web',
     ],
     'data': [
         'data/ir_sequence.xml',
