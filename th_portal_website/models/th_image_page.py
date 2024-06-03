@@ -1,8 +1,8 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 READONLY_STATES = {
-    'accept': [('readonly', True)],
-    'reject': [('readonly', True)],
+    'public': [('readonly', True)],
+    'public': [('readonly', True)],
 }
 
 
@@ -11,11 +11,11 @@ class ThImagePage(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Attachment for Application Forms'
 
-    name = fields.Char('Tên ảnh', required=True, tracking=True, states=READONLY_STATES)
-    th_url = fields.Char(string='Link ảnh', required=True, tracking=True, states=READONLY_STATES)
-    th_description = fields.Text(string='Mô tả', tracking=True, states=READONLY_STATES)
+    name = fields.Char('Tên ảnh', required=True, tracking=True)
+    th_url = fields.Char(string='Link ảnh', required=True, tracking=True)
+    th_description = fields.Text(string='Mô tả', tracking=True)
     active = fields.Boolean(string='Active', default=True)
-    state = fields.Selection([('draft', 'chờ duyệt'), ('accept', 'Chấp thuận'), ('reject', 'Từ chối')], default="draft", tracking=True,)
+    state = fields.Selection([('private', 'Ẩn'), ('public', 'Hiển thị')], default="public", tracking=True)
 
     @api.model
     def create(self, values):
@@ -34,14 +34,10 @@ class ThImagePage(models.Model):
             #     raise ValidationError('1 Đơn không thể có 2 file')
         return res
 
-    def th_action_accept(self):
+    def th_action_private(self):
         for rec in self:
-            rec.state = 'accept'
+            rec.state = 'private'
 
-    def th_action_reject(self):
+    def th_action_public(self):
         for rec in self:
-            rec.state = 'reject'
-
-    def th_action_draft(self):
-        for rec in self:
-            rec.state = 'draft'
+            rec.state = 'public'

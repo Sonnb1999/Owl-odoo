@@ -3,8 +3,8 @@
     <menuitem id="th_menu_root_portal_website" name="Portal website" sequence="270" web_icon="th_portal_website,static/description/icon.png"/>
     <menuitem id="website_blog.menu_blog_post_pages" parent="th_menu_root_portal_website" sequence="20" name="Blog Posts" action="website_blog.action_blog_post"/>
     <!-- This Menu Item Must have a parent -->
-    <menuitem id="th_menu_root_attachment" name="Mẫu đơn và Quy định - Quy chế" parent="th_menu_root_portal_website" sequence="30"/>
-    <menuitem id="th_menu_application_forms" parent="th_menu_root_attachment" sequence="1" name="Các mẫu đơn" action="th_attachment_action"/>
-    <menuitem id="th_menu_regulations" parent="th_menu_root_attachment" sequence="2" name="Các quy định - quy chế" action="th_attachment_action"/>
-    <menuitem id="th_menu_image_page" parent="th_menu_root_portal_website" sequence="20" name="Ảnh" action="th_image_page_action"/>
+    <menuitem id="th_menu_root_attachment" name="Mẫu từ và Quy định - Quy chế" parent="th_menu_root_portal_website" sequence="30"/>
+    <menuitem id="th_menu_application_forms" parent="th_menu_root_attachment" sequence="1" name="Các mẫu đơn" action="th_application_forms_action"/>
+    <menuitem id="th_menu_regulations" parent="th_menu_root_attachment" sequence="2" name="Các quy định - quy chế" action="th_regulations_action"/>
+    <menuitem id="th_menu_image_page" parent="th_menu_root_portal_website" sequence="40" name="Ảnh" action="th_image_page_action"/>
 </odoo>
