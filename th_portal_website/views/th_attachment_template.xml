@@ -1,28 +1,29 @@
 <odoo>
-    <template id="download_form_page" name="Download Application Forms">
+    <template id="download_form_page" name="">
         <t t-call="website.layout">
             <div class="container mt-5">
-                <form method="POST" action="/application_forms" class="mb-4">
+                <form method="POST" t-att-action="action" class="mb-4">
+<!--                    action="/application_forms"-->
                     <div class="row">
                         <div class="col">
-                            <h5 class="">CÁC MẪU ĐƠN</h5>
+                            <h5 class=""><t t-esc="name_page"/></h5>
                         </div>
                         <div class="input-group col">
-                            <input type="text" class="form-control" name="search" placeholder="Tìm kiếm mẫu đơn..."
+                            <input type="text" class="form-control" name="search" placeholder="Tìm kiếm..."
                                    t-att-value="search_query" onfocus="this.value=''"/>
                             <div class="">
-                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                <button class="btn btn-outline-secondary rounded-0" type="submit">Search</button>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="row">
                     <t t-foreach="attachments" t-as="attachment">
-                        <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="col-lg-12 col-md-12 mb-4">
                             <div class="card h-100">
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title mt-auto text-center"><t t-esc="attachment.name"/></h6>
-                                    <div class="mt-auto text-center">
+                                <div class="card-body d-flex justify-content-between">
+                                    <h6 class="card-title mt-auto"><t t-esc="attachment.name"/></h6>
+                                    <div class="mt-auto">
                                         <a t-att-href="'/web/content/' + str(attachment.attachment_ids.id) + '?download=true'" t-att-download="attachment.name" class="btn btn-primary">
                                             Tải xuống
                                         </a>
