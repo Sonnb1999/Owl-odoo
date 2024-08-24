@@ -15,7 +15,7 @@ from datetime import datetime, date, timedelta
 from ..schemas import User, ResponseMessage, BackLink
 from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status
-from odoo.addons.fastapi.dependencies import authenticated_partner, fastapi_endpoint, odoo_env
+from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env
 
 router = APIRouter(tags=["curd"])
 

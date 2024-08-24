@@ -13,7 +13,7 @@ from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status, FastAPI
 from fastapi.security import APIKeyHeader
 
-from odoo.addons.fastapi.dependencies import (
+from ..dependencies import (
     authenticated_partner_from_basic_auth_user,
     authenticated_partner_impl,
     odoo_env,
@@ -62,6 +62,7 @@ class FastapiEndpoint(models.Model):
 
     def _get_app(self):
         self.clear_caches()
+        # check xem trang web đấy có được gọi vào api này không
         origins = self.th_access_ids.filtered_domain([('th_is_access', '=', True)]).mapped('th_url')
         app = super()._get_app()
         app.add_middleware(
@@ -73,21 +74,6 @@ class FastapiEndpoint(models.Model):
         )
 
         # Kiểm tra lại xem router có sử dụng các phương thức bảo mật không (http_basic or api_key)
-        if self.app in ['demo', 'partner']:
-            # Here we add the overrides to the authenticated_partner_impl method
-            # according to the authentication method configured on the demo app
-            if self.demo_auth_method == "http_basic":
-                authenticated_partner_impl_override = (
-                    authenticated_partner_from_basic_auth_user
-                )
-            else:
-                authenticated_partner_impl_override = (
-                    api_key_based_authenticated_partner_impl
-                )
-            app.dependency_overrides[
-                authenticated_partner_impl
-            ] = authenticated_partner_impl_override
-
         if self.app in ['curd']:
             if self.demo_auth_method == "http_basic":
                 authenticated_partner_impl_override = (
