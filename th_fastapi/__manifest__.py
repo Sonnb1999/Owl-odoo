@@ -1,0 +1,21 @@
+# Copyright 2022 ACSONE SA/NV
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/LGPL).
+
+{
+    "name": "Odoo FastAPI",
+    "summary": """
+        Odoo FastAPI endpoint""",
+    "version": "16.0.1.2.5.16.2.24.1",
+    "license": "LGPL-3",
+    "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
+    "maintainers": ["lmignon"],
+    "website": "https://github.com/OCA/rest-framework",
+    "depends": ["endpoint_route_handler"],
+    "data": [
+        "views/fastapi_menu.xml",
+        "views/fastapi_endpoint.xml",
+        "views/fastapi_endpoint_demo.xml",
+        "views/fastapi_endpoint_curd.xml",
+    ],
+    "development_status": "Beta",
+}
