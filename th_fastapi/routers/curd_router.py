@@ -7,15 +7,13 @@ integration with odoo.
 import json
 import xmlrpc
 from typing import Annotated
-from odoo.api import Environment
-from odoo.models import BaseModel
-from odoo.addons.fastapi.models import FastapiEndpoint
 from odoo.http import request, Response
-from datetime import datetime, date, timedelta
 from ..schemas import User, ResponseMessage, BackLink
 from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status
-from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env
+from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
+from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
+
 
 router = APIRouter(tags=["curd"])
 
@@ -27,15 +25,26 @@ async def hello_word():
 
 
 @router.get("/users")
-def get_partners(user: Annotated[Partner, Depends(authenticated_partner)]):
-    if user:
+def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_partner)]):
+    if fastapi:
         # users = request.env['res.users'].sudo().search([])
-        users = request.env['res.users'].search([])
+        users = request.env['res.users'].sudo().search([])
         return [{'name': rec.name, 'display_name': rec.login} for rec in users]
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
         )
+
+# @router.get("/users")
+# def get_partners(fastapi: Annotated[Partner, Depends(authenticated_partner)]):
+#     if fastapi:
+#         # users = request.env['res.users'].sudo().search([])
+#         users = request.env['res.users'].sudo().search([])
+#         return [{'name': rec.name, 'display_name': rec.login} for rec in users]
+#     else:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
+#         )
 
 
 @router.post("/users/create")

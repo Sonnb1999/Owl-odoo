@@ -15,8 +15,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from odoo.addons.fastapi.context import odoo_env_ctx
 from .schemas import Paging
 
-if TYPE_CHECKING:
-    from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint
+from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
 
 
 def company_id() -> int | None:
@@ -43,9 +42,7 @@ def authenticated_partner_impl() -> Partner:
     See the fastapi_endpoint_demo for an example"""
 
 
-def authenticated_partner_env(
-    partner: Annotated[Partner, Depends(authenticated_partner_impl)]
-) -> Environment:
+def authenticated_partner_env(partner: Annotated[Partner, Depends(authenticated_partner_impl)]) -> Environment:
     """Return an environment with the authenticated partner id in the context"""
     return partner.with_context(authenticated_partner_id=partner.id).env
 
@@ -64,6 +61,27 @@ def authenticated_partner(
     This method return a partner into the authenticated_partner_env
     """
     return partner_env["res.partner"].browse(partner.id)
+
+
+# Gọi vào fastapi
+def fastapi_endpoint_impl() -> ThFastapi:
+    """This method has to be overriden when you create your fastapi app
+       to declare the way your partner will be provided. In some case, this
+       partner will come from the authentication mechanism (ex jwt token) in other cases
+       it could comme from a lookup on an email received into an HTTP header ...
+       See the fastapi_endpoint_demo for an example"""
+
+
+def authenticated_fastapi_env(fastapi: Annotated[ThFastapi, Depends(fastapi_endpoint_impl)]) -> Environment:
+    """Return an environment with the authenticated partner id in the context"""
+    return fastapi.with_context(authenticated_partner_id=fastapi.id).env
+
+
+# sử dụng cho router
+def authenticated_fastapi_endpoint(fastapi: Annotated[ThFastapi, Depends(fastapi_endpoint_impl)],
+                                   fastapi_env: Annotated[Environment, Depends(authenticated_fastapi_env)]) -> ThFastapi:
+    return fastapi_env["fastapi.endpoint"].browse(fastapi.id)
+
 
 
 def paging(

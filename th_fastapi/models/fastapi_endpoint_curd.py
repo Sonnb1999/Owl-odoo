@@ -16,10 +16,11 @@ from fastapi.security import APIKeyHeader
 from ..dependencies import (
     authenticated_partner_from_basic_auth_user,
     authenticated_partner_impl,
-    odoo_env,
+    odoo_env, accept_api_key
 )
 from ..routers import curd_router, demo_router_doc
 from fastapi.middleware.cors import CORSMiddleware
+from .. import dependencies
 
 
 class FastapiEndpoint(models.Model):
@@ -35,6 +36,7 @@ class FastapiEndpoint(models.Model):
         selection=[("api_key", "Api Key"), ("http_basic", "HTTP Basic")],
         string="Authenciation method",
     )
+    th_api_key_id = fields.Char(string="API Key ID")
 
     def _get_fastapi_routers(self) -> List[APIRouter]:
         # Trả về router đã định tuyến theo thẻ trường app được cấu hình
@@ -81,7 +83,7 @@ class FastapiEndpoint(models.Model):
                 )
             else:
                 authenticated_partner_impl_override = (
-                    api_key_based_authenticated_partner_impl
+                    th_api_key_based
                 )
             app.dependency_overrides[
                 authenticated_partner_impl
@@ -111,6 +113,11 @@ class FastapiEndpoint(models.Model):
                 self._get_app()
         return res
 
+    def _get_fastapi_app_dependencies(self) -> List[Depends]:
+        """Return the dependencies to use for the fastapi app."""
+        return [Depends(dependencies.accept_language), Depends(dependencies.accept_api_key)]
+
+
 def api_key_based_authenticated_partner_impl(
         api_key: Annotated[
             str,
@@ -134,3 +141,26 @@ def api_key_based_authenticated_partner_impl(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect API Key"
         )
     return partner
+
+
+def th_api_key_based(
+        api_key: Annotated[
+            str,
+            Depends(
+                APIKeyHeader(
+                    name="api-key",
+                    description="In this demo, you can use a user's login as api key.",
+                )
+            ),
+        ],
+        env: Annotated[Environment, Depends(odoo_env)],
+) -> FastapiEndpoint:
+    """A dummy implementation that look for a user with the same login
+    as the provided api key
+    """
+    th_api_key = (env["fastapi.endpoint"].sudo().search([("th_api_key_id", "=", api_key)], limit=1))
+    if not th_api_key:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect API Key"
+        )
+    return th_api_key
