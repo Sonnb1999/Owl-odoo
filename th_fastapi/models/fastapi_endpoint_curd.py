@@ -13,12 +13,12 @@ from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status, FastAPI
 from fastapi.security import APIKeyHeader
 
-from ..dependencies import (
+from odoo.addons.fastapi.dependencies import (
     authenticated_partner_from_basic_auth_user,
     authenticated_partner_impl,
     odoo_env,
 )
-from ..routers import demo_router, demo_router_doc, curd_router
+from ..routers import curd_router, demo_router_doc
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -38,9 +38,7 @@ class FastapiEndpoint(models.Model):
 
     def _get_fastapi_routers(self) -> List[APIRouter]:
         # Trả về router đã định tuyến theo thẻ trường app được cấu hình
-        if self.app in ['demo', 'partner']:
-            return [demo_router]
-
+        super()._get_fastapi_routers()
         if self.app == 'curd':
             return [curd_router]
         return super()._get_fastapi_routers()

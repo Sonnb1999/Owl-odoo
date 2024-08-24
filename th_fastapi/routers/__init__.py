@@ -1,3 +1,2 @@
-from .demo_router import router as demo_router
-from .demo_router import __doc__ as demo_router_doc
 from .curd_router import router as curd_router
+from .curd_router import __doc__ as demo_router_doc
