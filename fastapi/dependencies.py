@@ -43,11 +43,29 @@ def authenticated_partner_impl() -> Partner:
     See the fastapi_endpoint_demo for an example"""
 
 
+def optionally_authenticated_partner_impl() -> Partner | None:
+    """This method has to be overriden when you create your fastapi app
+    and you need to get an optional authenticated partner into your endpoint.
+    """
+
+
 def authenticated_partner_env(
     partner: Annotated[Partner, Depends(authenticated_partner_impl)]
 ) -> Environment:
     """Return an environment with the authenticated partner id in the context"""
     return partner.with_context(authenticated_partner_id=partner.id).env
+
+
+def optionally_authenticated_partner_env(
+    partner: Annotated[Partner | None, Depends(optionally_authenticated_partner_impl)],
+    env: Annotated[Environment, Depends(odoo_env)],
+) -> Environment:
+    """Return an environment with the authenticated partner id in the context if
+    the partner is not None
+    """
+    if partner:
+        return partner.with_context(authenticated_partner_id=partner.id).env
+    return env
 
 
 def authenticated_partner(
@@ -64,6 +82,22 @@ def authenticated_partner(
     This method return a partner into the authenticated_partner_env
     """
     return partner_env["res.partner"].browse(partner.id)
+
+
+def optionally_authenticated_partner(
+    partner: Annotated[Partner | None, Depends(optionally_authenticated_partner_impl)],
+    partner_env: Annotated[Environment, Depends(optionally_authenticated_partner_env)],
+) -> Partner | None:
+    """If you need to get access to the authenticated partner if the call is
+    authenticated, you can add a dependency into the endpoint definition on this
+    method.
+
+    This method defer from authenticated_partner by the fact that it returns
+    None if the partner is not authenticated .
+    """
+    if partner:
+        return partner_env["res.partner"].browse(partner.id)
+    return None
 
 
 def paging(
@@ -126,7 +160,7 @@ def accept_language(
             alias="Accept-Language",
             description="The Accept-Language header is used to specify the language "
             "of the content to be returned. If a language is not available, the "
-                        "server will return the content in the default language.",
+            "server will return the content in the default language.",
         ),
     ] = None,
 ) -> str:
@@ -135,35 +169,3 @@ def accept_language(
     fastapi app to initialize the odoo environment with the right language.
     """
     return accept_language
-
-
-def accept_api_key(
-        accept_api_key: Annotated[
-            str | None,
-            Header(
-                alias="api-key",
-                description="The Accept-Language header is used to specify the key ",
-            ),
-        ] = None,
-) -> str:
-    """This dependency is used at application level to document the way the language
-    to use for the response is specified. The header is processed outside of the
-    fastapi app to initialize the odoo environment with the right language.
-    """
-    return accept_api_key
-
-
-def accept_api_auth(
-        accept_api_key: Annotated[
-            str | None,
-            Header(
-                alias="api-key",
-                description="The Accept-Language header is used to specify the key ",
-            ),
-        ] = None,
-) -> str:
-    """This dependency is used at application level to document the way the language
-    to use for the response is specified. The header is processed outside of the
-    fastapi app to initialize the odoo environment with the right language.
-    """
-    return accept_api_key
