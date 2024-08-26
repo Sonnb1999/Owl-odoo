@@ -16,7 +16,7 @@ from fastapi.security import APIKeyHeader
 from ..dependencies import (
     authenticated_partner_from_basic_auth_user,
     authenticated_partner_impl,
-    odoo_env, accept_api_key
+    odoo_env, accept_api_key, fastapi_endpoint_impl
 )
 from ..routers import curd_router, demo_router_doc
 from fastapi.middleware.cors import CORSMiddleware
@@ -78,16 +78,16 @@ class FastapiEndpoint(models.Model):
         # Kiểm tra lại xem router có sử dụng các phương thức bảo mật không (http_basic or api_key)
         if self.app in ['curd']:
             if self.demo_auth_method == "http_basic":
-                authenticated_partner_impl_override = (
+                auth_fast_endpoint = (
                     authenticated_partner_from_basic_auth_user
                 )
             else:
-                authenticated_partner_impl_override = (
+                auth_fast_endpoint = (
                     th_api_key_based
                 )
             app.dependency_overrides[
-                authenticated_partner_impl
-            ] = authenticated_partner_impl_override
+                fastapi_endpoint_impl
+            ] = auth_fast_endpoint
         return app
 
     def _prepare_fastapi_app_params(self) -> dict[str, Any]:

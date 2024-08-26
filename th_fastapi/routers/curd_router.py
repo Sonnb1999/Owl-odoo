@@ -7,13 +7,16 @@ integration with odoo.
 import json
 import xmlrpc
 from typing import Annotated
+
+from fastapi.security import OAuth2PasswordBearer, OAuth2AuthorizationCodeBearer
+
 from odoo.http import request, Response
 from ..schemas import User, ResponseMessage, BackLink
 from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status
 from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
 from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
-
+oauth2_scheme = OAuth2AuthorizationCodeBearer(authorizationUrl="token", tokenUrl="token")
 
 router = APIRouter(tags=["curd"])
 
@@ -25,7 +28,7 @@ async def hello_word():
 
 
 @router.get("/users")
-def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_partner)]):
+def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)]):
     if fastapi:
         # users = request.env['res.users'].sudo().search([])
         users = request.env['res.users'].sudo().search([])
@@ -47,6 +50,13 @@ def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_partner)]):
 #         )
 
 
+# limit item
+@router.get("/list_item")
+async def th_list_item(user_id: int, skip: int = 0, limit: int = 10, token: str = Depends(oauth2_scheme)):
+    # list_item = list(range(1, 101))
+    return {"token": token}
+
+
 @router.post("/users/create")
 async def create_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
     if user:
@@ -65,7 +75,7 @@ async def create_user(user: Annotated[Partner, Depends(authenticated_partner)], 
             )
 
 
-@router.put("/users/update")
+@router.put("/users/update/{item_id}")
 async def update_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
     if not data.email:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Vui lòng nhập email!')
