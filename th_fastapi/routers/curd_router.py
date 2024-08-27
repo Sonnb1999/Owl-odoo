@@ -16,8 +16,8 @@ from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status
 from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
 from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
-oauth2_scheme = OAuth2AuthorizationCodeBearer(authorizationUrl="token", tokenUrl="token")
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 router = APIRouter(tags=["curd"])
 
 
@@ -43,6 +43,11 @@ def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_end
 @router.get("/list_item")
 async def th_list_item(user_id: int, skip: int = 0, limit: int = 10, token: str = Depends(oauth2_scheme)):
     # list_item = list(range(1, 101))
+    return {"token": token}
+
+
+@router.get("/items/")
+async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
     return {"token": token}
 
 

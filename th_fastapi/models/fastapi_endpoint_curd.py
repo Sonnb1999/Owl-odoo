@@ -10,7 +10,7 @@ from odoo.exceptions import ValidationError
 
 from odoo.addons.base.models.res_partner import Partner
 
-from fastapi import APIRouter, Depends, HTTPException, status, FastAPI, Header, Request
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import APIKeyHeader
 
 from ..dependencies import (
@@ -113,40 +113,9 @@ class FastapiEndpoint(models.Model):
         return [Depends(dependencies.accept_language), Depends(dependencies.accept_api_key)]
 
 
-def api_key_based_authenticated_partner_impl(
-        api_key: Annotated[
-            str,
-            Depends(
-                APIKeyHeader(
-                    name="api-key",
-                    description="In this demo, you can use a user's login as api key.",
-                )
-            ),
-        ],
-        env: Annotated[Environment, Depends(odoo_env)],
-) -> Partner:
-    """A dummy implementation that look for a user with the same login
-    as the provided api key
-    """
-    partner = (
-        env["res.users"].sudo().search([("login", "=", api_key)], limit=1).partner_id
-    )
-    if not partner:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect API Key"
-        )
-    return partner
-
-
 def th_api_key_based(
         api_key: Annotated[
-            str,
-            Depends(
-                APIKeyHeader(
-                    name="api-key",
-                    description="In this demo, you can use a user's login as api key.",
-                )
-            ),
+            str, Depends(APIKeyHeader(name="api-key", description="In this demo, you can use a user's login as api key.")),
         ],
         request: Request,
         env: Annotated[Environment, Depends(odoo_env)],
