@@ -38,17 +38,6 @@ def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_end
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
         )
 
-# @router.get("/users")
-# def get_partners(fastapi: Annotated[Partner, Depends(authenticated_partner)]):
-#     if fastapi:
-#         # users = request.env['res.users'].sudo().search([])
-#         users = request.env['res.users'].sudo().search([])
-#         return [{'name': rec.name, 'display_name': rec.login} for rec in users]
-#     else:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
-#         )
-
 
 # limit item
 @router.get("/list_item")

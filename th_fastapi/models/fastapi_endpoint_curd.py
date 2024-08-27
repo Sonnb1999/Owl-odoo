@@ -10,7 +10,7 @@ from odoo.exceptions import ValidationError
 
 from odoo.addons.base.models.res_partner import Partner
 
-from fastapi import APIRouter, Depends, HTTPException, status, FastAPI
+from fastapi import APIRouter, Depends, HTTPException, status, FastAPI, Header, Request
 from fastapi.security import APIKeyHeader
 
 from ..dependencies import (
@@ -94,11 +94,6 @@ class FastapiEndpoint(models.Model):
         params = super()._prepare_fastapi_app_params()
 
         # Trả về hướng dẫn sử dụng api của từng router
-        if self.app in ['demo', 'partner']:
-            tags_metadata = params.get("openapi_tags", []) or []
-            tags_metadata.append({"name": "demo", "description": demo_router_doc})
-            params["openapi_tags"] = tags_metadata
-
         if self.app == 'curd':
             tags_metadata = params.get("openapi_tags", []) or []
             tags_metadata.append({"name": "curd", "description": demo_router_doc})
@@ -153,14 +148,20 @@ def th_api_key_based(
                 )
             ),
         ],
+        request: Request,
         env: Annotated[Environment, Depends(odoo_env)],
 ) -> FastapiEndpoint:
-    """A dummy implementation that look for a user with the same login
-    as the provided api key
     """
-    th_api_key = (env["fastapi.endpoint"].sudo().search([("th_api_key_id", "=", api_key)], limit=1))
+    api key của chính api đang được gọi vào đó
+    """
+    # Get the first part
+
+    parts = [part for part in request.url.path.split('/') if part]
+    first_part = '/' + parts[0] if parts else None
+    print(first_part)
+    th_api_key = (env["fastapi.endpoint"].sudo().search([("th_api_key_id", "=", api_key), ('root_path', '=', first_part)], limit=1))
     if not th_api_key:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect API Key"
         )
-    return th_api_key
+    return th_api_key.with_context(th_api_key_id=api_key)
