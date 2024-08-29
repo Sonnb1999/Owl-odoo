@@ -18,7 +18,7 @@ from ..dependencies import (
     authenticated_partner_impl,
     odoo_env, accept_api_key, fastapi_endpoint_impl
 )
-from ..routers import curd_router, demo_router_doc
+from ..routers import curd_router, demo_router_doc, partner_router
 from fastapi.middleware.cors import CORSMiddleware
 from .. import dependencies
 
@@ -29,12 +29,14 @@ class FastapiEndpoint(models.Model):
     th_access_ids = fields.One2many('th.access.url', 'th_fastapi_id')
     th_auth_method = fields.Selection([("api_key", "Api Key")], string="Auth method")
     th_api_key = fields.Char(string="API Key")
-    app = fields.Selection(selection_add=[('curd', 'CURD')], ondelete={"curd": "cascade"})
+    app = fields.Selection(selection_add=[('curd', 'CURD'), ('partner', 'Partner')], ondelete={"curd": "cascade", "partner": "cascade"})
 
     def _get_fastapi_routers(self) -> List[APIRouter]:
         # Trả về router đã định tuyến theo trường "app" được cấu hình
         if self.app == 'curd':
             return [curd_router]
+        if self.app == 'partner':
+            return [partner_router]
         return super()._get_fastapi_routers()
 
     @api.model
@@ -58,7 +60,7 @@ class FastapiEndpoint(models.Model):
         )
 
         # Kiểm tra lại xem router có sử dụng phương thức bảo mật không (api_key)
-        if self.app in ['curd']:
+        if self.app in ['curd', 'partner']:
             auth_fast_endpoint = (
                 th_api_key_based
             )
@@ -73,6 +75,11 @@ class FastapiEndpoint(models.Model):
         if self.app == 'curd':
             tags_metadata = params.get("openapi_tags", []) or []
             tags_metadata.append({"name": "curd", "description": demo_router_doc})
+            params["openapi_tags"] = tags_metadata
+
+        if self.app == 'partner':
+            tags_metadata = params.get("openapi_tags", []) or []
+            tags_metadata.append({"name": "partner", "description": demo_router_doc})
             params["openapi_tags"] = tags_metadata
 
         return params

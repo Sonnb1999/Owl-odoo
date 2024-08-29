@@ -80,3 +80,9 @@ class BackLink(BaseModel):
     odoo_utm_params: dict
     referrer: str = None
     code: str = None
+
+
+class PartnerData(BaseModel):
+    name: str | None = None
+    phone: str | None = None
+    id: int | None = None

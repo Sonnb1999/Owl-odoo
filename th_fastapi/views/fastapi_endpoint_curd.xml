@@ -11,9 +11,9 @@
 
             <xpath expr="//sheet" position="inside">
                 <span name="configuration" position="after">
-                    <group name="demo_app_configuration" title="Configuration" attrs="{'invisible': [('app', 'not in', ['curd'])]}">
+                    <group name="demo_app_configuration" title="Configuration" attrs="{'invisible': [('app', 'not in', ['curd', 'partner'])]}">
                         <group>
-                            <field name="th_auth_method" attrs="{'invisible': [('app', 'not in', ['curd'])], 'required': [('app', 'in', ['curd'])]}" force_save="1"/>
+                            <field name="th_auth_method" attrs="{'invisible': [('app', 'not in', ['curd', 'partner'])], 'required': [('app', 'in', ['curd', 'partner'])]}" force_save="1"/>
                             <field name="th_api_key" attrs="{'required': [('th_auth_method', '!=', False)]}" force_save="1"/>
                         </group>
                     </group>
