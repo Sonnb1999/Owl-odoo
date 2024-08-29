@@ -83,6 +83,6 @@ class BackLink(BaseModel):
 
 
 class PartnerData(BaseModel):
-    name: str | None = None
-    phone: str | None = None
+    name: str
+    phone: str
     id: int | None = None
