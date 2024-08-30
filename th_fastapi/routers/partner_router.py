@@ -2,17 +2,22 @@ from typing import Annotated
 from odoo.http import request
 from ..schemas import PartnerData
 from odoo.api import Environment
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from ..dependencies import fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
 from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
 
 router = APIRouter(tags=["partner"])
 
 
+def write_log(message: str):
+    print(message)
+
+
 @router.get("/")
-def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], env: Annotated[Environment, Depends(odoo_env)]):
+async def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], background_tasks: BackgroundTasks):
     if fastapi:
-        partners = env['res.partner'].th_get_partner(datas=None)
+        background_tasks.add_task(write_log, "Starting FastAPI")
+        partners = request.env['res.partner'].th_get_partner()
         return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
     else:
         raise HTTPException(
