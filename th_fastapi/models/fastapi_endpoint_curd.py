@@ -69,20 +69,20 @@ class FastapiEndpoint(models.Model):
             ] = auth_fast_endpoint
         return app
 
-    def _prepare_fastapi_app_params(self) -> dict[str, Any]:
-        params = super()._prepare_fastapi_app_params()
-        # Trả về hướng dẫn sử dụng api
-        if self.app == 'curd':
-            tags_metadata = params.get("openapi_tags", []) or []
-            tags_metadata.append({"name": "curd", "description": demo_router_doc})
-            params["openapi_tags"] = tags_metadata
-
-        if self.app == 'partner':
-            tags_metadata = params.get("openapi_tags", []) or []
-            tags_metadata.append({"name": "partner", "description": demo_router_doc})
-            params["openapi_tags"] = tags_metadata
-
-        return params
+    # def _prepare_fastapi_app_params(self) -> dict[str, Any]:
+    #     params = super()._prepare_fastapi_app_params()
+    #     # Trả về hướng dẫn sử dụng api
+    #     if self.app == 'curd':
+    #         tags_metadata = params.get("openapi_tags", []) or []
+    #         tags_metadata.append({"name": "curd", "description": demo_router_doc})
+    #         params["openapi_tags"] = tags_metadata
+    #
+    #     if self.app == 'partner':
+    #         tags_metadata = params.get("openapi_tags", []) or []
+    #         tags_metadata.append({"name": "partner", "description": demo_router_doc})
+    #         params["openapi_tags"] = tags_metadata
+    #
+    #     return params
 
     def write(self, vals):
         # cập nhập lại thông tin th_access_ids cho api

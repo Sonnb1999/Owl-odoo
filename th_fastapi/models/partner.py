@@ -23,12 +23,10 @@ class Partner(BaseModel):
             partner = super(Partner, self).create(datas)
         return partner
 
-    def th_update_partner(self, datas):
-        th_id = int(datas.get('id'))
-        datas.pop('id')
-        partner = self.browse(int(th_id)).exists().sudo().write(datas)
+    def th_update_partner(self, item_id, datas):
+        partner = self.browse(int(item_id)).exists().sudo().write(datas)
         return partner
 
-    def th_unlink_partner(self, datas):
-        return self.browse(int(datas.get('id'))).exists().sudo().unlink()
+    def th_unlink_partner(self, item_id):
+        return self.browse(int(item_id)).exists().sudo().unlink()
 

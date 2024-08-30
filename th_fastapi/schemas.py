@@ -85,4 +85,3 @@ class BackLink(BaseModel):
 class PartnerData(BaseModel):
     name: str
     phone: str
-    id: int | None = None
