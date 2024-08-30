@@ -6,10 +6,12 @@ class Partner(BaseModel):
     _inherit = 'res.partner'
 
     th_phone2 = fields.Char(string='Phone2')
+
     @api.model
-    def th_get_partner(self, datas):
-        partner = self.sudo().search([])
-        return partner
+    def th_get_partner(self, item_id=None):
+        if not item_id:
+            return self.sudo().search([])
+        return self.sudo().browse(item_id).exists()
 
     def th_create_partner(self, datas):
         domain = [

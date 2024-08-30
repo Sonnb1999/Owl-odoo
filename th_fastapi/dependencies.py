@@ -34,35 +34,6 @@ def odoo_env(company_id: Annotated[int | None, Depends(company_id)]) -> Environm
     yield env
 
 
-def authenticated_partner_impl() -> Partner:
-    """This method has to be overriden when you create your fastapi app
-    to declare the way your partner will be provided. In some case, this
-    partner will come from the authentication mechanism (ex jwt token) in other cases
-    it could comme from a lookup on an email received into an HTTP header ...
-    See the fastapi_endpoint_demo for an example"""
-
-
-def authenticated_partner_env(partner: Annotated[Partner, Depends(authenticated_partner_impl)]) -> Environment:
-    """Return an environment with the authenticated partner id in the context"""
-    return partner.with_context(authenticated_partner_id=partner.id).env
-
-
-def authenticated_partner(
-    partner: Annotated[Partner, Depends(authenticated_partner_impl)],
-    partner_env: Annotated[Environment, Depends(authenticated_partner_env)],
-) -> Partner:
-    """If you need to get access to the authenticated partner into your
-    endpoint, you can add a dependency into the endpoint definition on this
-    method.
-    This method is a safe way to declare a dependency without requiring a
-    specific implementation. It depends on `authenticated_partner_impl`. The
-    concrete implementation of authenticated_partner_impl has to be provided
-    when the FastAPI app is created.
-    This method return a partner into the authenticated_partner_env
-    """
-    return partner_env["res.partner"].browse(partner.id)
-
-
 # Gọi vào fastapi
 def fastapi_endpoint_impl() -> ThFastapi:
     """This method has to be overriden when you create your fastapi app
@@ -156,22 +127,6 @@ def accept_language(
 
 
 def accept_api_key(
-        accept_api_key: Annotated[
-            str | None,
-            Header(
-                alias="api-key",
-                description="The Accept-Language header is used to specify the key ",
-            ),
-        ] = None,
-) -> str:
-    """This dependency is used at application level to document the way the language
-    to use for the response is specified. The header is processed outside of the
-    fastapi app to initialize the odoo environment with the right language.
-    """
-    return accept_api_key
-
-
-def accept_api_auth(
         accept_api_key: Annotated[
             str | None,
             Header(

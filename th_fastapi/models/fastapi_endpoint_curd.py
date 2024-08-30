@@ -13,12 +13,8 @@ from odoo.addons.base.models.res_partner import Partner
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import APIKeyHeader
 
-from ..dependencies import (
-    authenticated_partner_from_basic_auth_user,
-    authenticated_partner_impl,
-    odoo_env, accept_api_key, fastapi_endpoint_impl
-)
-from ..routers import curd_router, demo_router_doc, partner_router
+from ..dependencies import (odoo_env, fastapi_endpoint_impl)
+from ..routers import curd_router, partner_router
 from fastapi.middleware.cors import CORSMiddleware
 from .. import dependencies
 

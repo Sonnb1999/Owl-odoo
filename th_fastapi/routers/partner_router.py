@@ -1,20 +1,18 @@
-# Copyright 2023 ACSONE SA/NV
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/LGPL).
 from typing import Annotated
 from odoo.http import request
 from ..schemas import PartnerData
-
+from odoo.api import Environment
 from fastapi import APIRouter, Depends, HTTPException, status
-from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
+from ..dependencies import fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
 from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
 
 router = APIRouter(tags=["partner"])
 
 
-@router.get("/partners")
-def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)]):
+@router.get("/")
+def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], env: Annotated[Environment, Depends(odoo_env)]):
     if fastapi:
-        partners = request.env['res.partner'].th_get_partner(datas=None)
+        partners = env['res.partner'].th_get_partner(datas=None)
         return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
     else:
         raise HTTPException(
@@ -26,6 +24,17 @@ def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_end
 def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], data: PartnerData):
     if fastapi:
         partners = request.env['res.partner'].th_create_partner(datas=data.dict())
+        return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
+        )
+
+
+@router.post("/{item_id}")
+def get_partners(item_id: int, fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], data: PartnerData):
+    if fastapi and item_id:
+        partners = request.env['res.partner'].th_get_partner(id=item_id)
         return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
     else:
         raise HTTPException(

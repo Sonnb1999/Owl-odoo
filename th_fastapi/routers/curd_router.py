@@ -1,22 +1,10 @@
-# Copyright 2023 ACSONE SA/NV
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/LGPL).
 """
 The curd router is a router that demonstrates how to use the fastapi
 integration with odoo.
 """
-import json
-import xmlrpc
-from typing import Annotated
 
-from fastapi.security import OAuth2PasswordBearer, OAuth2AuthorizationCodeBearer
-
-from odoo.http import request, Response
-from ..schemas import User, ResponseMessage, BackLink
-from odoo.addons.base.models.res_partner import Partner
-from fastapi import APIRouter, Depends, HTTPException, status
-from ..dependencies import authenticated_partner, fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
-from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
-
+from fastapi import APIRouter
+from fastapi.security import OAuth2PasswordBearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 router = APIRouter(tags=["curd"])
 
@@ -27,88 +15,88 @@ async def hello_word():
     return {"Hello": "World"}
 
 
-@router.get("/users")
-def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)]):
-    if fastapi:
-        # users = request.env['res.users'].sudo().search([])
-        users = request.env['res.users'].sudo().search([])
-        return [{'name': rec.name, 'display_name': rec.login} for rec in users]
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
-        )
-
-
-# limit item
-@router.get("/list_item")
-async def th_list_item(user_id: int, skip: int = 0, limit: int = 10, token: str = Depends(oauth2_scheme)):
-    # list_item = list(range(1, 101))
-    return {"token": token}
-
-
-@router.get("/items/")
-async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {"token": token}
-
-
-@router.post("/users/create")
-async def create_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
-    if user:
-        try:
-            user_create = request.env['res.users'].create({
-                'login': data.email,
-                'name': data.username
-            })
-        except Exception as e:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=str([e, user]),
-            )
-        if user_create:
-            return HTTPException(
-                status_code=status.HTTP_200_OK, detail="Đã tạo thành công!"
-            )
-
-
-@router.put("/users/update/{item_id}")
-async def update_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
-    if not data.email:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Vui lòng nhập email!')
-
-    if user:
-        try:
-            user_id = request.env['res.users'].sudo().search([('login', '=', data.email)], limit=1, order='id DESC')
-            if user_id:
-                user_id.write({
-                    'login': data.email,
-                    'name': data.username if data.username else user_id
-                })
-        except Exception as e:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=str(e),
-            )
-        return HTTPException(
-            status_code=status.HTTP_200_OK, detail="Đã chỉnh sửa thành công!"
-        )
-
-
-@router.delete("/users/delete")
-async def unlink_user(user: Annotated[Partner, Depends(authenticated_partner)], data: User):
-    if user:
-        try:
-            user_id = request.env['res.users'].sudo().search([('login', '=', data.email)], limit=1, order='id DESC')
-            if user_id:
-                user_id.unlink()
-        except Exception as e:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=str(e),
-            )
-        return HTTPException(
-            status_code=status.HTTP_200_OK, detail="Đã Xoá thành công!"
-        )
+# @router.get("/users")
+# def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)]):
+#     if fastapi:
+#         # users = request.env['res.users'].sudo().search([])
+#         users = request.env['res.users'].sudo().search([])
+#         return [{'name': rec.name, 'display_name': rec.login} for rec in users]
+#     else:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
+#         )
+#
+#
+# # limit item
+# @router.get("/list_item")
+# async def th_list_item(user_id: int, skip: int = 0, limit: int = 10, token: str = Depends(oauth2_scheme)):
+#     # list_item = list(range(1, 101))
+#     return {"token": token}
+#
+#
+# @router.get("/items/")
+# async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
+#     return {"token": token}
+#
+#
+# @router.post("/users/create")
+# async def create_user(user: Annotated[Partner, Depends(authenticated_fastapi_endpoint)], data: User):
+#     if user:
+#         try:
+#             user_create = request.env['res.users'].create({
+#                 'login': data.email,
+#                 'name': data.username
+#             })
+#         except Exception as e:
+#             raise HTTPException(
+#                 status_code=status.HTTP_400_BAD_REQUEST, detail=str([e, user]),
+#             )
+#         if user_create:
+#             return HTTPException(
+#                 status_code=status.HTTP_200_OK, detail="Đã tạo thành công!"
+#             )
+#
+#
+# @router.put("/users/update/{item_id}")
+# async def update_user(user: Annotated[Partner, Depends(authenticated_fastapi_endpoint)], data: User):
+#     if not data.email:
+#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Vui lòng nhập email!')
+#
+#     if user:
+#         try:
+#             user_id = request.env['res.users'].sudo().search([('login', '=', data.email)], limit=1, order='id DESC')
+#             if user_id:
+#                 user_id.write({
+#                     'login': data.email,
+#                     'name': data.username if data.username else user_id
+#                 })
+#         except Exception as e:
+#             raise HTTPException(
+#                 status_code=status.HTTP_400_BAD_REQUEST, detail=str(e),
+#             )
+#         return HTTPException(
+#             status_code=status.HTTP_200_OK, detail="Đã chỉnh sửa thành công!"
+#         )
+#
+#
+# @router.delete("/users/delete")
+# async def unlink_user(user: Annotated[Partner, Depends(authenticated_fastapi_endpoint)], data: User):
+#     if user:
+#         try:
+#             user_id = request.env['res.users'].sudo().search([('login', '=', data.email)], limit=1, order='id DESC')
+#             if user_id:
+#                 user_id.unlink()
+#         except Exception as e:
+#             raise HTTPException(
+#                 status_code=status.HTTP_400_BAD_REQUEST, detail=str(e),
+#             )
+#         return HTTPException(
+#             status_code=status.HTTP_200_OK, detail="Đã Xoá thành công!"
+#         )
 
 
 # @router.get("/check_cookie")
-# async def check_cookie(user: Annotated[Partner, Depends(authenticated_partner)]):
+# async def check_cookie(user: Annotated[Partner, Depends(authenticated_fastapi_endpoint)]):
 #     if user:
 #         try:
 #             setting = request.env['res.config.settings'].sudo().get_values()
@@ -128,7 +116,7 @@ async def unlink_user(user: Annotated[Partner, Depends(authenticated_partner)], 
 #
 #
 # @router.post("/backlink")
-# async def back_link(user: Annotated[Partner, Depends(authenticated_partner)], data: BackLink):
+# async def back_link(user: Annotated[Partner, Depends(authenticated_fastapi_endpoint)], data: BackLink):
 #     if user and data:
 #         create_user_click = False
 #         try:
