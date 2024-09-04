@@ -16,8 +16,8 @@ def write_log(message: str):
 @router.get("/")
 async def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], background_tasks: BackgroundTasks):
     if fastapi:
-        background_tasks.add_task(write_log, "Starting FastAPI")
         partners = request.env['res.partner'].th_get_partner()
+        background_tasks.add_task(write_log, "Starting FastAPI")
         return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
     else:
         raise HTTPException(
@@ -36,8 +36,8 @@ def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_end
         )
 
 
-@router.post("/{item_id}")
-def get_partners(item_id: int, fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], data: PartnerData):
+@router.get("/{item_id}")
+def get_partner(item_id: int, fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], data: PartnerData):
     if fastapi and item_id:
         partners = request.env['res.partner'].th_get_partner(id=item_id)
         return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
