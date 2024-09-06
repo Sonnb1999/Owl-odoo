@@ -4,8 +4,7 @@ import warnings
 from enum import Enum
 from typing import Annotated, Generic, List, Optional, TypeVar
 
-from pydantic import AliasChoices, BaseModel, ConfigDict, Field, computed_field
-
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, computed_field, EmailStr
 T = TypeVar("T")
 
 
@@ -65,3 +64,24 @@ class DemoExceptionType(str, Enum):
     missing_error = "MissingError"
     http_exception = "HTTPException"
     bare_exception = "BareException"
+
+
+class User(BaseModel):
+    username: str = None
+    email: str
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+class BackLink(BaseModel):
+    link_tracker: str
+    odoo_utm_params: dict
+    referrer: str = None
+    code: str = None
+
+
+class PartnerData(BaseModel):
+    name: str
+    phone: str
