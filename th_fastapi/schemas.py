@@ -85,3 +85,11 @@ class BackLink(BaseModel):
 class PartnerData(BaseModel):
     name: str
     phone: str
+
+
+class Message(BaseModel):
+    name: str
+    th_url: str
+    th_fastapi_id: str
+    th_data_response: str
+    th_state: str

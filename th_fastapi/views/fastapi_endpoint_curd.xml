@@ -28,6 +28,17 @@
                             </tree>
                         </field>
                     </page>
+                    <page string="Dữ liệu">
+                        <field name="th_save_log_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="th_url"/>
+                                <field name="th_date_response"/>
+                                <field name="th_state"/>
+                                <field name="th_data_response"/>
+                            </tree>
+                        </field>
+                    </page>
                 </notebook>
             </xpath>
 

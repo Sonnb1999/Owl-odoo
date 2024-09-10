@@ -1,25 +1,57 @@
 from typing import Annotated
 from odoo.http import request
-from ..schemas import PartnerData
+from ..schemas import PartnerData, Message
 from odoo.api import Environment
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Request, FastAPI
 from ..dependencies import fastapi_endpoint, odoo_env, authenticated_fastapi_endpoint
 from odoo.addons.fastapi.models.fastapi_endpoint import FastapiEndpoint as ThFastapi
-
+from passlib.context import CryptContext
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, computed_field, EmailStr
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import time
+app = FastAPI()
 router = APIRouter(tags=["partner"])
+app.include_router(router)
+
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+class TokenData(BaseModel):
+    username: str | None = None
 
 
-def write_log(message: str):
+def write_log(message: Message):
     print(message)
+
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    process_time = time.perf_counter() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
 
 
 @router.get("/")
 async def get_partners(fastapi: Annotated[ThFastapi, Depends(authenticated_fastapi_endpoint)], background_tasks: BackgroundTasks):
     if fastapi:
         partners = request.env['res.partner'].th_get_partner()
-        background_tasks.add_task(write_log, "Starting FastAPI")
-        return [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
+        data_send = [{'name': rec.name, 'display_name': rec.phone} for rec in partners]
+        message = {
+            'name': 'str',
+            'th_url': 'str',
+            'th_fastapi_id': fastapi.id,
+            'th_data_response': data_send,
+            'th_state': 'success',
+        }
+        background_tasks.add_task(write_log, message)
+        return data_send
     else:
+        background_tasks.add_task(write_log, "Không có log")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Không có quyền truy cập!"
         )

@@ -23,6 +23,7 @@ class FastapiEndpoint(models.Model):
     _inherit = "fastapi.endpoint"
 
     th_access_ids = fields.One2many('th.access.url', 'th_fastapi_id')
+    th_save_log_ids = fields.One2many('th.save.log', 'th_fastapi_id')
     th_auth_method = fields.Selection([("api_key", "Api Key")], string="Auth method")
     th_api_key = fields.Char(string="API Key")
     app = fields.Selection(selection_add=[('curd', 'CURD'), ('partner', 'Partner')], ondelete={"curd": "cascade", "partner": "cascade"})
@@ -47,6 +48,7 @@ class FastapiEndpoint(models.Model):
         # check các link website gọi vào API xem có được phép gọi vào api hay không.
         origins = self.th_access_ids.filtered_domain([('th_is_access', '=', True)]).mapped('th_url')
         app = super()._get_app()
+        # origins = ['*']
         app.add_middleware(
             CORSMiddleware,
             allow_origins=origins,
