@@ -1,0 +1,20 @@
+<odoo>
+    <record id="task_assign_wizard_view_form" model="ir.ui.view">
+        <field name="name">task_assign_wizard_view_form</field>
+        <field name="model">th.task.assign</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="th_selec_task_assign" widget="radio"/>
+                        <field name="th_task_id" invisible="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Xác nhận" name="th_action_task_assign_wizard" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Hủy" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

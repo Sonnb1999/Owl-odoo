@@ -9,8 +9,10 @@
     'license': 'LGPL-3',
     'depends': [
         'fastapi',
+        'base_automation',
     ],
     'data': [
+        'data/data_test.xml',
         "security/ir.model.access.csv",
         "views/fastapi_menu.xml",
         "views/fastapi_endpoint_curd.xml",

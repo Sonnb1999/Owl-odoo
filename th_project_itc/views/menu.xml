@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="th_menu_project_report" name="Báo cáo" parent="th_menu_main_pm" sequence="99" groups="th_project_itc.th_group_project_employee"/>
+    <menuitem id="th_menu_pro_report" name="Báo cáo sản xuất" parent="th_menu_project_report" action="th_report_l4b" sequence="1"/>
+</odoo>

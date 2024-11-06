@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="th_project_link_sheet" model="ir.ui.view">
+        <field name="name">th.project.link.sheet</field>
+        <field name="model">th.project.link.sheet</field>
+        <field name="arch" type="xml">
+            <form string="Share Project" create="0">
+                <sheet>
+                    <group>
+                        <field name="th_project_id" options="{'no_create':True,'no_open': True}" readonly="1"/>
+                    </group>
+                        <label class="fw-bold o_form_label" for="th_link_sheet" string="Link kế hoạch"/>
+                        <div>
+                            <field name="th_link_sheet" string="Link kế hoạch"/>
+                        </div>
+                </sheet>
+                <footer>
+<!--                    <button string="Lưu" name="action_save" data-hotkey="q"/>-->
+                    <button string="Thoát" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="th_project_link_sheet_action" model="ir.actions.act_window">
+        <field name="name">Link GG sheet</field>
+        <field name="res_model">th.project.link.sheet</field>
+        <field name="binding_model_id" ref="model_th_project_link_sheet"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

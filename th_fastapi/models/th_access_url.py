@@ -10,6 +10,7 @@ class ThAccessUrl(models.Model):
     """
 
     _name = "th.access.url"
+    _inherit = ["th.odoo.inherit"]
     _description = "Chấp thuận cors"
 
     name = fields.Char('Tên')

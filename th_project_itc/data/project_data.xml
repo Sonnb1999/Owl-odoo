@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Project Stages -->
+    <record id="project_project_stage_0" model="th.project.project.stage">
+        <field name="sequence">10</field>
+        <field name="name">L0 - Tiếp nhận và lên kế hoạch</field>
+    </record>
+
+    <record id="project_project_stage_1" model="th.project.project.stage">
+        <field name="sequence">15</field>
+        <field name="name">L1 - Phát triển</field>
+    </record>
+
+    <record id="project_project_stage_2" model="th.project.project.stage">
+        <field name="sequence">20</field>
+        <field name="name">L2 - UAT</field>
+<!--        <field name="fold" eval="True"/>-->
+    </record>
+
+    <record id="project_project_stage_3" model="th.project.project.stage">
+        <field name="sequence">25</field>
+        <field name="name">L3 - Go live</field>
+<!--        <field name="fold" eval="True"/>-->
+    </record>
+    <!-- Giai đoạn nhiệm vụ ITC -->
+
+</odoo>
