@@ -8,11 +8,12 @@ from odoo.exceptions import ValidationError
 class OdooIn(models.Model):
     _name = 'th.intermediate.table'
 
+    @api.model
     def th_function_create(self, data=None, model=None, **kwargs):
         try:
             vals = {
                 'name': 'tạo file',
-                'nodel': model,
+                'model': model,
                 'th_data': data,
                 'th_method': 'create'
                 'th_type'

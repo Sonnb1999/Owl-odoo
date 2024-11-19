@@ -4,7 +4,7 @@
         <field name="name">Base Automation: test rule on create</field>
         <field name="model_id" ref="model_th_access_url" />
         <field name="state">code</field>
-        <field name="code">model.search([]).th_function_create(data=None)</field>
+        <field name="code">model.search([]).th_function_create(data=record, model="SRM")</field>
         <field name="trigger">on_create</field>
         <field name="active">1</field>
     </record>
