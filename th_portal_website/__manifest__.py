@@ -26,6 +26,7 @@
         'views/portal_student_info_template.xml',
         'views/th_attachment_template.xml',
         'views/image_template.xml',
+        'views/image_template.xml',
     ],
 
     'assets': {
