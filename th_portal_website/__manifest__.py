@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'ABS Website Portal',
-    'author': "TH Company",
+    'author': "AUM Company",
     'summary': 'ABS Portal',
     'category': 'AUM Business System/ Website Portal',
     'website': 'https://aum.edu.vn/',
