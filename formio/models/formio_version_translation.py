@@ -10,14 +10,14 @@ class VersionTranslation(models.Model):
     _order = 'sequence ASC'
 
     sequence = fields.Integer(string='Sequence', default=1)
-    formio_version_id = fields.Many2one('formio.version', string='formio.js version', required=True, ondelete='cascade')
+    formio_version_id = fields.Many2one('formio.version', string='formio.js version', required=True)
     base_translation_id = fields.Many2one(
         'formio.translation', string='formio.js base translation', ondelete='set null'
     )
     base_translation_origin = fields.Boolean(
         string='Origin Base', default=False, compute='_compute_base_translation_origin', store=True
     )
-    base_translation_updated = fields.Boolean(string='Updated Base', default=False, readonly=True)
+    base_translation_updated = fields.Boolean(string='Updated Base', default=False)
     lang_id = fields.Many2one('res.lang', string='Language', required=True)
     source_property = fields.Text(
         string='Property',

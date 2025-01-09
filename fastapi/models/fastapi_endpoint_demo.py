@@ -24,7 +24,7 @@ class FastapiEndpoint(models.Model):
     _inherit = "fastapi.endpoint"
 
     app: str = fields.Selection(
-        selection_add=[("demo", "Demo Endpoint"), ('partner', 'Partner')], ondelete={"demo": "cascade", "partner": "cascade"}
+        selection_add=[("demo", "Demo Endpoint")], ondelete={"demo": "cascade"}
     )
     demo_auth_method = fields.Selection(
         selection=[("api_key", "Api Key"), ("http_basic", "HTTP Basic")],
@@ -32,14 +32,14 @@ class FastapiEndpoint(models.Model):
     )
 
     def _get_fastapi_routers(self) -> List[APIRouter]:
-        if self.app in ["demo", 'partner']:
+        if self.app == "demo":
             return [demo_router]
         return super()._get_fastapi_routers()
 
     @api.constrains("app", "demo_auth_method")
     def _valdiate_demo_auth_method(self):
         for rec in self:
-            if rec.app in ["demo", 'partner'] and not rec.demo_auth_method:
+            if rec.app == "demo" and not rec.demo_auth_method:
                 raise ValidationError(
                     _(
                         "The authentication method is required for app %(app)s",
@@ -55,7 +55,7 @@ class FastapiEndpoint(models.Model):
 
     def _get_app(self):
         app = super()._get_app()
-        if self.app in ["demo", 'partner']:
+        if self.app == "demo":
             # Here we add the overrides to the authenticated_partner_impl method
             # according to the authentication method configured on the demo app
             if self.demo_auth_method == "http_basic":
@@ -73,7 +73,7 @@ class FastapiEndpoint(models.Model):
 
     def _prepare_fastapi_app_params(self) -> dict[str, Any]:
         params = super()._prepare_fastapi_app_params()
-        if self.app in ["demo", 'partner']:
+        if self.app == "demo":
             tags_metadata = params.get("openapi_tags", []) or []
             tags_metadata.append({"name": "demo", "description": demo_router_doc})
             params["openapi_tags"] = tags_metadata

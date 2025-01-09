@@ -10,7 +10,7 @@ class ThAccessUrl(models.Model):
     """
 
     _name = "th.access.url"
-    _description = "Xử dụng cho việc chấp thuận cors"
+    _description = "Sử dụng cho việc chấp thuận cors"
 
     name = fields.Char('Tên')
     th_url = fields.Char('Địa chỉ trang web')
