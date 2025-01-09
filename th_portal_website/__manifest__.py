@@ -2,7 +2,7 @@
 {
     'name': 'ABS Website Portal',
     'author': "AUM Company",
-    'summary': 'ABS Portal',
+    'summary': 'ABS Portal tessttsfdfsdfsdfsfsfsfsfsdf',
     'category': 'AUM Business System/ Website Portal',
     'website': 'https://aum.edu.vn/',
     'license': 'LGPL-3',
