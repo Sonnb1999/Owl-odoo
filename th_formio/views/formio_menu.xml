@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright Nova Code (http://www.novacode.nl)
+See LICENSE file for full licensing details. -->
+
+<odoo>
+
+    <menuitem
+        id="formio.menu_formio_builder"
+        name="Form Builders"
+        parent="formio.menu_formio_root"
+        sequence="50"
+        groups="formio.group_formio_user"
+        action="formio.action_formio_builder"/>
+
+    <!--    setting -->
+    <menuitem
+            id="menu_th_translate"
+            name="Dịch thuật"
+            parent="formio.menu_formio_translation_root"
+            groups="base.group_no_one"
+            sequence="29"
+            action="th_formio.action_th_translate"
+    />
+
+    <menuitem
+            id="menu_th_formio"
+            name="Ẩn trường"
+            parent="formio.menu_formio_configuration"
+            sequence="30"
+            groups="base.group_no_one"
+            action="th_formio.action_th_formio"/>
+
+    <menuitem id="formio.menu_formio_translation" active="False"/>
+    <menuitem id="formio.menu_formio_translation_source" active="False"/>
+</odoo>

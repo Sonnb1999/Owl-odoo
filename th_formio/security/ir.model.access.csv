@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_th_partner_web,account_th_partner_web,model_th_partner_web,,1,1,1,1
+access_th_translate,access_th_translate,model_th_translate,,1,1,1,1
+access_th_custom_view_formio,access_th_custom_view_formio,model_th_custom_view_formio,,1,1,1,1
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="ir_cron_push_form_to_sambala" model="ir.cron">
+            <field name="name">Đẩy cơ hội lỗi từ form về</field>
+            <field name="model_id" ref="model_formio_form"/>
+            <field name="state">code</field>
+            <field name="code">model.th_get_form_to_push()</field>
+            
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=1, minute=0, second=0)"/>
+        </record>
+        
+        <record id="ir_cron_clean_old_pushed_forms" model="ir.cron">
+            <field name="name">Xóa dữ liệu form cũ đã đẩy về Sambala</field>
+            <field name="model_id" ref="model_formio_form"/>
+            <field name="state">code</field>
+            <field name="code">model.th_clean_old_pushed_forms()</field>
+            
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).replace(hour=2, minute=0, second=0)"/>
+        </record>
+    </data>
+</odoo>

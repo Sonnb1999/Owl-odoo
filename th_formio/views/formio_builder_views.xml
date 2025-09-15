@@ -1,0 +1,173 @@
+<!-- Inherit Form View to Modify it -->
+<odoo>
+    <record id="th_formio_builder_tree" model="ir.ui.view">
+        <field name="name">th_formio_builder_tree</field>
+        <field name="model">formio.builder</field>
+        <field name="inherit_id" ref="formio.view_formio_builder_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-success">state in ('CURRENT')</attribute>
+                <attribute name="decoration-muted">state in ('OBSOLETE')</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='formio_res_model_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='portal']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='auto_save']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="th_formio_builder_form" model="ir.ui.view">
+        <field name="name">th.formio.builder.form</field>
+        <field name="model">formio.builder</field>
+        <field name="inherit_id" ref="formio.view_formio_builder_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ['DRAFT','TEST','CURRENT', 'IMPLEMENTATION_REQUEST'])]}</attribute>
+            </xpath>
+<!--            <xpath expr="//button[@name='action_unlock']" position="attributes">-->
+<!--                <attribute name="groups">formio.group_formio_user_all_forms</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//button[@name='action_draft']" position="after">
+                <button name="action_test" type="object" string="Test"
+                        attrs="{'invisible': [('state', 'in', ['TEST', 'IMPLEMENTATION_REQUEST', 'CURRENT'])]}"
+                        confirm="Are you sure? This makes it possible to create and use these forms."
+                        class="btn"/>
+
+<!--                <button name="action_request_impl" type="object" string="Gửi phê duyệt"-->
+<!--                        attrs="{'invisible': [('state', 'in', ['IMPLEMENTATION_REQUEST', 'CURRENT', 'OBSOLETE'])]}"-->
+<!--                        confirm="Bạn có muốn gửi email tới người duyệt?"-->
+<!--                        class="btn-primary"/>-->
+            </xpath>
+            <xpath expr="//button[@name='action_unlock']" position="attributes">
+                <attribute name="confirm">Bạn có chắc chắn không? Nếu bạn mở khóa, tất cả các thay đổi sẽ được áp dụng và bạn sẽ phải chịu trách nhiệm cho hành động này.</attribute>
+            </xpath>
+
+
+            <xpath expr="//button[@name='action_current']" position="attributes">
+                <attribute name="groups">formio.group_formio_admin</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_formio']" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </xpath>
+
+             <xpath expr="//button[@name='action_view_forms']" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='%(formio.action_formio_builder_translation)d']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_formio']" position="before">
+                <button type="object" icon="fa-sign-out" name="action_preview_form" string="Preview Form" class="oe_stat_button"
+                        attrs="{'invisible': [('state', 'in', ['OBSOLETE', 'DRAFT'])]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='backend_use_obsolete']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='backend_use_draft']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='settings']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='portal_settings']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='translations']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='form_display_settings']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='form_permissions']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='formio_components_api']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='actions_api']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='extra_assets']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='javascript_options']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//page[@name='schema']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='uuid']" position="before">
+                    <field name="th_data_demo"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="th_action_date" readonly="1" groups="base.group_no_one"/>
+            </xpath>
+            <xpath expr="//field[@name='uuid']" position="after">
+                <field name="th_storage_location" attrs="{'readonly':[('state', 'in', ['IMPLEMENTATION_REQUEST', 'OBSOLETE','CURRENT'])]}" required="1"/>
+                <field name="th_domain_own" invisible="1"/>
+                <field name="th_ownership_unit_id" domain="th_domain_own" required="1" attrs="{'readonly':[('state', 'in', ['IMPLEMENTATION_REQUEST', 'OBSOLETE','CURRENT'])]}"/>
+                <field name="th_origin_id" no_open="1" attrs="{'readonly':[('state', 'in', ['IMPLEMENTATION_REQUEST', 'OBSOLETE','CURRENT'])], 'invisible': [('th_storage_location', '!=', 'apm')], 'required': [('th_storage_location', '==', 'apm')] }"/>
+                <field name="formio_res_model_id" invisible="1"/>
+            </xpath>
+             <xpath expr="//page[@name='public_settings']//div" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='current_uuid']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='is_locked']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='auto_save']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='public_settings']//group" position="replace">
+                 <group>
+                     <!--thêm trường th_set_cookie và  th_public_url-->
+                    <div class="text-muted mb-4" colspan="2">
+                        <i class="fa fa-info-circle" title="info"/> Embed the js snippet in the bottom of the web page
+                    </div>
+                     <group name="th_set_cookie" colspan="2" attrs="{'invisible': [('th_set_cookie', '=', False)]}">
+                         <field name="th_set_cookie" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
+                     </group>
+
+                     <div class="text-muted mb-4" colspan="2">
+                         <i class="fa fa-info-circle" title="info"/>
+                         Embed the code snippet where the form is placed
+                     </div>
+
+                     <group name="th_public_url" colspan="2" groups="base.group_no_one">
+                         <field name="th_public_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
+                     </group>
+
+                     <group name="public_url" colspan="2" attrs="{'invisible': [('public_url', '=', False)]}">
+                         <field name="public_url" widget="CopyClipboardChar" style="font-size: 1.0em;"/>
+                     </group>
+                     <group name="public_redirect_after_submit" string="Redirect After Submit">
+                         <field name="public_submit_done_url" string="Redirect URL" readonly="0"/>
+                     </group>
+                 </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

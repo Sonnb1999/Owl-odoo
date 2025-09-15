@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="th_custom_view_formio" model="ir.ui.view">
+        <field name="name">th.custom.view.formio.list</field>
+        <field name="model">th.custom.view.formio</field>
+        <field name="arch" type="xml">
+            <tree string="" editable="top">
+                <field name="th_key"/>
+                <field name="th_value"/>
+                <field name="state" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_formio_search" model="ir.ui.view">
+        <field name="name">th.custom.view.formio.search</field>
+        <field name="model">th.custom.view.formio</field>
+        <field name="arch" type="xml">
+            <search string="">
+                <field name="th_key" string="Trường"/>
+                <field name="th_value" string="Key"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_th_formio" model="ir.actions.act_window">
+        <field name="name">Ẩn trường</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">th.custom.view.formio</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="th_formio_search"/>
+        <field name="help" type="html">
+            <p class="">
+                Thêm trường để ẩn
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright Nova Code (http://www.novacode.nl)
+License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <data>
+        <record id="base.module_category_forms" model="ir.module.category">
+            <field name="description">Forms</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <record id="formio.group_formio_user" model="res.groups">
+            <field name="name">Cộng tác viên</field>
+            <field name="category_id" ref="base.module_category_forms_forms"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="formio.group_formio_user_all_forms" model="res.groups">
+            <field name="name">Nhân viên</field>
+            <field name="category_id" ref="base.module_category_forms_forms"/>
+            <field name="implied_ids" eval="[(4, ref('formio.group_formio_user'))]"/>
+        </record>
+
+        <record id="formio.group_formio_admin" model="res.groups">
+            <field name="name">Quản trị viên</field>
+            <field name="category_id" ref="base.module_category_forms_forms"/>
+	        <field name="implied_ids" eval="[(4, ref('formio.group_formio_user_all_forms'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="approve_form_admin_only" model="ir.model.access">
+            <field name="name">Approve Form: Admin Only</field>
+            <field name="model_id" ref="model_formio_form"/>
+            <field name="group_id" ref="formio.group_formio_admin"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+    </data>
+</odoo>
