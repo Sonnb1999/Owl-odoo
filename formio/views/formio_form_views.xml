@@ -7,35 +7,33 @@ See LICENSE file for full licensing details. -->
         <field name="name">formio.form.tree</field>
         <field name="model">formio.form</field>
         <field name="arch" type="xml">
-      <tree>
-<!--            <tree string="Form Submissions"-->
-<!--                  decoration-info="state in ('DRAFT')"-->
-<!--                  decoration-success="state in ('COMPLETE')"-->
-<!--                  decoration-muted="state in ('CANCEL')">-->
-<!--                <field name="id"/>-->
+            <tree string="Forms"
+                  decoration-info="state in ('DRAFT')"
+                  decoration-success="state in ('COMPLETE')"
+                  decoration-muted="state in ('CANCEL')">
+                <field name="id"/>
                 <field name="uuid" optional="hide"/>
                 <field name="sequence" optional="hide"/>
                 <field name="title"/>
                 <field name="builder_id"/>
-<!--                <field name="user_id"/>-->
-<!--                <field name="submission_partner_id"/>-->
-                <field name="submission_date" string="Ngày tạo"/>
-<!--                <field name="state"/>-->
+                <field name="user_id"/>
+                <field name="submission_partner_id"/>
+                <field name="submission_date"/>
+                <field name="state"/>
                 <button
                     string="Open Form"
                     name="action_view_formio"
                     type="object"
                     class="btn-sm btn-secondary"
                     icon="fa-arrow-right"/>
-<!--                <field name="portal_share" optional="show"/>-->
+                <field name="portal_share" optional="show"/>
                 <field name="public_share" optional="show"/>
-                <field name="public_access_rule_type" optional="hide"/>
-<!--                <field name="public_access" optional="show"/>-->
+                <field name="public_access" optional="show"/>
                 <field name="public_create" optional="hide"/>
-<!--                <field name="res_model_name" string="Resource Type" optional="show"/>-->
-<!--                <field name="initial_res_model_name" string="Resource Type #1" optional="hide"/>-->
-<!--                <field name="res_name" optional="show"/>-->
-<!--                <field name="res_partner_id" optional="show"/>-->
+                <field name="res_model_name" string="Resource Type" optional="show"/>
+                <field name="initial_res_model_name" string="Resource Type #1" optional="hide"/>
+                <field name="res_name" optional="show"/>
+                <field name="res_partner_id" optional="show"/>
                 <field name="write_date" optional="hide"/>
                 <field name="create_date" optional="hide"/>
             </tree>
@@ -133,7 +131,6 @@ See LICENSE file for full licensing details. -->
                 <field name="submission_partner_name"/>
                 <field name="submission_date"/>
                 <field name="submission_data"/>
-                <field name="iframe_resizer_body_margin"/>
             </formio_form>
         </field>
     </record>
@@ -144,99 +141,87 @@ See LICENSE file for full licensing details. -->
         <field name="arch" type="xml">
 	    <form string="Form">
                 <header>
-<!--                    <button-->
-<!--                        name="action_send_invitation_mail" type="object" string="Send Invitation Mail"-->
-<!--                        groups="formio.group_formio_user_all_forms"-->
-<!--                        attrs="{'invisible': ['|', '|', ('user_id', '=', False), ('id', '=', False), ('state', 'not in', ['PENDING', 'DRAFT'])]}"-->
-<!--                        class="btn-primary" invisible="1" />-->
-<!--                    <button-->
-<!--                       name="action_draft" type="object" string="Draft"-->
-<!--                        attrs="{'invisible': ['|', ('state', 'in', ['PENDING', 'DRAFT']), ('allow_force_update_state', '=', False)]}"/>-->
-<!--                    <button-->
-<!--                        name="action_complete" type="object" string="Complete"-->
-<!--                        attrs="{'invisible': ['|', ('state', '!=', 'DRAFT'), ('allow_force_update_state', '=', False)]}"/>-->
-<!--                    <button-->
-<!--                        name="action_cancel" type="object" string="Cancel"-->
-<!--                        attrs="{'invisible': ['|', ('state', 'in', ['CANCEL']), ('allow_force_update_state', '=', False)]}"/>-->
-<!--                    <button-->
-<!--                        name="action_copy_to_current" type="object" string="Copy To Current"-->
-<!--                        attrs="{'invisible': ['|', ('allow_copy', '=', False), ('copy_to_current', '=', False)]}"/>-->
-<!--                    <field name="state" widget="statusbar" statusbar_visible="PENDING,DRAFT,COMPLETE,CANCEL" groups="base.group_no_one"/>-->
+                    <button
+                        name="action_send_invitation_mail" type="object" string="Send Invitation Mail"
+                        groups="formio.group_formio_user_all_forms"
+                        attrs="{'invisible': ['|', '|', ('user_id', '=', False), ('id', '=', False), ('state', 'not in', ['PENDING', 'DRAFT'])]}"
+                        class="btn-primary"/>
+                    <button
+                       name="action_draft" type="object" string="Draft"
+                        attrs="{'invisible': ['|', ('state', 'in', ['PENDING', 'DRAFT']), ('allow_force_update_state', '=', False)]}"/>
+                    <button
+                        name="action_complete" type="object" string="Complete"
+                        attrs="{'invisible': ['|', ('state', '!=', 'DRAFT'), ('allow_force_update_state', '=', False)]}"/>
+                    <button
+                        name="action_cancel" type="object" string="Cancel"
+                        attrs="{'invisible': ['|', ('state', 'in', ['CANCEL']), ('allow_force_update_state', '=', False)]}"/>
+                    <button 
+                        name="action_copy_to_current" type="object" string="Copy To Current" 
+                        attrs="{'invisible': ['|', ('allow_copy', '=', False), ('copy_to_current', '=', False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="PENDING,DRAFT,COMPLETE,CANCEL"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_formio" type="object" string="Form"
                                 class="oe_stat_button" icon="fa-rocket" aria-label="Form"/>
-<!--                        <button name="action_open_res_act_window" type="object"-->
-<!--                                attrs="{'invisible': ['|', ('res_id', '=', False), ('res_id', '=', 0)]}"-->
-<!--                                class="oe_stat_button" icon="fa-link" aria-label="Resource">-->
-<!--                            <field name="res_name"/>-->
-<!--                        </button>-->
+                        <button name="action_open_res_act_window" type="object"
+                                attrs="{'invisible': ['|', ('res_id', '=', False), ('res_id', '=', 0)]}"
+                                class="oe_stat_button" icon="fa-link" aria-label="Resource">
+                            <field name="res_name"/>
+                        </button>
                     </div>
-                    <div class="oe_title mb24">
-                        <h1>
-                            <field name="title" readonly="1" class="text-break" placeholder="Insert a meaningful title here" attrs="{'invisible': [('builder_id', '=', False)]}"/>
-                        </h1>
-                    </div>
+                    <h1><field name="title" attrs="{'invisible': [('builder_id', '=', False)]}"/></h1>
                     <group name="general">
                         <group>
                             <field name="res_name" string="Resource" attrs="{'invisible': [('res_name', '=', False)]}"/>
-                            <field name="builder_id" attrs="{'readonly': [('id', '!=', False)]}" invisible="1" domain="builder_id_domain"/>
-                            <field name="builder_id_domain" invisible="1"/>
+                            <field name="builder_id" attrs="{'readonly': [('id', '!=', False)]}"/>
                         </group>
                         <group>
                             <field name="id" attrs="{'invisible': [('id', '=', False)]}"/>
-                            <field name="uuid"/>
+                            <field name="uuid" attrs="{'invisible': [('id', '=', False)]}"/>
                             <field name="res_id" invisible="1"/>
                             <field name="allow_force_update_state" invisible="1"/>
                         </group>
                     </group>
                     <group name="assignment_and_submission">
-<!--                        attrs="{'invisible': [('builder_id', '=', False)]}"-->
-                        <group>
+                        <group attrs="{'invisible': [('builder_id', '=', False)]}">
                             <field name="invitation_mail_template_id" invisible="1"/>
-<!--                            <field name="user_id" groups="formio.group_formio_user_all_forms" attrs="{'readonly': [('state', 'in', ['COMPLETE', 'CANCEL'])]}"/>-->
-<!--                            <field name="submission_partner_id" string="Submission Partner"/>-->
-                            <field name="submission_user_id" groups="base.group_no_one" string="Submission User" />
-                            <field name="submission_date" string="Ngày tạo"/>
+                            <field name="user_id" groups="formio.group_formio_user_all_forms" attrs="{'readonly': [('state', 'in', ['COMPLETE', 'CANCEL'])]}"/>
+                            <field name="submission_partner_id" string="Submission Partner"/>
+                            <field name="submission_user_id" groups="base.group_erp_manager" string="Submission User"/>
+                            <field name="submission_date" string="Submission Date"/>
                         </group>
                     </group>
                     <notebook>
-<!--                        <page string="Settings" name="settings" groups="base.group_no_one">-->
-<!--                            <group>-->
-<!--                                <group name="access_settings" string="Access">-->
-<!--                                    <field name="public_share" groups="formio.group_formio_admin"/>-->
-<!--                                    <field name="public_access_rule_type"/>-->
-<!--                                    <field name="public_access_date_from"-->
-<!--                                           groups="formio.group_formio_admin"-->
-<!--                                           attrs="{'invisible': [('public_access_rule_type', '!=', 'time_interval')],'required': [('public_share', '=', True)]}"/>-->
-<!--                                    <label for="public_access_interval_number" string="Public Access Expire" attrs="{'invisible': [('public_access_rule_type', '!=', 'time_interval')]}"/>-->
-<!--                                    <div attrs="{'invisible': [('public_access_rule_type', '!=', 'time_interval')]}">-->
-<!--                                        <field name="public_access_interval_number" class="oe_inline" groups="formio.group_formio_admin" attrs="{'required': [('public_share', '=', True)]}"/>-->
-<!--                                        <field name="public_access_interval_type" class="oe_inline ml-2" groups="formio.group_formio_admin" attrs="{'required': [('public_share', '=', True)]}"/>-->
-<!--                                    </div>-->
-<!--                                    <field name="public_access" groups="formio.group_formio_admin"/>-->
-<!--                                </group>-->
-<!--                                <group name="actions_settings" string="Actions">-->
-<!--                                    <field name="allow_copy"/>-->
-<!--                                    <field name="copy_to_current" invisible="1" attrs="{'invisible': [('allow_copy', '=', False)]}"/>-->
-<!--                                </group>-->
-<!--                                <group string="Display" name="display_settings" col="4">-->
-<!--                                    <field name="show_title" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>-->
-<!--                                    <field name="show_id" string="Show ID" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>-->
-<!--                                    <field name="show_state" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>-->
-<!--                                    <field name="show_uuid" string="Show UUID" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>-->
-<!--                                    <field name="show_user_metadata" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>-->
-<!--                                </group>-->
-<!--                            </group>-->
-<!--                        </page>-->
-                        <page string="Data" name="data" groups="formio.group_formio_admin" invisible="1">
+                        <page string="Settings" name="settings">
+                            <group>
+                                <group name="access_settings" string="Access">
+                                    <field name="public_share" groups="formio.group_formio_admin"/>
+                                    <field name="public_access_date_from" groups="formio.group_formio_admin" attrs="{'required': [('public_share', '=', True)]}"/>
+                                    <label for="public_access_interval_number" string="Public Access Expire"/>
+                                    <div>
+                                        <field name="public_access_interval_number" class="oe_inline" groups="formio.group_formio_admin" attrs="{'required': [('public_share', '=', True)]}"/>
+                                        <field name="public_access_interval_type" class="oe_inline ml-2" groups="formio.group_formio_admin" attrs="{'required': [('public_share', '=', True)]}"/>
+                                    </div>
+                                    <field name="public_access" groups="formio.group_formio_admin"/>
+                                </group>
+                                <group name="actions_settings" string="Actions">
+                                    <field name="allow_copy"/>
+                                    <field name="copy_to_current" invisible="1" attrs="{'invisible': [('allow_copy', '=', False)]}"/>
+                                </group>
+                                <group string="Display" name="display_settings" col="4">
+                                    <field name="show_title" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>
+                                    <field name="show_id" string="Show ID" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>
+                                    <field name="show_state" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>
+                                    <field name="show_uuid" string="Show UUID" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>
+                                    <field name="show_user_metadata" groups="formio.group_formio_admin" attrs="{'invisible': [('builder_id', '=', False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Data" name="data" groups="formio.group_formio_admin">
                             <field name="submission_data" attrs="{'readonly': ['|', ('id', '!=', False), ('readonly_submission_data', '=', True)]}"/>
                             <field name="readonly_submission_data" invisible="1"/>
                             <field name="id" invisible="1"/>
-                        </page>
-                        <page string="Dữ liệu" name="data">
-                            <field name="th_submission_data" readonly="1" />
                         </page>
                     </notebook>
                 </sheet>
@@ -253,7 +238,7 @@ See LICENSE file for full licensing details. -->
         <field name="name">formio.form.search</field>
         <field name="model">formio.form</field>
         <field name="arch" type="xml">
-            <search string="Form Submissions">
+            <search string="Forms">
                 <field name="id"/>
                 <field name="title"/>
                 <field name="builder_id"/>
@@ -295,7 +280,7 @@ See LICENSE file for full licensing details. -->
     
     <!-- actions -->
     <record id="action_formio_form" model="ir.actions.act_window">
-        <field name="name">Form Submissions</field>
+        <field name="name">Forms</field>
         <field name="res_model">formio.form</field>
         <field name="view_mode">tree,kanban,form,formio_form</field>
     </record>

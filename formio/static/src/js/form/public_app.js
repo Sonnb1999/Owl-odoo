@@ -6,6 +6,27 @@ import { OdooFormioForm } from "./formio_form.js";
 // can't import from "@odoo/owl", because not an @odoo-module
 const { mount, whenReady, xml } = owl;
 
+/**
+FIX / WORKAROUND browser compatibility error.
+Wrap Component class and bootstrap into functions and put template in
+Component env.
+
+OS/platform: browsers
+=====================
+- Mac: Safari 13.1
+- iOS: Safari, Firefox
+
+Error
+=====
+- Safari 13.1 on Mac experiences error:
+  unexpected token '='. expected an opening '(' before a method's parameter list
+- iOS not debugged yet. Dev Tools not present in browser.
+
+More info
+=========
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Browser_compatibility
+*/
+
 function app() {
     class App extends OdooFormioForm {
         static template = xml`
@@ -23,7 +44,6 @@ function app() {
             this.submitUrl = '/formio/public/form/' + this.formUuid + '/submit';
             this.wizardSubmitUrl = '/formio/public/form/';
             this.apiUrl = '/formio/public/form/' + this.formUuid + '/api';
-            this.apiValidationUrl = this.apiUrl + '/validation';
         }
 
         publicSubmitDoneUrl() {
@@ -63,5 +83,4 @@ async function start() {
     await whenReady();
     app();
 }
-
 start();

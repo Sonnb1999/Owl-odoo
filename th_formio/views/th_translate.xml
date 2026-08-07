@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="th_translate_view_list" model="ir.ui.view">
+        <field name="name">th_translate_view_list</field>
+        <field name="model">th.translate</field>
+        <field name="arch" type="xml">
+            <tree string="" editable="top">
+                <field name="lang_id"/>
+                <field name="th_key"/>
+                <field name="th_value"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_translate_search" model="ir.ui.view">
+        <field name="name">th.translate.search</field>
+        <field name="model">th.translate</field>
+        <field name="arch" type="xml">
+            <search string="">
+                <field name="th_key" string="Từ khóa"/>
+                <field name="th_value" string="Dịch"/>
+                <field name="lang_id" string="Ngôn ngữ"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_th_translate" model="ir.actions.act_window">
+        <field name="name">Dịch thuật</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">th.translate</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="th_translate_search"/>
+        <field name="help" type="html">
+                <p class="">
+                    Add a new plan
+                </p>
+            </field>
+    </record>
+</odoo>

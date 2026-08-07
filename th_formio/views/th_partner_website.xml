@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright Nova Code (http://www.novacode.nl)
+See LICENSE file for full licensing details. -->
+
+<odoo>
+    <record id="th_view_university_web_tree" model="ir.ui.view">
+        <field name="name">university.web.tree</field>
+        <field name="model">th.ownership.unit</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_view_university_web_form" model="ir.ui.view">
+        <field name="name">university.web.form</field>
+        <field name="model">th.ownership.unit</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Các website đối tác">
+                            <field name="th_partner_website_ids">
+                                <tree string="Websites" editable="bottom">
+                                    <field name="name" width="70%"/>
+                                    <field name="th_state_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_partner_website" model="ir.actions.act_window">
+        <field name="name">Website đối tác</field>
+        <field name="res_model">th.ownership.unit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('th_view_university_web_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('th_view_university_web_form')})]"/>
+    </record>
+
+</odoo>

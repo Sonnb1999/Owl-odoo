@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_formio_form_inherit" model="ir.ui.view">
+        <field name="name">formio.form.inherit</field>
+        <field name="model">formio.form</field>
+        <field name="inherit_id" ref="formio.view_formio_form_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="th_sambala_pushed" groups="formio.group_formio_admin" readonly="1"/>
+            </xpath>
+            <xpath expr="//page[@name='data']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Lỗi Form" groups="base.group_no_one">
+                    <group>
+                        <field name="th_sambala_push_error" groups="formio.group_formio_admin" readonly="1"/>
+                        <field name="th_error_form"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo> 

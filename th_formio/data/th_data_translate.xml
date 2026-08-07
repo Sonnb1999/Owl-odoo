@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    <data noupdate="1">-->
+    <record id="i18n_nl_VN_data" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Data</field>
+        <field name="th_value">Dữ liệu</field>
+    </record>
+
+    <record id="Drag_and_drop_a_form_component" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Drag and Drop a form component</field>
+        <field name="th_value">Kéo và thả một thành phần form</field>
+    </record>
+
+    <record id="preview" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Preview</field>
+        <field name="th_value">Xem trước</field>
+    </record>
+
+    <record id="save" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Save</field>
+        <field name="th_value">Lưu</field>
+    </record>
+
+    <record id="cancel" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Cancel</field>
+        <field name="th_value">Hủy</field>
+    </record>
+
+    <record id="remove" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Remove</field>
+        <field name="th_value">Xóa</field>
+    </record>
+
+    <record id="text_field_component" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Text Field Component</field>
+        <field name="th_value">Trường văn bản</field>
+    </record>
+
+    <!--    Display-->
+
+    <record id="i18n_nl_VN_display" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Display</field>
+        <field name="th_value">Hiển thị</field>
+    </record>
+
+    <record id="Default" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Default</field>
+        <field name="th_value">Mặc định</field>
+    </record>
+
+    <record id="Collapsible" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Collapsible</field>
+        <field name="th_value">Có thể thu gọn</field>
+    </record>
+
+    <record id="Input_Mask_Placeholder_Char" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Input Mask Placeholder Char</field>
+        <field name="th_value">Giữ chỗ</field>
+    </record>
+
+    <record id="i18n_nl_VN_Label" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Label</field>
+        <field name="th_value">Tiêu đề</field>
+    </record>
+
+    <record id="i18n_nl_VN_Label_Position" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Label Position</field>
+        <field name="th_value">Vị trí tiêu đề</field>
+    </record>
+    <record id="Widget_Type" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Widget Type</field>
+        <field name="th_value">Loại tiện ích</field>
+    </record>
+
+    <record id="placeholder" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Placeholder</field>
+        <field name="th_value">Ký tự tạm thời</field>
+    </record>
+
+    <record id="Type_to_search" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Type to search</field>
+        <field name="th_value">Tìm kiếm</field>
+    </record>
+
+    <record id="Top" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Top</field>
+        <field name="th_value">Trên</field>
+    </record>
+
+    <record id="Left_aligned" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Left (Left aligned)</field>
+        <field name="th_value">Trái (Căn lề trái)</field>
+    </record>
+
+    <record id="Left_l_aligned" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Left (Left-aligned)</field>
+        <field name="th_value">Trái (Căn trái)</field>
+    </record>
+
+    <record id="Left_r_aligned" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Left (Right-aligned)</field>
+        <field name="th_value">Trái (Căn phải)</field>
+    </record>
+
+    <record id="right_l_aligned" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Right (Left-aligned)</field>
+        <field name="th_value">Phải (Căn lề trái)</field>
+    </record>
+
+    <record id="right_r_aligned" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Right (Right-aligned)</field>
+        <field name="th_value">Phải (Căn lề phải)</field>
+    </record>
+
+    <record id="bottom" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Bottom</field>
+        <field name="th_value">Dưới</field>
+    </record>
+
+    <record id="validation" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Validation</field>
+        <field name="th_value">Xác thức</field>
+    </record>
+
+    <record id="label_width" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Label Width</field>
+        <field name="th_value">Chiều rộng tiêu đề</field>
+    </record>
+
+    <record id="label_margin" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Label Margin</field>
+        <field name="th_value">Căn lề</field>
+    </record>
+
+    <record id="label_margin" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Label Margin</field>
+        <field name="th_value">Căn lề</field>
+    </record>
+
+    <record id="label_margin" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Label Margin</field>
+        <field name="th_value">Căn lề</field>
+    </record>
+
+    <record id="description" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Description</field>
+        <field name="th_value">Mô tả</field>
+    </record>
+
+    <record id="tooltip" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Tooltip</field>
+        <field name="th_value">Công cụ hỗ trợ</field>
+    </record>
+
+    <record id="prefix" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Prefix</field>
+        <field name="th_value">Tiền tố</field>
+    </record>
+
+    <record id="suffix" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Suffix</field>
+        <field name="th_value">Hậu tố</field>
+    </record>
+
+    <record id="widget" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Widget</field>
+        <field name="th_value">Tiện ích</field>
+    </record>
+
+    <record id="input_field" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Input Field</field>
+        <field name="th_value">Trường nhập liệu</field>
+    </record>
+
+    <record id="input_field" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Input Field</field>
+        <field name="th_value">Trường nhập liệu</field>
+    </record>
+
+    <record id="calendar_picker" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Calendar Picker</field>
+        <field name="th_value">Lịch</field>
+    </record>
+
+    <record id="Input_Mask" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Input Mask</field>
+        <field name="th_value">Quy tắc nhập trường</field>
+    </record>
+
+    <record id="Display_Mask" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Display Mask</field>
+        <field name="th_value">Hiển thị quy tắc</field>
+    </record>
+
+    <record id="apply_mask_on" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Apply Mask On</field>
+        <field name="th_value">Áp dụng quy tắc</field>
+    </record>
+
+    <record id="change" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Change</field>
+        <field name="th_value">Thay đổi</field>
+    </record>
+
+    <record id="change" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Change</field>
+        <field name="th_value">Thay đổi</field>
+    </record>
+    <record id="Unique_Options" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Unique Options</field>
+        <field name="th_value">Tùy chọn duy nhất</field>
+    </record>
+
+    <record id="allow_Multiple_masks" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Allow Multiple Masks</field>
+        <field name="th_value">Cho phép nhiều quy tắc</field>
+    </record>
+
+    <record id="custom_css_class" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Custom CSS Class</field>
+        <field name="th_value">Tùy chỉnh css bằng class</field>
+    </record>
+
+    <record id="Tab_Index" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Tab Index</field>
+        <field name="th_value">Tab dòng</field>
+    </record>
+
+    <record id="autocomplete" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Autocomplete</field>
+        <field name="th_value">Tự hoàn thành(mặc định không)</field>
+    </record>
+
+    <record id="hidden" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Hidden</field>
+        <field name="th_value">Ẩn trường</field>
+    </record>
+
+    <record id="hidden_label" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Hide Label</field>
+        <field name="th_value">Ẩn tiêu đề</field>
+    </record>
+
+    <record id="show_word_counter" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Show Word Counter</field>
+        <field name="th_value">Hiển thị bộ đến từ</field>
+    </record>
+
+    <record id="show_character_counter" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Show Character Counter</field>
+        <field name="th_value">Hiển thị bộ đến ký tự</field>
+    </record>
+
+    <record id="hide_input" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Hide Input</field>
+        <field name="th_value">Ẩn từ(password)</field>
+    </record>
+
+    <record id="hide_input" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Hide Input</field>
+        <field name="th_value">Ẩn từ(password)</field>
+    </record>
+
+    <record id="disable_on_Form_Invalid" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Disable on Form Invalid</field>
+        <field name="th_value">Hiển thị khi hoàn thành form</field>
+    </record>
+
+    <record id="initial_focus" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Initial Focus</field>
+        <field name="th_value">Focus trường</field>
+    </record>
+
+    <record id="allow_spellcheck" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Allow Spellcheck</field>
+        <field name="th_value">Kiểm tra chính tả</field>
+    </record>
+
+    <record id="disabled" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Disabled</field>
+        <field name="th_value">Chỉ đọc</field>
+    </record>
+
+    <record id="table_view" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Table View</field>
+        <field name="th_value">Dạng bản</field>
+    </record>
+
+    <record id="modal_edit" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Modal Edit</field>
+        <field name="th_value">Chỉnh sửa phương thức</field>
+    </record>
+
+    <record id="submit" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Submit</field>
+        <field name="th_value">Nút ấn</field>
+    </record>
+
+    <record id="action" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Action</field>
+        <field name="th_value">Hoạt động</field>
+    </record>
+
+    <record id="save_on_enter" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Save On Enter</field>
+        <field name="th_value">Nhấn nút khi ấn Enter</field>
+    </record>
+
+    <record id="theme" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Theme</field>
+        <field name="th_value">Màu</field>
+    </record>
+
+    <record id="primary" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Primary</field>
+        <field name="th_value">Màu xanh da trời</field>
+    </record>
+
+    <record id="secondary" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Secondary</field>
+        <field name="th_value">Màu xám</field>
+    </record>
+
+    <record id="info" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">info</field>
+        <field name="th_value">Màu xanh ngọc</field>
+    </record>
+
+    <record id="success" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Success</field>
+        <field name="th_value">Màu lá cây</field>
+    </record>
+
+    <record id="danger" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Danger</field>
+        <field name="th_value">Màu đỏ</field>
+    </record>
+
+    <record id="warning" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Warning</field>
+        <field name="th_value">Màu cam</field>
+    </record>
+
+    <record id="complete" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">complete</field>
+        <field name="th_value">Hoàn thành</field>
+    </record>
+
+    <record id="size" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Size</field>
+        <field name="th_value">Kích thước</field>
+    </record>
+
+    <record id="small" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Small</field>
+        <field name="th_value">Nhỏ</field>
+    </record>
+
+    <record id="medium" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Medium</field>
+        <field name="th_value">Trung bình</field>
+    </record>
+
+    <record id="large" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Large</field>
+        <field name="th_value">Lớn</field>
+    </record>
+
+    <record id="block_button" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Block Button</field>
+        <field name="th_value">100% chiều ngang</field>
+    </record>
+
+    <record id="left_icon" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Left Icon</field>
+        <field name="th_value">Icon bên trái</field>
+    </record>
+
+    <record id="right_icon" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Right Icon</field>
+        <field name="th_value">Icon bên phải</field>
+    </record>
+
+    <record id="shortcut" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Shortcut</field>
+        <field name="th_value">Shortcut</field>
+    </record>
+
+    <!--data-->
+    <record id="multiple_values" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Multiple Values</field>
+        <field name="th_value">Nhiều giá trị</field>
+    </record>
+
+    <record id="Default_Value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Default Value</field>
+        <field name="th_value">Giá trị mặc định</field>
+    </record>
+
+    <record id="Data_Source_Type" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Data Source Type</field>
+        <field name="th_value">Loại nguồn dữ liệu</field>
+    </record>
+
+    <record id="Data_Source_URL" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Data Source URL</field>
+        <field name="th_value">URL nguồn dữ liệu</field>
+    </record>
+
+    <record id="Lazy_Load_Data" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Lazy Load Data</field>
+        <field name="th_value">Tải dữ liệu theo đợt</field>
+    </record>
+
+    <record id="Request_Headers" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Request Headers</field>
+        <field name="th_value">Headers yêu cầu</field>
+    </record>
+
+<record id="Data_Path" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Data Path</field>
+        <field name="th_value">Đường dẫn dữ liệu</field>
+    </record>
+
+    <record id="The_object_path_to_the_iterable_items" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">The object path to the iterable items.</field>
+        <field name="th_value">Đường dẫn đối tượng đến các mục có thể lặp lại</field>
+    </record>
+
+    <record id="Storage_Type" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Storage Type</field>
+        <field name="th_value">Loại lưu trữ</field>
+    </record>
+
+    <record id="Storage_Type" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Storage Type</field>
+        <field name="th_value">Loại lưu trữ</field>
+    </record>
+
+    <record id="ID_Path" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">ID Path</field>
+        <field name="th_value">ID</field>
+    </record>
+
+    <record id="Value_Property" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Value Property</field>
+        <field name="th_value">Dữ liệu</field>
+    </record>
+
+    <record id="The_selected_item_is_property_to_save" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">The selected item's property to save.</field>
+        <field name="th_value">Thuộc tính của mục đã chọn</field>
+    </record>
+
+    <record id="Disable_limiting_response" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Disable limiting response</field>
+        <field name="th_value">Tắt phản hồi giới hạn</field>
+    </record>
+
+    <record id="Search_Query_Name" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Search Query Name</field>
+        <field name="th_value">Tên truy vấn tìm kiếm</field>
+    </record>
+
+    <record id="Name_of_URL_query_parameter" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Name of URL query parameter</field>
+        <field name="th_value">Tên tham số truy vấn URL</field>
+    </record>
+
+    <record id="Search_request_delay" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Search request delay</field>
+        <field name="th_value">Trì hoãn yêu cầu tìm kiếm</field>
+    </record>
+
+    <record id="The_delay_in_seconds_before_the_search_request_is_sent" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">The delay (in seconds) before the search request is sent.</field>
+        <field name="th_value">Độ trễ (tính bằng giây) trước khi yêu cầu tìm kiếm được gửi.</field>
+    </record>
+
+    <record id="Item_Template" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Item Template</field>
+        <field name="th_value">Mẫu</field>
+    </record>
+
+    <record id="Filter_Query" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Filter Query</field>
+        <field name="th_value">Lọc truy vấn</field>
+    </record>
+
+    <record id="The_filter_query_for_results" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">The filter query for results.</field>
+        <field name="th_value">Truy vấn bộ lọc cho kết quả</field>
+    </record>
+
+    <record id="Sort_Query" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Sort Query</field>
+        <field name="th_value">Sắp xếp truy vấn</field>
+    </record>
+
+    <record id="The_sort_query_for_results" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">The sort query for results</field>
+        <field name="th_value">Sắp xếp kết quả truy vấn</field>
+    </record>
+
+    <record id="Maximum_number_of_items_to_view_per_page_of_results" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Maximum number of items to view per page of results.</field>
+        <field name="th_value">Số lượng mục tối đa để xem trên mỗi trang kết quả.</field>
+    </record>
+
+    <record id="Refresh_Options_On" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Refresh Options On</field>
+        <field name="th_value">Làm mới theo</field>
+    </record>
+
+    <record id="Refresh_Options_On" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Refresh Options On</field>
+        <field name="th_value">Làm mới theo</field>
+    </record>
+
+    <record id="Refresh_Options_On_Blur" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Refresh Options On Blur</field>
+        <field name="th_value">Làm mới khi làm mờ</field>
+    </record>
+
+    <record id="Clear_Value_On_Refresh_Options" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Clear Value On Refresh Options</field>
+        <field name="th_value">Xóa giá trị trên các tùy chọn làm mới</field>
+    </record>
+
+    <record id="Enable_Static_Search" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Enable Static Search</field>
+        <field name="th_value">Bật tìm kiếm tĩnh</field>
+    </record>
+
+    <record id="Disable_Options_Refresh_When_Scrolling" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Disable Options Refresh When Scrolling</field>
+        <field name="th_value">Tắt tùy chọn Làm mới khi cuộn</field>
+    </record>
+
+    <record id="Search_Threshold" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Search Threshold</field>
+        <field name="th_value">Ngưỡng tìm kiếm</field>
+    </record>
+
+    <record id="Formio_Authenticate" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Formio Authenticate</field>
+        <field name="th_value">Xác thực form</field>
+    </record>
+
+    <record id="Read_Only_Value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Read Only Value</field>
+        <field name="th_value">Chỉ đọc</field>
+    </record>
+
+    <record id="Disables_Storing_Request_Result_in_the_Cache" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Disables Storing Request Result in the Cache</field>
+        <field name="th_value">Vô hiệu hóa việc lưu trữ kết quả yêu cầu trong bộ đệm</field>
+    </record>
+
+    <record id="Disables_Storing_Request_Result_in_the_Cache" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Disables Storing Request Result in the Cache</field>
+        <field name="th_value">Vô hiệu hóa việc lưu trữ kết quả yêu cầu trong bộ đệm</field>
+    </record>
+
+    <record id="Use_exact_search" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Use exact search</field>
+        <field name="th_value">Sử dụng tìm kiếm chính xác</field>
+    </record>
+
+    <record id="persistent" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Persistent</field>
+        <field name="th_value">Lưu trữ</field>
+    </record>
+
+    <record id="none" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">None</field>
+        <field name="th_value">Không</field>
+    </record>
+
+    <record id="input_format" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Input Format</field>
+        <field name="th_value">Định dạng đầu ra</field>
+    </record>
+
+    <record id="plain" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Plain</field>
+        <field name="th_value">Cơ bản</field>
+    </record>
+
+    <record id="raw" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Raw (Insecure)</field>
+        <field name="th_value">Dữ nguyên(Không an toàn)</field>
+    </record>
+    <record id="Protected" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Protected</field>
+        <field name="th_value">Được bảo vệ</field>
+    </record>
+    <record id="Database_Index" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Database Index</field>
+        <field name="th_value">Chỉ mục cơ sở dữ liệu</field>
+    </record>
+
+    <record id="text_case" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Text Case</field>
+        <field name="th_value">Dữ liệu</field>
+    </record>
+
+    <record id="Mixed" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Mixed (Allow upper and lower case)</field>
+        <field name="th_value">Cả chữ hoa và chữ thường</field>
+    </record>
+
+    <record id="Uppercase" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Uppercase</field>
+        <field name="th_value">Chữ hoa</field>
+    </record>
+
+    <record id="Lowercase" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Lowercase</field>
+        <field name="th_value">Chữ thường</field>
+    </record>
+
+    <record id="truncate_multiple_spaces" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Truncate Multiple Spaces</field>
+        <field name="th_value">Xóa khoảng trắng thừa</field>
+    </record>
+
+    <record id="Encrypted" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Encrypted</field>
+        <field name="th_value">Mã hóa</field>
+    </record>
+
+    <record id="redraw_on" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Redraw On</field>
+        <field name="th_value">Làm mới theo</field>
+    </record>
+    <record id="any_change" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Any Change</field>
+        <field name="th_value">Bất kì thay đổi nào</field>
+    </record>
+
+    <record id="clear_value_when_hidden" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Clear Value When Hidden</field>
+        <field name="th_value">Xóa dữ liệu khi bị ẩn</field>
+    </record>
+
+    <record id="Custom_Default_Value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Custom Default Value</field>
+        <field name="th_value">Tùy chỉnh dữ liệu mặc định</field>
+    </record>
+    <record id="The_following_variables_are_available_in_all_scripts" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">The following variables are available in all scripts.</field>
+        <field name="th_value">Các biến sau đây có sẵn trong tất cả các tập lệnh.</field>
+    </record>
+
+    <record id="Calculated_Value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Calculated Value</field>
+        <field name="th_value">Tính giá trị</field>
+    </record>
+    <record id="Calculate_Value_on_server" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Calculate Value on server</field>
+        <field name="th_value">Tính giá trị trên máy chủ</field>
+    </record>
+
+    <record id="Allow_Manual_Override_of_Calculated_Value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Allow Manual Override of Calculated Value</field>
+        <field name="th_value">Cho phép ghi đè thủ công giá trị được tính</field>
+    </record>
+
+    <!--    validation-->
+    <record id="This_component_should_Display" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">This component should Display:</field>
+        <field name="th_value">Thành phần này sẽ hiển thị:</field>
+    </record>
+
+    <record id="validate_on" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Validate On</field>
+        <field name="th_value">Xác thực bật khi</field>
+    </record>
+
+    <record id="required" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Required</field>
+        <field name="th_value">Trường bắt buộc điền</field>
+    </record>
+
+    <record id="unique" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Unique</field>
+        <field name="th_value">không được trùng</field>
+    </record>
+
+    <record id="minimum_Length" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Minimum Length</field>
+        <field name="th_value">Số ký tự tối thiểu</field>
+    </record>
+
+    <record id="maximum_Length" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Maximum Length</field>
+        <field name="th_value">Số ký tự tối đa</field>
+    </record>
+
+    <record id="minimum_w_Length" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Minimum Word Length</field>
+        <field name="th_value">Số từ tối thiểu</field>
+    </record>
+
+    <record id="maximum_w_Length" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Maximum Word Length</field>
+        <field name="th_value">Số từ tối đa</field>
+    </record>
+    <record id="Error_Label" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Error Label</field>
+        <field name="th_value">Tiêu đề lỗi</field>
+    </record>
+
+    <record id="Custom_Error_Message" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Custom Error Message</field>
+        <field name="th_value">Tùy chỉnh thông báo lỗi</field>
+    </record>
+    <record id="Regular_Expression_Pattern" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Regular Expression Pattern</field>
+        <field name="th_value">Mẫu biểu thức chính quy</field>
+    </record>
+    <record id="Custom_Validation" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Custom Validation</field>
+        <field name="th_value">Xác thực tùy chỉnh</field>
+    </record>
+    <record id="JSONLogic_Validation" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">JSONLogic Validation</field>
+        <field name="th_value">Xác thực JSONLogic</field>
+    </record>
+    <record id="Custom_Errors" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Custom Errors</field>
+        <field name="th_value">Chỉnh sửa thông báo lỗi</field>
+    </record>
+
+    <!--    api-->
+    <record id="Property_Name" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Property Name</field>
+        <field name="th_value">Key(Để nối tới bản dữ liệu)</field>
+    </record>
+    <record id="Field_Tags" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Field Tags</field>
+        <field name="th_value">Tags</field>
+    </record>
+    <record id="Custom_Properties" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Custom Properties</field>
+        <field name="th_value">Thuộc tính tùy chỉnh</field>
+    </record>
+    <record id="key" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Key</field>
+        <field name="th_value">Khóa</field>
+    </record>
+
+    <record id="value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Value</field>
+        <field name="th_value">Giá trị</field>
+    </record>
+
+    <record id="add_another" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Add Another</field>
+        <field name="th_value">Thêm mới</field>
+    </record>
+
+    <!--  điều kiện  -->
+    <record id="conditional" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Conditional</field>
+        <field name="th_value">Điều kiện</field>
+    </record>
+    <record id="Simple" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Simple</field>
+        <field name="th_value">Cơ bản</field>
+    </record>
+    <record id="Simple" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Simple</field>
+        <field name="th_value">Điều kiện nâng cao</field>
+    </record>
+
+    <record id="Advanced_Conditions" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Advanced Conditions</field>
+        <field name="th_value">Điều kiện hiển thị</field>
+    </record>
+
+    <record id="true" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">True</field>
+        <field name="th_value">Có</field>
+    </record>
+
+    <record id="false" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">False</field>
+        <field name="th_value">Không</field>
+    </record>
+
+    <record id="When_the_form_component" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">When the form component:</field>
+        <field name="th_value">Khi có sự kiện:</field>
+    </record>
+
+    <record id="Has_the_value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Has the value:</field>
+        <field name="th_value">Có giá trị:</field>
+    </record>
+
+    <!--        logic-->
+    <record id="Advanced_Logic" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Advanced Logic</field>
+        <field name="th_value">Logic nâng cao</field>
+    </record>
+
+    <record id="Advanced" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Advanced</field>
+        <field name="th_value">Trình nâng cao</field>
+    </record>
+
+    <record id="logic" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Logic</field>
+        <field name="th_value">Logic</field>
+    </record>
+
+    <record id="Configured" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Configured</field>
+        <field name="th_value">Cài đặt</field>
+    </record>
+    <record id="add_logic" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Add Logic</field>
+        <field name="th_value">Thêm Logic</field>
+    </record>
+    <record id="Advanced_Logic_Configured" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Advanced Logic Configured</field>
+        <field name="th_value">Cấu hình logic nâng cao</field>
+    </record>
+
+    <!--Layout-->
+    <record id="layout" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Layout</field>
+        <field name="th_value">Trình bày</field>
+    </record>
+    <record id="HTML_Attributes" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">HTML Attributes</field>
+        <field name="th_value">Thuộc tính HTML</field>
+    </record>
+    <record id="Attribute_Name" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Attribute Name</field>
+        <field name="th_value">Tên thuộc tính</field>
+    </record>
+    <record id="Attribute_Value" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Attribute Value</field>
+        <field name="th_value">Giá trị</field>
+    </record>
+    <record id="Add_Attribute" model="th.translate">
+        <field name="lang_id" ref="base.lang_vi_VN"/>
+        <field name="th_key">Add Attribute</field>
+        <field name="th_value">Thêm thuộc tính</field>
+    </record>
+    <!--    </data>-->
+</odoo>
