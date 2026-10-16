@@ -67,6 +67,21 @@ class ThCollaboratorContractTemplate(models.Model):
         'th_template_id', 'th_contract_type_id', string='Loại hợp đồng')
     th_field_line_ids = fields.One2many(
         'th.collaborator.contract.template.line', 'th_template_id', string='Cấu hình đục lỗ')
+    th_sign_config_id = fields.Many2one('th.collaborator.sign.config', string='Cấu hình ký số bên A')
+
+    def _get_sign_box(self):
+        """Vị trí ô chữ ký bên A (toạ độ PDF) vẽ trên màn hình thiết kế."""
+        self.ensure_one()
+        line = self.th_field_line_ids.filtered('th_is_signature')[:1]
+        if not line:
+            raise UserError(_('Template "%s" chưa vẽ ô chữ ký bên A trên màn hình thiết kế.') % self.name)
+        return {
+            'page': line.th_page,
+            'x': line.th_pos_x,
+            'y': line.th_pos_y,
+            'width': line.th_width,
+            'height': line.th_height,
+        }
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -322,15 +337,18 @@ class ThCollaboratorContractTemplate(models.Model):
                 'height': line.th_height,
                 'font_size': line.th_font_size,
                 'field_name': line.th_field_name or False,
+                'is_signature': line.th_is_signature,
             } for line in self.th_field_line_ids.filtered('th_is_manual')],
         }
 
     def th_save_designer_boxes(self, boxes):
         """Lưu các ô vẽ tay từ màn hình thiết kế: cập nhật ô cũ, tạo ô mới, xoá ô đã bỏ.
 
-        :param boxes: list dict {id, page, x, y, width, height, font_size, field_name}
+        :param boxes: list dict {id, page, x, y, width, height, font_size, field_name, is_signature}
         """
         self.ensure_one()
+        if len([box for box in boxes if box.get('is_signature')]) > 1:
+            raise UserError(_('Mỗi template chỉ có 1 ô chữ ký bên A.'))
         Line = self.env['th.collaborator.contract.template.line']
         valid_fields = dict(Line._get_mappable_field_selection())
         manual_lines = self.th_field_line_ids.filtered('th_is_manual')
@@ -338,7 +356,9 @@ class ThCollaboratorContractTemplate(models.Model):
         kept_ids = set()
         new_vals = []
         for index, box in enumerate(boxes, start=1):
-            field_name = box.get('field_name')
+            is_signature = bool(box.get('is_signature'))
+            # Ô chữ ký không đục lỗ chữ nên bỏ trường thông tin
+            field_name = False if is_signature else box.get('field_name')
             if field_name and field_name not in valid_fields:
                 raise UserError(_('Trường "%s" không được phép đục lỗ.') % field_name)
             vals = {
@@ -349,6 +369,7 @@ class ThCollaboratorContractTemplate(models.Model):
                 'th_height': max(float(box.get('height') or 0), 1),
                 'th_font_size': max(float(box.get('font_size') or 0), 0),
                 'th_field_name': field_name or False,
+                'th_is_signature': is_signature,
                 'sequence': 100 + index,
             }
             line = manual_lines.filtered(lambda rec: rec.id == box.get('id'))

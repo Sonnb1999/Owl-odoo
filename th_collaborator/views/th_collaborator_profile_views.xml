@@ -10,6 +10,7 @@
                             confirm="Các CTV đã được gửi mail trước đó sẽ nhận lại mail. Bạn có chắc muốn gửi?"/>
                     <button name="th_action_download_company_contracts" type="object" string="Tải HĐ công ty (ZIP)"/>
                     <button name="th_action_download_self_contracts" type="object" string="Tải HĐ CTV (ZIP)"/>
+                    <button name="th_action_sign_contract_batch" type="object" string="Ký số hàng loạt"/>
                 </header>
                 <field name="name"/>
                 <field name="th_phone"/>
@@ -20,6 +21,7 @@
                        optional="show"/>
                 <field name="th_mail_sent_date" optional="show"/>
                 <field name="th_last_upload_date" optional="show"/>
+                <field name="th_is_signed" optional="show" widget="boolean_toggle" readonly="1"/>
                 <field name="state" widget="badge"
                        decoration-info="state == 'sent'" decoration-success="state == 'uploaded'"/>
             </tree>
@@ -48,7 +50,12 @@
                     <button name="th_action_create_contract" type="object" string="Tạo lại hợp đồng"
                             attrs="{'invisible': ['|', ('th_contract_template_id', '=', False),
                                     ('th_filled_attachment_id', '=', False)]}"
-                            confirm="Hợp đồng tạo trước đó sẽ được thay bằng bản mới theo thông tin hiện tại. Tiếp tục?"/>
+                            confirm="Hợp đồng tạo trước đó (kể cả chữ ký số bên A nếu đã ký) sẽ được thay bằng bản mới chưa ký theo thông tin hiện tại. Tiếp tục?"/>
+                    <field name="th_sign_config_id" invisible="1"/>
+                    <field name="th_is_signed" invisible="1"/>
+                    <button name="th_action_sign_contract" type="object" string="Ký số bên A" class="btn-primary"
+                            attrs="{'invisible': ['|', '|', ('th_sign_config_id', '=', False),
+                                    ('th_filled_attachment_id', '=', False), ('th_is_signed', '=', True)]}"/>
                     <button name="th_action_regenerate_token" type="object" string="Tạo lại link upload"
                             confirm="Link cũ đã gửi cho CTV sẽ không dùng được nữa. Tiếp tục?"/>
                     <field name="state" widget="statusbar"/>
@@ -73,6 +80,9 @@
                             <field name="th_filled_attachment_id" invisible="1"/>
                             <field name="th_mail_sent_date" readonly="1"/>
                             <field name="th_last_upload_date" readonly="1"/>
+                            <field name="th_signed_date" readonly="1" attrs="{'invisible': [('th_is_signed', '=', False)]}"/>
+                            <field name="th_signer_id" readonly="1" attrs="{'invisible': [('th_is_signed', '=', False)]}"/>
+                            <field name="th_signer_cert_info" readonly="1" attrs="{'invisible': [('th_is_signed', '=', False)]}"/>
                         </group>
                     </group>
                     <notebook>

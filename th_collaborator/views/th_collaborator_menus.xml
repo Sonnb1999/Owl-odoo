@@ -13,6 +13,8 @@
               action="th_collaborator_contract_type_action" sequence="10"/>
     <menuitem id="th_collaborator_contract_template_menu" name="Template hợp đồng" parent="th_collaborator_config_menu"
               action="th_collaborator_contract_template_action" sequence="20"/>
+    <menuitem id="th_collaborator_sign_config_menu" name="Cấu hình ký số" parent="th_collaborator_config_menu"
+              action="th_collaborator_sign_config_action" sequence="25"/>
     <menuitem id="th_collaborator_mail_template_menu" name="Mẫu email hợp đồng" parent="th_collaborator_config_menu"
               action="th_collaborator_mail_template_action" sequence="30"/>
 </odoo>

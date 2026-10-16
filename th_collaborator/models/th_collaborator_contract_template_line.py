@@ -41,6 +41,8 @@ class ThCollaboratorContractTemplateLine(models.Model):
     th_field_name = fields.Selection(selection='_get_mappable_field_selection', string='Trường thông tin CTV')
     # Ô vẽ tay trên màn hình thiết kế (PDF không có sẵn ô form); toạ độ theo hệ PDF, đơn vị point
     th_is_manual = fields.Boolean(string='Ô vẽ tay')
+    # Ô vị trí chữ ký số bên A: không đục lỗ chữ, chỉ truyền toạ độ cho nhà cung cấp chữ ký
+    th_is_signature = fields.Boolean(string='Ô chữ ký bên A')
     th_page = fields.Integer(string='Trang')
     th_pos_x = fields.Float(string='X')
     th_pos_y = fields.Float(string='Y')

@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
+import base64
+import io
 import logging
 import os
 import re
 import secrets
+
+from cryptography import x509
+from cryptography.hazmat.backends import default_backend
+from cryptography.x509.oid import NameOID
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.fields import Command
 from odoo.tools import email_normalize
 from odoo.tools.mimetypes import guess_mimetype
+from odoo.tools.pdf import PdfFileReader
 
 _logger = logging.getLogger(__name__)
 
@@ -61,6 +68,11 @@ class ThCollaboratorProfile(models.Model):
         'th.collaborator.contract.template', string='Template hợp đồng', tracking=True)
     th_filled_attachment_id = fields.Many2one(
         'ir.attachment', string='Hợp đồng đã đục lỗ', copy=False)
+    th_sign_config_id = fields.Many2one(related='th_contract_template_id.th_sign_config_id')
+    th_is_signed = fields.Boolean(string='Bên A đã ký số', copy=False, tracking=True)
+    th_signed_date = fields.Datetime(string='Thời gian ký số', copy=False)
+    th_signer_id = fields.Many2one('res.users', string='Người ký số', copy=False)
+    th_signer_cert_info = fields.Char(string='Chứng thư số', copy=False)
 
     _sql_constraints = [
         ('th_phone_normalized_uniq', 'unique(th_phone_normalized)',
@@ -188,8 +200,24 @@ class ThCollaboratorProfile(models.Model):
         self.ensure_one()
         return self.th_contract_template_id._get_field_values(self)
 
+    def _replace_company_contract(self, new_attachment):
+        """Thay hợp đồng do hệ thống tạo trong Hợp đồng công ty bằng file mới, giữ các file khác."""
+        self.ensure_one()
+        old_attachment = self.th_filled_attachment_id
+        commands = [Command.link(new_attachment.id)]
+        if old_attachment:
+            commands.insert(0, Command.unlink(old_attachment.id))
+        self.write({'th_company_attachment_ids': commands, 'th_filled_attachment_id': new_attachment.id})
+        # Bản cũ chưa từng gửi mail thì xoá hẳn; đã gửi thì giữ vì mail trong chatter còn tham chiếu
+        if old_attachment and not self.env['mail.message'].search_count(
+                [('attachment_ids', 'in', old_attachment.ids)]):
+            old_attachment.unlink()
+
     def _create_company_contract(self):
-        """Đục lỗ template với thông tin CTV và lưu vào Hợp đồng công ty, thay bản đã tạo trước đó."""
+        """Đục lỗ template với thông tin CTV và lưu vào Hợp đồng công ty, thay bản đã tạo trước đó.
+
+        Bản mới chưa có chữ ký số nên trạng thái ký được đặt lại.
+        """
         Attachment = self.env['ir.attachment']
         missing_template = self.filtered(lambda rec: not rec.th_contract_template_id)
         if missing_template:
@@ -199,22 +227,15 @@ class ThCollaboratorProfile(models.Model):
             pdf_data = rec.th_contract_template_id._render_filled_pdf(rec._get_contract_field_values())
             file_name = re.sub(r'[\\/:*?"<>|]+', '_', '%s_%s_%s.pdf' % (
                 rec.th_phone_normalized or '', rec.name or '', rec.th_contract_template_id.name or ''))
-            old_attachment = rec.th_filled_attachment_id
-            new_attachment = Attachment.create({
+            rec._replace_company_contract(Attachment.create({
                 'name': file_name,
                 'raw': pdf_data,
                 'mimetype': 'application/pdf',
                 'res_model': rec._name,
                 'res_id': rec.id,
-            })
-            commands = [Command.link(new_attachment.id)]
-            if old_attachment:
-                commands.insert(0, Command.unlink(old_attachment.id))
-            rec.write({'th_company_attachment_ids': commands, 'th_filled_attachment_id': new_attachment.id})
-            # Bản cũ chưa từng gửi mail thì xoá hẳn; đã gửi thì giữ vì mail trong chatter còn tham chiếu
-            if old_attachment and not self.env['mail.message'].search_count(
-                    [('attachment_ids', 'in', old_attachment.ids)]):
-                old_attachment.unlink()
+            }))
+            rec.write({'th_is_signed': False, 'th_signed_date': False, 'th_signer_id': False,
+                       'th_signer_cert_info': False})
             rec.message_post(body=_('Đã tạo hợp đồng "%s" từ template "%s".') % (
                 file_name, rec.th_contract_template_id.name))
 
@@ -233,6 +254,11 @@ class ThCollaboratorProfile(models.Model):
         if missing_sender:
             raise UserError(_('Các CTV sau chưa có người phụ trách hoặc người phụ trách chưa có email:\n%s')
                             % '\n'.join(missing_sender.mapped('name')))
+        # Template yêu cầu bên A ký số thì phải ký xong mới được gửi cho CTV
+        missing_sign = self.filtered(lambda rec: rec.th_sign_config_id and not rec.th_is_signed)
+        if missing_sign:
+            raise UserError(_('Hợp đồng của các CTV sau chưa được bên A ký số:\n%s')
+                            % '\n'.join(missing_sign.mapped('name')))
         # CTV chưa có hợp đồng công ty nhưng đã chọn template thì tự tạo trước khi gửi;
         # đã có thì gửi đúng bản người dùng đã tạo/kiểm tra, không đục lỗ lại
         self.filtered(lambda rec: not rec.th_company_attachment_ids)._create_company_contract()
@@ -261,6 +287,160 @@ class ThCollaboratorProfile(models.Model):
         self.ensure_one()
         self._create_company_contract()
         return True
+
+    # ------------------------------------------------------------------
+    # Ký số bên A (không phụ thuộc nhà cung cấp, xem th.collaborator.sign.config)
+    # ------------------------------------------------------------------
+
+    def _check_can_sign(self):
+        """Kiểm tra các hợp đồng đã sẵn sàng để bên A ký số."""
+        errors = []
+        for rec in self:
+            config = rec.th_sign_config_id
+            if not config:
+                errors.append(_('%s: template hợp đồng chưa cấu hình ký số.') % rec.name)
+            elif not config._get_provider_sign_mode():
+                errors.append(_('%s: chưa chọn nhà cung cấp chữ ký số hoặc chưa cài module nhà cung cấp.') % rec.name)
+            elif not rec.th_filled_attachment_id:
+                errors.append(_('%s: chưa tạo hợp đồng từ template.') % rec.name)
+            elif rec.th_is_signed:
+                errors.append(_('%s: hợp đồng đã được ký.') % rec.name)
+        if errors:
+            raise UserError(_('Không thể ký số:\n%s') % '\n'.join(errors))
+        for template in self.mapped('th_contract_template_id'):
+            template._get_sign_box()
+
+    @api.model
+    def _get_pdf_page_count(self, pdf_data):
+        """Số trang PDF, dùng cho tuỳ chọn ký nháy tất cả các trang."""
+        return PdfFileReader(io.BytesIO(pdf_data), strict=False).getNumPages()
+
+    def _get_sign_action(self):
+        """Ký các hợp đồng: nhà cung cấp kiểu server ký ngay, kiểu client chuyển xuống trình duyệt."""
+        self._check_can_sign()
+        server_records = self.filtered(lambda rec: rec.th_sign_config_id._get_provider_sign_mode() == 'server')
+        for rec in server_records:
+            pdf_data = rec.th_filled_attachment_id.raw
+            result = rec.th_sign_config_id._sign_pdf_server(
+                pdf_data, rec.th_contract_template_id._get_sign_box(), self._get_pdf_page_count(pdf_data))
+            rec._save_signed_contract(result['signed_pdf'], result.get('cert_base64'))
+        client_records = self - server_records
+        if client_records:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'th_collaborator.sign_contracts',
+                'params': {'profile_ids': client_records.ids},
+            }
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'success',
+                'message': _('Đã ký số %s hợp đồng.') % len(server_records),
+                'next': {'type': 'ir.actions.act_window_close'},
+            },
+        }
+
+    def th_action_sign_contract(self):
+        """Nút ký số hợp đồng bên A trên form CTV."""
+        self.ensure_one()
+        return self._get_sign_action()
+
+    def th_action_sign_contract_batch(self):
+        """Ký số hàng loạt hợp đồng các CTV được chọn trên list view."""
+        return self._get_sign_action()
+
+    def th_get_sign_payloads(self):
+        """Dữ liệu để trình duyệt ký số (nhà cung cấp kiểu client): file PDF, vị trí ô ký, tuỳ chọn hiển thị."""
+        self._check_can_sign()
+        configs = {}
+        items = []
+        for rec in self:
+            config = rec.th_sign_config_id
+            # Khoá dạng chuỗi để serialize được qua cả JSON-RPC lẫn XML-RPC
+            config_key = str(config.id)
+            if config_key not in configs:
+                configs[config_key] = {
+                    'provider': config.th_provider,
+                    'options': config._get_client_sign_options(),
+                }
+            pdf_data = rec.th_filled_attachment_id.raw
+            items.append({
+                'profile_id': rec.id,
+                'name': rec.name,
+                'attachment_id': rec.th_filled_attachment_id.id,
+                'pdf_base64': base64.b64encode(pdf_data).decode(),
+                'page_count': self._get_pdf_page_count(pdf_data),
+                'sign_box': rec.th_contract_template_id._get_sign_box(),
+                'config_id': config_key,
+            })
+        return {'configs': configs, 'items': items}
+
+    @api.model
+    def th_save_signed_contracts(self, results):
+        """Nhận PDF đã ký từ trình duyệt và lưu thay hợp đồng chưa ký.
+
+        :param results: list dict {profile_id, attachment_id, signed_pdf_base64, cert_base64}
+        :return: dict {'signed': số hợp đồng đã lưu, 'skipped': tên CTV bị bỏ qua}
+        """
+        profiles = self.browse([result.get('profile_id') for result in results]).exists()
+        profiles.check_access_rights('write')
+        profiles.check_access_rule('write')
+        profile_by_id = {profile.id: profile for profile in profiles}
+        signed_count = 0
+        skipped = []
+        for result in results:
+            rec = profile_by_id.get(result.get('profile_id'))
+            if not rec:
+                continue
+            # Hợp đồng bị tạo lại trong lúc đang ký thì bản vừa ký không còn đúng nội dung
+            if rec.th_is_signed or rec.th_filled_attachment_id.id != result.get('attachment_id'):
+                skipped.append(rec.name)
+                continue
+            rec._save_signed_contract(base64.b64decode(result.get('signed_pdf_base64') or ''),
+                                      result.get('cert_base64'))
+            signed_count += 1
+        return {'signed': signed_count, 'skipped': skipped}
+
+    @api.model
+    def _get_cert_info(self, cert_base64):
+        """Tóm tắt chứng thư số (tên, serial, hạn dùng) để lưu vết người ký."""
+        if not cert_base64:
+            return False
+        try:
+            cert = x509.load_der_x509_certificate(base64.b64decode(cert_base64), default_backend())
+        except ValueError:
+            _logger.warning('Cannot parse signer certificate', exc_info=True)
+            return False
+        common_names = cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
+        return '%s | Serial: %x | Hạn: %s' % (
+            common_names[0].value if common_names else cert.subject.rfc4514_string(),
+            cert.serial_number, cert.not_valid_after.strftime('%d/%m/%Y'))
+
+    def _save_signed_contract(self, signed_pdf, cert_base64=False):
+        """Lưu PDF đã ký số vào Hợp đồng công ty và ghi nhận thông tin ký."""
+        self.ensure_one()
+        if guess_mimetype(signed_pdf) != 'application/pdf' or b'/ByteRange' not in signed_pdf:
+            raise UserError(_('File trả về cho CTV %s không phải PDF đã ký số.') % self.name)
+        stem = os.path.splitext(self.th_filled_attachment_id.name or self.name or 'hop_dong')[0]
+        attachment = self.env['ir.attachment'].create({
+            'name': '%s_da_ky.pdf' % stem,
+            'raw': signed_pdf,
+            'mimetype': 'application/pdf',
+            'res_model': self._name,
+            'res_id': self.id,
+        })
+        self._replace_company_contract(attachment)
+        cert_info = self._get_cert_info(cert_base64)
+        self.write({
+            'th_is_signed': True,
+            'th_signed_date': fields.Datetime.now(),
+            'th_signer_id': self.env.user.id,
+            'th_signer_cert_info': cert_info,
+        })
+        self.message_post(body=_('Bên A đã ký số hợp đồng "%s"%s.') % (
+            attachment.name, (' (%s)' % cert_info) if cert_info else ''))
+        _logger.info('Collaborator %s: contract signed by user %s', self.id, self.env.uid)
 
     def th_action_preview_contract(self):
         """Xem trước hợp đồng đục lỗ với thông tin hiện tại của CTV."""

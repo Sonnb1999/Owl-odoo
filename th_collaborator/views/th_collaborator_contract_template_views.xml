@@ -42,6 +42,7 @@
                             <field name="th_detected_field_names"/>
                         </group>
                         <group>
+                            <field name="th_sign_config_id" options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="th_mail_template_id" required="1"
                                    options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="th_contract_type_ids" widget="many2many_tags"
@@ -56,6 +57,7 @@
                                     <field name="th_pdf_field_name" readonly="1"/>
                                     <field name="th_field_name"/>
                                     <field name="th_is_manual" readonly="1"/>
+                                    <field name="th_is_signature" readonly="1"/>
                                     <field name="th_page" readonly="1"
                                            attrs="{'invisible': [('th_is_manual', '=', False)]}"/>
                                 </tree>

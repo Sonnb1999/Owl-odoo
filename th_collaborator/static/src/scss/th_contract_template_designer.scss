@@ -37,6 +37,12 @@
             background-color: rgba($danger, 0.1);
         }
 
+        &.o_th_contract_box_signature {
+            border-color: $success;
+            background-color: rgba($success, 0.15);
+            font-weight: bold;
+        }
+
         &.o_th_contract_box_selected {
             border-style: solid;
             background-color: rgba($primary, 0.22);

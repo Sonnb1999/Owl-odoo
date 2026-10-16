@@ -129,12 +129,13 @@ export class ThContractTemplateDesigner extends Component {
                 width: round2(box.width),
                 height: round2(box.height),
                 font_size: box.font_size || 0,
-                field_name: box.field_name || false,
+                field_name: box.is_signature ? false : box.field_name || false,
+                is_signature: Boolean(box.is_signature),
             }));
             await this.orm.call(TEMPLATE_MODEL, "th_save_designer_boxes", [[this.templateId], boxes]);
             const data = await this.fetchDesignerData();
             this.setBoxesFromServer(data.boxes);
-            const emptyCount = boxes.filter((box) => !box.field_name).length;
+            const emptyCount = boxes.filter((box) => !box.field_name && !box.is_signature).length;
             this.notification.add(
                 emptyCount
                     ? _t("Đã lưu. Có ô chưa chọn trường thông tin, ô đó sẽ bị bỏ qua khi đục lỗ.")
@@ -248,6 +249,10 @@ export class ThContractTemplateDesigner extends Component {
         return this.state.boxes.find((box) => box.key === this.state.selectedKey);
     }
 
+    getBoxLabel(box) {
+        return box.is_signature ? _t("Chữ ký bên A") : this.getFieldLabel(box.field_name);
+    }
+
     getFieldLabel(fieldName) {
         const option = this.state.fieldOptions.find((opt) => opt[0] === fieldName);
         return option ? option[1] : _t("Chưa chọn trường");
@@ -357,6 +362,7 @@ export class ThContractTemplateDesigner extends Component {
             page: this.state.currentPage,
             font_size: 0,
             field_name: false,
+            is_signature: false,
         }, this.viewToPdf(draft));
         this.state.boxes.push(box);
         this.state.selectedKey = box.key;
@@ -385,6 +391,19 @@ export class ThContractTemplateDesigner extends Component {
 
     onChangeField(ev) {
         this.updateSelected({ field_name: ev.target.value || false });
+    }
+
+    onChangeBoxType(ev) {
+        const isSignature = ev.target.value === "signature";
+        if (isSignature) {
+            // Mỗi template chỉ có 1 ô chữ ký bên A: ô chữ ký cũ chuyển về ô thông tin
+            for (const box of this.state.boxes) {
+                if (box.is_signature && box.key !== this.state.selectedKey) {
+                    box.is_signature = false;
+                }
+            }
+        }
+        this.updateSelected({ is_signature: isSignature });
     }
 
     onChangeFontSize(ev) {
