@@ -11,6 +11,7 @@
         'security/th_collaborator_groups.xml',
         'security/ir.model.access.csv',
         'data/th_collaborator_mail_template_data.xml',
+        'views/th_collaborator_contract_type_views.xml',
         'views/th_collaborator_profile_views.xml',
         'views/th_collaborator_upload_templates.xml',
         'wizard/th_collaborator_upload_wizard_views.xml',

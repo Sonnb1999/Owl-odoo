@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import os
 import re
 import secrets
 
@@ -52,6 +53,10 @@ class ThCollaboratorProfile(models.Model):
     th_upload_url = fields.Char(string='Link upload hợp đồng', compute='th_compute_upload_url')
     th_mail_sent_date = fields.Datetime(string='Ngày gửi mail', copy=False)
     th_last_upload_date = fields.Datetime(string='Ngày CTV tải lên', copy=False)
+    th_contract_name = fields.Char(string='Tên hợp đồng', tracking=True)
+    th_contract_type_ids = fields.Many2many(
+        'th.collaborator.contract.type', 'th_collaborator_profile_contract_type_rel',
+        'th_profile_id', 'th_contract_type_id', string='Loại hợp đồng')
 
     _sql_constraints = [
         ('th_phone_normalized_uniq', 'unique(th_phone_normalized)',
@@ -132,18 +137,36 @@ class ThCollaboratorProfile(models.Model):
             if attachments:
                 attachments.write({'res_model': rec._name, 'res_id': rec.id})
 
+    def _build_self_contract_file_names(self, original_names):
+        """Đặt tên hợp đồng CTV theo dạng SĐT_Tên.<đuôi gốc> để dễ tra cứu.
+
+        File đầu tiên của CTV là SĐT_Tên.pdf, các file sau đánh số tiếp SĐT_Tên_2.pdf...
+        dựa trên số file đã có để không trùng tên giữa các lần upload.
+        """
+        self.ensure_one()
+        base_name = re.sub(r'[\\/:*?"<>|]+', '_', '%s_%s' % (self.th_phone_normalized or '', self.name or '')).strip()
+        index = len(self.th_self_attachment_ids)
+        file_names = []
+        for original_name in original_names:
+            index += 1
+            extension = os.path.splitext(original_name or '')[1].lower()
+            suffix = '_%s' % index if index > 1 else ''
+            file_names.append('%s%s%s' % (base_name, suffix, extension))
+        return file_names
+
     def _add_self_contracts(self, files):
         """Lưu hợp đồng do CTV tự tải lên qua link công khai.
 
         :param files: list tuple (tên file, nội dung bytes)
         """
         self.ensure_one()
+        file_names = self._build_self_contract_file_names([file_name for file_name, dummy in files])
         attachments = self.env['ir.attachment'].create([{
             'name': file_name,
             'raw': content,
             'res_model': self._name,
             'res_id': self.id,
-        } for file_name, content in files])
+        } for file_name, (dummy, content) in zip(file_names, files)])
         self.write({
             'th_self_attachment_ids': [Command.link(att.id) for att in attachments],
             'state': 'uploaded',
@@ -157,10 +180,15 @@ class ThCollaboratorProfile(models.Model):
         return attachments
 
     def _send_contract_mail(self):
-        """Gửi mail mời CTV tải hợp đồng từ email người phụ trách, kèm hợp đồng công ty (nếu có)."""
+        """Gửi mail mời CTV tải hợp đồng từ email người phụ trách, kèm hợp đồng công ty."""
         missing = self.filtered(lambda rec: not rec.th_email)
         if missing:
             raise UserError(_('Các CTV sau chưa có email:\n%s') % '\n'.join(missing.mapped('name')))
+        # Mail mời CTV ký hợp đồng nên bắt buộc phải có hợp đồng công ty đính kèm
+        missing_contract = self.filtered(lambda rec: not rec.th_company_attachment_ids)
+        if missing_contract:
+            raise UserError(_('Các CTV sau chưa có hợp đồng công ty:\n%s')
+                            % '\n'.join(missing_contract.mapped('name')))
         missing_sender = self.filtered(lambda rec: not rec.user_id.email)
         if missing_sender:
             raise UserError(_('Các CTV sau chưa có người phụ trách hoặc người phụ trách chưa có email:\n%s')
@@ -204,12 +232,24 @@ class ThCollaboratorProfile(models.Model):
         self.message_post(body=_('Đã tạo lại link upload hợp đồng, link cũ không còn hiệu lực.'))
         return True
 
-    def th_action_download_contracts(self):
-        """Tải toàn bộ hợp đồng của các CTV được chọn dưới dạng 1 file ZIP."""
+    def _get_download_contracts_action(self, contract_type):
+        """Trả về action tải ZIP 1 loại hợp đồng ('company' | 'self') của các CTV được chọn."""
         if not self:
             raise UserError(_('Vui lòng chọn ít nhất 1 CTV.'))
+        field_name = 'th_company_attachment_ids' if contract_type == 'company' else 'th_self_attachment_ids'
+        if not self.mapped(field_name):
+            raise UserError(_('Các CTV được chọn chưa có file hợp đồng để tải.'))
         return {
             'type': 'ir.actions.act_url',
-            'url': '/th_collaborator/download_zip?ids=%s' % ','.join(str(rec_id) for rec_id in self.ids),
+            'url': '/th_collaborator/download_zip?contract_type=%s&ids=%s' % (
+                contract_type, ','.join(str(rec_id) for rec_id in self.ids)),
             'target': 'new',
         }
+
+    def th_action_download_company_contracts(self):
+        """Tải hợp đồng công ty của các CTV được chọn dưới dạng 1 file ZIP."""
+        return self._get_download_contracts_action('company')
+
+    def th_action_download_self_contracts(self):
+        """Tải hợp đồng CTV tự tải lên của các CTV được chọn dưới dạng 1 file ZIP."""
+        return self._get_download_contracts_action('self')

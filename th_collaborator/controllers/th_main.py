@@ -97,12 +97,15 @@ class ThCollaboratorController(http.Controller):
             zip_file.writestr(arcname, attachment.raw)
 
     @http.route('/th_collaborator/download_zip', type='http', auth='user', methods=['GET'])
-    def download_contract_zip(self, ids='', **kwargs):
-        """Tải hợp đồng của nhiều CTV trong 1 file ZIP, chia thư mục theo từng CTV."""
+    def download_contract_zip(self, ids='', contract_type='company', **kwargs):
+        """Tải 1 loại hợp đồng của nhiều CTV trong 1 file ZIP, mỗi CTV 1 thư mục (SĐT_Tên/file)."""
+        if contract_type not in ('company', 'self'):
+            return request.not_found()
         record_ids = [int(rec_id) for rec_id in ids.split(',') if rec_id.isdigit()]
         profiles = request.env['th.collaborator.profile'].browse(record_ids).exists()
         profiles.check_access_rights('read')
         profiles.check_access_rule('read')
+        field_name = 'th_company_attachment_ids' if contract_type == 'company' else 'th_self_attachment_ids'
 
         # Ghi ZIP ra file tạm và stream về client để không giữ toàn bộ dữ liệu trong RAM
         tmp_file = tempfile.TemporaryFile()
@@ -110,22 +113,26 @@ class ThCollaboratorController(http.Controller):
         with zipfile.ZipFile(tmp_file, 'w', zipfile.ZIP_STORED, allowZip64=True) as zip_file:
             for profile in profiles:
                 folder = re.sub(r'[\\/:*?"<>|]+', '_', '%s_%s' % (profile.th_phone_normalized or profile.id, profile.name or ''))
-                for sub_folder, attachments in (
-                        ('hop_dong_cong_ty', profile.th_company_attachment_ids),
-                        ('hop_dong_ctv', profile.th_self_attachment_ids)):
-                    for attachment in attachments:
-                        file_name = re.sub(r'[\\/:*?"<>|]+', '_', attachment.name or str(attachment.id))
-                        arcname = '%s/%s/%s_%s' % (folder, sub_folder, attachment.id, file_name)
-                        self._write_attachment_to_zip(zip_file, attachment, arcname)
+                used_names = set()
+                for attachment in profile[field_name]:
+                    file_name = re.sub(r'[\\/:*?"<>|]+', '_', attachment.name or str(attachment.id))
+                    # Trùng tên file trong cùng thư mục thì thêm id để không bị ghi đè khi giải nén
+                    if file_name.lower() in used_names:
+                        stem, ext = os.path.splitext(file_name)
+                        file_name = '%s_%s%s' % (stem, attachment.id, ext)
+                    used_names.add(file_name.lower())
+                    self._write_attachment_to_zip(zip_file, attachment, '%s/%s' % (folder, file_name))
         size = tmp_file.tell()
         tmp_file.seek(0)
-        _logger.info('User %s downloaded contracts of %s collaborator(s)', request.env.uid, len(profiles))
+        _logger.info('User %s downloaded %s contracts of %s collaborator(s)',
+                     request.env.uid, contract_type, len(profiles))
+        zip_name = 'hop_dong_cong_ty.zip' if contract_type == 'company' else 'hop_dong_ctv.zip'
         return http.Response(
             wrap_file(request.httprequest.environ, tmp_file),
             headers=[
                 ('Content-Type', 'application/zip'),
                 ('Content-Length', size),
-                ('Content-Disposition', content_disposition('hop_dong_ctv.zip')),
+                ('Content-Disposition', content_disposition(zip_name)),
             ],
             direct_passthrough=True,
         )

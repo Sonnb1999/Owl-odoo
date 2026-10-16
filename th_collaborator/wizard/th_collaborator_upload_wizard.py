@@ -105,14 +105,17 @@ class ThCollaboratorUploadWizard(models.TransientModel):
                 unmatched += [file_path for file_path, dummy in phone_files]
                 continue
             attachments = Attachment
-            for file_path, content in phone_files:
+            file_names = [os.path.basename(file_path) for file_path, dummy in phone_files]
+            if self.th_target_type == 'self':
+                file_names = profile._build_self_contract_file_names(file_names)
+            for file_name, (file_path, content) in zip(file_names, phone_files):
                 if isinstance(content, models.BaseModel):
                     # Tái sử dụng file đã upload qua widget, tránh nhân đôi dữ liệu trên filestore
-                    content.write({'res_model': profile._name, 'res_id': profile.id})
+                    content.write({'name': file_name, 'res_model': profile._name, 'res_id': profile.id})
                     attachments |= content
                 else:
                     attachments |= Attachment.create({
-                        'name': os.path.basename(file_path),
+                        'name': file_name,
                         'raw': content,
                         'res_model': profile._name,
                         'res_id': profile.id,
