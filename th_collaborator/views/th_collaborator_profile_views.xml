@@ -42,6 +42,13 @@
                             confirm="CTV này đã được gửi mail trước đó. Bạn có chắc muốn gửi lại?"/>
                     <button name="th_action_preview_contract" type="object" string="Xem trước hợp đồng"
                             attrs="{'invisible': [('th_contract_template_id', '=', False)]}"/>
+                    <button name="th_action_create_contract" type="object" string="Tạo hợp đồng"
+                            attrs="{'invisible': ['|', ('th_contract_template_id', '=', False),
+                                    ('th_filled_attachment_id', '!=', False)]}"/>
+                    <button name="th_action_create_contract" type="object" string="Tạo lại hợp đồng"
+                            attrs="{'invisible': ['|', ('th_contract_template_id', '=', False),
+                                    ('th_filled_attachment_id', '=', False)]}"
+                            confirm="Hợp đồng tạo trước đó sẽ được thay bằng bản mới theo thông tin hiện tại. Tiếp tục?"/>
                     <button name="th_action_regenerate_token" type="object" string="Tạo lại link upload"
                             confirm="Link cũ đã gửi cho CTV sẽ không dùng được nữa. Tiếp tục?"/>
                     <field name="state" widget="statusbar"/>
@@ -63,8 +70,7 @@
                         </group>
                         <group>
                             <field name="th_upload_url" widget="CopyClipboardChar"/>
-                            <field name="th_filled_attachment_id" readonly="1"
-                                   attrs="{'invisible': [('th_filled_attachment_id', '=', False)]}"/>
+                            <field name="th_filled_attachment_id" invisible="1"/>
                             <field name="th_mail_sent_date" readonly="1"/>
                             <field name="th_last_upload_date" readonly="1"/>
                         </group>

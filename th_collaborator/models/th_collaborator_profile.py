@@ -188,25 +188,38 @@ class ThCollaboratorProfile(models.Model):
         self.ensure_one()
         return self.th_contract_template_id._get_field_values(self)
 
-    def _generate_filled_contract(self):
-        """Đục lỗ template hợp đồng với thông tin CTV và lưu file PDF vào CTV."""
+    def _create_company_contract(self):
+        """Đục lỗ template với thông tin CTV và lưu vào Hợp đồng công ty, thay bản đã tạo trước đó."""
         Attachment = self.env['ir.attachment']
-        for rec in self.filtered('th_contract_template_id'):
+        missing_template = self.filtered(lambda rec: not rec.th_contract_template_id)
+        if missing_template:
+            raise UserError(_('Các CTV sau chưa chọn template hợp đồng:\n%s')
+                            % '\n'.join(missing_template.mapped('name')))
+        for rec in self:
             pdf_data = rec.th_contract_template_id._render_filled_pdf(rec._get_contract_field_values())
             file_name = re.sub(r'[\\/:*?"<>|]+', '_', '%s_%s_%s.pdf' % (
                 rec.th_phone_normalized or '', rec.name or '', rec.th_contract_template_id.name or ''))
-            # Mỗi lần gửi tạo bản mới theo dữ liệu CTV hiện tại; không xoá bản cũ vì
-            # mail đã gửi trong chatter vẫn tham chiếu tới file đó
-            rec.th_filled_attachment_id = Attachment.create({
+            old_attachment = rec.th_filled_attachment_id
+            new_attachment = Attachment.create({
                 'name': file_name,
                 'raw': pdf_data,
                 'mimetype': 'application/pdf',
                 'res_model': rec._name,
                 'res_id': rec.id,
             })
+            commands = [Command.link(new_attachment.id)]
+            if old_attachment:
+                commands.insert(0, Command.unlink(old_attachment.id))
+            rec.write({'th_company_attachment_ids': commands, 'th_filled_attachment_id': new_attachment.id})
+            # Bản cũ chưa từng gửi mail thì xoá hẳn; đã gửi thì giữ vì mail trong chatter còn tham chiếu
+            if old_attachment and not self.env['mail.message'].search_count(
+                    [('attachment_ids', 'in', old_attachment.ids)]):
+                old_attachment.unlink()
+            rec.message_post(body=_('Đã tạo hợp đồng "%s" từ template "%s".') % (
+                file_name, rec.th_contract_template_id.name))
 
     def _send_contract_mail(self):
-        """Gửi mail hợp đồng từ email người phụ trách, kèm hợp đồng đục lỗ và hợp đồng công ty."""
+        """Gửi mail hợp đồng từ email người phụ trách, kèm các file Hợp đồng công ty."""
         missing = self.filtered(lambda rec: not rec.th_email)
         if missing:
             raise UserError(_('Các CTV sau chưa có email:\n%s') % '\n'.join(missing.mapped('name')))
@@ -220,7 +233,9 @@ class ThCollaboratorProfile(models.Model):
         if missing_sender:
             raise UserError(_('Các CTV sau chưa có người phụ trách hoặc người phụ trách chưa có email:\n%s')
                             % '\n'.join(missing_sender.mapped('name')))
-        self._generate_filled_contract()
+        # CTV chưa có hợp đồng công ty nhưng đã chọn template thì tự tạo trước khi gửi;
+        # đã có thì gửi đúng bản người dùng đã tạo/kiểm tra, không đục lỗ lại
+        self.filtered(lambda rec: not rec.th_company_attachment_ids)._create_company_contract()
         default_template = self.env.ref('th_collaborator.th_collaborator_profile_upload_mail_template')
         for rec in self:
             mail_template = rec.th_contract_template_id.th_mail_template_id or default_template
@@ -229,7 +244,7 @@ class ThCollaboratorProfile(models.Model):
             mail_template.send_mail(rec.id, force_send=True, email_values={
                 'email_from': rec.user_id.email_formatted,
                 'reply_to': rec.user_id.email_formatted,
-                'attachment_ids': (rec.th_filled_attachment_id | rec.th_company_attachment_ids).ids,
+                'attachment_ids': rec.th_company_attachment_ids.ids,
             })
         self.filtered(lambda rec: rec.state == 'draft').write({'state': 'sent'})
         self.write({'th_mail_sent_date': fields.Datetime.now()})
@@ -239,6 +254,12 @@ class ThCollaboratorProfile(models.Model):
         """Nút gửi mail hợp đồng cho 1 CTV trên form."""
         self.ensure_one()
         self._send_contract_mail()
+        return True
+
+    def th_action_create_contract(self):
+        """Nút tạo hợp đồng từ template và lưu vào Hợp đồng công ty."""
+        self.ensure_one()
+        self._create_company_contract()
         return True
 
     def th_action_preview_contract(self):
