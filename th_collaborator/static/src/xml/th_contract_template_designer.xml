@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="th_collaborator.ContractTemplateDesigner" owl="1">
+        <div class="o_th_contract_designer d-flex flex-column h-100">
+            <div class="o_th_contract_designer_toolbar d-flex align-items-center gap-2 px-3 py-2 border-bottom">
+                <h5 class="m-0 me-auto text-truncate" t-esc="state.name"/>
+                <t t-if="state.pageCount">
+                    <button class="btn btn-secondary btn-sm" t-att-disabled="state.currentPage &lt;= 1"
+                            t-on-click="() => this.changePage(-1)">
+                        <i class="fa fa-chevron-left"/>
+                    </button>
+                    <span class="text-nowrap">Trang <t t-esc="state.currentPage"/> / <t t-esc="state.pageCount"/></span>
+                    <button class="btn btn-secondary btn-sm" t-att-disabled="state.currentPage &gt;= state.pageCount"
+                            t-on-click="() => this.changePage(1)">
+                        <i class="fa fa-chevron-right"/>
+                    </button>
+                    <button class="btn btn-secondary btn-sm ms-3" t-att-disabled="state.saving"
+                            t-on-click="onClickPreview">
+                        <i class="fa fa-eye me-1"/>Xem thử
+                    </button>
+                    <button class="btn btn-primary btn-sm" t-att-disabled="state.saving or !state.dirty"
+                            t-on-click="save">
+                        <i class="fa fa-save me-1"/>Lưu
+                    </button>
+                </t>
+            </div>
+
+            <div t-if="state.error" class="alert alert-danger m-3" t-esc="state.error"/>
+            <div t-else="" class="d-flex flex-grow-1 overflow-hidden">
+                <div class="o_th_contract_designer_canvas flex-grow-1 overflow-auto p-4" t-ref="container">
+                    <div class="o_th_contract_designer_page position-relative mx-auto"
+                         t-attf-style="width: {{ state.pageWidth }}px; height: {{ state.pageHeight }}px;">
+                        <canvas t-ref="canvas" class="position-absolute top-0 start-0"/>
+                        <div t-ref="overlay" class="o_th_contract_designer_overlay position-absolute top-0 start-0 w-100 h-100"
+                             t-on-mousedown="onOverlayMouseDown">
+                            <t t-foreach="currentPageBoxes" t-as="box" t-key="box.key">
+                                <div class="o_th_contract_box"
+                                     t-att-class="{'o_th_contract_box_selected': box.key === state.selectedKey, 'o_th_contract_box_empty': !box.field_name}"
+                                     t-att-style="getBoxStyle(box)"
+                                     t-on-mousedown.stop="(ev) => this.onBoxMouseDown(ev, box)">
+                                    <span class="o_th_contract_box_label" t-esc="getFieldLabel(box.field_name)"/>
+                                    <span class="o_th_contract_box_handle" data-handle="resize"/>
+                                </div>
+                            </t>
+                            <div t-if="state.draft" class="o_th_contract_box o_th_contract_box_draft"
+                                 t-att-style="getDraftStyle()"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="o_th_contract_designer_panel border-start p-3 overflow-auto">
+                    <p class="text-muted small mb-3">
+                        Kéo chuột trên trang để vẽ ô. Kéo ô để di chuyển, kéo góc dưới phải để đổi kích thước.
+                        Phím <kbd>Delete</kbd> để xoá ô đang chọn.
+                    </p>
+
+                    <div t-if="selectedBox" class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Ô đang chọn</h6>
+                            <label class="form-label small mb-1">Trường thông tin CTV</label>
+                            <select class="form-select form-select-sm mb-2" t-on-change="onChangeField">
+                                <option value="" t-att-selected="!selectedBox.field_name">-- Chọn trường --</option>
+                                <t t-foreach="state.fieldOptions" t-as="option" t-key="option[0]">
+                                    <option t-att-value="option[0]" t-att-selected="option[0] === selectedBox.field_name"
+                                            t-esc="option[1]"/>
+                                </t>
+                            </select>
+                            <label class="form-label small mb-1">Cỡ chữ (pt, 0 = tự động)</label>
+                            <input type="number" min="0" step="0.5" class="form-control form-control-sm mb-3"
+                                   t-att-value="selectedBox.font_size" t-on-change="onChangeFontSize"/>
+                            <button class="btn btn-outline-danger btn-sm w-100" t-on-click="deleteSelected">
+                                <i class="fa fa-trash me-1"/>Xoá ô
+                            </button>
+                        </div>
+                    </div>
+
+                    <h6>Tất cả ô (<t t-esc="state.boxes.length"/>)</h6>
+                    <div t-if="!state.boxes.length" class="text-muted small">Chưa có ô nào.</div>
+                    <ul class="list-group list-group-flush">
+                        <t t-foreach="state.boxes" t-as="box" t-key="box.key">
+                            <li class="list-group-item list-group-item-action d-flex justify-content-between px-2 py-1"
+                                t-att-class="{'active': box.key === state.selectedKey}"
+                                t-on-click="() => this.goToBox(box)">
+                                <span t-att-class="{'text-danger': !box.field_name and box.key !== state.selectedKey}"
+                                      t-esc="getFieldLabel(box.field_name)"/>
+                                <span class="small opacity-75">Trang <t t-esc="box.page"/></span>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

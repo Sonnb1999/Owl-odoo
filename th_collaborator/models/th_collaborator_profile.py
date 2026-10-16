@@ -57,6 +57,10 @@ class ThCollaboratorProfile(models.Model):
     th_contract_type_ids = fields.Many2many(
         'th.collaborator.contract.type', 'th_collaborator_profile_contract_type_rel',
         'th_profile_id', 'th_contract_type_id', string='Loại hợp đồng')
+    th_contract_template_id = fields.Many2one(
+        'th.collaborator.contract.template', string='Template hợp đồng', tracking=True)
+    th_filled_attachment_id = fields.Many2one(
+        'ir.attachment', string='Hợp đồng đã đục lỗ', copy=False)
 
     _sql_constraints = [
         ('th_phone_normalized_uniq', 'unique(th_phone_normalized)',
@@ -179,28 +183,53 @@ class ThCollaboratorProfile(models.Model):
         _logger.info('Collaborator %s uploaded %s contract file(s)', self.id, len(attachments))
         return attachments
 
+    def _get_contract_field_values(self):
+        """Giá trị điền vào các ô form theo cấu hình đục lỗ của template đã chọn."""
+        self.ensure_one()
+        return self.th_contract_template_id._get_field_values(self)
+
+    def _generate_filled_contract(self):
+        """Đục lỗ template hợp đồng với thông tin CTV và lưu file PDF vào CTV."""
+        Attachment = self.env['ir.attachment']
+        for rec in self.filtered('th_contract_template_id'):
+            pdf_data = rec.th_contract_template_id._render_filled_pdf(rec._get_contract_field_values())
+            file_name = re.sub(r'[\\/:*?"<>|]+', '_', '%s_%s_%s.pdf' % (
+                rec.th_phone_normalized or '', rec.name or '', rec.th_contract_template_id.name or ''))
+            # Mỗi lần gửi tạo bản mới theo dữ liệu CTV hiện tại; không xoá bản cũ vì
+            # mail đã gửi trong chatter vẫn tham chiếu tới file đó
+            rec.th_filled_attachment_id = Attachment.create({
+                'name': file_name,
+                'raw': pdf_data,
+                'mimetype': 'application/pdf',
+                'res_model': rec._name,
+                'res_id': rec.id,
+            })
+
     def _send_contract_mail(self):
-        """Gửi mail mời CTV tải hợp đồng từ email người phụ trách, kèm hợp đồng công ty."""
+        """Gửi mail hợp đồng từ email người phụ trách, kèm hợp đồng đục lỗ và hợp đồng công ty."""
         missing = self.filtered(lambda rec: not rec.th_email)
         if missing:
             raise UserError(_('Các CTV sau chưa có email:\n%s') % '\n'.join(missing.mapped('name')))
-        # Mail mời CTV ký hợp đồng nên bắt buộc phải có hợp đồng công ty đính kèm
-        missing_contract = self.filtered(lambda rec: not rec.th_company_attachment_ids)
+        # Mail mời CTV ký hợp đồng nên bắt buộc phải có hợp đồng công ty hoặc template để đục lỗ
+        missing_contract = self.filtered(
+            lambda rec: not rec.th_company_attachment_ids and not rec.th_contract_template_id)
         if missing_contract:
-            raise UserError(_('Các CTV sau chưa có hợp đồng công ty:\n%s')
+            raise UserError(_('Các CTV sau chưa có hợp đồng công ty hoặc template hợp đồng:\n%s')
                             % '\n'.join(missing_contract.mapped('name')))
         missing_sender = self.filtered(lambda rec: not rec.user_id.email)
         if missing_sender:
             raise UserError(_('Các CTV sau chưa có người phụ trách hoặc người phụ trách chưa có email:\n%s')
                             % '\n'.join(missing_sender.mapped('name')))
-        template = self.env.ref('th_collaborator.th_collaborator_profile_upload_mail_template')
+        self._generate_filled_contract()
+        default_template = self.env.ref('th_collaborator.th_collaborator_profile_upload_mail_template')
         for rec in self:
-            # Ép email_from theo người phụ trách ngay cả khi template (noupdate) chưa được cập nhật
+            mail_template = rec.th_contract_template_id.th_mail_template_id or default_template
+            # Ép email_from theo người phụ trách ngay cả khi mẫu mail cấu hình địa chỉ khác
             # force_send=False: đưa vào hàng đợi mail cron, tránh treo request khi gửi số lượng lớn
-            template.send_mail(rec.id, force_send=True, email_values={
+            mail_template.send_mail(rec.id, force_send=True, email_values={
                 'email_from': rec.user_id.email_formatted,
                 'reply_to': rec.user_id.email_formatted,
-                'attachment_ids': rec.th_company_attachment_ids.ids,
+                'attachment_ids': (rec.th_filled_attachment_id | rec.th_company_attachment_ids).ids,
             })
         self.filtered(lambda rec: rec.state == 'draft').write({'state': 'sent'})
         self.write({'th_mail_sent_date': fields.Datetime.now()})
@@ -211,6 +240,17 @@ class ThCollaboratorProfile(models.Model):
         self.ensure_one()
         self._send_contract_mail()
         return True
+
+    def th_action_preview_contract(self):
+        """Xem trước hợp đồng đục lỗ với thông tin hiện tại của CTV."""
+        self.ensure_one()
+        if not self.th_contract_template_id:
+            raise UserError(_('Vui lòng chọn template hợp đồng trước khi xem trước.'))
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/th_collaborator/contract/preview/profile/%s' % self.id,
+            'target': 'new',
+        }
 
     def th_action_send_contract_mail_batch(self):
         """Gửi mail hợp đồng cho nhiều CTV được chọn trên list view."""

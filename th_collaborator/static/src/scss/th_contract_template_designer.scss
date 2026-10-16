@@ -1,0 +1,67 @@
+.o_th_contract_designer {
+    background-color: $o-view-background-color;
+
+    .o_th_contract_designer_canvas {
+        background-color: $gray-300;
+    }
+
+    .o_th_contract_designer_page {
+        background-color: $white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        user-select: none;
+    }
+
+    .o_th_contract_designer_overlay {
+        cursor: crosshair;
+    }
+
+    .o_th_contract_designer_panel {
+        width: 320px;
+        flex-shrink: 0;
+        background-color: $o-view-background-color;
+    }
+
+    .o_th_contract_box {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        padding: 0 2px;
+        overflow: hidden;
+        border: 1.5px dashed $primary;
+        background-color: rgba($primary, 0.12);
+        cursor: move;
+        line-height: 1;
+
+        &.o_th_contract_box_empty {
+            border-color: $danger;
+            background-color: rgba($danger, 0.1);
+        }
+
+        &.o_th_contract_box_selected {
+            border-style: solid;
+            background-color: rgba($primary, 0.22);
+            z-index: 1;
+        }
+
+        &.o_th_contract_box_draft {
+            border-style: dotted;
+            pointer-events: none;
+        }
+    }
+
+    .o_th_contract_box_label {
+        white-space: nowrap;
+        color: $gray-900;
+        pointer-events: none;
+    }
+
+    .o_th_contract_box_handle {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 9px;
+        height: 9px;
+        background-color: $primary;
+        cursor: nwse-resize;
+    }
+}

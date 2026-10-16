@@ -96,6 +96,39 @@ class ThCollaboratorController(http.Controller):
         if attachment.raw:
             zip_file.writestr(arcname, attachment.raw)
 
+    @http.route('/th_collaborator/contract/preview/<string:source>/<int:res_id>',
+                type='http', auth='user', methods=['GET'])
+    def preview_contract(self, source, res_id, **kwargs):
+        """Xem trước hợp đồng đục lỗ ngay trên trình duyệt, không lưu file.
+
+        source = 'profile': dữ liệu thật của CTV; source = 'template': dữ liệu mẫu.
+        """
+        models_by_source = {
+            'profile': 'th.collaborator.profile',
+            'template': 'th.collaborator.contract.template',
+        }
+        if source not in models_by_source:
+            return request.not_found()
+        record = request.env[models_by_source[source]].browse(res_id).exists()
+        if not record:
+            return request.not_found()
+        record.check_access_rights('read')
+        record.check_access_rule('read')
+        if source == 'profile':
+            template = record.th_contract_template_id
+            if not template:
+                return request.not_found()
+            values = record._get_contract_field_values()
+        else:
+            template = record
+            values = record._get_sample_field_values()
+        pdf_data = template._render_filled_pdf(values)
+        return request.make_response(pdf_data, headers=[
+            ('Content-Type', 'application/pdf'),
+            ('Content-Length', len(pdf_data)),
+            ('Content-Disposition', 'inline; filename="preview.pdf"'),
+        ])
+
     @http.route('/th_collaborator/download_zip', type='http', auth='user', methods=['GET'])
     def download_contract_zip(self, ids='', contract_type='company', **kwargs):
         """Tải 1 loại hợp đồng của nhiều CTV trong 1 file ZIP, mỗi CTV 1 thư mục (SĐT_Tên/file)."""
