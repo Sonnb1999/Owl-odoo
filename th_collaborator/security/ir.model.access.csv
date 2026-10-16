@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+th_access_collaborator_profile_user,th.collaborator.profile.user,model_th_collaborator_profile,th_access_collaborator_user,1,1,1,1
+th_access_collaborator_upload_wizard_user,th.collaborator.upload.wizard.user,model_th_collaborator_upload_wizard,th_access_collaborator_user,1,1,1,1

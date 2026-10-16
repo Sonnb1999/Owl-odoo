@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="th_collaborator_root_menu" name="Cộng tác viên" sequence="60"
+              groups="th_collaborator.th_access_collaborator_user"/>
+    <menuitem id="th_collaborator_profile_menu" name="Cộng tác viên" parent="th_collaborator_root_menu"
+              action="th_collaborator_profile_action" sequence="10"/>
+    <menuitem id="th_collaborator_upload_wizard_menu" name="Tải hợp đồng hàng loạt" parent="th_collaborator_root_menu"
+              action="th_collaborator_upload_wizard_action" sequence="20"
+              groups="th_collaborator.th_access_collaborator_user"/>
+</odoo>

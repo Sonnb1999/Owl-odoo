@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="th_collaborator_profile_tree_view" model="ir.ui.view">
+        <field name="name">th.collaborator.profile.tree</field>
+        <field name="model">th.collaborator.profile</field>
+        <field name="arch" type="xml">
+            <tree string="Cộng tác viên">
+                <header>
+                    <button name="th_action_send_contract_mail_batch" type="object" string="Gửi mail hợp đồng"
+                            confirm="Các CTV đã được gửi mail trước đó sẽ nhận lại mail. Bạn có chắc muốn gửi?"/>
+                    <button name="th_action_download_contracts" type="object" string="Tải hợp đồng (ZIP)"/>
+                </header>
+                <field name="name"/>
+                <field name="th_phone"/>
+                <field name="th_email"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="th_mail_sent_date" optional="show"/>
+                <field name="th_last_upload_date" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'sent'" decoration-success="state == 'uploaded'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="th_collaborator_profile_form_view" model="ir.ui.view">
+        <field name="name">th.collaborator.profile.form</field>
+        <field name="model">th.collaborator.profile</field>
+        <field name="arch" type="xml">
+            <form string="Cộng tác viên">
+                <header>
+                    <button name="th_action_send_contract_mail" type="object" string="Gửi mail hợp đồng"
+                            class="oe_highlight" attrs="{'invisible': [('th_mail_sent_date', '!=', False)]}"/>
+                    <button name="th_action_send_contract_mail" type="object" string="Gửi lại mail hợp đồng"
+                            attrs="{'invisible': [('th_mail_sent_date', '=', False)]}"
+                            confirm="CTV này đã được gửi mail trước đó. Bạn có chắc muốn gửi lại?"/>
+                    <button name="th_action_regenerate_token" type="object" string="Tạo lại link upload"
+                            confirm="Link cũ đã gửi cho CTV sẽ không dùng được nữa. Tiếp tục?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Họ và tên CTV" required="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="th_phone" widget="phone" required="1"/>
+                            <field name="th_email" widget="email" required="1"/>
+                            <field name="user_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="th_upload_url" widget="CopyClipboardChar"/>
+                            <field name="th_mail_sent_date" readonly="1"/>
+                            <field name="th_last_upload_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hợp đồng công ty" name="th_company_contract">
+                            <field name="th_company_attachment_ids" widget="many2many_binary"
+                                   options="{'accepted_file_extensions': '.pdf,.jpg,.jpeg,.png'}"/>
+                        </page>
+                        <page string="Hợp đồng CTV tải lên" name="th_self_contract">
+                            <field name="th_self_attachment_ids" widget="many2many_binary"
+                                   options="{'accepted_file_extensions': '.pdf,.jpg,.jpeg,.png'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_collaborator_profile_search_view" model="ir.ui.view">
+        <field name="name">th.collaborator.profile.search</field>
+        <field name="model">th.collaborator.profile</field>
+        <field name="arch" type="xml">
+            <search string="Cộng tác viên">
+                <field name="name"/>
+                <field name="th_phone"/>
+                <field name="th_email"/>
+                <field name="user_id"/>
+                <filter name="th_filter_my" string="CTV của tôi" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="th_filter_draft" string="Mới" domain="[('state', '=', 'draft')]"/>
+                <filter name="th_filter_sent" string="Đã gửi mail" domain="[('state', '=', 'sent')]"/>
+                <filter name="th_filter_uploaded" string="CTV đã tải hợp đồng" domain="[('state', '=', 'uploaded')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter name="th_group_state" string="Trạng thái" context="{'group_by': 'state'}"/>
+                    <filter name="th_group_user" string="Người phụ trách" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="th_collaborator_profile_action" model="ir.actions.act_window">
+        <field name="name">Cộng tác viên</field>
+        <field name="res_model">th.collaborator.profile</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="th_collaborator_profile_search_view"/>
+        <field name="context">{'search_default_th_filter_my': 1}</field>
+    </record>
+</odoo>

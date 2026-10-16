@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="th_collaborator_upload_wizard_form_view" model="ir.ui.view">
+        <field name="name">th.collaborator.upload.wizard.form</field>
+        <field name="model">th.collaborator.upload.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Tải hợp đồng hàng loạt">
+                <field name="th_is_done" invisible="1"/>
+                <group attrs="{'invisible': [('th_is_done', '=', True)]}">
+                    <field name="th_target_type" widget="radio" required="1"/>
+                    <field name="th_upload_mode" widget="radio" required="1"/>
+                    <field name="th_attachment_ids" widget="many2many_binary"
+                           options="{'accepted_file_extensions': '.pdf,.jpg,.jpeg,.png'}"
+                           attrs="{'invisible': [('th_upload_mode', '!=', 'files')],
+                                   'required': [('th_upload_mode', '=', 'files')]}"/>
+                    <field name="th_zip_filename" invisible="1"/>
+                    <field name="th_zip_file" filename="th_zip_filename"
+                           options="{'accepted_file_extensions': '.zip'}"
+                           attrs="{'invisible': [('th_upload_mode', '!=', 'zip')],
+                                   'required': [('th_upload_mode', '=', 'zip')]}"/>
+                </group>
+                <p class="text-muted" attrs="{'invisible': [('th_is_done', '=', True)]}">
+                    Tên file: <code>SĐT_tên-file.pdf</code> hoặc trong ZIP đặt file vào thư mục <code>SĐT/</code>.
+                </p>
+                <group attrs="{'invisible': [('th_is_done', '=', False)]}">
+                    <field name="th_result_note" nolabel="1" readonly="1" colspan="2"/>
+                </group>
+                <footer>
+                    <button name="th_action_import_contracts" type="object" string="Tải lên" class="btn-primary"
+                            attrs="{'invisible': [('th_is_done', '=', True)]}"/>
+                    <button string="Đóng" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="th_collaborator_upload_wizard_action" model="ir.actions.act_window">
+        <field name="name">Tải hợp đồng hàng loạt</field>
+        <field name="res_model">th.collaborator.upload.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
